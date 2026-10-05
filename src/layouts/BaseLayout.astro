@@ -40,6 +40,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
 		<meta property="og:locale" content={lang === 'pt-BR' ? 'pt_BR' : lang === 'es' ? 'es_ES' : 'en_US'} />
 		{image && <meta property="og:image" content={image} />}
 		<meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+		<meta name="twitter:creator" content="@Gabriel07132569" />
+		<meta name="twitter:site" content="@Gabriel07132569" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 

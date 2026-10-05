@@ -8,6 +8,18 @@ export const TELEGRAM_PHONE = '+55 (19) 98825-7631';
 export const TELEGRAM_RAW = '5519988257631';
 export const TELEGRAM_URL = 'https://t.me/+5519988257631';
 
+export const SOCIAL_LINKS = {
+	github: 'https://github.com/gbrlcm',
+	linkedin: 'https://www.linkedin.com/in/gabriel-lopes-campos',
+	x: 'https://x.com/Gabriel07132569',
+	whatsapp: `https://wa.me/${WHATSAPP_RAW}`,
+	telegram: TELEGRAM_URL,
+} as const;
+
+export const GITHUB_URL = SOCIAL_LINKS.github;
+export const LINKEDIN_URL = SOCIAL_LINKS.linkedin;
+export const X_URL = SOCIAL_LINKS.x;
+
 export const EMAILS: Record<SupportedLanguage, string> = {
 	'pt-BR': 'contato@gabrielcampos.dev',
 	en: 'contact@gabrielcampos.dev',
