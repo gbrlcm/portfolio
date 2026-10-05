@@ -11,7 +11,7 @@ const t = useTranslations(lang)();
 ---
 
 <section class="relative w-full overflow-hidden px-4 py-20 md:px-8 md:py-28" id="faqs">
-	<div class="mx-auto flex w-full max-w-[1080px] flex-col items-center">
+	<div class="mx-auto flex w-full max-w-270 flex-col items-center">
 		<!-- Title -->
 		<div class="mb-10 text-center md:mb-14">
 			<h2 class="font-anton text-3xl leading-tight text-task-dark sm:text-4xl md:text-[52px]">
@@ -24,7 +24,7 @@ const t = useTranslations(lang)();
 			{
 				t.faqs.items.map((item, index) => (
 					<div
-						class="faq-item overflow-hidden rounded-[32px] bg-task-white p-6 sm:p-7 shadow-xs transition-all duration-300 hover:shadow-sm"
+						class="faq-item overflow-hidden rounded-4xl bg-task-white p-6 sm:p-7 shadow-xs transition-all duration-300 hover:shadow-sm"
 						data-faq-index={index}
 					>
 						<!-- Question Button -->
@@ -40,9 +40,9 @@ const t = useTranslations(lang)();
 							<!-- Plus/Minus Animated Icon -->
 							<div class="relative flex size-4 shrink-0 items-center justify-center">
 								<!-- Horizontal bar (always visible) -->
-								<span class="absolute h-[2px] w-4 rounded-full bg-task-dark"></span>
+								<span class="absolute h-0.5 w-4 rounded-full bg-task-dark"></span>
 								<!-- Vertical bar (rotates on expand) -->
-								<span class="faq-icon-vertical absolute h-4 w-[2px] rounded-full bg-task-dark transition-transform duration-300 ease-out"></span>
+								<span class="faq-icon-vertical absolute h-4 w-0.5 rounded-full bg-task-dark transition-transform duration-300 ease-out"></span>
 							</div>
 						</button>
 

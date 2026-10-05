@@ -1,19 +1,29 @@
 ---
+import { Icon } from 'astro-icon/components';
 import type { SupportedLanguage } from '../../i18n/ui';
 import { useTranslations, getLocalizedPath } from '../../i18n/utils';
 import { getWhatsAppUrl } from '../../data/contact';
 
 export interface Props {
-	lang: SupportedLanguage;
+	lang?: SupportedLanguage;
+	class?: string;
 }
 
-const { lang } = Astro.props;
+const { lang = 'pt-BR', class: className = '' } = Astro.props;
 const t = useTranslations(lang)();
 const pathname = Astro.url.pathname;
 const waUrl = getWhatsAppUrl(lang);
+
+const languages: { code: SupportedLanguage; label: string; fullLabel: string; index: number }[] = [
+	{ code: 'pt-BR', label: 'PT', fullLabel: 'Português', index: 0 },
+	{ code: 'en', label: 'EN', fullLabel: 'English', index: 1 },
+	{ code: 'es', label: 'ES', fullLabel: 'Español', index: 2 },
+];
+const currentLangIndex = languages.findIndex((l) => l.code === lang);
+const activeIndex = currentLangIndex >= 0 ? currentLangIndex : 0;
 ---
 
-<header class="sticky top-0 z-50 w-full border-b border-task-border bg-task-bg/90 backdrop-blur-md">
+<header class={`sticky top-0 z-50 w-full border-b border-task-border bg-task-bg/90 backdrop-blur-md ${className}`}>
 	<div class="mx-auto flex h-21 w-full max-w-300 items-center justify-between px-5 md:px-8">
 		<!-- Logo -->
 		<a href="#home" class="relative block size-7.5 shrink-0 transition-transform hover:scale-105" aria-label="TaskAI Home">
@@ -69,28 +79,36 @@ const waUrl = getWhatsAppUrl(lang);
 		<!-- Right Side: Language Switcher + CTA -->
 		<div class="hidden items-center gap-4 md:flex">
 			<!-- Language Switcher Pill -->
-			<div class="flex items-center rounded-full border border-task-border bg-white/70 p-1 text-xs font-semibold text-task-dark backdrop-blur-sm">
-				<a
-					href={getLocalizedPath(pathname, 'pt-BR')}
-					class={`rounded-full px-2.5 py-1 transition-all ${lang === 'pt-BR' ? 'bg-task-dark text-white' : 'text-task-dark/70 hover:text-task-dark'}`}
-					aria-label="Português"
-				>
-					PT
-				</a>
-				<a
-					href={getLocalizedPath(pathname, 'en')}
-					class={`rounded-full px-2.5 py-1 transition-all ${lang === 'en' ? 'bg-task-dark text-white' : 'text-task-dark/70 hover:text-task-dark'}`}
-					aria-label="English"
-				>
-					EN
-				</a>
-				<a
-					href={getLocalizedPath(pathname, 'es')}
-					class={`rounded-full px-2.5 py-1 transition-all ${lang === 'es' ? 'bg-task-dark text-white' : 'text-task-dark/70 hover:text-task-dark'}`}
-					aria-label="Español"
-				>
-					ES
-				</a>
+			<div
+				class="lang-switcher relative flex items-center rounded-full border border-task-border bg-white/70 p-1 text-xs font-semibold text-task-dark backdrop-blur-sm shadow-2xs select-none"
+				role="group"
+				aria-label="Selecionar idioma"
+			>
+				<!-- Sliding Pill Indicator -->
+				<span
+					class="lang-indicator absolute top-1 bottom-1 left-1 h-6 w-8 rounded-full bg-task-dark shadow-xs transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+					style={`transform: translateX(${activeIndex * 100}%);`}
+					aria-hidden="true"
+				></span>
+
+				{
+					languages.map((item) => {
+						const isActive = lang === item.code;
+						return (
+							<a
+								href={getLocalizedPath(pathname, item.code)}
+								data-index={item.index}
+								class={`lang-btn relative z-10 flex h-6 w-8 items-center justify-center rounded-full text-xs font-semibold transition-colors duration-200 ${
+									isActive ? 'text-white' : 'text-task-dark/70 hover:text-task-dark'
+								}`}
+								aria-label={item.fullLabel}
+								aria-current={isActive ? 'true' : undefined}
+							>
+								{item.label}
+							</a>
+						);
+					})
+				}
 			</div>
 
 			<!-- CTA Button -->
@@ -101,22 +119,7 @@ const waUrl = getWhatsAppUrl(lang);
 				class="group flex h-12 items-center gap-2.5 rounded-full bg-task-yellow px-6 font-anton text-base tracking-wide text-task-dark transition-all duration-200 hover:brightness-105 active:scale-95"
 			>
 				<span>{t.nav.getInTouch}</span>
-				<svg
-					width="15"
-					height="14"
-					viewBox="0 0 15 14"
-					fill="none"
-					class="transition-transform duration-200 group-hover:translate-x-1"
-					aria-hidden="true"
-				>
-					<path
-						d="m7.5 13 6-6-6-6m-6 6h12"
-						stroke="#0D251A"
-						stroke-width="1.5"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					></path>
-				</svg>
+				<Icon name="lucide:arrow-right" class="size-4.5 text-task-dark transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
 			</a>
 		</div>
 
@@ -157,26 +160,39 @@ const waUrl = getWhatsAppUrl(lang);
 		</nav>
 
 		<!-- Mobile Languages -->
-		<div class="flex items-center gap-2 border-t border-task-border py-4">
+		<div class="flex flex-col gap-2.5 border-t border-task-border py-4">
 			<span class="font-outfit text-xs font-semibold text-task-dark/60">Idioma:</span>
-			<a
-				href={getLocalizedPath(pathname, 'pt-BR')}
-				class={`rounded-full px-3 py-1 text-xs font-semibold ${lang === 'pt-BR' ? 'bg-task-dark text-white' : 'border border-task-border bg-white text-task-dark'}`}
+			<div
+				class="lang-switcher relative flex w-full max-w-xs items-center rounded-full border border-task-border bg-white/70 p-1 text-xs font-semibold text-task-dark backdrop-blur-sm shadow-2xs select-none"
+				role="group"
+				aria-label="Selecionar idioma"
 			>
-				Português
-			</a>
-			<a
-				href={getLocalizedPath(pathname, 'en')}
-				class={`rounded-full px-3 py-1 text-xs font-semibold ${lang === 'en' ? 'bg-task-dark text-white' : 'border border-task-border bg-white text-task-dark'}`}
-			>
-				English
-			</a>
-			<a
-				href={getLocalizedPath(pathname, 'es')}
-				class={`rounded-full px-3 py-1 text-xs font-semibold ${lang === 'es' ? 'bg-task-dark text-white' : 'border border-task-border bg-white text-task-dark'}`}
-			>
-				Español
-			</a>
+				<!-- Sliding Pill Indicator -->
+				<span
+					class="lang-indicator absolute top-1 bottom-1 left-1 h-7 w-[calc((100%-8px)/3)] rounded-full bg-task-dark shadow-xs transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+					style={`transform: translateX(${activeIndex * 100}%);`}
+					aria-hidden="true"
+				></span>
+
+				{
+					languages.map((item) => {
+						const isActive = lang === item.code;
+						return (
+							<a
+								href={getLocalizedPath(pathname, item.code)}
+								data-index={item.index}
+								class={`lang-btn relative z-10 flex h-7 flex-1 items-center justify-center rounded-full text-xs font-semibold transition-colors duration-200 ${
+									isActive ? 'text-white' : 'text-task-dark/70 hover:text-task-dark'
+								}`}
+								aria-label={item.fullLabel}
+								aria-current={isActive ? 'true' : undefined}
+							>
+								{item.fullLabel}
+							</a>
+						);
+					})
+				}
+			</div>
 		</div>
 
 		<!-- Mobile CTA -->
@@ -187,56 +203,82 @@ const waUrl = getWhatsAppUrl(lang);
 			class="mobile-nav-link mt-2 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-task-yellow font-anton text-base tracking-wide text-task-dark"
 		>
 			<span>{t.nav.getInTouch}</span>
-			<svg width="15" height="14" viewBox="0 0 15 14" fill="none">
-				<path
-					d="m7.5 13 6-6-6-6m-6 6h12"
-					stroke="#0D251A"
-					stroke-width="1.5"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				></path>
-			</svg>
+			<Icon name="lucide:arrow-right" class="size-4.5 text-task-dark" />
 		</a>
 	</div>
 </header>
 
 <script>
-	const toggle = document.getElementById('mobile-menu-toggle');
-	const menu = document.getElementById('mobile-menu');
-	const bar1 = document.getElementById('hamburger-bar-1');
-	const bar2 = document.getElementById('hamburger-bar-2');
+	function setupNavbar() {
+		// Mobile Menu
+		const toggle = document.getElementById('mobile-menu-toggle');
+		const menu = document.getElementById('mobile-menu');
+		const bar1 = document.getElementById('hamburger-bar-1');
+		const bar2 = document.getElementById('hamburger-bar-2');
 
-	if (toggle && menu) {
-		toggle.addEventListener('click', () => {
-			const isOpen = !menu.classList.contains('hidden');
-			if (isOpen) {
-				menu.classList.add('hidden');
-				toggle.setAttribute('aria-expanded', 'false');
-				if (bar1 && bar2) {
-					bar1.style.transform = 'none';
-					bar2.style.transform = 'none';
+		if (toggle && menu) {
+			const handleToggle = () => {
+				const isOpen = !menu.classList.contains('hidden');
+				if (isOpen) {
+					menu.classList.add('hidden');
+					toggle.setAttribute('aria-expanded', 'false');
+					if (bar1 && bar2) {
+						bar1.style.transform = 'none';
+						bar2.style.transform = 'none';
+					}
+				} else {
+					menu.classList.remove('hidden');
+					toggle.setAttribute('aria-expanded', 'true');
+					if (bar1 && bar2) {
+						bar1.style.transform = 'translateY(3px) rotate(45deg)';
+						bar2.style.transform = 'translateY(-3px) rotate(-45deg)';
+					}
 				}
-			} else {
-				menu.classList.remove('hidden');
-				toggle.setAttribute('aria-expanded', 'true');
-				if (bar1 && bar2) {
-					bar1.style.transform = 'translateY(3px) rotate(45deg)';
-					bar2.style.transform = 'translateY(-3px) rotate(-45deg)';
-				}
-			}
-		});
+			};
 
-		// Close mobile menu on clicking any link inside it
-		const links = menu.querySelectorAll('.mobile-nav-link');
-		links.forEach((link) => {
-			link.addEventListener('click', () => {
-				menu.classList.add('hidden');
-				toggle.setAttribute('aria-expanded', 'false');
-				if (bar1 && bar2) {
-					bar1.style.transform = 'none';
-					bar2.style.transform = 'none';
-				}
+			toggle.onclick = handleToggle;
+
+			const links = menu.querySelectorAll('.mobile-nav-link');
+			links.forEach((link) => {
+				link.addEventListener('click', () => {
+					menu.classList.add('hidden');
+					toggle.setAttribute('aria-expanded', 'false');
+					if (bar1 && bar2) {
+						bar1.style.transform = 'none';
+						bar2.style.transform = 'none';
+					}
+				});
+			});
+		}
+
+		// Sliding Language Switchers
+		document.querySelectorAll<HTMLElement>('.lang-switcher').forEach((switcher) => {
+			const indicator = switcher.querySelector<HTMLElement>('.lang-indicator');
+			const buttons = switcher.querySelectorAll<HTMLAnchorElement>('.lang-btn');
+			if (!indicator) return;
+
+			buttons.forEach((btn) => {
+				btn.addEventListener('click', () => {
+					const index = Number(btn.dataset.index);
+					if (isNaN(index)) return;
+
+					// Smoothly slide the indicator to the clicked tab
+					indicator.style.transform = `translateX(${index * 100}%)`;
+
+					// Update active styles immediately
+					buttons.forEach((b) => {
+						b.classList.remove('text-white');
+						b.classList.add('text-task-dark/70');
+						b.removeAttribute('aria-current');
+					});
+					btn.classList.remove('text-task-dark/70');
+					btn.classList.add('text-white');
+					btn.setAttribute('aria-current', 'true');
+				});
 			});
 		});
 	}
+
+	setupNavbar();
+	document.addEventListener('astro:page-load', setupNavbar);
 </script>

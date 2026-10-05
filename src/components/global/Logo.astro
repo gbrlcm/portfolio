@@ -1,11 +1,10 @@
 ---
 export interface Props {
 	href?: string;
-	label?: string;
 	class?: string;
 }
 
-const { href = '/', label = 'gc', class: className = '' } = Astro.props;
+const { href = '/', class: className = '' } = Astro.props;
 ---
 
 <a

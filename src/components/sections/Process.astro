@@ -13,7 +13,7 @@ import { process } from '../../data/services';
 			process.map((step, index) => (
 				<li class="group relative flex flex-col gap-3 bg-(--bg) p-6 transition-colors duration-500 hover:bg-(--bg-elev)">
 					<div class="flex items-center justify-between">
-						<span class="label !text-(--accent)">{step.code}</span>
+						<span class="label text-(--accent)!">{step.code}</span>
 						<span class="font-mono text-[0.6875rem] text-(--fg-faint)">
 							{String(index + 1).padStart(2, '0')}/{String(process.length).padStart(2, '0')}
 						</span>

@@ -1,5 +1,6 @@
 ---
 import type { SupportedLanguage } from '../i18n/ui';
+import { ClientRouter } from 'astro:transitions';
 import '../styles/styles.css';
 
 export interface Props {
@@ -57,6 +58,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
 			href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
 			rel="stylesheet"
 		/>
+		<ClientRouter />
 	</head>
 	<body class="min-h-screen bg-task-bg text-task-dark antialiased">
 		<slot />

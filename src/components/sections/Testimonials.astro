@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import type { SupportedLanguage } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 
@@ -11,7 +12,7 @@ const t = useTranslations(lang)();
 ---
 
 <section class="relative w-full overflow-hidden px-4 pt-20 md:px-8 md:pt-28" id="testimonials">
-	<div class="mx-auto w-full max-w-[1080px]">
+	<div class="mx-auto w-full max-w-270">
 		<!-- Header with Title and Slider Buttons -->
 		<div class="mb-10 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center md:mb-14">
 			<h2 class="font-anton text-3xl leading-tight text-task-dark sm:text-4xl md:text-[52px]">
@@ -23,18 +24,18 @@ const t = useTranslations(lang)();
 				<button
 					type="button"
 					id="testimonials-prev"
-					class="flex size-[52px] items-center justify-center rounded-[12px] bg-task-yellow transition-transform duration-150 hover:brightness-105 active:scale-90"
+					class="flex size-13 items-center justify-center rounded-xl bg-task-yellow transition-transform duration-150 hover:brightness-105 active:scale-90"
 					aria-label="Previous testimonial"
 				>
-					<img src="/images/arrow-back.png" alt="Previous" width="52" height="52" class="size-full" />
+					<Icon name="lucide:arrow-left" class="size-7 text-task-dark" />
 				</button>
 				<button
 					type="button"
 					id="testimonials-next"
-					class="flex size-[52px] items-center justify-center rounded-[12px] bg-task-yellow transition-transform duration-150 hover:brightness-105 active:scale-90"
+					class="flex size-13 items-center justify-center rounded-xl bg-task-yellow transition-transform duration-150 hover:brightness-105 active:scale-90"
 					aria-label="Next testimonial"
 				>
-					<img src="/images/arrow-next.png" alt="Next" width="52" height="52" class="size-full" />
+					<Icon name="lucide:arrow-right" class="size-7 text-task-dark" />
 				</button>
 			</div>
 		</div>
@@ -129,13 +130,14 @@ const t = useTranslations(lang)();
 		}
 
 		function updateSlider() {
+			if (!track || !prevBtn || !nextBtn) return;
 			const visible = getVisibleCount();
 			const maxIndex = Math.max(0, totalCards - visible);
 			if (currentIndex > maxIndex) currentIndex = maxIndex;
 			if (currentIndex < 0) currentIndex = 0;
 
-			const card = cards[0] as HTMLElement;
-			if (!card) return;
+			const card = cards[0];
+			if (!(card instanceof HTMLElement)) return;
 			const cardWidth = card.getBoundingClientRect().width;
 			const gap = 20;
 			const offset = currentIndex * (cardWidth + gap);

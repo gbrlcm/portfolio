@@ -9,6 +9,7 @@ export interface Props {
 	external?: boolean;
 	class?: string;
 	id?: string;
+	type?: 'button' | 'submit' | 'reset';
 }
 
 const {
@@ -18,23 +19,24 @@ const {
 	external = false,
 	class: className = '',
 	id,
-} = Astro.props;
+	type = 'button',
+}: Props = Astro.props;
 
-const variants: Record<Variant, string> = {
+const variants = {
 	primary:
 		'bg-(--accent) text-(--accent-fg) hover:bg-(--accent-dim) border border-transparent',
 	outline:
 		'border border-(--line-strong) text-(--fg) hover:border-(--accent) hover:text-(--accent)',
 	ghost: 'border border-transparent text-(--fg-muted) hover:text-(--fg)',
-};
+} as const;
 
-const sizes: Record<Size, string> = {
+const sizes = {
 	sm: 'px-4 py-2 text-xs tracking-wide',
 	md: 'px-6 py-3 text-sm',
 	lg: 'px-8 py-4 text-sm tracking-wide',
-};
+} as const;
 
-const classes = [
+const classes: string[] = [
 	'inline-flex items-center justify-center gap-2 rounded-full font-medium uppercase',
 	'transition-all duration-300 ease-(--ease-out-expo)',
 	'hover:-translate-y-0.5 active:translate-y-0',
@@ -49,7 +51,7 @@ const Tag = href ? 'a' : 'button';
 <Tag
 	id={id}
 	class:list={[classes]}
-	{...(href ? { href, ...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {}) } : { type: 'button' })}
+	{...(href ? { href, ...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {}) } : { type })}
 >
 	<slot />
 </Tag>

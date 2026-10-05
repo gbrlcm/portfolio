@@ -152,7 +152,7 @@ const fieldClass =
 
 	const validate = (form: HTMLFormElement) => {
 		const error = form.querySelector<HTMLElement>('#bf-error');
-		const required = [...form.querySelectorAll<HTMLElement>('[required]')];
+		const required = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('[required]')];
 
 		for (const field of required) {
 			field.classList.toggle('border-red-400/70', !field.value.trim());
@@ -165,7 +165,7 @@ const fieldClass =
 	};
 
 	form?.addEventListener('input', (event) => {
-		const target = event.target as HTMLElement;
+		const target = event.target;
 		if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) {
 			target.classList.remove('border-red-400/70');
 		}
@@ -199,7 +199,7 @@ const fieldClass =
 		}
 
 		setTimeout(() => {
-			if (button) button.textContent = original;
+			if (button && original !== undefined) button.textContent = original;
 		}, 2000);
 	});
 </script>

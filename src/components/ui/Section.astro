@@ -17,7 +17,7 @@ const { id, label, title, lede, flush = false, class: className = '' } = Astro.p
 			<p class="label">{label}</p>
 			{title && <h2 class="font-display text-(--text-title) leading-[1.05] tracking-tight">{title}</h2>}
 		</div>
-		{lede && <p class="max-w-sm text-(--text-title) leading-snug text-(--fg-muted)">{lede}</p>}
+		{lede && <p class="max-w-sm text-(--text-title) leading-snug">{lede}</p>}
 	</div>
 
 	<div class="pt-10">

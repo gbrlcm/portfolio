@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import type { SupportedLanguage } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 
@@ -26,7 +27,7 @@ const t = useTranslations(lang)();
 					class="flex size-13 items-center justify-center rounded-xl bg-task-yellow transition-transform duration-150 hover:brightness-105 active:scale-90"
 					aria-label="Previous service"
 				>
-					<img src="/images/arrow-back.png" alt="Previous" width="52" height="52" class="size-full" />
+					<Icon name="lucide:arrow-left" class="size-7 text-task-dark" />
 				</button>
 				<button
 					type="button"
@@ -34,7 +35,7 @@ const t = useTranslations(lang)();
 					class="flex size-13 items-center justify-center rounded-xl bg-task-yellow transition-transform duration-150 hover:brightness-105 active:scale-90"
 					aria-label="Next service"
 				>
-					<img src="/images/arrow-next.png" alt="Next" width="52" height="52" class="size-full" />
+					<Icon name="lucide:arrow-right" class="size-7 text-task-dark" />
 				</button>
 			</div>
 		</div>
@@ -95,15 +96,7 @@ const t = useTranslations(lang)();
 										{t.services.readMore}
 									</span>
 									<span class="flex size-9 items-center justify-center rounded-full bg-white shadow-sm transition-transform duration-200 group-hover:translate-x-0.5">
-										<svg width="19" height="18" viewBox="0 0 19 18" fill="none">
-											<path
-												d="m9.717 17 8.09-8-8.09-8M1.625 9h16.182"
-												stroke="#0D251A"
-												stroke-width="1.5"
-												stroke-linecap="round"
-												stroke-linejoin="round"
-											></path>
-										</svg>
+										<Icon name="lucide:arrow-right" class="size-4.5 text-[#0D251A]" />
 									</span>
 								</a>
 							</div>
@@ -153,13 +146,14 @@ const t = useTranslations(lang)();
 		}
 
 		function updateSlider() {
+			if (!track || !prevBtn || !nextBtn) return;
 			const visible = getVisibleCount();
 			const maxIndex = Math.max(0, totalCards - visible);
 			if (currentIndex > maxIndex) currentIndex = maxIndex;
 			if (currentIndex < 0) currentIndex = 0;
 
-			const card = cards[0] as HTMLElement;
-			if (!card) return;
+			const card = cards[0];
+			if (!(card instanceof HTMLElement)) return;
 			const cardWidth = card.getBoundingClientRect().width;
 			const gap = 20;
 			const offset = currentIndex * (cardWidth + gap);
