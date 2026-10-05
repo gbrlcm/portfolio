@@ -50,7 +50,7 @@ const fieldClass =
 
 			<div class="grid gap-6 sm:grid-cols-3">
 				<div class="flex flex-col gap-2">
-					<label for="bf-type" class="label !text-(--fg-muted)">Tipo de projeto *</label>
+					<label for="bf-type" class="label text-(--fg-muted)!">Tipo de projeto *</label>
 					<select id="bf-type" name="type" required class={fieldClass}>
 						<option value="">Selecione…</option>
 						{projectTypes.map((type) => <option value={type}>{type}</option>)}
@@ -58,7 +58,7 @@ const fieldClass =
 				</div>
 
 				<div class="flex flex-col gap-2">
-					<label for="bf-budget" class="label !text-(--fg-muted)">Orçamento estimado *</label>
+					<label for="bf-budget" class="label text-(--fg-muted)!">Orçamento estimado *</label>
 					<select id="bf-budget" name="budget" required class={fieldClass}>
 						<option value="">Selecione…</option>
 						{budgets.map((budget) => <option value={budget}>{budget}</option>)}
@@ -66,7 +66,7 @@ const fieldClass =
 				</div>
 
 				<div class="flex flex-col gap-2">
-					<label for="bf-deadline" class="label !text-(--fg-muted)">Prazo *</label>
+					<label for="bf-deadline" class="label text-(--fg-muted)!">Prazo *</label>
 					<select id="bf-deadline" name="deadline" required class={fieldClass}>
 						<option value="">Selecione…</option>
 						{deadlines.map((deadline) => <option value={deadline}>{deadline}</option>)}
@@ -75,7 +75,7 @@ const fieldClass =
 			</div>
 
 			<div class="flex flex-col gap-2">
-				<label for="bf-details" class="label !text-(--fg-muted)">Detalhes *</label>
+				<label for="bf-details" class="label text-(--fg-muted)!">Detalhes *</label>
 				<textarea
 					id="bf-details"
 					name="details"
@@ -87,7 +87,7 @@ const fieldClass =
 			</div>
 
 			<div class="flex flex-col gap-2">
-				<label for="bf-reply" class="label !text-(--fg-muted)">Onde prefere responder? *</label>
+				<label for="bf-reply" class="label text-(--fg-muted)!">Onde prefere responder? *</label>
 				<input
 					id="bf-reply"
 					name="reply"
