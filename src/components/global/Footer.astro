@@ -1,6 +1,13 @@
 ---
 import type { SupportedLanguage } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
+import {
+	getContactEmail,
+	getWhatsAppUrl,
+	getTelegramUrl,
+	WHATSAPP_PHONE,
+	TELEGRAM_PHONE,
+} from '../../data/contact';
 
 export interface Props {
 	lang: SupportedLanguage;
@@ -8,6 +15,9 @@ export interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang)();
+const email = getContactEmail(lang);
+const waUrl = getWhatsAppUrl(lang);
+const telegramUrl = getTelegramUrl();
 ---
 
 <footer class="w-full border-t border-task-border px-4 pt-20 pb-16 md:px-8">
@@ -45,8 +55,40 @@ const t = useTranslations(lang)();
 				</label>
 			</form>
 
-			<!-- Social Icons -->
-			<div class="flex items-center gap-5 text-task-dark">
+			<!-- Social & Contact Icons -->
+			<div class="flex items-center gap-4 text-task-dark">
+				<!-- WhatsApp -->
+				<a
+					href={waUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="transition-transform hover:scale-110 hover:text-[#25D366]"
+					aria-label="WhatsApp"
+					title={`WhatsApp: ${WHATSAPP_PHONE}`}
+				>
+					<svg viewBox="0 0 24 24" class="size-5" fill="currentColor">
+						<path
+							d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c4.55 0 8.24 3.7 8.24 8.24 0 2.2-.86 4.28-2.42 5.84a8.19 8.19 0 0 1-5.82 2.41h-.01c-1.42 0-2.82-.37-4.05-1.07l-.29-.17-3.12.82.83-3.04-.19-.3a8.194 8.194 0 0 1-1.26-4.48c0-4.55 3.7-8.24 8.25-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.4-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.32-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.72 4.31 3.81.6.26 1.07.42 1.44.53.61.2 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.1-.23-.16-.48-.28z"
+						></path>
+					</svg>
+				</a>
+
+				<!-- Telegram -->
+				<a
+					href={telegramUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="transition-transform hover:scale-110 hover:text-[#229ED9]"
+					aria-label="Telegram"
+					title={`Telegram: ${TELEGRAM_PHONE}`}
+				>
+					<svg viewBox="0 0 24 24" class="size-5" fill="currentColor">
+						<path
+							d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"
+						></path>
+					</svg>
+				</a>
+
 				<!-- Twitter/X -->
 				<a
 					href="https://x.com/"
@@ -58,21 +100,6 @@ const t = useTranslations(lang)();
 					<svg viewBox="0 0 16 14" class="h-4 w-4.5" fill="currentColor">
 						<path
 							d="M 14.957 1.866 C 14.397 2.123 13.805 2.283 13.181 2.379 C 13.805 1.995 14.301 1.387 14.52 0.649 C 13.908 1.009 13.246 1.268 12.557 1.418 C 11.997 0.809 11.186 0.425 10.314 0.425 C 8.633 0.424 7.269 1.828 7.261 3.566 C 7.261 3.824 7.291 4.047 7.354 4.272 C 4.889 4.143 2.592 2.944 1.029 0.97 C 0.222 2.413 0.645 4.257 1.994 5.17 C 1.506 5.141 1.029 5.01 0.592 4.785 L 0.592 4.818 C 0.592 6.357 1.651 7.639 3.053 7.929 C 2.788 7.994 2.516 8.026 2.243 8.025 C 2.056 8.025 1.838 7.991 1.651 7.958 C 2.056 9.211 3.178 10.141 4.518 10.141 C 3.429 11.01 2.093 11.483 0.717 11.488 C 0.467 11.488 0.218 11.488 0 11.454 C 1.371 12.353 2.96 12.866 4.704 12.866 C 10.346 12.866 13.429 8.056 13.429 3.887 L 13.429 3.47 C 14.021 3.053 14.552 2.508 14.957 1.866 Z"
-						></path>
-					</svg>
-				</a>
-
-				<!-- Facebook -->
-				<a
-					href="https://facebook.com/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="transition-opacity hover:opacity-70"
-					aria-label="Facebook"
-				>
-					<svg viewBox="0 0 9 17" class="h-4.5 w-2.5" fill="currentColor">
-						<path
-							d="M 2.961 16.334 L 2.961 9.398 L 0.615 9.398 L 0.615 6.694 L 2.961 6.694 L 2.961 4.701 C 2.961 2.388 4.38 1.128 6.453 1.128 C 7.446 1.128 8.301 1.203 8.548 1.234 L 8.548 3.652 L 7.111 3.652 C 5.983 3.652 5.764 4.186 5.764 4.97 L 5.764 6.694 L 8.454 6.694 L 8.104 9.397 L 5.764 9.397 L 5.764 16.334 L 2.959 16.334 Z"
 						></path>
 					</svg>
 				</a>
@@ -128,24 +155,57 @@ const t = useTranslations(lang)();
 				</ul>
 			</div>
 
-			<!-- Group 2: Support -->
+			<!-- Group 2: Support & Direct Channels -->
 			<div class="flex flex-col gap-4">
 				<h5 class="font-anton text-base text-task-dark">
 					{t.footer.supportTitle}
 				</h5>
 				<ul class="flex flex-col gap-2.5 font-outfit text-[15px] text-task-dark">
-					<li><a href="mailto:contact@gabrielcampos.dev" class="transition-colors hover:underline">{t.footer.links.contactUs}</a></li>
-					<li><a href="https://telegram.org/" target="_blank" rel="noopener noreferrer" class="transition-colors hover:underline">{t.footer.links.telegram}</a></li>
+					<li>
+						<a
+							href={waUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="flex items-center gap-1.5 transition-colors hover:underline"
+						>
+							<span class="font-medium">WhatsApp:</span>
+							<span class="font-mono text-xs">{WHATSAPP_PHONE}</span>
+						</a>
+					</li>
+					<li>
+						<a
+							href={telegramUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="flex items-center gap-1.5 transition-colors hover:underline"
+						>
+							<span class="font-medium">Telegram:</span>
+							<span class="font-mono text-xs">{TELEGRAM_PHONE}</span>
+						</a>
+					</li>
 				</ul>
 			</div>
 
-			<!-- Group 3: Help -->
+			<!-- Group 3: Help & Professional Email -->
 			<div class="flex flex-col gap-4">
 				<h5 class="font-anton text-base text-task-dark">
 					{t.footer.helpTitle}
 				</h5>
 				<ul class="flex flex-col gap-2.5 font-outfit text-[15px] text-task-dark">
-					<li><a href="mailto:support@gabrielcampos.dev" class="transition-colors hover:underline">{t.footer.links.customerSupport}</a></li>
+					<li>
+						<a
+							href={`mailto:${email}`}
+							class="block transition-colors hover:underline font-mono text-xs text-task-dark/90"
+							title={email}
+						>
+							{email}
+						</a>
+					</li>
+					<li>
+						<a href={`mailto:${email}`} class="transition-colors hover:underline">
+							{t.footer.links.customerSupport}
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>

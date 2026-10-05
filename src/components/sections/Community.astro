@@ -1,6 +1,7 @@
 ---
 import type { SupportedLanguage } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
+import { getWhatsAppUrl } from '../../data/contact';
 
 export interface Props {
 	lang: SupportedLanguage;
@@ -8,6 +9,7 @@ export interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang)();
+const waUrl = getWhatsAppUrl(lang);
 ---
 
 <section class="relative w-full overflow-hidden px-4 pt-20 md:px-8 md:pt-28" id="community">
@@ -46,7 +48,9 @@ const t = useTranslations(lang)();
 
 				<!-- Get Started Yellow Button -->
 				<a
-					href="#faqs"
+					href={waUrl}
+					target="_blank"
+					rel="noopener noreferrer"
 					class="group flex h-[52px] items-center justify-center gap-3 rounded-full bg-task-yellow px-10 font-anton text-lg tracking-wide text-task-dark transition-all duration-200 hover:brightness-105 active:scale-95"
 				>
 					<span>{t.community.button}</span>

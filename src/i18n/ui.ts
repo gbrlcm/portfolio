@@ -149,7 +149,7 @@ export const ui = {
 			joinTitle: 'JUNTE-SE À COMUNIDADE',
 			emailPlaceholder: 'Seu endereço de e-mail',
 			aboutTitle: 'Sobre',
-			supportTitle: 'Suporte',
+			supportTitle: 'Suporte & Contato',
 			helpTitle: 'Ajuda',
 			links: {
 				home: 'Início',
@@ -158,9 +158,16 @@ export const ui = {
 				community: 'Comunidade',
 				faqs: 'Dúvidas',
 				contactUs: 'Fale conosco',
+				whatsapp: 'WhatsApp',
 				telegram: 'Telegram',
 				customerSupport: 'Suporte ao Cliente',
 			},
+		},
+		quickContact: {
+			label: 'Contato Direto',
+			whatsapp: 'WhatsApp',
+			telegram: 'Telegram',
+			email: 'E-mail',
 		},
 	},
 	en: {
@@ -304,7 +311,7 @@ export const ui = {
 			joinTitle: 'JOIN OUR COMMUNITY',
 			emailPlaceholder: 'Email address',
 			aboutTitle: 'About',
-			supportTitle: 'Support',
+			supportTitle: 'Support & Contact',
 			helpTitle: 'Help',
 			links: {
 				home: 'Home',
@@ -313,9 +320,16 @@ export const ui = {
 				community: 'Community',
 				faqs: 'FAQS',
 				contactUs: 'Contact us',
+				whatsapp: 'WhatsApp',
 				telegram: 'Telegram',
 				customerSupport: 'Customer Support',
 			},
+		},
+		quickContact: {
+			label: 'Direct Contact',
+			whatsapp: 'WhatsApp',
+			telegram: 'Telegram',
+			email: 'Email',
 		},
 	},
 	es: {
@@ -459,7 +473,7 @@ export const ui = {
 			joinTitle: 'ÚNETE A LA COMUNIDAD',
 			emailPlaceholder: 'Correo electrónico',
 			aboutTitle: 'Acerca de',
-			supportTitle: 'Soporte',
+			supportTitle: 'Soporte y Contacto',
 			helpTitle: 'Ayuda',
 			links: {
 				home: 'Inicio',
@@ -468,9 +482,16 @@ export const ui = {
 				community: 'Comunidad',
 				faqs: 'Preguntas',
 				contactUs: 'Contáctanos',
+				whatsapp: 'WhatsApp',
 				telegram: 'Telegram',
 				customerSupport: 'Atención al Cliente',
 			},
+		},
+		quickContact: {
+			label: 'Contacto Directo',
+			whatsapp: 'WhatsApp',
+			telegram: 'Telegram',
+			email: 'Correo',
 		},
 	},
 } as const;

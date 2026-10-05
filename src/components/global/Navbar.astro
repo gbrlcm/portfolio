@@ -1,6 +1,7 @@
 ---
 import type { SupportedLanguage } from '../../i18n/ui';
 import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+import { getWhatsAppUrl } from '../../data/contact';
 
 export interface Props {
 	lang: SupportedLanguage;
@@ -9,6 +10,7 @@ export interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang)();
 const pathname = Astro.url.pathname;
+const waUrl = getWhatsAppUrl(lang);
 ---
 
 <header class="sticky top-0 z-50 w-full border-b border-task-border bg-task-bg/90 backdrop-blur-md">
@@ -93,7 +95,9 @@ const pathname = Astro.url.pathname;
 
 			<!-- CTA Button -->
 			<a
-				href="#community"
+				href={waUrl}
+				target="_blank"
+				rel="noopener noreferrer"
 				class="group flex h-[48px] items-center gap-2.5 rounded-full bg-task-yellow px-6 font-anton text-base tracking-wide text-task-dark transition-all duration-200 hover:brightness-105 active:scale-95"
 			>
 				<span>{t.nav.getInTouch}</span>
@@ -177,7 +181,9 @@ const pathname = Astro.url.pathname;
 
 		<!-- Mobile CTA -->
 		<a
-			href="#community"
+			href={waUrl}
+			target="_blank"
+			rel="noopener noreferrer"
 			class="mobile-nav-link mt-2 flex h-[48px] w-full items-center justify-center gap-2 rounded-full bg-task-yellow font-anton text-base tracking-wide text-task-dark"
 		>
 			<span>{t.nav.getInTouch}</span>
