@@ -39,7 +39,7 @@ export function getContactEmail(lang: SupportedLanguage = 'pt-BR'): string {
 }
 
 export function getWhatsAppUrl(lang: SupportedLanguage = 'pt-BR'): string {
-	const message = encodeURIComponent(WHATSAPP_MESSAGES[lang] ?? WHATSAPP_MESSAGES['pt-BR']);
+	const message: string = encodeURIComponent(WHATSAPP_MESSAGES[lang] ?? WHATSAPP_MESSAGES['pt-BR']);
 	return `https://wa.me/${WHATSAPP_RAW}?text=${message}`;
 }
 
@@ -57,8 +57,8 @@ export interface ContactChannel {
 }
 
 export function getContacts(lang: SupportedLanguage = 'pt-BR'): ContactChannel[] {
-	const email = getContactEmail(lang);
-	const waUrl = getWhatsAppUrl(lang);
+	const email: string = getContactEmail(lang);
+	const waUrl: string = getWhatsAppUrl(lang);
 	const notes: Record<SupportedLanguage, { whatsapp: string; telegram: string; email: string }> = {
 		'pt-BR': {
 			whatsapp: 'Resposta mais rápida',
@@ -105,4 +105,4 @@ export function getContacts(lang: SupportedLanguage = 'pt-BR'): ContactChannel[]
 	];
 }
 
-export const contacts = getContacts('pt-BR');
+export const contacts: ContactChannel[] = getContacts('pt-BR');
