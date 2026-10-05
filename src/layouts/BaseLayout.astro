@@ -45,8 +45,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
 
 		<link rel="icon" type="image/png" href="/images/logo.png" />
 
+		<!-- Google Fonts Preconnect & Stylesheet: Anton, Archivo Black, Outfit, Plus Jakarta Sans -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 	<body class="min-h-screen bg-task-bg text-task-dark antialiased">
 		<slot />
