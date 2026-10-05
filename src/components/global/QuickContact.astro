@@ -23,20 +23,18 @@ const contactButtons = [
 		name: 'WhatsApp',
 		href: waUrl,
 		title: `WhatsApp: ${WHATSAPP_PHONE}`,
-		colorClass: 'text-[#4ade80] bg-[#25D366]/20 hover:bg-[#25D366] hover:text-task-dark',
 	},
 	{
 		id: 'telegram',
 		name: 'Telegram',
 		href: telegramUrl,
 		title: `Telegram: ${TELEGRAM_PHONE}`,
-		colorClass: 'text-[#38bdf8] bg-[#229ED9]/20 hover:bg-[#229ED9] hover:text-white',
 	},
 ];
 ---
 
 <aside
-	class="fixed bottom-5 right-5 z-40 flex items-center gap-2 rounded-full border border-task-border/60 bg-task-dark/95 p-1.5 text-white shadow-2xl backdrop-blur-md transition-all hover:border-task-border"
+	class="fixed bottom-5 right-5 z-40 flex items-center gap-2 rounded-full border border-task-border bg-white/95 p-1.5 shadow-xl backdrop-blur-md transition-all hover:shadow-2xl"
 	aria-label={t.quickContact.label}
 >
 	{
@@ -47,7 +45,7 @@ const contactButtons = [
 				rel="noopener noreferrer"
 				title={btn.title}
 				aria-label={btn.title}
-				class={`group relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg active:scale-90 ${btn.colorClass}`}
+				class="group relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-task-yellow text-task-dark transition-all duration-300 hover:-translate-y-1 hover:bg-task-dark hover:text-white hover:shadow-md active:scale-90"
 			>
 				{btn.id === 'whatsapp' && (
 					<svg viewBox="0 0 24 24" class="size-6 shrink-0 transition-transform duration-300 group-hover:scale-110" fill="currentColor">
@@ -62,7 +60,7 @@ const contactButtons = [
 				)}
 
 				<!-- Floating Micro-Tooltip -->
-				<span class="pointer-events-none absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/15 bg-task-dark px-3 py-1 font-outfit text-xs font-semibold text-white opacity-0 shadow-xl transition-all duration-200 group-hover:opacity-100 group-hover:-translate-y-1">
+				<span class="pointer-events-none absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-task-dark px-3 py-1 font-outfit text-xs font-semibold text-white opacity-0 shadow-xl transition-all duration-200 group-hover:opacity-100 group-hover:-translate-y-1">
 					{btn.name}
 				</span>
 			</a>

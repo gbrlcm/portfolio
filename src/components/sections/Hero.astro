@@ -11,7 +11,7 @@ const t = useTranslations(lang)();
 ---
 
 <section class="relative w-full overflow-visible px-4 pt-10 pb-0 md:px-8 md:pt-14" id="home">
-	<div class="mx-auto flex w-full max-w-[1080px] flex-col items-center">
+	<div class="mx-auto flex w-full max-w-270 flex-col items-center">
 		<!-- Main H1 Heading -->
 		<div class="mb-6 w-full text-center md:mb-10">
 			<h1 class="font-anton text-[46px] leading-[1.1] text-task-dark sm:text-[64px] md:text-[76px] lg:text-[94px]">
@@ -22,7 +22,7 @@ const t = useTranslations(lang)();
 		<!-- Hero Image Wrapper with Corner Tab Card -->
 		<div class="relative w-full">
 			<!-- Banner Image -->
-			<div class="relative h-[280px] w-full overflow-hidden rounded-[30px] sm:h-[380px] md:h-[460px] lg:h-[520px] lg:rounded-[50px]">
+			<div class="relative h-70 w-full overflow-hidden rounded-[30px] sm:h-95 md:h-115 lg:h-130 lg:rounded-[50px]">
 				<img
 					src="/images/hero.jpg"
 					alt="AI Assistant Visual Showcase"
@@ -34,9 +34,9 @@ const t = useTranslations(lang)();
 			</div>
 
 			<!-- Overlapping Bottom White Card (Framer yn62o9) -->
-			<div class="relative z-10 -mt-16 w-full rounded-b-[40px] rounded-tr-[40px] bg-[#fdfffe] px-6 pt-12 pb-10 shadow-sm md:-mt-24 md:px-10 md:pt-16 md:pb-14 lg:-mt-28 lg:px-14 lg:pt-20 lg:pb-16">
+			<div class="relative z-10 -mt-16 w-full rounded-b-[40px] rounded-tr-[40px] bg-task-white px-6 pt-12 pb-10 shadow-sm md:-mt-24 md:px-10 md:pt-16 md:pb-14 lg:-mt-28 lg:px-14 lg:pt-20 lg:pb-16">
 				<!-- Signature Framer Top-Left Corner Cutout Mask -->
-				<div class="pointer-events-none absolute -top-[48px] left-0 h-[50px] w-[210px] sm:-top-[66px] sm:h-[68px] sm:w-[260px] lg:-top-[67px] lg:w-[362px]">
+				<div class="pointer-events-none absolute -top-12 left-0 h-12.5 w-52.5 sm:-top-16.5 sm:h-17 sm:w-65 lg:-top-16.75 lg:w-90.5">
 					<!-- SVG for Desktop -->
 					<svg
 						viewBox="0 0 362 68"
@@ -85,7 +85,7 @@ const t = useTranslations(lang)();
 				<!-- Card Content: Subtitle + Numbers -->
 				<div class="flex flex-col items-center justify-between gap-8 lg:flex-row lg:gap-14">
 					<!-- Subtitle -->
-					<div class="max-w-[420px] text-center lg:text-left">
+					<div class="max-w-105 text-center lg:text-left">
 						<p class="font-outfit text-xl font-medium leading-snug text-task-dark sm:text-2xl lg:text-[28px]">
 							{t.hero.subtitle}
 						</p>
@@ -104,7 +104,7 @@ const t = useTranslations(lang)();
 						</div>
 
 						<!-- Divider -->
-						<div class="h-10 w-[1px] bg-task-border sm:h-14"></div>
+						<div class="h-10 w-px bg-task-border sm:h-14"></div>
 
 						<!-- Stat 2: Solutions -->
 						<div class="flex flex-col items-center text-center">
@@ -117,7 +117,7 @@ const t = useTranslations(lang)();
 						</div>
 
 						<!-- Divider -->
-						<div class="h-10 w-[1px] bg-task-border sm:h-14"></div>
+						<div class="h-10 w-px bg-task-border sm:h-14"></div>
 
 						<!-- Stat 3: Rating -->
 						<div class="flex flex-col items-center text-center">
@@ -130,7 +130,7 @@ const t = useTranslations(lang)();
 									width="20"
 									height="20"
 									fill="none"
-									class="inline-block flex-shrink-0"
+									class="inline-block shrink-0"
 									aria-label="Star rating"
 								>
 									<path

@@ -24,7 +24,7 @@ const t = useTranslations(lang)();
 			{
 				t.faqs.items.map((item, index) => (
 					<div
-						class="faq-item overflow-hidden rounded-[32px] bg-[#fdfffe] p-6 sm:p-7 shadow-xs transition-all duration-300 hover:shadow-sm"
+						class="faq-item overflow-hidden rounded-[32px] bg-task-white p-6 sm:p-7 shadow-xs transition-all duration-300 hover:shadow-sm"
 						data-faq-index={index}
 					>
 						<!-- Question Button -->
@@ -38,7 +38,7 @@ const t = useTranslations(lang)();
 							</h3>
 
 							<!-- Plus/Minus Animated Icon -->
-							<div class="relative flex size-4 flex-shrink-0 items-center justify-center">
+							<div class="relative flex size-4 shrink-0 items-center justify-center">
 								<!-- Horizontal bar (always visible) -->
 								<span class="absolute h-[2px] w-4 rounded-full bg-task-dark"></span>
 								<!-- Vertical bar (rotates on expand) -->
