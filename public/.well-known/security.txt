@@ -1,0 +1,4 @@
+Contact: mailto:security@gabrielcampos.dev
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: pt, en
+Canonical: https://gabrielcampos.dev/.well-known/security.txt

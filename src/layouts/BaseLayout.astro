@@ -46,6 +46,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
 		<meta name="twitter:description" content={description} />
 
 		<link rel="icon" type="image/png" href="/images/logo.png" />
+		<link rel="manifest" href="/manifest.json" />
+		<link rel="author" href="/humans.txt" />
+		<meta name="theme-color" content="#0d1117" />
 
 		<!-- Google Fonts Preconnect & Stylesheet: Anton, Archivo Black, Outfit, Plus Jakarta Sans -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />

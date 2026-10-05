@@ -1,0 +1,20 @@
+# Gabriel Campos
+
+## About
+Gabriel Lopes (Gabriel Campos) é engenheiro de software com foco em desenvolvimento de sistemas e aplicações web. Atua na iniciativa Redstar Software e contribui como membro e moderador da comunidade GDG Americana.
+
+## Tech Stack
+- TypeScript
+- NestJS
+- Go
+- React
+- AWS
+- Docker
+- PostgreSQL
+- Bun.js
+
+## Links
+- Portfólio: https://gabrielcampos.dev
+- GitHub: https://github.com/gbrlcm
+- LinkedIn: https://www.linkedin.com/in/gabriel-lopes-campos/
+- Redstar Software
