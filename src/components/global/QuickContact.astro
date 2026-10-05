@@ -2,14 +2,10 @@
 import type { SupportedLanguage } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 import {
-	getContactEmail,
 	getWhatsAppUrl,
 	getTelegramUrl,
 	WHATSAPP_PHONE,
 	TELEGRAM_PHONE,
-	GITHUB_URL,
-	LINKEDIN_URL,
-	X_URL,
 } from '../../data/contact';
 
 export interface Props {
@@ -18,116 +14,50 @@ export interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang)();
-const email = getContactEmail(lang);
 const waUrl = getWhatsAppUrl(lang);
 const telegramUrl = getTelegramUrl();
 
-const socialButtons = [
+const contactButtons = [
 	{
 		id: 'whatsapp',
 		name: 'WhatsApp',
 		href: waUrl,
 		title: `WhatsApp: ${WHATSAPP_PHONE}`,
-		icon: 'whatsapp',
-		colorClass: 'text-[#25D366] hover:bg-[#25D366] hover:text-task-dark',
-		bgClass: 'bg-[#25D366]/15',
+		colorClass: 'text-[#4ade80] bg-[#25D366]/20 hover:bg-[#25D366] hover:text-task-dark',
 	},
 	{
 		id: 'telegram',
 		name: 'Telegram',
 		href: telegramUrl,
 		title: `Telegram: ${TELEGRAM_PHONE}`,
-		icon: 'telegram',
-		colorClass: 'text-[#229ED9] hover:bg-[#229ED9] hover:text-white',
-		bgClass: 'bg-[#229ED9]/15',
-	},
-	{
-		id: 'github',
-		name: 'GitHub',
-		href: GITHUB_URL,
-		title: 'GitHub: @gbrlcm',
-		icon: 'github',
-		colorClass: 'text-white hover:bg-task-yellow hover:text-task-dark',
-		bgClass: 'bg-white/10',
-	},
-	{
-		id: 'linkedin',
-		name: 'LinkedIn',
-		href: LINKEDIN_URL,
-		title: 'LinkedIn: Gabriel Lopes Campos',
-		icon: 'linkedin',
-		colorClass: 'text-[#60a5fa] hover:bg-[#0A66C2] hover:text-white',
-		bgClass: 'bg-[#0A66C2]/20',
-	},
-	{
-		id: 'x',
-		name: 'X',
-		href: X_URL,
-		title: 'X: @Gabriel07132569',
-		icon: 'x',
-		colorClass: 'text-white hover:bg-task-yellow hover:text-task-dark',
-		bgClass: 'bg-white/10',
-	},
-	{
-		id: 'email',
-		name: 'Email',
-		href: `mailto:${email}`,
-		title: `Email: ${email}`,
-		icon: 'email',
-		colorClass: 'text-white hover:bg-task-yellow hover:text-task-dark',
-		bgClass: 'bg-white/10',
+		colorClass: 'text-[#38bdf8] bg-[#229ED9]/20 hover:bg-[#229ED9] hover:text-white',
 	},
 ];
 ---
 
 <aside
-	class="fixed bottom-5 right-3 sm:right-5 z-40 flex max-w-[calc(100vw-1.5rem)] items-center gap-1.5 sm:gap-2 rounded-full border border-task-border/60 bg-task-dark/95 p-1.5 sm:p-2 text-white shadow-2xl backdrop-blur-md transition-all"
+	class="fixed bottom-5 right-5 z-40 flex items-center gap-2 rounded-full border border-task-border/60 bg-task-dark/95 p-1.5 text-white shadow-2xl backdrop-blur-md transition-all hover:border-task-border"
 	aria-label={t.quickContact.label}
 >
 	{
-		socialButtons.map((btn) => (
+		contactButtons.map((btn) => (
 			<a
 				href={btn.href}
-				target={btn.id === 'email' ? undefined : '_blank'}
-				rel={btn.id === 'email' ? undefined : 'noopener noreferrer'}
+				target="_blank"
+				rel="noopener noreferrer"
 				title={btn.title}
 				aria-label={btn.title}
-				class={`group relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg active:scale-90 ${btn.bgClass} ${btn.colorClass}`}
+				class={`group relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg active:scale-90 ${btn.colorClass}`}
 			>
-				{btn.icon === 'whatsapp' && (
+				{btn.id === 'whatsapp' && (
 					<svg viewBox="0 0 24 24" class="size-6 shrink-0 transition-transform duration-300 group-hover:scale-110" fill="currentColor">
 						<path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c4.55 0 8.24 3.7 8.24 8.24 0 2.2-.86 4.28-2.42 5.84a8.19 8.19 0 0 1-5.82 2.41h-.01c-1.42 0-2.82-.37-4.05-1.07l-.29-.17-3.12.82.83-3.04-.19-.3a8.194 8.194 0 0 1-1.26-4.48c0-4.55 3.7-8.24 8.25-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.4-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.32-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.72 4.31 3.81.6.26 1.07.42 1.44.53.61.2 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.1-.23-.16-.48-.28z" />
 					</svg>
 				)}
 
-				{btn.icon === 'telegram' && (
+				{btn.id === 'telegram' && (
 					<svg viewBox="0 0 24 24" class="size-6 shrink-0 transition-transform duration-300 group-hover:scale-110" fill="currentColor">
 						<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
-					</svg>
-				)}
-
-				{btn.icon === 'github' && (
-					<svg viewBox="0 0 24 24" class="size-6 shrink-0 transition-transform duration-300 group-hover:scale-110" fill="currentColor">
-						<path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
-					</svg>
-				)}
-
-				{btn.icon === 'linkedin' && (
-					<svg viewBox="0 0 24 24" class="size-6 shrink-0 transition-transform duration-300 group-hover:scale-110" fill="currentColor">
-						<path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
-					</svg>
-				)}
-
-				{btn.icon === 'x' && (
-					<svg viewBox="0 0 24 24" class="size-5 shrink-0 transition-transform duration-300 group-hover:scale-110" fill="currentColor">
-						<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-					</svg>
-				)}
-
-				{btn.icon === 'email' && (
-					<svg viewBox="0 0 20 20" class="size-6 shrink-0 transition-transform duration-300 group-hover:scale-110" fill="currentColor">
-						<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-						<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
 					</svg>
 				)}
 
