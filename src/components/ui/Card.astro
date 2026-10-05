@@ -1,0 +1,45 @@
+---
+export type CardVariant = 'solid' | 'glass' | 'outline';
+
+export interface Props {
+	as?: 'div' | 'article' | 'li' | 'section';
+	variant?: CardVariant;
+	padding?: 'none' | 'sm' | 'md' | 'lg';
+	hover?: boolean;
+	class?: string;
+}
+
+const {
+	as: Tag = 'div',
+	variant = 'solid',
+	padding = 'md',
+	hover = false,
+	class: className = '',
+} = Astro.props;
+
+const variants: Record<CardVariant, string> = {
+	solid: 'bg-(--bg-elev) border-(--line)',
+	glass: 'bg-(--surface-glass) backdrop-blur-xl border-(--line-glass)',
+	outline: 'bg-transparent border-(--line)',
+};
+
+const paddings = {
+	none: '',
+	sm: 'p-4',
+	md: 'p-6',
+	lg: 'p-8',
+} as const;
+---
+
+<Tag
+	class:list={[
+		'rounded-2xl border',
+		variants[variant],
+		paddings[padding],
+		hover &&
+			'transition-all duration-500 ease-(--ease-out-expo) hover:-translate-y-1 hover:border-(--line-strong)',
+		className,
+	]}
+>
+	<slot />
+</Tag>

@@ -1,0 +1,54 @@
+---
+import type { SupportedLanguage } from '../i18n/ui';
+import '../styles/styles.css';
+
+export interface Props {
+	title?: string;
+	description?: string;
+	lang?: SupportedLanguage;
+	image?: string;
+	noIndex?: boolean;
+}
+
+const {
+	lang = 'pt-BR',
+	title = 'TaskAI — SaaS & AI Solutions',
+	description = 'TaskAI is a sleek Framer template designed for AI-powered SaaS platforms.',
+	image = '/images/hero.jpg',
+	noIndex = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+---
+
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+
+		<title>{title}</title>
+		{description && <meta name="description" content={description} />}
+		<link rel="canonical" href={canonical} />
+		{noIndex && <meta name="robots" content="noindex" />}
+
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:locale" content={lang === 'pt-BR' ? 'pt_BR' : lang === 'es' ? 'es_ES' : 'en_US'} />
+		{image && <meta property="og:image" content={image} />}
+		<meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+
+		<link rel="icon" type="image/png" href="/images/logo.png" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	</head>
+	<body class="min-h-screen bg-task-bg text-task-dark antialiased">
+		<slot />
+	</body>
+</html>

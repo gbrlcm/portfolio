@@ -1,0 +1,30 @@
+---
+import Logo from './Logo.astro';
+import Navbar from './Navbar.astro';
+import Button from '../ui/Button.astro';
+
+export interface Props {
+	sticky?: boolean;
+	class?: string;
+}
+
+const { sticky = true, class: className = '' } = Astro.props;
+---
+
+<header
+	class:list={[
+		'z-50 w-full',
+		sticky && 'sticky top-0 border-b border-(--line) bg-(--surface-glass) backdrop-blur-xl',
+		className,
+	]}
+>
+	<div
+		class="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 px-5 py-4"
+	>
+		<Logo />
+		<div class="flex items-center gap-6">
+			<Navbar class="hidden md:block" />
+			<Button href="#orcamento" size="sm">Orçamento</Button>
+		</div>
+	</div>
+</header>

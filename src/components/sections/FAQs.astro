@@ -1,0 +1,109 @@
+---
+import type { SupportedLanguage } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+export interface Props {
+	lang: SupportedLanguage;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang)();
+---
+
+<section class="relative w-full overflow-hidden px-4 py-20 md:px-8 md:py-28" id="faqs">
+	<div class="mx-auto flex w-full max-w-[1080px] flex-col items-center">
+		<!-- Title -->
+		<div class="mb-10 text-center md:mb-14">
+			<h2 class="font-anton text-3xl leading-tight text-task-dark sm:text-4xl md:text-[52px]">
+				{t.faqs.title}
+			</h2>
+		</div>
+
+		<!-- Accordion List -->
+		<div class="flex w-full flex-col gap-4">
+			{
+				t.faqs.items.map((item, index) => (
+					<div
+						class="faq-item overflow-hidden rounded-[32px] bg-[#fdfffe] p-6 sm:p-7 shadow-xs transition-all duration-300 hover:shadow-sm"
+						data-faq-index={index}
+					>
+						<!-- Question Button -->
+						<button
+							type="button"
+							class="faq-trigger flex w-full cursor-pointer items-center justify-between gap-6 text-left"
+							aria-expanded="false"
+						>
+							<h3 class="font-anton text-lg leading-snug text-task-dark sm:text-xl lg:text-[22px]">
+								{item.question}
+							</h3>
+
+							<!-- Plus/Minus Animated Icon -->
+							<div class="relative flex size-4 flex-shrink-0 items-center justify-center">
+								<!-- Horizontal bar (always visible) -->
+								<span class="absolute h-[2px] w-4 rounded-full bg-task-dark"></span>
+								<!-- Vertical bar (rotates on expand) -->
+								<span class="faq-icon-vertical absolute h-4 w-[2px] rounded-full bg-task-dark transition-transform duration-300 ease-out"></span>
+							</div>
+						</button>
+
+						<!-- Answer Content Container -->
+						<div class="faq-answer grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out">
+							<div class="overflow-hidden">
+								<p class="pt-4 font-outfit text-sm leading-relaxed text-task-gray sm:text-base">
+									{item.answer}
+								</p>
+							</div>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	function initFaqAccordion() {
+		const items = document.querySelectorAll('.faq-item');
+		items.forEach((item) => {
+			const trigger = item.querySelector('.faq-trigger');
+			const answer = item.querySelector('.faq-answer');
+			const verticalBar = item.querySelector('.faq-icon-vertical');
+
+			if (trigger && answer && verticalBar) {
+				trigger.addEventListener('click', () => {
+					const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+
+					// Close all other items for clean single-accordion behavior (or keep multi-expand)
+					items.forEach((other) => {
+						if (other !== item) {
+							const otherTrigger = other.querySelector('.faq-trigger');
+							const otherAnswer = other.querySelector('.faq-answer');
+							const otherBar = other.querySelector('.faq-icon-vertical');
+							if (otherTrigger && otherAnswer && otherBar) {
+								otherTrigger.setAttribute('aria-expanded', 'false');
+								otherAnswer.classList.remove('grid-rows-[1fr]');
+								otherAnswer.classList.add('grid-rows-[0fr]');
+								(otherBar as HTMLElement).style.transform = 'none';
+							}
+						}
+					});
+
+					if (isExpanded) {
+						trigger.setAttribute('aria-expanded', 'false');
+						answer.classList.remove('grid-rows-[1fr]');
+						answer.classList.add('grid-rows-[0fr]');
+						(verticalBar as HTMLElement).style.transform = 'none';
+					} else {
+						trigger.setAttribute('aria-expanded', 'true');
+						answer.classList.remove('grid-rows-[0fr]');
+						answer.classList.add('grid-rows-[1fr]');
+						(verticalBar as HTMLElement).style.transform = 'rotate(90deg)';
+					}
+				});
+			}
+		});
+	}
+
+	initFaqAccordion();
+	document.addEventListener('astro:page-load', initFaqAccordion);
+</script>

@@ -1,0 +1,227 @@
+---
+import type { SupportedLanguage } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+export interface Props {
+	lang: SupportedLanguage;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang)();
+---
+
+<section class="relative w-full overflow-hidden px-4 pt-20 md:px-8 md:pt-28" id="services">
+	<div class="mx-auto w-full max-w-[1080px] rounded-[50px] bg-task-dark px-5 py-14 sm:px-8 sm:py-16 md:px-14 md:py-20">
+		<!-- Section Header: Title + Slider Controls -->
+		<div class="mb-10 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center md:mb-14">
+			<h2 class="font-anton text-3xl leading-tight text-white sm:text-4xl md:text-[52px]">
+				{t.services.title}
+			</h2>
+
+			<!-- Slider Pagination Buttons -->
+			<div class="flex items-center gap-2.5 self-end sm:self-auto">
+				<button
+					type="button"
+					id="services-prev"
+					class="flex size-[52px] items-center justify-center rounded-[12px] bg-task-yellow transition-transform duration-150 hover:brightness-105 active:scale-90"
+					aria-label="Previous service"
+				>
+					<img src="/images/arrow-back.png" alt="Previous" width="52" height="52" class="size-full" />
+				</button>
+				<button
+					type="button"
+					id="services-next"
+					class="flex size-[52px] items-center justify-center rounded-[12px] bg-task-yellow transition-transform duration-150 hover:brightness-105 active:scale-90"
+					aria-label="Next service"
+				>
+					<img src="/images/arrow-next.png" alt="Next" width="52" height="52" class="size-full" />
+				</button>
+			</div>
+		</div>
+
+		<!-- Carousel Viewport -->
+		<div class="relative w-full overflow-hidden" id="services-viewport">
+			<div
+				id="services-track"
+				class="flex transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+				style="gap: 20px;"
+			>
+				{
+					t.services.items.map((service, index) => (
+						<article
+							class="service-card flex flex-shrink-0 flex-col justify-between overflow-hidden rounded-[40px] bg-task-olive"
+							data-index={index}
+						>
+							<!-- Top Content -->
+							<div class="p-6 pb-0">
+								<!-- Badge Label -->
+								<div class="inline-flex rounded-full bg-task-olive-label px-6 py-2">
+									<span class="font-jakarta text-[13px] font-semibold text-white">
+										{service.label}
+									</span>
+								</div>
+
+								<!-- Title & Description -->
+								<div class="mt-6 flex flex-col gap-2.5">
+									<h3 class="font-anton text-2xl leading-tight text-white sm:text-3xl lg:text-[34px]">
+										{service.title}
+									</h3>
+									<p class="font-outfit text-sm leading-relaxed text-task-olive-text">
+										{service.desc}
+									</p>
+								</div>
+							</div>
+
+							<!-- Spacer -->
+							<div class="h-6"></div>
+
+							<!-- Image Block with Floating Read More Button -->
+							<div class="relative h-[240px] w-full overflow-hidden rounded-[40px]">
+								<img
+									src={service.image}
+									alt={service.title}
+									class="size-full object-cover object-center transition-transform duration-700 hover:scale-105"
+									loading="lazy"
+									width="350"
+									height="240"
+								/>
+
+								<!-- Floating "Read more" Glass Pill -->
+								<a
+									href="#community"
+									class="group absolute bottom-5 left-5 flex h-[50px] w-[178px] items-center justify-between rounded-full bg-white/40 p-2 pr-2 pl-6 backdrop-blur-md transition-all duration-200 hover:bg-white/50 active:scale-95"
+								>
+									<span class="font-outfit text-base font-medium text-white drop-shadow-sm">
+										{t.services.readMore}
+									</span>
+									<span class="flex size-9 items-center justify-center rounded-full bg-white shadow-sm transition-transform duration-200 group-hover:translate-x-0.5">
+										<svg width="19" height="18" viewBox="0 0 19 18" fill="none">
+											<path
+												d="m9.717 17 8.09-8-8.09-8M1.625 9h16.182"
+												stroke="#0D251A"
+												stroke-width="1.5"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											></path>
+										</svg>
+									</span>
+								</a>
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	/* Responsive Card Width Calculations */
+	.service-card {
+		width: 100%;
+	}
+
+	@media (min-width: 640px) {
+		.service-card {
+			width: calc((100% - 20px) / 2);
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.service-card {
+			width: calc((100% - 40px) / 3);
+		}
+	}
+</style>
+
+<script>
+	function initServicesSlider() {
+		const track = document.getElementById('services-track');
+		const prevBtn = document.getElementById('services-prev');
+		const nextBtn = document.getElementById('services-next');
+		const viewport = document.getElementById('services-viewport');
+		if (!track || !prevBtn || !nextBtn || !viewport) return;
+
+		const cards = track.querySelectorAll('.service-card');
+		const totalCards = cards.length;
+		let currentIndex = 0;
+
+		function getVisibleCount() {
+			if (window.innerWidth >= 1024) return 3;
+			if (window.innerWidth >= 640) return 2;
+			return 1;
+		}
+
+		function updateSlider() {
+			const visible = getVisibleCount();
+			const maxIndex = Math.max(0, totalCards - visible);
+			if (currentIndex > maxIndex) currentIndex = maxIndex;
+			if (currentIndex < 0) currentIndex = 0;
+
+			const card = cards[0] as HTMLElement;
+			if (!card) return;
+			const cardWidth = card.getBoundingClientRect().width;
+			const gap = 20;
+			const offset = currentIndex * (cardWidth + gap);
+			track.style.transform = `translateX(-${offset}px)`;
+
+			prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+			prevBtn.style.cursor = currentIndex === 0 ? 'not-allowed' : 'pointer';
+			nextBtn.style.opacity = currentIndex >= maxIndex ? '0.5' : '1';
+			nextBtn.style.cursor = currentIndex >= maxIndex ? 'not-allowed' : 'pointer';
+		}
+
+		prevBtn.addEventListener('click', () => {
+			if (currentIndex > 0) {
+				currentIndex--;
+				updateSlider();
+			}
+		});
+
+		nextBtn.addEventListener('click', () => {
+			const maxIndex = Math.max(0, totalCards - getVisibleCount());
+			if (currentIndex < maxIndex) {
+				currentIndex++;
+				updateSlider();
+			}
+		});
+
+		// Touch swipe support
+		let startX = 0;
+		let isTouching = false;
+
+		viewport.addEventListener(
+			'touchstart',
+			(e) => {
+				startX = e.touches[0].clientX;
+				isTouching = true;
+			},
+			{ passive: true }
+		);
+
+		viewport.addEventListener(
+			'touchend',
+			(e) => {
+				if (!isTouching) return;
+				const endX = e.changedTouches[0].clientX;
+				const diff = startX - endX;
+				const maxIndex = Math.max(0, totalCards - getVisibleCount());
+				if (diff > 50 && currentIndex < maxIndex) {
+					currentIndex++;
+					updateSlider();
+				} else if (diff < -50 && currentIndex > 0) {
+					currentIndex--;
+					updateSlider();
+				}
+				isTouching = false;
+			},
+			{ passive: true }
+		);
+
+		window.addEventListener('resize', updateSlider);
+		updateSlider();
+	}
+
+	initServicesSlider();
+	document.addEventListener('astro:page-load', initServicesSlider);
+</script>

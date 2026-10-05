@@ -1,0 +1,203 @@
+---
+import type { SupportedLanguage } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+export interface Props {
+	lang: SupportedLanguage;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang)();
+---
+
+<section class="relative w-full overflow-hidden px-4 pt-20 md:px-8 md:pt-28" id="testimonials">
+	<div class="mx-auto w-full max-w-[1080px]">
+		<!-- Header with Title and Slider Buttons -->
+		<div class="mb-10 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center md:mb-14">
+			<h2 class="font-anton text-3xl leading-tight text-task-dark sm:text-4xl md:text-[52px]">
+				{t.testimonials.title}
+			</h2>
+
+			<!-- Slider Pagination Buttons -->
+			<div class="flex items-center gap-2.5 self-end sm:self-auto">
+				<button
+					type="button"
+					id="testimonials-prev"
+					class="flex size-[52px] items-center justify-center rounded-[12px] bg-task-yellow transition-transform duration-150 hover:brightness-105 active:scale-90"
+					aria-label="Previous testimonial"
+				>
+					<img src="/images/arrow-back.png" alt="Previous" width="52" height="52" class="size-full" />
+				</button>
+				<button
+					type="button"
+					id="testimonials-next"
+					class="flex size-[52px] items-center justify-center rounded-[12px] bg-task-yellow transition-transform duration-150 hover:brightness-105 active:scale-90"
+					aria-label="Next testimonial"
+				>
+					<img src="/images/arrow-next.png" alt="Next" width="52" height="52" class="size-full" />
+				</button>
+			</div>
+		</div>
+
+		<!-- Testimonials Carousel Viewport -->
+		<div class="relative w-full overflow-hidden" id="testimonials-viewport">
+			<div
+				id="testimonials-track"
+				class="flex transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+				style="gap: 20px;"
+			>
+				{
+					t.testimonials.items.map((item, index) => (
+						<article
+							class="testimonial-card flex flex-shrink-0 flex-col justify-between rounded-[50px] bg-white p-8 sm:p-10 shadow-sm"
+							data-index={index}
+						>
+							<!-- Quote Icon & Text -->
+							<div>
+								<div class="mb-6">
+									<svg width="43" height="35" viewBox="0 0 43 35" fill="none" class="text-task-dark">
+										<path
+											d="M 42.28 34.3 L 26.04 34.3 C 24.453 29.167 23.66 23.847 23.66 18.34 C 23.66 12.74 25.107 8.307 28 5.04 C 30.987 1.68 35.373 0 41.16 0 L 41.16 7.84 C 36.493 7.84 34.16 10.687 34.16 16.38 L 34.16 19.04 L 42.28 19.04 Z M 18.62 34.3 L 2.38 34.3 C 0.793 29.167 0 23.847 0 18.34 C 0 12.74 1.447 8.307 4.34 5.04 C 7.327 1.68 11.713 0 17.5 0 L 17.5 7.84 C 12.833 7.84 10.5 10.687 10.5 16.38 L 10.5 19.04 L 18.62 19.04 Z"
+											fill="currentColor"
+										></path>
+									</svg>
+								</div>
+
+								<p class="font-outfit text-base font-medium leading-relaxed text-task-dark sm:text-lg">
+									"{item.quote}"
+								</p>
+							</div>
+
+							<!-- Spacer -->
+							<div class="h-8"></div>
+
+							<!-- Author Footer -->
+							<div class="flex items-center gap-4">
+								<img
+									src={item.avatar}
+									alt={item.name}
+									class="size-16 rounded-full object-cover shadow-xs"
+									width="64"
+									height="64"
+									loading="lazy"
+								/>
+								<div class="flex flex-col">
+									<h4 class="font-anton text-lg leading-tight text-task-dark">
+										{item.name}
+									</h4>
+									<span class="font-outfit text-sm font-medium text-task-gray">
+										{item.role}
+									</span>
+								</div>
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	/* Responsive Card Width Calculations */
+	.testimonial-card {
+		width: 100%;
+	}
+
+	@media (min-width: 768px) {
+		.testimonial-card {
+			width: calc((100% - 20px) / 2);
+		}
+	}
+</style>
+
+<script>
+	function initTestimonialsSlider() {
+		const track = document.getElementById('testimonials-track');
+		const prevBtn = document.getElementById('testimonials-prev');
+		const nextBtn = document.getElementById('testimonials-next');
+		const viewport = document.getElementById('testimonials-viewport');
+		if (!track || !prevBtn || !nextBtn || !viewport) return;
+
+		const cards = track.querySelectorAll('.testimonial-card');
+		const totalCards = cards.length;
+		let currentIndex = 0;
+
+		function getVisibleCount() {
+			if (window.innerWidth >= 768) return 2;
+			return 1;
+		}
+
+		function updateSlider() {
+			const visible = getVisibleCount();
+			const maxIndex = Math.max(0, totalCards - visible);
+			if (currentIndex > maxIndex) currentIndex = maxIndex;
+			if (currentIndex < 0) currentIndex = 0;
+
+			const card = cards[0] as HTMLElement;
+			if (!card) return;
+			const cardWidth = card.getBoundingClientRect().width;
+			const gap = 20;
+			const offset = currentIndex * (cardWidth + gap);
+			track.style.transform = `translateX(-${offset}px)`;
+
+			prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+			prevBtn.style.cursor = currentIndex === 0 ? 'not-allowed' : 'pointer';
+			nextBtn.style.opacity = currentIndex >= maxIndex ? '0.5' : '1';
+			nextBtn.style.cursor = currentIndex >= maxIndex ? 'not-allowed' : 'pointer';
+		}
+
+		prevBtn.addEventListener('click', () => {
+			if (currentIndex > 0) {
+				currentIndex--;
+				updateSlider();
+			}
+		});
+
+		nextBtn.addEventListener('click', () => {
+			const maxIndex = Math.max(0, totalCards - getVisibleCount());
+			if (currentIndex < maxIndex) {
+				currentIndex++;
+				updateSlider();
+			}
+		});
+
+		// Touch swipe
+		let startX = 0;
+		let isTouching = false;
+
+		viewport.addEventListener(
+			'touchstart',
+			(e) => {
+				startX = e.touches[0].clientX;
+				isTouching = true;
+			},
+			{ passive: true }
+		);
+
+		viewport.addEventListener(
+			'touchend',
+			(e) => {
+				if (!isTouching) return;
+				const endX = e.changedTouches[0].clientX;
+				const diff = startX - endX;
+				const maxIndex = Math.max(0, totalCards - getVisibleCount());
+				if (diff > 50 && currentIndex < maxIndex) {
+					currentIndex++;
+					updateSlider();
+				} else if (diff < -50 && currentIndex > 0) {
+					currentIndex--;
+					updateSlider();
+				}
+				isTouching = false;
+			},
+			{ passive: true }
+		);
+
+		window.addEventListener('resize', updateSlider);
+		updateSlider();
+	}
+
+	initTestimonialsSlider();
+	document.addEventListener('astro:page-load', initTestimonialsSlider);
+</script>

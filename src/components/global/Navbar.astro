@@ -1,0 +1,236 @@
+---
+import type { SupportedLanguage } from '../../i18n/ui';
+import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+
+export interface Props {
+	lang: SupportedLanguage;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang)();
+const pathname = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 w-full border-b border-task-border bg-task-bg/90 backdrop-blur-md">
+	<div class="mx-auto flex h-[84px] w-full max-w-[1200px] items-center justify-between px-5 md:px-8">
+		<!-- Logo -->
+		<a href="#home" class="relative block size-[30px] flex-shrink-0 transition-transform hover:scale-105" aria-label="TaskAI Home">
+			<img
+				src="/images/logo.png"
+				alt="TaskAI Logo"
+				class="size-full rounded-inherit object-cover"
+				width="30"
+				height="30"
+				loading="eager"
+			/>
+		</a>
+
+		<!-- Desktop Navigation Links -->
+		<nav class="hidden items-center gap-8 md:flex lg:gap-12" aria-label="Main Navigation">
+			<a
+				href="#home"
+				class="group relative flex items-center font-outfit text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+			>
+				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
+				{t.nav.home}
+			</a>
+			<a
+				href="#services"
+				class="group relative flex items-center font-outfit text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+			>
+				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
+				{t.nav.services}
+			</a>
+			<a
+				href="#features"
+				class="group relative flex items-center font-outfit text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+			>
+				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
+				{t.nav.features}
+			</a>
+			<a
+				href="#community"
+				class="group relative flex items-center font-outfit text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+			>
+				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
+				{t.nav.community}
+			</a>
+			<a
+				href="#faqs"
+				class="group relative flex items-center font-outfit text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+			>
+				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
+				{t.nav.faqs}
+			</a>
+		</nav>
+
+		<!-- Right Side: Language Switcher + CTA -->
+		<div class="hidden items-center gap-4 md:flex">
+			<!-- Language Switcher Pill -->
+			<div class="flex items-center rounded-full border border-task-border bg-white/70 p-1 text-xs font-semibold text-task-dark backdrop-blur-sm">
+				<a
+					href={getLocalizedPath(pathname, 'pt-BR')}
+					class={`rounded-full px-2.5 py-1 transition-all ${lang === 'pt-BR' ? 'bg-task-dark text-white' : 'text-task-dark/70 hover:text-task-dark'}`}
+					aria-label="Português"
+				>
+					PT
+				</a>
+				<a
+					href={getLocalizedPath(pathname, 'en')}
+					class={`rounded-full px-2.5 py-1 transition-all ${lang === 'en' ? 'bg-task-dark text-white' : 'text-task-dark/70 hover:text-task-dark'}`}
+					aria-label="English"
+				>
+					EN
+				</a>
+				<a
+					href={getLocalizedPath(pathname, 'es')}
+					class={`rounded-full px-2.5 py-1 transition-all ${lang === 'es' ? 'bg-task-dark text-white' : 'text-task-dark/70 hover:text-task-dark'}`}
+					aria-label="Español"
+				>
+					ES
+				</a>
+			</div>
+
+			<!-- CTA Button -->
+			<a
+				href="#community"
+				class="group flex h-[48px] items-center gap-2.5 rounded-full bg-task-yellow px-6 font-anton text-base tracking-wide text-task-dark transition-all duration-200 hover:brightness-105 active:scale-95"
+			>
+				<span>{t.nav.getInTouch}</span>
+				<svg
+					width="15"
+					height="14"
+					viewBox="0 0 15 14"
+					fill="none"
+					class="transition-transform duration-200 group-hover:translate-x-1"
+					aria-hidden="true"
+				>
+					<path
+						d="m7.5 13 6-6-6-6m-6 6h12"
+						stroke="#0D251A"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					></path>
+				</svg>
+			</a>
+		</div>
+
+		<!-- Mobile Hamburger Button -->
+		<button
+			type="button"
+			id="mobile-menu-toggle"
+			class="flex size-11 flex-col items-center justify-center gap-1.5 rounded-[10px] bg-task-yellow p-2 transition-transform active:scale-90 md:hidden"
+			aria-label="Toggle navigation menu"
+			aria-expanded="false"
+		>
+			<span class="h-0.5 w-5 rounded-full bg-task-dark transition-all duration-300" id="hamburger-bar-1"></span>
+			<span class="h-0.5 w-5 rounded-full bg-task-dark transition-all duration-300" id="hamburger-bar-2"></span>
+		</button>
+	</div>
+
+	<!-- Mobile Drawer -->
+	<div
+		id="mobile-menu"
+		class="hidden flex-col border-b border-task-border bg-task-bg px-6 pt-2 pb-6 md:hidden animate-in fade-in slide-in-from-top-2 duration-200"
+	>
+		<nav class="flex flex-col gap-4 py-4" aria-label="Mobile Navigation">
+			<a href="#home" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
+				{t.nav.home}
+			</a>
+			<a href="#services" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
+				{t.nav.services}
+			</a>
+			<a href="#features" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
+				{t.nav.features}
+			</a>
+			<a href="#community" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
+				{t.nav.community}
+			</a>
+			<a href="#faqs" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
+				{t.nav.faqs}
+			</a>
+		</nav>
+
+		<!-- Mobile Languages -->
+		<div class="flex items-center gap-2 border-t border-task-border py-4">
+			<span class="font-outfit text-xs font-semibold text-task-dark/60">Idioma:</span>
+			<a
+				href={getLocalizedPath(pathname, 'pt-BR')}
+				class={`rounded-full px-3 py-1 text-xs font-semibold ${lang === 'pt-BR' ? 'bg-task-dark text-white' : 'border border-task-border bg-white text-task-dark'}`}
+			>
+				Português
+			</a>
+			<a
+				href={getLocalizedPath(pathname, 'en')}
+				class={`rounded-full px-3 py-1 text-xs font-semibold ${lang === 'en' ? 'bg-task-dark text-white' : 'border border-task-border bg-white text-task-dark'}`}
+			>
+				English
+			</a>
+			<a
+				href={getLocalizedPath(pathname, 'es')}
+				class={`rounded-full px-3 py-1 text-xs font-semibold ${lang === 'es' ? 'bg-task-dark text-white' : 'border border-task-border bg-white text-task-dark'}`}
+			>
+				Español
+			</a>
+		</div>
+
+		<!-- Mobile CTA -->
+		<a
+			href="#community"
+			class="mobile-nav-link mt-2 flex h-[48px] w-full items-center justify-center gap-2 rounded-full bg-task-yellow font-anton text-base tracking-wide text-task-dark"
+		>
+			<span>{t.nav.getInTouch}</span>
+			<svg width="15" height="14" viewBox="0 0 15 14" fill="none">
+				<path
+					d="m7.5 13 6-6-6-6m-6 6h12"
+					stroke="#0D251A"
+					stroke-width="1.5"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				></path>
+			</svg>
+		</a>
+	</div>
+</header>
+
+<script>
+	const toggle = document.getElementById('mobile-menu-toggle');
+	const menu = document.getElementById('mobile-menu');
+	const bar1 = document.getElementById('hamburger-bar-1');
+	const bar2 = document.getElementById('hamburger-bar-2');
+
+	if (toggle && menu) {
+		toggle.addEventListener('click', () => {
+			const isOpen = !menu.classList.contains('hidden');
+			if (isOpen) {
+				menu.classList.add('hidden');
+				toggle.setAttribute('aria-expanded', 'false');
+				if (bar1 && bar2) {
+					bar1.style.transform = 'none';
+					bar2.style.transform = 'none';
+				}
+			} else {
+				menu.classList.remove('hidden');
+				toggle.setAttribute('aria-expanded', 'true');
+				if (bar1 && bar2) {
+					bar1.style.transform = 'translateY(3px) rotate(45deg)';
+					bar2.style.transform = 'translateY(-3px) rotate(-45deg)';
+				}
+			}
+		});
+
+		// Close mobile menu on clicking any link inside it
+		const links = menu.querySelectorAll('.mobile-nav-link');
+		links.forEach((link) => {
+			link.addEventListener('click', () => {
+				menu.classList.add('hidden');
+				toggle.setAttribute('aria-expanded', 'false');
+				if (bar1 && bar2) {
+					bar1.style.transform = 'none';
+					bar2.style.transform = 'none';
+				}
+			});
+		});
+	}
+</script>

@@ -1,0 +1,25 @@
+---
+import type { SupportedLanguage } from '../i18n/ui';
+import Navbar from '../components/global/Navbar.astro';
+import Footer from '../components/global/Footer.astro';
+import BaseLayout from './BaseLayout.astro';
+
+export interface Props {
+	title?: string;
+	description?: string;
+	lang?: SupportedLanguage;
+	noIndex?: boolean;
+}
+
+const { lang = 'pt-BR', title, description, noIndex } = Astro.props;
+---
+
+<BaseLayout {lang} {title} {description} {noIndex}>
+	<Navbar {lang} />
+
+	<main id="main" class="w-full">
+		<slot />
+	</main>
+
+	<Footer {lang} />
+</BaseLayout>

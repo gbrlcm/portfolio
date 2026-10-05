@@ -1,0 +1,205 @@
+---
+import Card from '../ui/Card.astro';
+import Section from '../ui/Section.astro';
+import Button from '../ui/Button.astro';
+import { WHATSAPP_NUMBER, EMAIL } from '../../data/contact';
+import { site } from '../../data/site';
+
+const projectTypes = [
+	'Landing page',
+	'Site institucional',
+	'Aplicação / sistema interno',
+	'Otimização e performance',
+	'Outro',
+];
+
+const budgets = [
+	'Até R$ 3.000',
+	'R$ 3.000 – R$ 8.000',
+	'R$ 8.000 – R$ 20.000',
+	'R$ 20.000 – R$ 50.000',
+	'Acima de R$ 50.000',
+	'Ainda não sei',
+];
+
+const deadlines = ['Urgente', '1 a 2 semanas', 'Até 1 mês', 'Flexível'];
+
+const fieldClass =
+	'w-full rounded-xl border border-(--line-strong) bg-(--bg) px-4 py-3 text-sm text-(--fg) transition-colors duration-300 placeholder:text-(--fg-faint) hover:border-(--line-strong) focus:border-(--accent) focus:outline-none';
+---
+
+<Section
+	id="orcamento"
+	label="— Orçamento"
+	title="Conte o que você precisa. Eu respondo com escopo, prazo e valor."
+	lede="Sem compromisso e sem call de discovery cobrada. Preencha, envie pelo WhatsApp e receba a proposta por escrito em até 24h úteis."
+>
+	<Card variant="glass" padding="lg" class="scroll-mt-28">
+		<form id="budget-form" data-site={site.domain} class="grid gap-6" novalidate>
+			<div class="grid gap-6 sm:grid-cols-2">
+				<div class="flex flex-col gap-2">
+					<label for="bf-name" class="label !text-(--fg-muted)">Nome *</label>
+					<input id="bf-name" name="name" type="text" required autocomplete="name" placeholder="Como te chamo?" class={fieldClass} />
+				</div>
+
+				<div class="flex flex-col gap-2">
+					<label for="bf-company" class="label !text-(--fg-muted)">Empresa <span class="normal-case opacity-60">(opcional)</span></label>
+					<input id="bf-company" name="company" type="text" autocomplete="organization" placeholder="Nome da empresa" class={fieldClass} />
+				</div>
+			</div>
+
+			<div class="grid gap-6 sm:grid-cols-3">
+				<div class="flex flex-col gap-2">
+					<label for="bf-type" class="label !text-(--fg-muted)">Tipo de projeto *</label>
+					<select id="bf-type" name="type" required class={fieldClass}>
+						<option value="">Selecione…</option>
+						{projectTypes.map((type) => <option value={type}>{type}</option>)}
+					</select>
+				</div>
+
+				<div class="flex flex-col gap-2">
+					<label for="bf-budget" class="label !text-(--fg-muted)">Orçamento estimado *</label>
+					<select id="bf-budget" name="budget" required class={fieldClass}>
+						<option value="">Selecione…</option>
+						{budgets.map((budget) => <option value={budget}>{budget}</option>)}
+					</select>
+				</div>
+
+				<div class="flex flex-col gap-2">
+					<label for="bf-deadline" class="label !text-(--fg-muted)">Prazo *</label>
+					<select id="bf-deadline" name="deadline" required class={fieldClass}>
+						<option value="">Selecione…</option>
+						{deadlines.map((deadline) => <option value={deadline}>{deadline}</option>)}
+					</select>
+				</div>
+			</div>
+
+			<div class="flex flex-col gap-2">
+				<label for="bf-details" class="label !text-(--fg-muted)">Detalhes *</label>
+				<textarea
+					id="bf-details"
+					name="details"
+					rows="5"
+					required
+					placeholder="O que precisa ser construído, para quem é, e o que já existe hoje."
+					class:list={[fieldClass, 'resize-y']}
+				></textarea>
+			</div>
+
+			<div class="flex flex-col gap-2">
+				<label for="bf-reply" class="label !text-(--fg-muted)">Onde prefere responder? *</label>
+				<input
+					id="bf-reply"
+					name="reply"
+					type="text"
+					required
+					placeholder="seu@email.com ou (11) 90000-0000"
+					class={fieldClass}
+				/>
+			</div>
+
+			<p id="bf-error" role="alert" class="hidden text-sm text-red-400">
+				Preencha os campos marcados com * antes de enviar.
+			</p>
+
+			<div class="flex flex-col gap-3 border-t border-(--line) pt-6 sm:flex-row sm:items-center sm:justify-between">
+				<p class="text-xs leading-relaxed text-(--fg-faint)">
+					Seus dados não são armazenados — o pedido é entregue direto no meu WhatsApp.
+				</p>
+
+				<div class="flex flex-wrap gap-3">
+					<Button type="submit" size="lg">Enviar pelo WhatsApp</Button>
+					<Button type="button" variant="outline" size="lg" id="bf-copy">Copiar</Button>
+				</div>
+			</div>
+
+			<noscript>
+				<p class="rounded-xl border border-(--line-strong) bg-(--bg) p-4 text-sm text-(--fg-muted)">
+					Ative o JavaScript para usar o formulário, ou fale direto no
+					<a class="text-(--accent) underline underline-offset-4" href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+					ou no <a class="text-(--accent) underline underline-offset-4" href={`mailto:${EMAIL}`}>email</a>.
+				</p>
+			</noscript>
+		</form>
+	</Card>
+</Section>
+
+<script>
+	import { WHATSAPP_NUMBER, EMAIL } from '../../data/contact';
+
+	const form = document.querySelector<HTMLFormElement>('#budget-form');
+	const domain = form?.dataset.site ?? '';
+
+	const buildMessage = (data: FormData) => {
+		const get = (key: string) => String(data.get(key) ?? '').trim();
+
+		const lines = [
+			`*Novo orçamento — ${domain}*`,
+			'',
+			`*Nome:* ${get('name')}`,
+			get('company') && `*Empresa:* ${get('company')}`,
+			`*Projeto:* ${get('type')}`,
+			`*Orçamento:* ${get('budget')}`,
+			`*Prazo:* ${get('deadline')}`,
+			`*Responder em:* ${get('reply')}`,
+			'',
+			`*Detalhes*`,
+			get('details'),
+		];
+
+		return lines.filter(Boolean).join('\n');
+	};
+
+	const validate = (form: HTMLFormElement) => {
+		const error = form.querySelector<HTMLElement>('#bf-error');
+		const required = [...form.querySelectorAll<HTMLElement>('[required]')];
+
+		for (const field of required) {
+			field.classList.toggle('border-red-400/70', !field.value.trim());
+		}
+
+		const invalid = required.some((field) => !field.value.trim());
+		error?.classList.toggle('hidden', !invalid);
+
+		return !invalid;
+	};
+
+	form?.addEventListener('input', (event) => {
+		const target = event.target as HTMLElement;
+		if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) {
+			target.classList.remove('border-red-400/70');
+		}
+	});
+
+	form?.addEventListener('submit', (event) => {
+		event.preventDefault();
+
+		if (!validate(form)) {
+			form.querySelector<HTMLElement>('[required]')?.focus();
+			return;
+		}
+
+		const message = buildMessage(new FormData(form));
+		window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
+	});
+
+	document.querySelector('#bf-copy')?.addEventListener('click', async () => {
+		if (!validate(form!)) return;
+
+		const message = buildMessage(new FormData(form!));
+		const button = document.querySelector<HTMLButtonElement>('#bf-copy');
+		const original = button?.textContent?.trim();
+
+		try {
+			await navigator.clipboard.writeText(message);
+			if (button) button.textContent = 'Copiado!';
+		} catch {
+			window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent('Orçamento')}&body=${encodeURIComponent(message)}`;
+			return;
+		}
+
+		setTimeout(() => {
+			if (button) button.textContent = original;
+		}, 2000);
+	});
+</script>

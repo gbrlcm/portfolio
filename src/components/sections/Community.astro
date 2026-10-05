@@ -1,0 +1,73 @@
+---
+import type { SupportedLanguage } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+export interface Props {
+	lang: SupportedLanguage;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang)();
+---
+
+<section class="relative w-full overflow-hidden px-4 pt-20 md:px-8 md:pt-28" id="community">
+	<div class="mx-auto w-full max-w-[1080px]">
+		<!-- Title -->
+		<div class="mb-10 text-center md:mb-14">
+			<h2 class="font-anton text-3xl leading-tight text-task-dark sm:text-4xl md:text-[52px]">
+				{t.community.title}
+			</h2>
+		</div>
+
+		<!-- Main Card: 2-Column Responsive Layout -->
+		<div class="flex flex-col items-center gap-10 rounded-[50px] bg-white p-6 sm:p-10 lg:flex-row lg:gap-14 lg:p-10 shadow-sm">
+			<!-- Left Column: Community Graphic -->
+			<div class="relative w-full overflow-hidden rounded-[40px] sm:rounded-[50px] lg:h-[434px] lg:w-[500px] flex-shrink-0">
+				<img
+					src="/images/community.png"
+					alt="AI Community Graphic"
+					class="size-full object-cover object-center"
+					width="500"
+					height="434"
+					loading="lazy"
+				/>
+			</div>
+
+			<!-- Right Column: Text & CTA -->
+			<div class="flex w-full flex-col items-start gap-8 lg:max-w-[460px]">
+				<div class="flex flex-col gap-4">
+					<h3 class="font-anton text-2xl leading-tight text-task-dark sm:text-3xl lg:text-[34px]">
+						{t.community.heading}
+					</h3>
+					<p class="font-outfit text-base leading-relaxed text-task-gray">
+						{t.community.desc}
+					</p>
+				</div>
+
+				<!-- Get Started Yellow Button -->
+				<a
+					href="#faqs"
+					class="group flex h-[52px] items-center justify-center gap-3 rounded-full bg-task-yellow px-10 font-anton text-lg tracking-wide text-task-dark transition-all duration-200 hover:brightness-105 active:scale-95"
+				>
+					<span>{t.community.button}</span>
+					<svg
+						width="15"
+						height="14"
+						viewBox="0 0 15 14"
+						fill="none"
+						class="transition-transform duration-200 group-hover:translate-x-1"
+						aria-hidden="true"
+					>
+						<path
+							d="m7.5 13 6-6-6-6m-6 6h12"
+							stroke="#0D251A"
+							stroke-width="1.5"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						></path>
+					</svg>
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
