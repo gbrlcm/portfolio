@@ -88,6 +88,7 @@ export const ui = {
 			heading: 'Descubra o verdadeiro poder da IA com nossa comunidade em expansão.',
 			desc: "Se você busca otimizar suas operações diárias, enriquecer o relacionamento com clientes ou escalar suas soluções tecnológicas, este é seu parceiro definitivo. Assine novidades, conecte-se nas redes e impulsione seu negócio hoje mesmo.",
 			button: 'COMEÇAR AGORA',
+			connect: 'Conecte-se nas redes:',
 		},
 		testimonials: {
 			title: 'O QUE DIZEM NOSSOS CLIENTES',
@@ -148,6 +149,7 @@ export const ui = {
 		footer: {
 			joinTitle: 'JUNTE-SE À COMUNIDADE',
 			emailPlaceholder: 'Seu endereço de e-mail',
+			socialTitle: 'Redes & Conexões',
 			aboutTitle: 'Sobre',
 			supportTitle: 'Suporte & Contato',
 			helpTitle: 'Ajuda',
@@ -250,6 +252,7 @@ export const ui = {
 			heading: 'Discover the power of AI with our growing community.',
 			desc: "Whether you're optimizing your operations, enhancing customer engagement, or scaling your business, AISAAS is your ultimate AI partner. Subscribe to our updates, follow us on social media, and sign up on our platform to start your AI journey today.",
 			button: 'GET STARTED',
+			connect: 'Connect on social:',
 		},
 		testimonials: {
 			title: 'WHAT CUSTOMERS SAY’S',
@@ -310,6 +313,7 @@ export const ui = {
 		footer: {
 			joinTitle: 'JOIN OUR COMMUNITY',
 			emailPlaceholder: 'Email address',
+			socialTitle: 'Social & Connect',
 			aboutTitle: 'About',
 			supportTitle: 'Support & Contact',
 			helpTitle: 'Help',
@@ -412,6 +416,7 @@ export const ui = {
 			heading: 'Descubre el poder de la IA con nuestra creciente comunidad.',
 			desc: 'Ya sea que estés optimizando tus operaciones, mejorando la interacción con tus clientes o escalando tu empresa, somos tu socio definitivo en IA. Suscríbete a nuestras novedades y comienza hoy mismo.',
 			button: 'EMPEZAR AHORA',
+			connect: 'Conéctate en redes:',
 		},
 		testimonials: {
 			title: 'LO QUE DICEN NUESTROS CLIENTES',
@@ -472,6 +477,7 @@ export const ui = {
 		footer: {
 			joinTitle: 'ÚNETE A LA COMUNIDAD',
 			emailPlaceholder: 'Correo electrónico',
+			socialTitle: 'Redes y Conexiones',
 			aboutTitle: 'Acerca de',
 			supportTitle: 'Soporte y Contacto',
 			helpTitle: 'Ayuda',

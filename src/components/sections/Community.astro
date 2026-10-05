@@ -2,6 +2,7 @@
 import type { SupportedLanguage } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 import { getWhatsAppUrl } from '../../data/contact';
+import SocialLinks from '../ui/SocialLinks.astro';
 
 export interface Props {
 	lang: SupportedLanguage;
@@ -71,6 +72,14 @@ const waUrl = getWhatsAppUrl(lang);
 						></path>
 					</svg>
 				</a>
+
+				<!-- Modern Social Links Strip inside Community Card -->
+				<div class="flex w-full flex-col gap-3 pt-1 border-t border-task-border/60">
+					<span class="font-outfit text-xs font-semibold uppercase tracking-wider text-task-dark/50">
+						{t.community.connect}
+					</span>
+					<SocialLinks {lang} variant="light" />
+				</div>
 			</div>
 		</div>
 	</div>
