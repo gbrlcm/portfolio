@@ -177,13 +177,13 @@ const activeIndex = currentLangIndex >= 0 ? currentLangIndex : 0;
 			aria-label="Toggle navigation menu"
 			aria-expanded="false"
 		>
-			<span class="absolute top-1/2 left-1/2 h-0.5 w-5 -translate-x-1/2 -translate-y-1/2">
+			<span class="absolute top-1/2 left-1/2 h-0.5 w-5 -translate-x-1/2 -translate-y-1/2 -mt-1.5">
 				<span class="block h-full w-full rounded-full bg-task-dark transition-transform duration-300 ease-out" id="hamburger-bar-1"></span>
 			</span>
 			<span class="absolute top-1/2 left-1/2 h-0.5 w-5 -translate-x-1/2 -translate-y-1/2">
-				<span class="block h-full w-full rounded-full bg-task-dark transition-transform duration-300 ease-out" id="hamburger-bar-2"></span>
+				<span class="block h-full w-full rounded-full bg-task-dark transition-all duration-300 ease-out" id="hamburger-bar-2"></span>
 			</span>
-			<span class="absolute top-1/2 left-1/2 h-0.5 w-5 -translate-x-1/2 -translate-y-1/2">
+			<span class="absolute top-1/2 left-1/2 h-0.5 w-5 -translate-x-1/2 -translate-y-1/2 mt-1.5">
 				<span class="block h-full w-full rounded-full bg-task-dark transition-transform duration-300 ease-out" id="hamburger-bar-3"></span>
 			</span>
 		</button>
@@ -293,6 +293,20 @@ const activeIndex = currentLangIndex >= 0 ? currentLangIndex : 0;
 		const menu = document.getElementById('mobile-menu');
 		const bar1 = document.getElementById('hamburger-bar-1');
 		const bar2 = document.getElementById('hamburger-bar-2');
+		const bar3 = document.getElementById('hamburger-bar-3');
+
+		const setBars = (open: boolean) => {
+			if (!bar1 || !bar2 || !bar3) return;
+			if (open) {
+				bar1.style.transform = 'translateY(0.375rem) rotate(45deg)';
+				bar2.style.transform = 'scaleX(0)';
+				bar3.style.transform = 'translateY(-0.375rem) rotate(-45deg)';
+			} else {
+				bar1.style.transform = 'none';
+				bar2.style.transform = 'none';
+				bar3.style.transform = 'none';
+			}
+		};
 
 		if (toggle && menu) {
 			const handleToggle = () => {
@@ -300,17 +314,11 @@ const activeIndex = currentLangIndex >= 0 ? currentLangIndex : 0;
 				if (isOpen) {
 					menu.classList.add('hidden');
 					toggle.setAttribute('aria-expanded', 'false');
-					if (bar1 && bar2) {
-						bar1.style.transform = 'none';
-						bar2.style.transform = 'none';
-					}
+					setBars(false);
 				} else {
 					menu.classList.remove('hidden');
 					toggle.setAttribute('aria-expanded', 'true');
-					if (bar1 && bar2) {
-						bar1.style.transform = 'rotate(45deg)';
-						bar2.style.transform = 'rotate(-45deg)';
-					}
+					setBars(true);
 				}
 			};
 
@@ -321,10 +329,7 @@ const activeIndex = currentLangIndex >= 0 ? currentLangIndex : 0;
 				link.addEventListener('click', () => {
 					menu.classList.add('hidden');
 					toggle.setAttribute('aria-expanded', 'false');
-					if (bar1 && bar2) {
-						bar1.style.transform = 'none';
-						bar2.style.transform = 'none';
-					}
+					setBars(false);
 				});
 			});
 		}
