@@ -19,3 +19,14 @@ export const site = {
 } as const;
 
 export type Site = typeof site;
+
+export const heroImageConfig = {
+	src: '/images/hero-750.webp',
+	srcset:
+		'/images/hero-400.webp 400w, /images/hero-640.webp 640w, /images/hero-750.webp 750w, /images/hero-1080.webp 1080w, /images/hero-1600.webp 1600w',
+	sizes:
+		'(min-width: 1280px) 700px, (min-width: 1024px) 55vw, (min-width: 768px) calc(100vw - 4rem), calc(100vw - 2rem)',
+	width: 1600,
+	height: 1050,
+	type: 'image/webp',
+} as const;

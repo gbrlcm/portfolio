@@ -7,13 +7,24 @@ import Principles from '../../components/sections/Principles.astro';
 import About from '../../components/sections/About.astro';
 import FAQs from '../../components/sections/FAQs.astro';
 import ContactSection from '../../components/sections/ContactSection.astro';
+import { heroImageConfig } from '../../data/site';
 import { useTranslations } from '../../i18n/utils';
 
 const lang = 'es';
 const t = useTranslations(lang)();
 ---
 
-<PageLayout lang={lang} title={t.meta.title} description={t.meta.description}>
+<PageLayout
+	lang={lang}
+	title={t.meta.title}
+	description={t.meta.description}
+	preloadImage={{
+		href: heroImageConfig.src,
+		imagesrcset: heroImageConfig.srcset,
+		imagesizes: heroImageConfig.sizes,
+		type: heroImageConfig.type,
+	}}
+>
 	<Hero {lang} />
 	<Problems {lang} />
 	<Services {lang} />

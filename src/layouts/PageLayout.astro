@@ -3,7 +3,7 @@ import type { SupportedLanguage } from '../i18n/ui';
 import Navbar from '../components/global/Navbar.astro';
 import Footer from '../components/global/Footer.astro';
 import QuickContact from '../components/global/QuickContact.astro';
-import BaseLayout from './BaseLayout.astro';
+import BaseLayout, { type PreloadImageConfig } from './BaseLayout.astro';
 
 export interface Props {
 	title?: string;
@@ -11,12 +11,13 @@ export interface Props {
 	lang?: SupportedLanguage;
 	image?: string;
 	noIndex?: boolean;
+	preloadImage?: string | PreloadImageConfig;
 }
 
-const { lang = 'pt-BR', title, description, image, noIndex } = Astro.props;
+const { lang = 'pt-BR', title, description, image, noIndex, preloadImage } = Astro.props;
 ---
 
-<BaseLayout {lang} {title} {description} {image} {noIndex}>
+<BaseLayout {lang} {title} {description} {image} {noIndex} {preloadImage}>
 	<Navbar {lang} />
 
 	<main id="main" class="w-full">

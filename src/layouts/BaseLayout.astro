@@ -3,12 +3,20 @@ import type { SupportedLanguage } from "../i18n/ui";
 import { ClientRouter } from "astro:transitions";
 import "../styles/styles.css";
 
+export interface PreloadImageConfig {
+	href: string;
+	imagesrcset?: string;
+	imagesizes?: string;
+	type?: string;
+}
+
 export interface Props {
 	title?: string;
 	description?: string;
 	lang?: SupportedLanguage;
 	image?: string;
 	noIndex?: boolean;
+	preloadImage?: string | PreloadImageConfig;
 }
 
 const {
@@ -17,6 +25,7 @@ const {
 	description = "Desenvolvimento de software, sistemas web sob medida e integrações de APIs por Gabriel Campos. Código limpo, estabilidade e arquitetura moderna para empresas.",
 	image,
 	noIndex = false,
+	preloadImage,
 } = Astro.props;
 
 const siteUrl: string = Astro.site
@@ -92,32 +101,51 @@ const schema = {
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
+		{
+			preloadImage && (
+				<link
+					rel="preload"
+					as="image"
+					href={typeof preloadImage === "string" ? preloadImage : preloadImage.href}
+					imagesrcset={typeof preloadImage === "object" ? preloadImage.imagesrcset : undefined}
+					imagesizes={typeof preloadImage === "object" ? preloadImage.imagesizes : undefined}
+					type={typeof preloadImage === "object" ? (preloadImage.type ?? "image/webp") : "image/webp"}
+					fetchpriority="high"
+				/>
+			)
+		}
 
-		<!-- CookieYes Consent Banner -->
-		<script is:inline id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/573752ad712e81805ca1f1e5/script.js"></script>
+		{
+			import.meta.env.PROD && (
+				<>
+					<!-- CookieYes Consent Banner -->
+					<script is:inline id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/573752ad712e81805ca1f1e5/script.js"></script>
 
-		<!-- Google tag (gtag.js) -->
-		<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-MD22RB1J4Z"></script>
-		<script is:inline>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag('js', new Date());
-			gtag('config', 'G-MD22RB1J4Z');
+					<!-- Google tag (gtag.js) -->
+					<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-MD22RB1J4Z"></script>
+					<script is:inline>
+						window.dataLayer = window.dataLayer || [];
+						function gtag() {
+							dataLayer.push(arguments);
+						}
+						gtag('js', new Date());
+						gtag('config', 'G-MD22RB1J4Z');
 
-			document.addEventListener('astro:page-load', () => {
-				if (window.__gaInitialLoadDone) {
-					gtag('event', 'page_view', {
-						page_location: window.location.href,
-						page_path: window.location.pathname,
-						page_title: document.title,
-					});
-				} else {
-					window.__gaInitialLoadDone = true;
-				}
-			});
-		</script>
+						document.addEventListener('astro:page-load', () => {
+							if (window.__gaInitialLoadDone) {
+								gtag('event', 'page_view', {
+									page_location: window.location.href,
+									page_path: window.location.pathname,
+									page_title: document.title,
+								});
+							} else {
+								window.__gaInitialLoadDone = true;
+							}
+						});
+					</script>
+				</>
+			)
+		}
 
 		<title>{title}</title>
 		{description && <meta name="description" content={description} />}
