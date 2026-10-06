@@ -48,7 +48,7 @@ const t = useTranslations(lang)();
 				style="gap: 20px;"
 			>
 				{
-					t.testimonials.items.map((item, index) => (
+					t.testimonials.items.map((item, index: number) => (
 						<article
 							class="testimonial-card flex shrink-0 flex-col justify-between rounded-[50px] bg-white p-8 sm:p-10 shadow-sm"
 							data-index={index}
