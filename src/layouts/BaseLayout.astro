@@ -121,8 +121,7 @@ const schema = {
 					<!-- CookieYes Consent Banner -->
 					<script is:inline defer id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/573752ad712e81805ca1f1e5/script.js"></script>
 
-					<!-- Google tag (gtag.js) -->
-					<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-MD22RB1J4Z"></script>
+					<!-- Google tag (gtag.js) - Deferred loading to preserve initial paint & reduce TBT -->
 					<script is:inline>
 						window.dataLayer = window.dataLayer || [];
 						function gtag() {
@@ -141,6 +140,28 @@ const schema = {
 							} else {
 								window.__gaInitialLoadDone = true;
 							}
+						});
+
+						function loadGtag() {
+							if (window.__gtagLoaded) return;
+							window.__gtagLoaded = true;
+							const s = document.createElement('script');
+							s.src = 'https://www.googletagmanager.com/gtag/js?id=G-MD22RB1J4Z';
+							s.async = true;
+							document.head.appendChild(s);
+						}
+
+						if ('requestIdleCallback' in window) {
+							window.addEventListener('load', () => {
+								requestIdleCallback(loadGtag, { timeout: 3000 });
+							});
+						} else {
+							window.addEventListener('load', () => {
+								setTimeout(loadGtag, 1500);
+							});
+						}
+						['scroll', 'mousemove', 'touchstart', 'keydown'].forEach((evt) => {
+							window.addEventListener(evt, loadGtag, { once: true, passive: true });
 						});
 					</script>
 				</>
