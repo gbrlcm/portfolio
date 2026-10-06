@@ -675,12 +675,22 @@ let deltaS = e.deltaX / this.stepPx;
 
 	function setupM3Carousels() {
 		const roots = document.querySelectorAll<HTMLElement>('.m3-carousel-root');
-		roots.forEach((root) => {
-			if (!(root as any).__m3_carousel_initialized) {
-				(root as any).__m3_carousel_initialized = true;
-				new Material3Carousel(root);
-			}
-		});
+		if (!roots.length) return;
+
+		const init = () => {
+			roots.forEach((root) => {
+				if (!(root as any).__m3_carousel_initialized) {
+					(root as any).__m3_carousel_initialized = true;
+					new Material3Carousel(root);
+				}
+			});
+		};
+
+		if ('requestIdleCallback' in window) {
+			(window as any).requestIdleCallback(init, { timeout: 1500 });
+		} else {
+			setTimeout(init, 50);
+		}
 	}
 
 	setupM3Carousels();
