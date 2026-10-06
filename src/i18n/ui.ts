@@ -32,6 +32,8 @@ export const ui = {
 			ctaPrimary: 'Conversar no WhatsApp',
 			ctaSecondary: 'Ver serviços e especialidades',
 			trustNote: 'Atendimento direto com o desenvolvedor · Atuação remota para todo o Brasil',
+			imageAlt: 'Gabriel Campos — Desenvolvedor de Software e Arquiteto de Sistemas',
+			imageTitle: 'Gabriel Campos — Desenvolvedor de Software e Arquiteto de Sistemas',
 		},
 		problems: {
 			title: 'ONDE POSSO AJUDAR SUA OPERAÇÃO',
@@ -212,6 +214,8 @@ export const ui = {
 			ctaPrimary: 'Chat on WhatsApp',
 			ctaSecondary: 'Explore services & expertise',
 			trustNote: 'Direct communication with the developer · Remote work worldwide',
+			imageAlt: 'Gabriel Campos — Software Engineer & Systems Architect',
+			imageTitle: 'Gabriel Campos — Software Engineer & Systems Architect',
 		},
 		problems: {
 			title: 'CHALLENGES I HELP RESOLVE',
@@ -392,6 +396,8 @@ export const ui = {
 			ctaPrimary: 'Hablar por WhatsApp',
 			ctaSecondary: 'Ver servicios y capacidades',
 			trustNote: 'Trato directo con el desarrollador · Trabajo remoto en todo el mundo',
+			imageAlt: 'Gabriel Campos — Desarrollador de Software y Arquitecto de Sistemas',
+			imageTitle: 'Gabriel Campos — Desarrollador de Software y Arquitecto de Sistemas',
 		},
 		problems: {
 			title: 'DÓNDE PUEDO AYUDAR A TU OPERACIÓN',

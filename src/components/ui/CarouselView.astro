@@ -99,6 +99,7 @@ const {
 						role="group"
 						aria-roledescription="slide"
 						aria-label={`Slide ${index + 1} de ${items.length}: ${item.title}`}
+						title={item.title}
 						style="width: 0px; border-radius: 32px;"
 					>
 						<!-- Outer Mask Container -->
@@ -107,6 +108,7 @@ const {
 							<img
 								src={item.image}
 								alt={item.title}
+								title={item.title}
 								class="pointer-events-none absolute inset-0 size-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
 								loading={index === 0 ? 'eager' : 'lazy'}
 								draggable="false"
