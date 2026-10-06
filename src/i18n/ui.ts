@@ -26,7 +26,10 @@ export const ui = {
 			getInTouchShort: 'Conversar',
 		},
 		hero: {
-			title: 'Sistemas web e aplicações sob medida.',
+			title: 'Sou Gabriel Campos, desenvolvedor full stack construindo o futuro da web.',
+			experience:
+				'Desenvolvedor Full-Stack com cerca de 3 anos de experiência criando sistemas sob medida, integrações de APIs e soluções de ponta a ponta.',
+			languagesLabel: 'Linguagens principais',
 			subtitle:
 				'Desenvolvo sistemas internos, integrações de APIs e aplicações web com arquitetura moderna, código limpo e foco na operação do seu negócio.',
 			ctaPrimary: 'Conversar no WhatsApp',
@@ -208,7 +211,10 @@ export const ui = {
 			getInTouchShort: 'Chat',
 		},
 		hero: {
-			title: 'Custom web systems and software engineering.',
+			title: "I'm Gabriel Campos, a full stack developer building the future of the web.",
+			experience:
+				'Full-Stack Developer with around 3 years of experience building tailored systems, API integrations, and robust end-to-end web applications.',
+			languagesLabel: 'Core languages',
 			subtitle:
 				'I build internal tools, API integrations, and tailored web applications with modern architecture, clean code, and a focus on your business operations.',
 			ctaPrimary: 'Chat on WhatsApp',
@@ -390,7 +396,10 @@ export const ui = {
 			getInTouchShort: 'Conversar',
 		},
 		hero: {
-			title: 'Sistemas web y aplicaciones a medida.',
+			title: 'Soy Gabriel Campos, desarrollador full stack construyendo el futuro de la web.',
+			experience:
+				'Desarrollador Full-Stack con cerca de 3 años de experiencia creando sistemas a medida, integraciones de APIs y soluciones de punta a punta.',
+			languagesLabel: 'Lenguajes principales',
 			subtitle:
 				'Desarrollo herramientas internas, integraciones de APIs y aplicaciones web con arquitectura moderna, código limpio y foco en la operación de tu negocio.',
 			ctaPrimary: 'Hablar por WhatsApp',
