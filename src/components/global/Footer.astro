@@ -8,7 +8,6 @@ import {
 	WHATSAPP_PHONE,
 	TELEGRAM_PHONE,
 } from '../../data/contact';
-import { Icon } from 'astro-icon/components';
 import SocialLinks from '../ui/SocialLinks.astro';
 
 export interface Props {
@@ -24,30 +23,16 @@ const telegramUrl = getTelegramUrl();
 
 <footer class="w-full border-t border-task-border px-4 pt-20 pb-16 md:px-8">
 	<div class="mx-auto flex w-full max-w-270 flex-col justify-between gap-12 lg:flex-row lg:gap-16">
-		<!-- Left Column: Community Subscription & Social Icons -->
-		<div class="flex max-w-110 flex-col items-start gap-8">
-			<h4 class="font-anton text-xl leading-tight text-task-dark sm:text-[22px]">
-				{t.footer.joinTitle}
-			</h4>
-
-			<!-- Email Form -->
-			<form class="relative w-full max-w-90" onsubmit="alert('Subscribed!'); return false;">
-				<label class="relative block w-full">
-					<input
-						type="email"
-						required
-						placeholder={t.footer.emailPlaceholder}
-						class="h-13 w-full rounded-full border border-black/10 bg-white px-6 pr-14 font-outfit text-sm text-task-dark placeholder:text-black/40 focus:border-task-dark focus:outline-none shadow-2xs"
-					/>
-					<button
-						type="submit"
-						class="absolute top-1.5 right-1.5 flex size-10 items-center justify-center rounded-full bg-task-yellow transition-transform hover:brightness-105 active:scale-95"
-						aria-label="Submit email"
-					>
-						<Icon name="lucide:arrow-right" class="size-4.5 text-task-dark" />
-					</button>
-				</label>
-			</form>
+		<!-- Left Column: Social Icons & Direct Contact -->
+		<div class="flex max-w-110 flex-col items-start gap-6">
+			<div>
+				<h4 class="font-anton text-xl leading-tight text-task-dark sm:text-[22px]">
+					Gabriel Campos
+				</h4>
+				<p class="mt-2 font-outfit text-sm text-task-gray">
+					Desenvolvimento web e engenharia de software.
+				</p>
+			</div>
 
 			<!-- Modern Social & Networks Section -->
 			<div class="flex w-full flex-col items-start gap-3.5 pt-1">

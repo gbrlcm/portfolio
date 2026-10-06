@@ -4,7 +4,6 @@ import Hero from '../../components/sections/Hero.astro';
 import Services from '../../components/sections/Services.astro';
 import Features from '../../components/sections/Features.astro';
 import Community from '../../components/sections/Community.astro';
-import Testimonials from '../../components/sections/Testimonials.astro';
 import FAQs from '../../components/sections/FAQs.astro';
 import { useTranslations } from '../../i18n/utils';
 
@@ -16,7 +15,6 @@ const t = useTranslations(lang)();
 	<Hero {lang} />
 	<Services {lang} />
 	<Features {lang} />
-	<Community {lang} />
-	<Testimonials {lang} />
 	<FAQs {lang} />
+	<Community {lang} />
 </PageLayout>

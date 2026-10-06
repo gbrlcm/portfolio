@@ -25,7 +25,7 @@ const t = useTranslations(lang)();
 			<div class="relative h-70 w-full overflow-hidden rounded-[30px] sm:h-95 md:h-115 lg:h-130 lg:rounded-[50px]">
 				<img
 					src="/images/hero.webp"
-					alt="AI Assistant Visual Showcase"
+					alt="Gabriel Campos"
 					class="size-full object-cover object-bottom"
 					width="1080"
 					height="520"
@@ -82,67 +82,13 @@ const t = useTranslations(lang)();
 					</span>
 				</div>
 
-				<!-- Card Content: Subtitle + Numbers -->
+				<!-- Card Content: Subtitle -->
 				<div class="flex flex-col items-center justify-between gap-8 lg:flex-row lg:gap-14">
 					<!-- Subtitle -->
-					<div class="max-w-105 text-center lg:text-left">
+					<div class="w-full text-center lg:text-left">
 						<p class="font-outfit text-xl font-medium leading-snug text-task-dark sm:text-2xl lg:text-[28px]">
 							{t.hero.subtitle}
 						</p>
-					</div>
-
-					<!-- Numbers / Stats Wrapper -->
-					<div class="flex w-full flex-wrap items-center justify-center gap-6 sm:gap-10 lg:w-auto lg:gap-10">
-						<!-- Stat 1: Users -->
-						<div class="flex flex-col items-center text-center">
-							<span class="font-archivo text-3xl font-normal text-black sm:text-4xl lg:text-[42px] leading-tight">
-								{t.hero.usersCount}
-							</span>
-							<span class="font-outfit text-sm font-medium text-task-dark sm:text-base">
-								{t.hero.usersLabel}
-							</span>
-						</div>
-
-						<!-- Divider -->
-						<div class="h-10 w-px bg-task-border sm:h-14"></div>
-
-						<!-- Stat 2: Solutions -->
-						<div class="flex flex-col items-center text-center">
-							<span class="font-archivo text-3xl font-normal text-black sm:text-4xl lg:text-[42px] leading-tight">
-								{t.hero.solutionsCount}
-							</span>
-							<span class="font-outfit text-sm font-medium text-task-dark sm:text-base">
-								{t.hero.solutionsLabel}
-							</span>
-						</div>
-
-						<!-- Divider -->
-						<div class="h-10 w-px bg-task-border sm:h-14"></div>
-
-						<!-- Stat 3: Rating -->
-						<div class="flex flex-col items-center text-center">
-							<div class="flex items-center gap-1.5">
-								<span class="font-archivo text-3xl font-normal text-black sm:text-4xl lg:text-[42px] leading-tight">
-									{t.hero.ratingCount}
-								</span>
-								<svg
-									viewBox="0 0 21 21"
-									width="20"
-									height="20"
-									fill="none"
-									class="inline-block shrink-0"
-									aria-label="Star rating"
-								>
-									<path
-										d="M 10.5 0 L 12.857 8.019 L 20.487 8.019 L 14.314 12.975 L 16.672 20.994 L 10.5 16.037 L 4.328 20.993 L 6.686 12.974 L 0.514 8.019 L 8.143 8.019 Z"
-										fill="#ff8c05"
-									></path>
-								</svg>
-							</div>
-							<span class="font-outfit text-sm font-medium text-task-dark sm:text-base">
-								{t.hero.ratingLabel}
-							</span>
-						</div>
 					</div>
 				</div>
 			</div>
