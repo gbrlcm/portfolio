@@ -1,9 +1,23 @@
 # Gabriel Campos
 
-## About
-Gabriel Campos (Gabriel Lopes Campos) é desenvolvedor de software com foco em engenharia web, sistemas sob medida e integração de serviços. Contribui com a comunidade técnica local (GDG Americana).
+> Gabriel Campos (Gabriel Lopes Campos) é desenvolvedor de software focado em engenharia web, sistemas sob medida e integrações de serviços.
 
-## Stack e Tecnologias
+Gabriel Campos atua no desenvolvimento de software de ponta a ponta, com experiência em arquiteturas modernas, APIs, backend, interfaces web e infraestrutura para aplicações críticas. Atua também como organizador na comunidade técnica local GDG Americana.
+
+## Páginas e Idiomas
+
+- [Portfólio (Português)](https://gabrielcampos.dev/): Página principal com apresentação profissional, projetos e canais de contato direto.
+- [Portfolio (English)](https://gabrielcampos.dev/en/): English version of Gabriel Campos' professional portfolio, projects, and contact channels.
+- [Portafolio (Español)](https://gabrielcampos.dev/es/): Versión en español del portafolio profesional de Gabriel Campos, proyectos y canales de contacto.
+
+## Perfis Oficiais e Código
+
+- [GitHub (gbrlcm)](https://github.com/gbrlcm): Repositórios públicos, projetos de código aberto e contribuições.
+- [LinkedIn](https://www.linkedin.com/in/gabriel-lopes-campos/): Perfil profissional, histórico e conexões de Gabriel Lopes Campos.
+- [X (@Gabriel07132569)](https://x.com/Gabriel07132569): Perfil oficial na rede X.
+
+## Tecnologias e Especialidades
+
 - TypeScript / JavaScript
 - Go
 - Astro
@@ -12,12 +26,9 @@ Gabriel Campos (Gabriel Lopes Campos) é desenvolvedor de software com foco em e
 - Docker
 - PostgreSQL
 
-## Links Canônicos
-- Portfólio (PT): https://gabrielcampos.dev/
-- Portfolio (EN): https://gabrielcampos.dev/en/
-- Portafolio (ES): https://gabrielcampos.dev/es/
+## Contato Direto
 
-## Perfis Oficiais
-- GitHub: https://github.com/gbrlcm
-- LinkedIn: https://www.linkedin.com/in/gabriel-lopes-campos/
-- X: https://x.com/Gabriel07132569
+- [WhatsApp](https://wa.me/5519988257631): Canal para conversas rápidas sobre projetos e consultoria.
+- [Telegram](https://t.me/+5519988257631): Mensagens diretas para alinhamento técnico.
+- [E-mail](mailto:contato@gabrielcampos.dev): Canal oficial para propostas e orçamentos.
+
