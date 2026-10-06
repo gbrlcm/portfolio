@@ -149,6 +149,8 @@ export const ui = {
 			],
 		},
 		contactSection: {
+			paymentsLabel: 'FORMAS DE PAGAMENTO ACEITAS',
+			paymentsAria: 'Métodos de pagamento aceitos: Pix, Boleto, Cartões de Crédito e Criptomoedas',
 			title: 'VAMOS CONVERSAR?',
 			heading: 'Tem uma demanda técnica ou um sistema para construir?',
 			desc: 'Envie uma mensagem pelo WhatsApp ou por e-mail para avaliarmos o escopo e os requisitos do seu projeto.',
@@ -327,6 +329,8 @@ export const ui = {
 			],
 		},
 		contactSection: {
+			paymentsLabel: 'ACCEPTED PAYMENT METHODS',
+			paymentsAria: 'Accepted payment methods: Pix, Bank Slip, Credit Cards, and Cryptocurrencies',
 			title: 'READY TO DISCUSS YOUR PROJECT?',
 			heading: 'Have a technical requirement or a system to build?',
 			desc: 'Send a message via WhatsApp or email to discuss the scope and requirements of your project.',
@@ -505,6 +509,8 @@ export const ui = {
 			],
 		},
 		contactSection: {
+			paymentsLabel: 'MÉTODOS DE PAGO ACEPTADOS',
+			paymentsAria: 'Métodos de pago aceptados: Pix, Boleto, Tarjetas de Crédito y Criptomonedas',
 			title: '¿HABLAMOS SOBRE TU PROYECTO?',
 			heading: '¿Tienes una necesidad técnica o un sistema que construir?',
 			desc: 'Envía un mensaje por WhatsApp o correo electrónico para evaluar el alcance y los requerimientos de tu proyecto.',

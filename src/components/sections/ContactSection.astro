@@ -4,6 +4,7 @@ import type { SupportedLanguage } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 import { getWhatsAppUrl, getContactEmail } from '../../data/contact';
 import SocialLinks from '../ui/SocialLinks.astro';
+import PaymentMarquee from '../ui/PaymentMarquee.astro';
 
 export interface Props {
 	lang: SupportedLanguage;
@@ -17,6 +18,16 @@ const email = getContactEmail(lang);
 
 <section class="relative w-full overflow-hidden px-4 md:px-8" id="contato">
 	<div class="mx-auto w-full max-w-270">
+		<!-- Payment Methods Marquee -->
+		<div class="mb-12 sm:mb-16">
+			<div class="mb-4 text-center">
+				<span class="font-outfit text-xs sm:text-sm font-semibold uppercase tracking-widest text-task-gray">
+					{t.contactSection.paymentsLabel}
+				</span>
+			</div>
+			<PaymentMarquee ariaLabel={t.contactSection.paymentsAria} />
+		</div>
+
 		<!-- Section Title -->
 		<div class="mb-10 text-center md:mb-14">
 			<h2 class="font-anton text-3xl leading-tight text-task-dark sm:text-4xl md:text-[50px] uppercase">
