@@ -23,10 +23,10 @@ const currentLangIndex = languages.findIndex((l) => l.code === lang);
 const activeIndex = currentLangIndex >= 0 ? currentLangIndex : 0;
 const currentLang = languages[activeIndex] ?? languages[0];
 
-const langLabels: Record<SupportedLanguage, { select: string; language: string }> = {
-	'pt-BR': { select: 'Selecionar idioma', language: 'Idioma' },
-	en: { select: 'Select language', language: 'Language' },
-	es: { select: 'Seleccionar idioma', language: 'Idioma' },
+const langLabels: Record<SupportedLanguage, { select: string; language: string; navigation: string }> = {
+	'pt-BR': { select: 'Selecionar idioma', language: 'Idioma', navigation: 'Navegação' },
+	en: { select: 'Select language', language: 'Language', navigation: 'Navigation' },
+	es: { select: 'Seleccionar idioma', language: 'Idioma', navigation: 'Navegación' },
 };
 const i18nLabel = langLabels[lang] || langLabels['pt-BR'];
 ---
@@ -292,25 +292,28 @@ const i18nLabel = langLabels[lang] || langLabels['pt-BR'];
 		id="mobile-menu"
 		class="hidden flex-col border-b border-task-border bg-task-bg px-6 pt-2 pb-6 md:hidden animate-in fade-in slide-in-from-top-2 duration-200"
 	>
-		<nav class="flex flex-col gap-4 py-4" aria-label="Mobile Navigation">
-			<a href="#home" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
-				{t.nav.home}
-			</a>
-			<a href="#problemas" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
-				{t.nav.problems}
-			</a>
-			<a href="#servicos" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
-				{t.nav.services}
-			</a>
-			<a href="#como-trabalho" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
-				{t.nav.principles}
-			</a>
-			<a href="#sobre" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
-				{t.nav.about}
-			</a>
-			<a href="#faqs" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
-				{t.nav.faqs}
-			</a>
+		<nav class="flex flex-col gap-2.5 py-4" aria-label="Mobile Navigation">
+			<span class="font-outfit text-xs font-semibold text-task-dark/60">{i18nLabel.navigation}:</span>
+			<div class="flex flex-col gap-4 pt-1">
+				<a href="#home" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
+					{t.nav.home}
+				</a>
+				<a href="#problemas" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
+					{t.nav.problems}
+				</a>
+				<a href="#servicos" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
+					{t.nav.services}
+				</a>
+				<a href="#como-trabalho" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
+					{t.nav.principles}
+				</a>
+				<a href="#sobre" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
+					{t.nav.about}
+				</a>
+				<a href="#faqs" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
+					{t.nav.faqs}
+				</a>
+			</div>
 		</nav>
 
 		<!-- Mobile Languages (Segmented Selector in Drawer) -->
