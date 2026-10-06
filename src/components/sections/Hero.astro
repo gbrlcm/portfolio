@@ -4,6 +4,7 @@ import type { SupportedLanguage } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 import { getWhatsAppUrl } from '../../data/contact';
 import { heroImageConfig } from '../../data/site';
+import CoreLanguages from '../ui/CoreLanguages.astro';
 
 export interface Props {
 	lang: SupportedLanguage;
@@ -13,44 +14,9 @@ const { lang } = Astro.props;
 const t = useTranslations(lang)();
 const waUrl = getWhatsAppUrl(lang);
 
-const coreLanguages = [
-	{
-		name: 'TypeScript',
-		icon: 'simple-icons:typescript',
-		hoverText: 'group-hover:text-[#3178c6]',
-		hoverBorder: 'hover:border-[#3178c6]/40',
-	},
-	{
-		name: 'Go',
-		icon: 'simple-icons:go',
-		hoverText: 'group-hover:text-[#00add8]',
-		hoverBorder: 'hover:border-[#00add8]/40',
-	},
-	{
-		name: 'Java',
-		icon: 'java',
-		hoverText: 'group-hover:text-[#ed8b00]',
-		hoverBorder: 'hover:border-[#ed8b00]/40',
-	},
-	{
-		name: 'C#',
-		icon: 'simple-icons:csharp',
-		hoverText: 'group-hover:text-[#9b4993]',
-		hoverBorder: 'hover:border-[#9b4993]/40',
-	},
-	{
-		name: 'PHP',
-		icon: 'simple-icons:php',
-		hoverText: 'group-hover:text-[#777bb4]',
-		hoverBorder: 'hover:border-[#777bb4]/40',
-	},
-	{
-		name: 'Python',
-		icon: 'simple-icons:python',
-		hoverText: '',
-		hoverBorder: 'hover:border-[#3776ab]/40',
-	},
-];
+const titlePrefix = t.hero.titlePrefix ?? 'Sou Gabriel Campos, desenvolvedor full stack ';
+const typewriterPhrases = t.hero.typewriterPhrases ?? ['construindo o futuro da web.'];
+const initialPhrase = typewriterPhrases[0] ?? 'construindo o futuro da web.';
 ---
 
 <section class="relative w-full overflow-visible px-4 pt-10 pb-0 md:px-8 md:pt-14" id="home">
@@ -59,7 +25,16 @@ const coreLanguages = [
 		<div class="mb-8 w-full text-center md:mb-10 lg:mb-0 lg:w-5/12 lg:text-left xl:w-5/12 flex flex-col items-center lg:items-start">
 			<!-- Main Name Heading (H1) -->
 			<h1 class="font-anton text-[36px] leading-[1.08] text-task-dark sm:text-[48px] md:text-[58px] lg:text-[44px] xl:text-[54px] max-w-5xl uppercase tracking-tight">
-				{t.hero.title}
+				<span>{titlePrefix}</span><span class="inline text-task-dark"
+					><span
+						id="hero-typewriter-text"
+						data-phrases={JSON.stringify(typewriterPhrases)}
+					>{initialPhrase}</span><span
+						id="hero-typewriter-cursor"
+						class="hero-typewriter-cursor"
+						aria-hidden="true"
+					></span></span
+				>
 			</h1>
 
 			<!-- Experience Statement -->
@@ -67,52 +42,8 @@ const coreLanguages = [
 				{t.hero.experience}
 			</p>
 
-			<!-- Core Languages (Icon Only - Option B) -->
-			<div class="mt-6 w-full pt-5 border-t border-task-border/70 flex flex-col items-center lg:items-start gap-3">
-				<span class="font-outfit text-xs font-semibold uppercase tracking-wider text-task-gray">
-					{t.hero.languagesLabel}
-				</span>
-				<div class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3">
-					{
-						coreLanguages.map((tech) => (
-							<div
-								class={`group relative flex size-10 sm:size-13 items-center justify-center rounded-2xl border border-task-border bg-white shadow-2xs transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs ${tech.hoverBorder}`}
-								title={tech.name}
-								role="img"
-								aria-label={tech.name}
-							>
-								{tech.name === 'Python' ? (
-									<svg
-										viewBox="0 0 128 128"
-										class="size-5 sm:size-5.5 transition-transform duration-200 group-hover:scale-115"
-										aria-hidden="true"
-									>
-										<!-- Cobra superior (Azul oficial Python) -->
-										<path
-											fill="currentColor"
-											class="text-task-dark/75 transition-colors duration-200 group-hover:text-[#3776ab]"
-											d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137H29.977c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491V67.234c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548V15.833c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zM50.037 9.557c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z"
-											transform="translate(0 10.26)"
-										/>
-										<!-- Cobra inferior (Amarelo oficial Python) -->
-										<path
-											fill="currentColor"
-											class="text-task-dark/75 transition-colors duration-200 group-hover:text-[#ffd43b]"
-											d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655H51.591c-6.756 0-12.346 5.783-12.346 12.549v23.515c0 6.691 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412H63.938v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zM77.809 87.927c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z"
-											transform="translate(0 10.26)"
-										/>
-									</svg>
-								) : (
-									<Icon
-										name={tech.icon}
-										class={`size-5 sm:size-5.5 text-task-dark/75 transition-all duration-200 group-hover:scale-115 ${tech.hoverText}`}
-									/>
-								)}
-							</div>
-						))
-					}
-				</div>
-			</div>
+			<!-- Core Languages (Desktop only: visible on lg+) -->
+			<CoreLanguages lang={lang} align="left" class="hidden lg:flex" />
 		</div>
 
 		<!-- Hero Image Wrapper with Corner Tab Card -->
@@ -278,5 +209,150 @@ const coreLanguages = [
 				</div>
 			</div>
 		</div>
+
+		<!-- Core Languages (Mobile/Tablet only: below the card on < lg screens) -->
+		<CoreLanguages lang={lang} align="center" class="flex lg:hidden" />
 	</div>
 </section>
+
+<style>
+	.hero-typewriter-cursor {
+		display: inline-block;
+		width: 3px;
+		height: 0.82em;
+		margin-left: 0.18em;
+		background-color: currentColor;
+		vertical-align: baseline;
+		transform: translateY(1px);
+		animation: hero-cursor-blink 0.9s steps(1, start) infinite;
+	}
+
+	@media (min-width: 640px) {
+		.hero-typewriter-cursor {
+			width: 4px;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.hero-typewriter-cursor {
+			width: 5px;
+		}
+	}
+
+	.hero-typewriter-cursor.is-typing {
+		animation: none;
+		opacity: 1;
+	}
+
+	@keyframes hero-cursor-blink {
+		0%,
+		49% {
+			opacity: 1;
+		}
+		50%,
+		100% {
+			opacity: 0;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero-typewriter-cursor {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	let typewriterTimer: ReturnType<typeof setTimeout> | undefined;
+
+	function initTypewriter() {
+		if (typewriterTimer) {
+			clearTimeout(typewriterTimer);
+			typewriterTimer = undefined;
+		}
+
+		const textEl = document.getElementById('hero-typewriter-text');
+		const cursorEl = document.getElementById('hero-typewriter-cursor');
+		if (!textEl) return;
+
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+			return;
+		}
+
+		let phrases: string[] = [];
+		try {
+			phrases = JSON.parse(textEl.dataset.phrases || '[]');
+		} catch {
+			phrases = [];
+		}
+
+		if (!Array.isArray(phrases) || phrases.length <= 1) return;
+
+		let phraseIndex = 0;
+		let charIndex = phrases[0].length;
+		let isDeleting = true;
+
+		const TYPING_SPEED = 65;
+		const DELETING_SPEED = 30;
+		const PAUSE_AFTER_COMPLETE = 2400;
+		const PAUSE_BEFORE_NEXT = 350;
+
+		function setTypingState(typing: boolean) {
+			if (cursorEl) {
+				if (typing) {
+					cursorEl.classList.add('is-typing');
+				} else {
+					cursorEl.classList.remove('is-typing');
+				}
+			}
+		}
+
+		function tick() {
+			if (!textEl) return;
+			const currentPhrase = phrases[phraseIndex];
+
+			if (isDeleting) {
+				setTypingState(true);
+				charIndex--;
+				textEl.textContent = currentPhrase.substring(0, charIndex);
+
+				if (charIndex <= 0) {
+					isDeleting = false;
+					phraseIndex = (phraseIndex + 1) % phrases.length;
+					setTypingState(false);
+					typewriterTimer = setTimeout(tick, PAUSE_BEFORE_NEXT);
+					return;
+				}
+
+				typewriterTimer = setTimeout(tick, DELETING_SPEED);
+			} else {
+				setTypingState(true);
+				charIndex++;
+				textEl.textContent = currentPhrase.substring(0, charIndex);
+
+				if (charIndex >= currentPhrase.length) {
+					isDeleting = true;
+					setTypingState(false);
+					typewriterTimer = setTimeout(tick, PAUSE_AFTER_COMPLETE);
+					return;
+				}
+
+				typewriterTimer = setTimeout(tick, TYPING_SPEED);
+			}
+		}
+
+		setTypingState(false);
+		typewriterTimer = setTimeout(tick, PAUSE_AFTER_COMPLETE);
+	}
+
+	function cleanupTypewriter() {
+		if (typewriterTimer) {
+			clearTimeout(typewriterTimer);
+			typewriterTimer = undefined;
+		}
+	}
+
+	initTypewriter();
+	document.addEventListener('astro:page-load', initTypewriter);
+	document.addEventListener('astro:before-swap', cleanupTypewriter);
+</script>

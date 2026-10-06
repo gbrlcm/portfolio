@@ -27,6 +27,6 @@ export const heroImageConfig = {
 	sizes:
 		'(min-width: 1280px) 700px, (min-width: 1024px) 55vw, (min-width: 768px) calc(100vw - 4rem), calc(100vw - 2rem)',
 	width: 1600,
-	height: 1050,
+	height: 901,
 	type: 'image/webp',
 } as const;

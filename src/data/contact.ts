@@ -8,12 +8,16 @@ export const TELEGRAM_PHONE = '+55 (19) 98825-7631';
 export const TELEGRAM_RAW = '5519988257631';
 export const TELEGRAM_URL = 'https://t.me/+5519988257631';
 
+export const WECHAT_ID = 'GabrielCamposDev';
+export const WECHAT_URL = `weixin://dl/chat?${WECHAT_ID}`;
+
 export const SOCIAL_LINKS = {
 	github: 'https://github.com/gbrlcm',
 	linkedin: 'https://www.linkedin.com/in/gabriel-lopes-campos',
 	x: 'https://x.com/Gabriel07132569',
 	whatsapp: `https://wa.me/${WHATSAPP_RAW}`,
 	telegram: TELEGRAM_URL,
+	wechat: WECHAT_URL,
 } as const;
 
 export const GITHUB_URL = SOCIAL_LINKS.github;
@@ -47,8 +51,16 @@ export function getTelegramUrl(): string {
 	return TELEGRAM_URL;
 }
 
+export function getWeChatId(): string {
+	return WECHAT_ID;
+}
+
+export function getWeChatUrl(): string {
+	return WECHAT_URL;
+}
+
 export interface ContactChannel {
-	id: 'whatsapp' | 'telegram' | 'email';
+	id: 'whatsapp' | 'telegram' | 'email' | 'wechat';
 	label: string;
 	value: string;
 	href: string;
@@ -59,21 +71,24 @@ export interface ContactChannel {
 export function getContacts(lang: SupportedLanguage = 'pt-BR'): ContactChannel[] {
 	const email: string = getContactEmail(lang);
 	const waUrl: string = getWhatsAppUrl(lang);
-	const notes: Record<SupportedLanguage, { whatsapp: string; telegram: string; email: string }> = {
+	const notes: Record<SupportedLanguage, { whatsapp: string; telegram: string; email: string; wechat: string }> = {
 		'pt-BR': {
 			whatsapp: 'Resposta mais rápida',
 			telegram: 'Mensagens diretas',
 			email: 'Propostas e orçamentos',
+			wechat: 'ID para contato',
 		},
 		en: {
 			whatsapp: 'Fastest response',
 			telegram: 'Direct messages',
 			email: 'Inquiries & proposals',
+			wechat: 'Contact ID',
 		},
 		es: {
 			whatsapp: 'Respuesta más rápida',
 			telegram: 'Mensajería directa',
 			email: 'Propuestas y presupuestos',
+			wechat: 'ID de contacto',
 		},
 	};
 
@@ -94,6 +109,13 @@ export function getContacts(lang: SupportedLanguage = 'pt-BR'): ContactChannel[]
 			value: TELEGRAM_PHONE,
 			href: TELEGRAM_URL,
 			note: currentNotes.telegram,
+		},
+		{
+			id: 'wechat',
+			label: 'WeChat',
+			value: WECHAT_ID,
+			href: WECHAT_URL,
+			note: currentNotes.wechat,
 		},
 		{
 			id: 'email',

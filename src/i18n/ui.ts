@@ -27,6 +27,15 @@ export const ui = {
 		},
 		hero: {
 			title: 'Sou Gabriel Campos, desenvolvedor full stack construindo o futuro da web.',
+			titlePrefix: 'Sou Gabriel Campos, desenvolvedor full stack ',
+			typewriterPhrases: [
+				'construindo o futuro da web.',
+				'criando sistemas sob medida de alta performance.',
+				'transformando regras de negócio em software robusto.',
+				'resolvendo gargalos operacionais de ponta a ponta.',
+				'escalando produtos digitais com arquitetura limpa.',
+				'automatizando fluxos e integrando APIs complexas.',
+			],
 			experience:
 				'Desenvolvedor Full-Stack com cerca de 3 anos de experiência criando sistemas sob medida, integrações de APIs e soluções de ponta a ponta.',
 			languagesLabel: 'Linguagens principais',
@@ -183,6 +192,7 @@ export const ui = {
 				contactUs: 'Fale Conosco',
 				whatsapp: 'WhatsApp',
 				telegram: 'Telegram',
+				wechat: 'WeChat',
 				customerSupport: 'E-mail Principal',
 			},
 		},
@@ -190,7 +200,10 @@ export const ui = {
 			label: 'Contato Direto',
 			whatsapp: 'WhatsApp',
 			telegram: 'Telegram',
+			wechat: 'WeChat',
 			email: 'E-mail',
+			copied: 'Copiado!',
+			clickToCopy: 'Clique para copiar',
 		},
 	},
 	en: {
@@ -212,6 +225,15 @@ export const ui = {
 		},
 		hero: {
 			title: "I'm Gabriel Campos, a full stack developer building the future of the web.",
+			titlePrefix: "I'm Gabriel Campos, a full stack developer ",
+			typewriterPhrases: [
+				'building the future of the web.',
+				'crafting high-performance custom systems.',
+				'turning business rules into robust software.',
+				'solving operational bottlenecks end-to-end.',
+				'scaling digital products with clean architecture.',
+				'automating workflows and integrating complex APIs.',
+			],
 			experience:
 				'Full-Stack Developer with around 3 years of experience building tailored systems, API integrations, and robust end-to-end web applications.',
 			languagesLabel: 'Core languages',
@@ -368,6 +390,7 @@ export const ui = {
 				contactUs: 'Contact us',
 				whatsapp: 'WhatsApp',
 				telegram: 'Telegram',
+				wechat: 'WeChat',
 				customerSupport: 'Primary Email',
 			},
 		},
@@ -375,7 +398,10 @@ export const ui = {
 			label: 'Direct Contact',
 			whatsapp: 'WhatsApp',
 			telegram: 'Telegram',
+			wechat: 'WeChat',
 			email: 'Email',
+			copied: 'Copied!',
+			clickToCopy: 'Click to copy',
 		},
 	},
 	es: {
@@ -397,6 +423,15 @@ export const ui = {
 		},
 		hero: {
 			title: 'Soy Gabriel Campos, desarrollador full stack construyendo el futuro de la web.',
+			titlePrefix: 'Soy Gabriel Campos, desarrollador full stack ',
+			typewriterPhrases: [
+				'construyendo el futuro de la web.',
+				'creando sistemas a medida de alto rendimiento.',
+				'transformando reglas de negocio en software robusto.',
+				'resolviendo cuellos de botella de punta a punta.',
+				'escalando productos digitales con arquitectura limpia.',
+				'automatizando flujos e integrando APIs complejas.',
+			],
 			experience:
 				'Desarrollador Full-Stack con cerca de 3 años de experiencia creando sistemas a medida, integraciones de APIs y soluciones de punta a punta.',
 			languagesLabel: 'Lenguajes principales',
@@ -553,6 +588,7 @@ export const ui = {
 				contactUs: 'Contáctanos',
 				whatsapp: 'WhatsApp',
 				telegram: 'Telegram',
+				wechat: 'WeChat',
 				customerSupport: 'Correo Principal',
 			},
 		},
@@ -560,7 +596,10 @@ export const ui = {
 			label: 'Contacto Directo',
 			whatsapp: 'WhatsApp',
 			telegram: 'Telegram',
+			wechat: 'WeChat',
 			email: 'Correo',
+			copied: '¡Copiado!',
+			clickToCopy: 'Clic para copiar',
 		},
 	},
 } as const;

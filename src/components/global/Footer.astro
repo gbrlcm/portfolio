@@ -8,6 +8,7 @@ import {
 	getTelegramUrl,
 	WHATSAPP_PHONE,
 	TELEGRAM_PHONE,
+	WECHAT_ID,
 } from '../../data/contact';
 import SocialLinks from '../ui/SocialLinks.astro';
 
@@ -94,6 +95,22 @@ const telegramUrl = getTelegramUrl();
 							<span class="text-sm">{TELEGRAM_PHONE}</span>
 						</a>
 					</li>
+					<li>
+						<button
+							type="button"
+							data-footer-wechat-btn
+							data-wechat-id={WECHAT_ID}
+							data-copied-text={t.quickContact.copied}
+							title={`WeChat ID: ${WECHAT_ID} (${t.quickContact.clickToCopy})`}
+							aria-label={`Copiar WeChat ID: ${WECHAT_ID}`}
+							class="group inline-flex items-center gap-1.5 whitespace-nowrap transition-colors hover:underline cursor-pointer text-left font-outfit text-[15px] text-task-dark"
+						>
+							<Icon name="simple-icons:wechat" class="size-3.5 shrink-0 text-[#07C160]" />
+							<span class="font-medium">WeChat:</span>
+							<span class="text-sm footer-wechat-label">{WECHAT_ID}</span>
+							<Icon name="lucide:copy" class="size-3 opacity-40 transition-opacity group-hover:opacity-100" aria-hidden="true" />
+						</button>
+					</li>
 				</ul>
 			</div>
 
@@ -127,3 +144,48 @@ const telegramUrl = getTelegramUrl();
 		<p>© {new Date().getFullYear()} Gabriel Campos.</p>
 	</div>
 </footer>
+
+<script>
+	function setupFooterWechat() {
+		const btn = document.querySelector<HTMLButtonElement>('[data-footer-wechat-btn]');
+		if (!btn || btn.dataset.wechatInit === 'true') return;
+		btn.dataset.wechatInit = 'true';
+
+		const label = btn.querySelector<HTMLElement>('.footer-wechat-label');
+		const wechatId = btn.dataset.wechatId;
+		const copiedText = btn.dataset.copiedText || 'Copiado!';
+
+		btn.addEventListener('click', async () => {
+			if (!wechatId) return;
+
+			try {
+				if (navigator.clipboard && window.isSecureContext) {
+					await navigator.clipboard.writeText(wechatId);
+				} else {
+					const textArea = document.createElement('textarea');
+					textArea.value = wechatId;
+					textArea.style.position = 'fixed';
+					textArea.style.left = '-999999px';
+					document.body.appendChild(textArea);
+					textArea.focus();
+					textArea.select();
+					document.execCommand('copy');
+					textArea.remove();
+				}
+
+				if (label) {
+					const original = label.textContent;
+					label.textContent = copiedText;
+					setTimeout(() => {
+						label.textContent = original;
+					}, 2000);
+				}
+			} catch (err) {
+				console.error('Failed to copy WeChat ID:', err);
+			}
+		});
+	}
+
+	setupFooterWechat();
+	document.addEventListener('astro:page-load', setupFooterWechat);
+</script>

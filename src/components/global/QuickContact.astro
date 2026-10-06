@@ -7,6 +7,7 @@ import {
 	getTelegramUrl,
 	WHATSAPP_PHONE,
 	TELEGRAM_PHONE,
+	WECHAT_ID,
 } from '../../data/contact';
 
 export interface Props {
@@ -59,4 +60,71 @@ const contactButtons = [
 			</a>
 		))
 	}
+
+	<button
+		type="button"
+		data-quick-wechat-btn
+		data-wechat-id={WECHAT_ID}
+		data-default-tooltip={`WeChat: ${WECHAT_ID}`}
+		data-copied-tooltip={t.quickContact.copied}
+		title={`WeChat ID: ${WECHAT_ID} (${t.quickContact.clickToCopy})`}
+		aria-label={`Copiar WeChat ID: ${WECHAT_ID}`}
+		class="group relative flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-full bg-task-yellow text-task-dark transition-all duration-300 hover:-translate-y-1 hover:bg-task-dark hover:text-white hover:shadow-md active:scale-90"
+	>
+		<Icon name="simple-icons:wechat" class="size-6 shrink-0 transition-transform duration-300 group-hover:scale-110" />
+
+		<!-- Floating Micro-Tooltip -->
+		<span class="quick-wechat-tooltip pointer-events-none absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-task-dark px-3 py-1 font-outfit text-xs font-semibold text-white opacity-0 shadow-xl transition-all duration-200 group-hover:opacity-100 group-hover:-translate-y-1">
+			{`WeChat: ${WECHAT_ID}`}
+		</span>
+	</button>
 </aside>
+
+<script>
+	function setupQuickWechat() {
+		const btn = document.querySelector<HTMLButtonElement>('[data-quick-wechat-btn]');
+		if (!btn || btn.dataset.wechatInit === 'true') return;
+		btn.dataset.wechatInit = 'true';
+
+		const tooltip = btn.querySelector<HTMLElement>('.quick-wechat-tooltip');
+		const wechatId = btn.dataset.wechatId;
+		const defaultTooltip = btn.dataset.defaultTooltip || `WeChat: ${wechatId}`;
+		const copiedTooltip = btn.dataset.copiedTooltip || 'Copiado!';
+
+		btn.addEventListener('click', async () => {
+			if (!wechatId) return;
+
+			try {
+				if (navigator.clipboard && window.isSecureContext) {
+					await navigator.clipboard.writeText(wechatId);
+				} else {
+					const textArea = document.createElement('textarea');
+					textArea.value = wechatId;
+					textArea.style.position = 'fixed';
+					textArea.style.left = '-999999px';
+					document.body.appendChild(textArea);
+					textArea.focus();
+					textArea.select();
+					document.execCommand('copy');
+					textArea.remove();
+				}
+
+				if (tooltip) {
+					tooltip.textContent = copiedTooltip;
+					tooltip.classList.remove('opacity-0');
+					tooltip.classList.add('opacity-100');
+					setTimeout(() => {
+						tooltip.textContent = defaultTooltip;
+						tooltip.classList.remove('opacity-100');
+						tooltip.classList.add('opacity-0');
+					}, 2000);
+				}
+			} catch (err) {
+				console.error('Failed to copy WeChat ID:', err);
+			}
+		});
+	}
+
+	setupQuickWechat();
+	document.addEventListener('astro:page-load', setupQuickWechat);
+</script>

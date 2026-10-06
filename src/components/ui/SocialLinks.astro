@@ -1,6 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 import type { SupportedLanguage } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
 import {
 	getWhatsAppUrl,
 	getTelegramUrl,
@@ -9,6 +10,7 @@ import {
 	X_URL,
 	WHATSAPP_PHONE,
 	TELEGRAM_PHONE,
+	WECHAT_ID,
 } from '../../data/contact';
 
 export interface Props {
@@ -18,10 +20,22 @@ export interface Props {
 }
 
 const { lang = 'pt-BR', showHandles = false, variant = 'light' } = Astro.props;
+const t = useTranslations(lang)();
 const waUrl = getWhatsAppUrl(lang);
 const telegramUrl = getTelegramUrl();
 
-const socialItems = [
+interface SocialItem {
+	id: string;
+	name: string;
+	handle: string;
+	href?: string;
+	copyValue?: string;
+	title: string;
+	icon: string;
+	iconColor?: string;
+}
+
+const socialItems: SocialItem[] = [
 	{
 		id: 'github',
 		name: 'GitHub',
@@ -64,6 +78,15 @@ const socialItems = [
 		icon: 'simple-icons:telegram',
 		iconColor: 'text-[#229ED9]',
 	},
+	{
+		id: 'wechat',
+		name: 'WeChat',
+		handle: WECHAT_ID,
+		copyValue: WECHAT_ID,
+		title: `WeChat ID: ${WECHAT_ID}`,
+		icon: 'simple-icons:wechat',
+		iconColor: 'text-[#07C160]',
+	},
 ];
 ---
 
@@ -71,37 +94,117 @@ const socialItems = [
 	{
 		socialItems.map((item) => (
 			<li>
-				<a
-					href={item.href}
-					target="_blank"
-					rel="noopener noreferrer"
-					title={item.title}
-					class={`group relative inline-flex items-center gap-2 rounded-full border px-3.5 py-2 font-outfit text-xs font-semibold transition-all duration-200 hover:-translate-y-0.5 active:scale-95 shadow-2xs ${
-						variant === 'light'
-							? 'border-black/10 bg-white text-task-dark hover:border-task-dark hover:bg-task-yellow'
-							: 'border-white/15 bg-task-dark text-white hover:border-task-yellow hover:bg-task-yellow hover:text-task-dark'
-					}`}
-				>
-					<Icon 
-						name={item.icon} 
-						class={`size-4 shrink-0 transition-transform duration-200 group-hover:scale-110 ${item.iconColor ? item.iconColor : 'text-current'} ${item.iconColor ? 'group-hover:text-task-dark' : ''}`} 
-					/>
+				{item.copyValue ? (
+					<button
+						type="button"
+						data-social-copy-btn
+						data-copy-value={item.copyValue}
+						data-copied-text={t.quickContact.copied}
+						title={`${item.title} (${t.quickContact.clickToCopy})`}
+						aria-label={`${item.title} (${t.quickContact.clickToCopy})`}
+						class={`group relative inline-flex items-center gap-2 rounded-full border px-3.5 py-2 font-outfit text-xs font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 shadow-2xs ${
+							variant === 'light'
+								? 'border-black/10 bg-white text-task-dark hover:border-task-dark hover:bg-task-yellow'
+								: 'border-white/15 bg-task-dark text-white hover:border-task-yellow hover:bg-task-yellow hover:text-task-dark'
+						}`}
+					>
+						<Icon 
+							name={item.icon} 
+							class={`size-4 shrink-0 transition-transform duration-200 group-hover:scale-110 ${item.iconColor ? item.iconColor : 'text-current'} ${item.iconColor ? 'group-hover:text-task-dark' : ''}`} 
+						/>
 
-					<span>{item.name}</span>
+						<span class="social-btn-label">{item.name}</span>
 
-					{showHandles && (
-						<span class="hidden text-[11px] opacity-60 sm:inline">
-							{item.handle}
-						</span>
-					)}
+						{showHandles && (
+							<span class="hidden text-[11px] opacity-60 sm:inline">
+								{item.handle}
+							</span>
+						)}
 
-					<Icon
-						name="lucide:arrow-up-right"
-						class="size-3.5 opacity-40 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
-						aria-hidden="true"
-					/>
-				</a>
+						<Icon
+							name="lucide:copy"
+							class="size-3.5 opacity-40 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100"
+							aria-hidden="true"
+						/>
+					</button>
+				) : (
+					<a
+						href={item.href}
+						target="_blank"
+						rel="noopener noreferrer"
+						title={item.title}
+						class={`group relative inline-flex items-center gap-2 rounded-full border px-3.5 py-2 font-outfit text-xs font-semibold transition-all duration-200 hover:-translate-y-0.5 active:scale-95 shadow-2xs ${
+							variant === 'light'
+								? 'border-black/10 bg-white text-task-dark hover:border-task-dark hover:bg-task-yellow'
+								: 'border-white/15 bg-task-dark text-white hover:border-task-yellow hover:bg-task-yellow hover:text-task-dark'
+						}`}
+					>
+						<Icon 
+							name={item.icon} 
+							class={`size-4 shrink-0 transition-transform duration-200 group-hover:scale-110 ${item.iconColor ? item.iconColor : 'text-current'} ${item.iconColor ? 'group-hover:text-task-dark' : ''}`} 
+						/>
+
+						<span>{item.name}</span>
+
+						{showHandles && (
+							<span class="hidden text-[11px] opacity-60 sm:inline">
+								{item.handle}
+							</span>
+						)}
+
+						<Icon
+							name="lucide:arrow-up-right"
+							class="size-3.5 opacity-40 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+							aria-hidden="true"
+						/>
+					</a>
+				)}
 			</li>
 		))
 	}
 </ul>
+
+<script>
+	function setupSocialCopy() {
+		document.querySelectorAll<HTMLButtonElement>('[data-social-copy-btn]').forEach((btn) => {
+			if (btn.dataset.copyInit === 'true') return;
+			btn.dataset.copyInit = 'true';
+
+			btn.addEventListener('click', async () => {
+				const value = btn.dataset.copyValue;
+				if (!value) return;
+
+				try {
+					if (navigator.clipboard && window.isSecureContext) {
+						await navigator.clipboard.writeText(value);
+					} else {
+						const textArea = document.createElement('textarea');
+						textArea.value = value;
+						textArea.style.position = 'fixed';
+						textArea.style.left = '-999999px';
+						document.body.appendChild(textArea);
+						textArea.focus();
+						textArea.select();
+						document.execCommand('copy');
+						textArea.remove();
+					}
+
+					const label = btn.querySelector<HTMLElement>('.social-btn-label');
+					const copiedText = btn.dataset.copiedText || 'Copiado!';
+					if (label) {
+						const original = label.textContent;
+						label.textContent = copiedText;
+						setTimeout(() => {
+							label.textContent = original;
+						}, 2000);
+					}
+				} catch (err) {
+					console.error('Failed to copy value:', err);
+				}
+			});
+		});
+	}
+
+	setupSocialCopy();
+	document.addEventListener('astro:page-load', setupSocialCopy);
+</script>
