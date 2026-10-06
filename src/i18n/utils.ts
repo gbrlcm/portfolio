@@ -13,15 +13,17 @@ export function useTranslations(lang: SupportedLanguage) {
 }
 
 export function getLocalizedPath(pathname: string, targetLang: SupportedLanguage): string {
-	// Strip existing language prefix if present
-	const segments = pathname.split('/').filter(Boolean);
+	const segments: string[] = pathname.split('/').filter(Boolean);
+
 	if (segments.length > 0 && (segments[0] === 'en' || segments[0] === 'es' || segments[0] === 'pt-BR')) {
 		segments.shift();
 	}
-	const remaining = segments.join('/');
+
+	const remaining: string = segments.join('/');
 
 	if (targetLang === defaultLang) {
 		return remaining ? `/${remaining}` : '/';
 	}
+
 	return remaining ? `/${targetLang}/${remaining}` : `/${targetLang}`;
 }
