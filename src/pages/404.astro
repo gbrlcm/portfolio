@@ -1,0 +1,50 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { getWhatsAppUrl } from '../data/contact';
+
+const lang = 'pt-BR';
+const waUrl = getWhatsAppUrl(lang);
+---
+
+<PageLayout
+	lang={lang}
+	title="Página não encontrada — Gabriel Campos"
+	description="A página que você tentou acessar não existe ou foi removida."
+	noIndex={true}
+>
+	<section class="flex min-h-[70vh] items-center justify-center px-4 py-20 sm:py-28">
+		<div class="mx-auto max-w-2xl text-center">
+			<div
+				class="inline-flex items-center gap-2 rounded-full border border-task-border bg-white px-3.5 py-1 text-xs font-semibold text-task-dark shadow-2xs"
+			>
+				<span class="size-2 rounded-full bg-task-yellow"></span>
+				<span class="font-mono">ERRO 404</span>
+			</div>
+
+			<h1 class="mt-6 font-anton text-4xl uppercase tracking-tight text-task-dark sm:text-6xl">
+				Página não encontrada
+			</h1>
+
+			<p class="mx-auto mt-4 max-w-lg font-outfit text-base text-task-gray sm:text-lg">
+				O endereço acessado não existe, foi movido ou está temporariamente indisponível.
+			</p>
+
+			<div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+				<a
+					href="/"
+					class="inline-flex w-full items-center justify-center rounded-xl bg-task-yellow px-6 py-3 font-outfit text-sm font-semibold text-task-dark transition-all duration-200 hover:-translate-y-0.5 hover:bg-yellow-300 sm:w-auto"
+				>
+					Voltar para o início
+				</a>
+				<a
+					href={waUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="inline-flex w-full items-center justify-center rounded-xl border border-task-border bg-white px-6 py-3 font-outfit text-sm font-semibold text-task-dark transition-all duration-200 hover:-translate-y-0.5 hover:border-task-dark sm:w-auto"
+				>
+					Falar no WhatsApp
+				</a>
+			</div>
+		</div>
+	</section>
+</PageLayout>
