@@ -61,6 +61,12 @@ export const ui = {
 					desc: 'Integre soluções de IA avançadas aos seus sistemas legados.',
 					image: '/images/service-4.webp',
 				},
+				{
+					label: 'Visão Computacional',
+					title: 'Modelos Multimodais',
+					desc: 'Processe dados visuais, documentos e vídeos com precisão em tempo real.',
+					image: '/images/hero.webp',
+				},
 			],
 		},
 		features: {
@@ -225,6 +231,12 @@ export const ui = {
 					desc: 'Integrate AI solutions into your systems',
 					image: '/images/service-4.webp',
 				},
+				{
+					label: 'Computer Vision',
+					title: 'Multimodal Models',
+					desc: 'Process visual data, documents, and videos with state-of-the-art accuracy.',
+					image: '/images/hero.webp',
+				},
 			],
 		},
 		features: {
@@ -388,6 +400,12 @@ export const ui = {
 					title: 'Herramientas Potentes',
 					desc: 'Integra soluciones de IA en tus sistemas empresariales.',
 					image: '/images/service-4.webp',
+				},
+				{
+					label: 'Visión Computacional',
+					title: 'Modelos Multimodales',
+					desc: 'Procesa datos visuales, documentos y videos con precisión en tiempo real.',
+					image: '/images/hero.webp',
 				},
 			],
 		},
