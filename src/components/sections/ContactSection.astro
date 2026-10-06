@@ -1,0 +1,67 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { SupportedLanguage } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+import { getWhatsAppUrl, getContactEmail } from '../../data/contact';
+import SocialLinks from '../ui/SocialLinks.astro';
+
+export interface Props {
+	lang: SupportedLanguage;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang)();
+const waUrl = getWhatsAppUrl(lang);
+const email = getContactEmail(lang);
+---
+
+<section class="relative w-full overflow-hidden px-4 pt-20 md:px-8 md:pt-28" id="contato">
+	<div class="mx-auto w-full max-w-270">
+		<!-- Section Title -->
+		<div class="mb-10 text-center md:mb-14">
+			<h2 class="font-anton text-3xl leading-tight text-task-dark sm:text-4xl md:text-[50px] uppercase">
+				{t.contactSection.title}
+			</h2>
+		</div>
+
+		<!-- Card with Contact Action -->
+		<div class="flex flex-col items-center gap-10 rounded-[50px] bg-white p-8 sm:p-12 md:p-16 shadow-xs text-center">
+			<div class="flex max-w-2xl flex-col items-center gap-4">
+				<h3 class="font-anton text-2xl leading-tight text-task-dark sm:text-3xl lg:text-[36px]">
+					{t.contactSection.heading}
+				</h3>
+				<p class="font-outfit text-base sm:text-lg leading-relaxed text-task-gray">
+					{t.contactSection.desc}
+				</p>
+			</div>
+
+			<!-- Buttons Grid -->
+			<div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+				<a
+					href={waUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="group flex h-13 items-center justify-center gap-3 rounded-full bg-task-yellow px-8 sm:px-10 font-anton text-base sm:text-lg tracking-wide text-task-dark transition-all duration-200 hover:brightness-105 active:scale-95 shadow-xs"
+				>
+					<Icon name="simple-icons:whatsapp" class="size-5 text-task-dark transition-transform duration-200 group-hover:scale-110" />
+					<span>{t.contactSection.buttonWa}</span>
+				</a>
+				<a
+					href={`mailto:${email}`}
+					class="group flex h-13 items-center justify-center gap-3 rounded-full border border-task-border bg-task-bg px-8 sm:px-10 font-outfit text-sm sm:text-base font-semibold text-task-dark transition-all duration-200 hover:border-task-dark active:scale-95 shadow-2xs"
+				>
+					<Icon name="lucide:mail" class="size-5 text-task-dark" />
+					<span>{t.contactSection.buttonEmail}</span>
+				</a>
+			</div>
+
+			<!-- Social Links -->
+			<div class="mt-6 flex flex-col items-center gap-3 border-t border-task-border/60 pt-6 w-full max-w-md">
+				<span class="font-outfit text-xs font-semibold uppercase tracking-wider text-task-dark/50">
+					{t.contactSection.connect}
+				</span>
+				<SocialLinks {lang} variant="light" />
+			</div>
+		</div>
+	</div>
+</section>

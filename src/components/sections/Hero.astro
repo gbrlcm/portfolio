@@ -1,6 +1,8 @@
 ---
+import { Icon } from 'astro-icon/components';
 import type { SupportedLanguage } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
+import { getWhatsAppUrl } from '../../data/contact';
 
 export interface Props {
 	lang: SupportedLanguage;
@@ -8,13 +10,14 @@ export interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang)();
+const waUrl = getWhatsAppUrl(lang);
 ---
 
 <section class="relative w-full overflow-visible px-4 pt-10 pb-0 md:px-8 md:pt-14" id="home">
 	<div class="mx-auto flex w-full max-w-270 flex-col items-center">
 		<!-- Main H1 Heading -->
 		<div class="mb-6 w-full text-center md:mb-10">
-			<h1 class="font-anton text-[46px] leading-[1.1] text-task-dark sm:text-[64px] md:text-[76px] lg:text-[94px]">
+			<h1 class="font-anton text-[38px] leading-[1.1] text-task-dark sm:text-[56px] md:text-[68px] lg:text-[80px] max-w-5xl mx-auto uppercase">
 				{t.hero.title}
 			</h1>
 		</div>
@@ -33,9 +36,9 @@ const t = useTranslations(lang)();
 				/>
 			</div>
 
-			<!-- Overlapping Bottom White Card (Framer yn62o9) -->
+			<!-- Overlapping Bottom White Card -->
 			<div class="relative z-10 -mt-16 w-full rounded-b-[40px] rounded-tr-[40px] bg-task-white px-6 pt-12 pb-10 shadow-sm md:-mt-24 md:px-10 md:pt-16 md:pb-14 lg:-mt-28 lg:px-14 lg:pt-20 lg:pb-16">
-				<!-- Signature Framer Top-Left Corner Cutout Mask -->
+				<!-- Top-Left Corner Cutout Mask -->
 				<div class="pointer-events-none absolute -top-12 left-0 h-12.5 w-52.5 sm:-top-16.5 sm:h-17 sm:w-65 lg:-top-16.75 lg:w-90.5">
 					<!-- SVG for Desktop -->
 					<svg
@@ -82,14 +85,77 @@ const t = useTranslations(lang)();
 					</span>
 				</div>
 
-				<!-- Card Content: Subtitle -->
-				<div class="flex flex-col items-center justify-between gap-8 lg:flex-row lg:gap-14">
-					<!-- Subtitle -->
-					<div class="w-full text-center lg:text-left">
-						<p class="font-outfit text-xl font-medium leading-snug text-task-dark sm:text-2xl lg:text-[28px]">
-							{t.hero.subtitle}
-						</p>
+				<!-- Card Content: Subtitle, CTAs and Trust note -->
+				<div class="flex flex-col items-start gap-6 w-full text-left">
+					<p class="font-outfit text-xl font-medium leading-snug text-task-dark sm:text-2xl lg:text-[28px] max-w-3xl">
+						{t.hero.subtitle}
+					</p>
+
+					<!-- Action Buttons -->
+					<div class="flex flex-wrap items-center gap-4 pt-1">
+						<a
+							href={waUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="group inline-flex items-center gap-2 transition-transform duration-200 active:scale-95"
+							aria-label={t.hero.ctaPrimary}
+						>
+							<!-- Wrapper (Text Pill) -->
+							<div
+								class="flex h-12 sm:h-13 items-center justify-center gap-2.5 rounded-full bg-task-yellow px-6 sm:px-8 shadow-xs transition-all duration-200 group-hover:brightness-105"
+							>
+								<Icon name="simple-icons:whatsapp" class="size-5 text-task-dark transition-transform duration-200 group-hover:scale-110" />
+								<span class="font-jakarta text-base sm:text-lg font-semibold tracking-tight text-task-dark">
+									{t.hero.ctaPrimary}
+								</span>
+							</div>
+
+							<!-- Arrow Circle -->
+							<div
+								class="relative flex size-12 sm:size-13 items-center justify-center overflow-hidden rounded-full bg-task-yellow shadow-xs transition-all duration-200 group-hover:brightness-105"
+							>
+								<!-- Icon 1 (slides out top-right on hover) -->
+								<svg
+									class="size-4.5 sm:size-5 text-task-dark transition-transform duration-300 ease-out group-hover:translate-x-6 group-hover:-translate-y-6"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.75"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+								>
+									<path d="M 16.167 19.217 L 19.217 7.833 L 7.833 4.783 M 4.783 16.166 L 19.217 7.833" />
+								</svg>
+
+								<!-- Icon 2 (slides in from bottom-left on hover) -->
+								<svg
+									class="absolute size-4.5 sm:size-5 -translate-x-6 translate-y-6 text-task-dark transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.75"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+								>
+									<path d="M 16.167 19.217 L 19.217 7.833 L 7.833 4.783 M 4.783 16.166 L 19.217 7.833" />
+								</svg>
+							</div>
+						</a>
+						<a
+							href="#servicos"
+							class="group flex h-12 sm:h-13 items-center justify-center gap-2 rounded-full border border-task-border bg-white px-6 sm:px-7 font-outfit text-sm sm:text-base font-semibold text-task-dark transition-all duration-200 hover:border-task-dark hover:bg-task-bg active:scale-95 shadow-2xs"
+						>
+							<span>{t.hero.ctaSecondary}</span>
+							<Icon name="lucide:arrow-down" class="size-4 text-task-dark transition-transform duration-200 group-hover:translate-y-0.5" />
+						</a>
 					</div>
+
+					<!-- Trust Note -->
+					<p class="font-outfit text-xs sm:text-sm text-task-gray pt-1">
+						{t.hero.trustNote}
+					</p>
 				</div>
 			</div>
 		</div>

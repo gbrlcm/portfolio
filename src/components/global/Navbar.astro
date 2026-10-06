@@ -1,5 +1,4 @@
 ---
-import { Icon } from 'astro-icon/components';
 import type { SupportedLanguage } from '../../i18n/ui';
 import { useTranslations, getLocalizedPath } from '../../i18n/utils';
 import { getWhatsAppUrl } from '../../data/contact';
@@ -38,38 +37,52 @@ const activeIndex = currentLangIndex >= 0 ? currentLangIndex : 0;
 		</a>
 
 		<!-- Desktop Navigation Links -->
-		<nav class="hidden items-center gap-8 md:flex lg:gap-12" aria-label="Main Navigation">
+		<nav class="hidden items-center gap-6 lg:gap-8 md:flex" aria-label="Main Navigation">
 			<a
 				href="#home"
-				class="group relative flex items-center font-outfit text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
 			>
 				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
 				{t.nav.home}
 			</a>
 			<a
-				href="#services"
-				class="group relative flex items-center font-outfit text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+				href="#problemas"
+				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+			>
+				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
+				{t.nav.problems}
+			</a>
+			<a
+				href="#servicos"
+				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
 			>
 				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
 				{t.nav.services}
 			</a>
 			<a
-				href="#features"
-				class="group relative flex items-center font-outfit text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+				href="#experiencia"
+				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
 			>
 				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
-				{t.nav.features}
+				{t.nav.work}
 			</a>
 			<a
-				href="#community"
-				class="group relative flex items-center font-outfit text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+				href="#como-trabalho"
+				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
 			>
 				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
-				{t.nav.community}
+				{t.nav.principles}
+			</a>
+			<a
+				href="#sobre"
+				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+			>
+				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
+				{t.nav.about}
 			</a>
 			<a
 				href="#faqs"
-				class="group relative flex items-center font-outfit text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
 			>
 				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
 				{t.nav.faqs}
@@ -111,15 +124,55 @@ const activeIndex = currentLangIndex >= 0 ? currentLangIndex : 0;
 				}
 			</div>
 
-			<!-- CTA Button -->
+			<!-- CTA Button (Framer style: text pill + animated arrow circle) -->
 			<a
 				href={waUrl}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="group flex h-12 items-center gap-2.5 rounded-full bg-task-yellow px-6 font-anton text-base tracking-wide text-task-dark transition-all duration-200 hover:brightness-105 active:scale-95"
+				class="group inline-flex items-center gap-1.5 transition-transform duration-200 active:scale-95"
+				aria-label={t.nav.getInTouch}
 			>
-				<span>{t.nav.getInTouch}</span>
-				<Icon name="lucide:arrow-right" class="size-4.5 text-task-dark transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
+				<!-- Wrapper (Text Pill) -->
+				<div
+					class="flex h-11 items-center justify-center rounded-full bg-task-yellow px-5 transition-all duration-200 group-hover:brightness-105"
+				>
+					<span class="font-jakarta text-sm sm:text-[15px] font-semibold tracking-tight text-task-dark">
+						{t.nav.getInTouch}
+					</span>
+				</div>
+
+				<!-- Arrow Circle -->
+				<div
+					class="relative flex size-11 items-center justify-center overflow-hidden rounded-full bg-task-yellow transition-all duration-200 group-hover:brightness-105"
+				>
+					<!-- Icon 1 (slides out top-right on hover) -->
+					<svg
+						class="size-4 text-task-dark transition-transform duration-300 ease-out group-hover:translate-x-6 group-hover:-translate-y-6"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.75"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<path d="M 16.167 19.217 L 19.217 7.833 L 7.833 4.783 M 4.783 16.166 L 19.217 7.833" />
+					</svg>
+
+					<!-- Icon 2 (slides in from bottom-left on hover) -->
+					<svg
+						class="absolute size-4 -translate-x-6 translate-y-6 text-task-dark transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.75"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<path d="M 16.167 19.217 L 19.217 7.833 L 7.833 4.783 M 4.783 16.166 L 19.217 7.833" />
+					</svg>
+				</div>
 			</a>
 		</div>
 
@@ -145,14 +198,20 @@ const activeIndex = currentLangIndex >= 0 ? currentLangIndex : 0;
 			<a href="#home" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
 				{t.nav.home}
 			</a>
-			<a href="#services" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
+			<a href="#problemas" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
+				{t.nav.problems}
+			</a>
+			<a href="#servicos" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
 				{t.nav.services}
 			</a>
-			<a href="#features" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
-				{t.nav.features}
+			<a href="#experiencia" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
+				{t.nav.work}
 			</a>
-			<a href="#community" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
-				{t.nav.community}
+			<a href="#como-trabalho" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
+				{t.nav.principles}
+			</a>
+			<a href="#sobre" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
+				{t.nav.about}
 			</a>
 			<a href="#faqs" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
 				{t.nav.faqs}
@@ -195,15 +254,37 @@ const activeIndex = currentLangIndex >= 0 ? currentLangIndex : 0;
 			</div>
 		</div>
 
-		<!-- Mobile CTA -->
+		<!-- Mobile CTA (Framer style) -->
 		<a
 			href={waUrl}
 			target="_blank"
 			rel="noopener noreferrer"
-			class="mobile-nav-link mt-2 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-task-yellow font-anton text-base tracking-wide text-task-dark"
+			class="mobile-nav-link mt-2 group flex items-center justify-between gap-2 transition-transform duration-200 active:scale-95"
+			aria-label={t.nav.getInTouch}
 		>
-			<span>{t.nav.getInTouch}</span>
-			<Icon name="lucide:arrow-right" class="size-4.5 text-task-dark" />
+			<div
+				class="flex h-12 flex-1 items-center justify-center rounded-full bg-task-yellow px-5 transition-all duration-200 active:brightness-105"
+			>
+				<span class="font-jakarta text-base font-semibold text-task-dark">
+					{t.nav.getInTouch}
+				</span>
+			</div>
+			<div
+				class="relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-task-yellow"
+			>
+				<svg
+					class="size-5 text-task-dark"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.75"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<path d="M 16.167 19.217 L 19.217 7.833 L 7.833 4.783 M 4.783 16.166 L 19.217 7.833" />
+				</svg>
+			</div>
 		</a>
 	</div>
 </header>

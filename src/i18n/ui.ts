@@ -10,103 +10,183 @@ export const defaultLang: SupportedLanguage = 'pt-BR';
 export const ui = {
 	'pt-BR': {
 		meta: {
-			title: 'Gabriel Campos — Desenvolvedor de Software',
+			title: 'Gabriel Campos — Desenvolvimento de Software & Sistemas Web',
 			description:
-				'Portfólio profissional de Gabriel Campos. Desenvolvimento web, sistemas sob medida e engenharia de software.',
+				'Desenvolvimento de software, sistemas web sob medida e integrações de APIs. Soluções rápidas e código limpo para empresas e produtos digitais.',
 		},
 		nav: {
 			home: 'Início',
+			problems: 'Problemas',
 			services: 'Serviços',
-			features: 'Princípios',
-			community: 'Contato',
+			work: 'Experiência',
+			principles: 'Como trabalho',
+			about: 'Sobre',
 			faqs: 'Dúvidas',
-			getInTouch: 'ENTRE EM CONTATO',
+			contact: 'Contato',
+			getInTouch: 'Falar no WhatsApp',
 		},
 		hero: {
-			title: 'GABRIEL CAMPOS',
-			badge: 'Engenharia de Software',
-			subtitle: 'Desenvolvimento web, sistemas e engenharia de software.',
+			badge: 'Desenvolvimento de Software',
+			title: 'Sistemas web e aplicações sob medida.',
+			subtitle:
+				'Desenvolvo sistemas internos, integrações de APIs e aplicações web com arquitetura moderna, código limpo e foco na operação do seu negócio.',
+			ctaPrimary: 'Conversar no WhatsApp',
+			ctaSecondary: 'Ver serviços e especialidades',
+			trustNote: 'Atendimento direto com o desenvolvedor · Atuação remota para todo o Brasil',
 		},
-		services: {
-			title: 'SERVIÇOS E ATUAÇÃO',
-			readMore: 'Saiba mais',
-			items: [
-				{
-					label: 'Sistemas Web',
-					title: 'Aplicações Sob Medida',
-					desc: 'Painéis, ferramentas internas e plataformas web desenvolvidas sob medida.',
-					image: '/images/service-1.webp',
-				},
-				{
-					label: 'Engenharia',
-					title: 'APIs e Integrações',
-					desc: 'Desenvolvimento e integração de APIs, serviços e fluxos automatizados de dados.',
-					image: '/images/service-2.webp',
-				},
-				{
-					label: 'Frontend',
-					title: 'Sites de Alta Performance',
-					desc: 'Landing pages e interfaces web rápidas, acessíveis e otimizadas.',
-					image: '/images/service-3.webp',
-				},
-				{
-					label: 'Infraestrutura',
-					title: 'Deploy e Manutenção',
-					desc: 'Configuração de ambientes estáticos e servidores com arquitetura moderna.',
-					image: '/images/service-4.webp',
-				},
-			],
-		},
-		features: {
-			title: 'PRINCÍPIOS DE TRABALHO',
+		problems: {
+			title: 'ONDE POSSO AJUDAR SUA OPERAÇÃO',
 			items: [
 				{
 					badge: '01',
-					title: 'Código Limpo e Moderno',
-					desc: 'Aplicações estruturadas com foco em legibilidade, manutenibilidade e padrões atuais.',
+					title: 'Processos manuais e planilhas desconexas',
+					desc: 'Desenvolvo painéis e ferramentas internas para centralizar informações e organizar tarefas operacionais que hoje dependem de controle manual.',
 				},
 				{
 					badge: '02',
-					title: 'Performance e Estabilidade',
-					desc: 'Sistemas rápidos e eficientes, com foco em estabilidade e boa experiência de uso.',
+					title: 'Sistemas lentos e difíceis de evoluir',
+					desc: 'Posso ajudar na modernização e reestruturação de interfaces e serviços, priorizando estabilidade, rapidez e facilidade de manutenção.',
 				},
 				{
 					badge: '03',
-					title: 'Comunicação Transparente',
-					desc: 'Alinhamento constante durante o desenvolvimento, com clareza em todas as etapas.',
+					title: 'Ferramentas e APIs que não se comunicam',
+					desc: 'Construo integrações entre sistemas legados, plataformas externas e bancos de dados para manter seus dados sincronizados.',
 				},
 			],
 		},
-		community: {
-			title: 'ENTRE EM CONTATO',
-			heading: 'Tem um projeto ou demanda técnica em mente?',
-			desc: 'Converse diretamente pelo WhatsApp ou envie uma mensagem por e-mail para avaliar o escopo.',
-			button: 'INICIAR CONVERSA',
-			connect: 'Conecte-se nas redes:',
+		services: {
+			title: 'SERVIÇOS E ESPECIALIDADES',
+			readMore: 'Conversar sobre este serviço',
+			items: [
+				{
+					label: 'Sistemas Web',
+					title: 'Aplicações e Ferramentas Internas',
+					desc: 'Desenvolvimento de painéis administrativos, portais e sistemas operacionais sob medida para centralizar a rotina da sua empresa.',
+					deliverables: 'Arquitetura sob medida · Painéis administrativos · Bancos relacionais',
+					image: '/images/service-1.webp',
+				},
+				{
+					label: 'Engenharia Backend',
+					title: 'APIs, Integrações e Automações',
+					desc: 'Construção de APIs robustas e integração de serviços entre plataformas, automatizando o fluxo de dados entre ferramentas.',
+					deliverables: 'APIs em Go e TypeScript · Integração de serviços · Estrutura em Docker',
+					image: '/images/service-2.webp',
+				},
+				{
+					label: 'Frontend & Performance',
+					title: 'Sites e Landing Pages de Alto Desempenho',
+					desc: 'Presença digital com carregamento instantâneo, código enxuto e estrutura técnica pronta para motores de busca e acessibilidade.',
+					deliverables: 'Astro e Tailwind CSS · Otimização de Core Web Vitals · SEO técnico',
+					image: '/images/service-3.webp',
+				},
+			],
 		},
-		testimonials: {
-			title: 'DEPOIMENTOS',
-			items: [] as { quote: string; name: string; role: string; avatar: string }[],
+		work: {
+			title: 'TRABALHO E ATUAÇÃO TÉCNICA',
+			subtitle: 'Projetos de código aberto, arquitetura de sistemas e experiência profissional.',
+			items: [
+				{
+					category: 'Projeto Open Source',
+					title: 'Plataforma Web Multilíngue',
+					desc: 'Estrutura de alta performance com arquitetura Jamstack estática, i18n nativo, tokens centralizados e deploy na borda via Cloudflare Pages.',
+					stack: 'Astro · TypeScript · Tailwind CSS · Cloudflare Pages',
+					linkText: 'Ver no GitHub ↗',
+					linkUrl: 'https://github.com/gbrlcm/portfolio',
+				},
+				{
+					category: 'Estudo Técnico de Arquitetura',
+					title: 'Serviços e APIs em Go e Docker',
+					desc: 'Implementação de serviços concorrentes em Go, persistência relacional com PostgreSQL e empacotamento conteinerizado.',
+					stack: 'Go · PostgreSQL · Docker · REST APIs',
+				},
+				{
+					category: 'Experiência Profissional',
+					title: 'Sistemas Distribuídos e Integrações',
+					desc: 'Atuação profissional no desenvolvimento de sistemas web, APIs transacionais, integrações entre plataformas corporativas e microsserviços.',
+					stack: 'TypeScript · Node.js / NestJS · Go · SQL · Docker',
+				},
+				{
+					category: 'Participação em Comunidade',
+					title: 'Google Developer Groups (GDG Americana)',
+					desc: 'Contribuição ativa com a comunidade local de tecnologia em Americana/SP, facilitando discussões técnicas, workshops e eventos.',
+					stack: 'Comunidade Técnica · Americana/SP',
+					linkText: 'LinkedIn ↗',
+					linkUrl: 'https://www.linkedin.com/in/gabriel-lopes-campos/',
+				},
+			],
+		},
+		principles: {
+			title: 'COMO TRABALHO',
+			items: [
+				{
+					badge: '01',
+					title: 'Comunicação Direta',
+					desc: 'Você conversa e alinha demandas diretamente com o desenvolvedor responsável pela execução, sem intermediários ou ruídos.',
+				},
+				{
+					badge: '02',
+					title: 'Entregas em Checkpoints',
+					desc: 'O projeto evolui em etapas incrementais visíveis, permitindo validação contínua do que está sendo construído antes da conclusão.',
+				},
+				{
+					badge: '03',
+					title: 'Padrões de Fácil Manutenção',
+					desc: 'O projeto é desenvolvido com tecnologias e padrões que facilitam manutenção, versionamento e continuidade por outras equipes.',
+				},
+			],
+		},
+		about: {
+			title: 'SOBRE GABRIEL CAMPOS',
+			bio1: 'Sou desenvolvedor de software com foco em engenharia web, sistemas e integração de serviços. Priorizo código limpo, estabilidade e compreensão profunda do contexto de negócio antes de propor qualquer solução técnica.',
+			bio2: 'Atuo na comunidade técnica local através do GDG Americana e trabalho de forma remota com empresas e equipes de diversas regiões.',
+			siteStackTitle: 'Tecnologias deste portfólio:',
+			siteStack: 'Astro · Tailwind CSS v4 · Cloudflare Pages',
+			profStackTitle: 'Especialidades e tecnologias profissionais:',
+			profStack: 'TypeScript · Go · Node.js / NestJS · Docker · PostgreSQL · REST APIs',
+			githubLabel: 'GitHub ↗',
+			linkedinLabel: 'LinkedIn ↗',
 		},
 		faqs: {
 			title: 'PERGUNTAS FREQUENTES',
 			items: [
 				{
-					question: 'Quais tipos de projetos você desenvolve?',
+					question: 'Que tipo de projeto você desenvolve?',
 					answer:
-						'Desenvolvimento de sistemas web, aplicações sob medida, APIs, integrações de serviços e interfaces de alto desempenho.',
+						'Desenvolvo sistemas web sob medida (como painéis administrativos e portais internos), APIs, rotinas de integração de dados e sites institucionais de alta performance.',
 				},
 				{
-					question: 'Como posso entrar em contato?',
+					question: 'Você trabalha em sistemas já existentes?',
 					answer:
-						'Você pode iniciar uma conversa pelo WhatsApp ou enviar uma mensagem para os e-mails informados no rodapé.',
+						'Sim. Posso atuar na modernização de ferramentas em produção, criação de novas rotas de API, integrações entre sistemas ou correção de gargalos de estabilidade e performance.',
 				},
 				{
-					question: 'Onde você atua?',
+					question: 'Como funciona o processo de orçamento?',
 					answer:
-						'Atendimento remoto para projetos em todo o Brasil e no exterior.',
+						'Conversamos inicialmente por WhatsApp ou e-mail para entender o escopo e as necessidades técnicas. A partir disso, preparo uma proposta detalhando escopo, etapas e valores.',
+				},
+				{
+					question: 'Você trabalha remotamente?',
+					answer:
+						'Sim. Atendo de forma remota com comunicação alinhada e pontos de contato com clientes em qualquer região do Brasil ou no exterior.',
+				},
+				{
+					question: 'Como funciona a propriedade do código desenvolvido?',
+					answer:
+						'Os termos de propriedade, acesso ao código-fonte e entrega são definidos na proposta e no contrato do projeto.',
 				},
 			],
+		},
+		contactSection: {
+			title: 'VAMOS CONVERSAR?',
+			heading: 'Tem uma demanda técnica ou um sistema para construir?',
+			desc: 'Envie uma mensagem pelo WhatsApp ou por e-mail para avaliarmos o escopo e os requisitos do seu projeto.',
+			buttonWa: 'Chamar no WhatsApp',
+			buttonEmail: 'Enviar um E-mail',
+			connect: 'Conecte-se nas redes:',
+		},
+		testimonials: {
+			title: 'DEPOIMENTOS',
+			items: [] as { quote: string; name: string; role: string; avatar: string }[],
 		},
 		footer: {
 			joinTitle: 'GABRIEL CAMPOS',
@@ -118,7 +198,7 @@ export const ui = {
 			links: {
 				home: 'Início',
 				services: 'Serviços',
-				features: 'Princípios',
+				features: 'Como trabalho',
 				community: 'Contato',
 				faqs: 'Dúvidas',
 				contactUs: 'Fale Conosco',
@@ -136,83 +216,141 @@ export const ui = {
 	},
 	en: {
 		meta: {
-			title: 'Gabriel Campos — Software Developer',
+			title: 'Gabriel Campos — Software Development & Web Systems',
 			description:
-				'Professional portfolio of Gabriel Campos. Web development, custom systems, and software engineering.',
+				'Custom software development, tailored web systems, and API integrations. Fast, clean-code engineering for companies and digital products.',
 		},
 		nav: {
 			home: 'Home',
+			problems: 'Challenges',
 			services: 'Services',
-			features: 'Principles',
-			community: 'Contact',
+			work: 'Experience',
+			principles: 'How I Work',
+			about: 'About',
 			faqs: 'FAQs',
-			getInTouch: 'GET IN TOUCH',
+			contact: 'Contact',
+			getInTouch: 'Chat on WhatsApp',
 		},
 		hero: {
-			title: 'GABRIEL CAMPOS',
-			badge: 'Software Engineering',
-			subtitle: 'Web development, systems, and software engineering.',
+			badge: 'Software Development',
+			title: 'Custom web systems and software engineering.',
+			subtitle:
+				'I build internal tools, API integrations, and tailored web applications with modern architecture, clean code, and a focus on your business operations.',
+			ctaPrimary: 'Chat on WhatsApp',
+			ctaSecondary: 'Explore services & expertise',
+			trustNote: 'Direct communication with the developer · Remote work worldwide',
 		},
-		services: {
-			title: 'SERVICES & EXPERTISE',
-			readMore: 'Learn more',
-			items: [
-				{
-					label: 'Web Systems',
-					title: 'Custom Applications',
-					desc: 'Dashboards, internal tools, and tailored web platforms.',
-					image: '/images/service-1.webp',
-				},
-				{
-					label: 'Engineering',
-					title: 'APIs & Integrations',
-					desc: 'Development and connection of APIs, services, and automated data workflows.',
-					image: '/images/service-2.webp',
-				},
-				{
-					label: 'Frontend',
-					title: 'High-Performance Sites',
-					desc: 'Fast, accessible, and search-optimized landing pages and web interfaces.',
-					image: '/images/service-3.webp',
-				},
-				{
-					label: 'Infrastructure',
-					title: 'Deploy & Maintenance',
-					desc: 'Modern static and containerized deployments with reliable architecture.',
-					image: '/images/service-4.webp',
-				},
-			],
-		},
-		features: {
-			title: 'WORKING PRINCIPLES',
+		problems: {
+			title: 'CHALLENGES I HELP RESOLVE',
 			items: [
 				{
 					badge: '01',
-					title: 'Clean and Modern Code',
-					desc: 'Applications designed for readability, maintainability, and modern industry standards.',
+					title: 'Manual workflows and disconnected spreadsheets',
+					desc: 'I develop dashboards and internal tools to centralize data and organize operational routines that currently rely on manual maintenance.',
 				},
 				{
 					badge: '02',
-					title: 'Performance and Reliability',
-					desc: 'Fast and resilient systems with optimized load times and resource usage.',
+					title: 'Slow, hard-to-maintain legacy systems',
+					desc: 'I can help restructure and modernize applications, prioritizing stability, runtime speed, and ongoing maintainability.',
 				},
 				{
 					badge: '03',
-					title: 'Transparent Communication',
-					desc: 'Direct technical collaboration throughout development without unnecessary layers.',
+					title: 'Siloed tools and non-communicating APIs',
+					desc: 'I build reliable integrations across legacy systems, external services, and databases to keep your company data synchronized.',
 				},
 			],
 		},
-		community: {
-			title: 'GET IN TOUCH',
-			heading: 'Have a project or technical challenge in mind?',
-			desc: 'Reach out directly via WhatsApp or send an email to discuss project scope.',
-			button: 'START CONVERSATION',
-			connect: 'Connect on social:',
+		services: {
+			title: 'SERVICES & EXPERTISE',
+			readMore: 'Discuss this service',
+			items: [
+				{
+					label: 'Web Systems',
+					title: 'Internal Applications & Portals',
+					desc: 'Custom administrative dashboards and operational platforms designed to centralize your company workflows.',
+					deliverables: 'Tailored architecture · Admin dashboards · Relational databases',
+					image: '/images/service-1.webp',
+				},
+				{
+					label: 'Backend Engineering',
+					title: 'APIs, Integrations & Automation',
+					desc: 'Resilient backend services connecting disparate software, automating data flows between tools.',
+					deliverables: 'Go & TypeScript APIs · Third-party integrations · Containerized Docker setups',
+					image: '/images/service-2.webp',
+				},
+				{
+					label: 'Frontend & Performance',
+					title: 'High-Performance Websites & Landing Pages',
+					desc: 'Lightning-fast digital presence built with lean code, solid Core Web Vitals, and native technical SEO.',
+					deliverables: 'Astro & Tailwind CSS · Core Web Vitals optimization · Technical SEO',
+					image: '/images/service-3.webp',
+				},
+			],
 		},
-		testimonials: {
-			title: 'TESTIMONIALS',
-			items: [] as { quote: string; name: string; role: string; avatar: string }[],
+		work: {
+			title: 'TECHNICAL WORK & PROJECTS',
+			subtitle: 'Open-source repositories, architectural implementations, and professional experience.',
+			items: [
+				{
+					category: 'Open Source Project',
+					title: 'Multilingual Jamstack Platform',
+					desc: 'High-performance architecture with static generation, native i18n, unified design tokens, and edge deployment on Cloudflare Pages.',
+					stack: 'Astro · TypeScript · Tailwind CSS · Cloudflare Pages',
+					linkText: 'View on GitHub ↗',
+					linkUrl: 'https://github.com/gbrlcm/portfolio',
+				},
+				{
+					category: 'Technical Architectural Study',
+					title: 'Backend Services in Go & Docker',
+					desc: 'Implementation of concurrent services in Go, transactional persistence with PostgreSQL, and containerized deployment.',
+					stack: 'Go · PostgreSQL · Docker · REST APIs',
+				},
+				{
+					category: 'Professional Experience',
+					title: 'Distributed Systems & Integrations',
+					desc: 'Professional engineering on transactional platforms, corporate system integrations, microservices, and backend APIs.',
+					stack: 'TypeScript · Node.js / NestJS · Go · SQL · Docker',
+				},
+				{
+					category: 'Community Contribution',
+					title: 'Google Developer Groups (GDG Americana)',
+					desc: 'Active involvement in the regional tech ecosystem, facilitating technical meetups, talks, and knowledge sharing in software development.',
+					stack: 'Technical Community · Americana/SP',
+					linkText: 'LinkedIn ↗',
+					linkUrl: 'https://www.linkedin.com/in/gabriel-lopes-campos/',
+				},
+			],
+		},
+		principles: {
+			title: 'HOW I WORK',
+			items: [
+				{
+					badge: '01',
+					title: 'Direct Communication',
+					desc: 'You discuss requirements and align tasks directly with the engineer building your software, without layers or intermediaries.',
+				},
+				{
+					badge: '02',
+					title: 'Checkpoint Deliveries',
+					desc: 'The project progresses through tangible milestones, allowing continuous validation of what is built before final release.',
+				},
+				{
+					badge: '03',
+					title: 'Maintainable Standards',
+					desc: 'The software is built with modern tools, clean version control, and clear architectural patterns to enable future maintenance by any team.',
+				},
+			],
+		},
+		about: {
+			title: 'ABOUT GABRIEL CAMPOS',
+			bio1: 'I am a software developer focused on web engineering, systems, and service integrations. I prioritize clean code, architectural simplicity, and a thorough understanding of the business problem before proposing technical solutions.',
+			bio2: 'I actively contribute to the local tech community through GDG Americana and work remotely with organizations across diverse locations.',
+			siteStackTitle: 'Technologies behind this portfolio:',
+			siteStack: 'Astro · Tailwind CSS v4 · Cloudflare Pages',
+			profStackTitle: 'Professional tech stack & expertise:',
+			profStack: 'TypeScript · Go · Node.js / NestJS · Docker · PostgreSQL · REST APIs',
+			githubLabel: 'GitHub ↗',
+			linkedinLabel: 'LinkedIn ↗',
 		},
 		faqs: {
 			title: 'FREQUENTLY ASKED QUESTIONS',
@@ -220,19 +358,41 @@ export const ui = {
 				{
 					question: 'What types of projects do you develop?',
 					answer:
-						'Web systems, custom applications, APIs, service integrations, and high-performance interfaces.',
+						'I build custom web systems (such as administrative tools and internal portals), APIs, automated integration routines, and high-performance websites.',
 				},
 				{
-					question: 'How can I get in touch?',
+					question: 'Do you work on existing systems?',
 					answer:
-						'You can start a conversation via WhatsApp or send an email through the addresses listed in the footer.',
+						'Yes. I can help modernize legacy tools, create new API routes, integrate external services, or address stability and performance bottlenecks.',
 				},
 				{
-					question: 'Where are you based?',
+					question: 'How does the proposal and kickoff process work?',
 					answer:
-						'Based in Brazil, working remotely with clients worldwide.',
+						'We begin with a conversation via WhatsApp or email to understand your technical requirements and scope. Based on that, I provide a detailed proposal covering scope, timeline, and pricing.',
+				},
+				{
+					question: 'Do you work remotely?',
+					answer:
+						'Yes. I work 100% remotely with structured communication and regular check-ins for clients across Brazil and internationally.',
+				},
+				{
+					question: 'Who owns the code developed during the project?',
+					answer:
+						'Terms regarding code ownership, repository access, and deliverables are formally defined in the project proposal and contract.',
 				},
 			],
+		},
+		contactSection: {
+			title: 'READY TO DISCUSS YOUR PROJECT?',
+			heading: 'Have a technical requirement or a system to build?',
+			desc: 'Send a message via WhatsApp or email to discuss the scope and requirements of your project.',
+			buttonWa: 'Chat on WhatsApp',
+			buttonEmail: 'Send an Email',
+			connect: 'Connect on social:',
+		},
+		testimonials: {
+			title: 'TESTIMONIALS',
+			items: [] as { quote: string; name: string; role: string; avatar: string }[],
 		},
 		footer: {
 			joinTitle: 'GABRIEL CAMPOS',
@@ -244,7 +404,7 @@ export const ui = {
 			links: {
 				home: 'Home',
 				services: 'Services',
-				features: 'Principles',
+				features: 'How I Work',
 				community: 'Contact',
 				faqs: 'FAQs',
 				contactUs: 'Contact us',
@@ -262,83 +422,141 @@ export const ui = {
 	},
 	es: {
 		meta: {
-			title: 'Gabriel Campos — Desarrollador de Software',
+			title: 'Gabriel Campos — Desarrollo de Software & Sistemas Web',
 			description:
-				'Portafolio profesional de Gabriel Campos. Desarrollo web, sistemas a medida e ingeniería de software.',
+				'Desarrollo de software, sistemas web a medida e integraciones de APIs. Código limpio y alto rendimiento para empresas y productos digitales.',
 		},
 		nav: {
 			home: 'Inicio',
+			problems: 'Desafíos',
 			services: 'Servicios',
-			features: 'Principios',
-			community: 'Contacto',
+			work: 'Experiencia',
+			principles: 'Cómo trabajo',
+			about: 'Sobre mí',
 			faqs: 'Preguntas',
-			getInTouch: 'CONTACTAR',
+			contact: 'Contacto',
+			getInTouch: 'Hablar por WhatsApp',
 		},
 		hero: {
-			title: 'GABRIEL CAMPOS',
-			badge: 'Ingeniería de Software',
-			subtitle: 'Desarrollo web, sistemas e ingeniería de software.',
+			badge: 'Desarrollo de Software',
+			title: 'Sistemas web y aplicaciones a medida.',
+			subtitle:
+				'Desarrollo herramientas internas, integraciones de APIs y aplicaciones web con arquitectura moderna, código limpio y foco en la operación de tu negocio.',
+			ctaPrimary: 'Hablar por WhatsApp',
+			ctaSecondary: 'Ver servicios y capacidades',
+			trustNote: 'Trato directo con el desarrollador · Trabajo remoto en todo el mundo',
 		},
-		services: {
-			title: 'SERVICIOS Y CAPACIDADES',
-			readMore: 'Saber más',
-			items: [
-				{
-					label: 'Sistemas Web',
-					title: 'Aplicaciones a Medida',
-					desc: 'Paneles, herramientas internas y plataformas web desarrolladas a medida.',
-					image: '/images/service-1.webp',
-				},
-				{
-					label: 'Ingeniería',
-					title: 'APIs e Integraciones',
-					desc: 'Desarrollo e integración de APIs, servicios y flujos automatizados de datos.',
-					image: '/images/service-2.webp',
-				},
-				{
-					label: 'Frontend',
-					title: 'Sitios de Alto Rendimiento',
-					desc: 'Landing pages e interfaces web rápidas, accesibles y optimizadas.',
-					image: '/images/service-3.webp',
-				},
-				{
-					label: 'Infraestructura',
-					title: 'Despliegue y Mantenimiento',
-					desc: 'Configuración de entornos estáticos y servidores con arquitectura moderna.',
-					image: '/images/service-4.webp',
-				},
-			],
-		},
-		features: {
-			title: 'PRINCIPIOS DE TRABAJO',
+		problems: {
+			title: 'DÓNDE PUEDO AYUDAR A TU OPERACIÓN',
 			items: [
 				{
 					badge: '01',
-					title: 'Código Limpio y Moderno',
-					desc: 'Aplicaciones estructuradas con foco en legibilidad, mantenimiento y estándares modernos.',
+					title: 'Procesos manuales y hojas de cálculo desconectadas',
+					desc: 'Desarrollo paneles y herramientas internas para centralizar información y organizar rutinas operativas que dependen de control manual.',
 				},
 				{
 					badge: '02',
-					title: 'Rendimiento y Estabilidad',
-					desc: 'Sistemas rápidos y eficientes, con foco en estabilidad y buena experiencia de uso.',
+					title: 'Sistemas lentos y difíciles de mantener',
+					desc: 'Puedo colaborar en la modernización y reestructuración de interfaces y servicios, priorizando estabilidad, rapidez y facilidad de mantenimiento.',
 				},
 				{
 					badge: '03',
-					title: 'Comunicación Transparente',
-					desc: 'Alineación constante durante el desarrollo, con claridad en todas las fases.',
+					title: 'Herramientas y APIs que no se comunican',
+					desc: 'Construyo integraciones entre sistemas existentes, plataformas externas y bases de datos para mantener tus datos sincronizados.',
 				},
 			],
 		},
-		community: {
-			title: 'CONTACTO',
-			heading: '¿Tienes un proyecto o desafío técnico en mente?',
-			desc: 'Hablemos directamente por WhatsApp o envía un correo electrónico para evaluar el alcance.',
-			button: 'INICIAR CONVERSACIÓN',
-			connect: 'Conéctate en redes:',
+		services: {
+			title: 'SERVICIOS Y CAPACIDADES',
+			readMore: 'Conversar sobre este servicio',
+			items: [
+				{
+					label: 'Sistemas Web',
+					title: 'Aplicaciones y Paneles Internos',
+					desc: 'Desarrollo de paneles administrativos, portales y plataformas operativas a medida para centralizar la rutina de tu empresa.',
+					deliverables: 'Arquitectura a medida · Paneles de gestión · Bases de datos relacionales',
+					image: '/images/service-1.webp',
+				},
+				{
+					label: 'Ingeniería Backend',
+					title: 'APIs, Integraciones y Automatización',
+					desc: 'Construcción de APIs robustas y conexión de servicios entre plataformas, automatizando el flujo de datos entre herramientas.',
+					deliverables: 'APIs en Go y TypeScript · Integración de servicios · Configuración en Docker',
+					image: '/images/service-2.webp',
+				},
+				{
+					label: 'Frontend y Rendimiento',
+					title: 'Sitios y Landing Pages de Alto Desempeño',
+					desc: 'Presencia digital con carga instantánea, código optimizado y estructura técnica lista para motores de búsqueda y accesibilidad.',
+					deliverables: 'Astro y Tailwind CSS · Optimización de Core Web Vitals · SEO técnico',
+					image: '/images/service-3.webp',
+				},
+			],
 		},
-		testimonials: {
-			title: 'TESTIMONIOS',
-			items: [] as { quote: string; name: string; role: string; avatar: string }[],
+		work: {
+			title: 'TRABAJO TÉCNICO Y PROYECTOS',
+			subtitle: 'Proyectos de código abierto, implementaciones de arquitectura y experiencia profesional.',
+			items: [
+				{
+					category: 'Proyecto Open Source',
+					title: 'Plataforma Web Multilingüe',
+					desc: 'Arquitectura de alto rendimiento con generación Jamstack estática, i18n nativo, tokens de diseño y despliegue en el borde mediante Cloudflare Pages.',
+					stack: 'Astro · TypeScript · Tailwind CSS · Cloudflare Pages',
+					linkText: 'Ver en GitHub ↗',
+					linkUrl: 'https://github.com/gbrlcm/portfolio',
+				},
+				{
+					category: 'Estudio Técnico de Arquitectura',
+					title: 'Servicios y APIs en Go y Docker',
+					desc: 'Implementación de servicios concurrentes en Go, persistencia relacional con PostgreSQL y empaquetado en contenedores.',
+					stack: 'Go · PostgreSQL · Docker · REST APIs',
+				},
+				{
+					category: 'Experiencia Profesional',
+					title: 'Sistemas Distribuidos e Integraciones',
+					desc: 'Actividad profesional en plataformas transaccionales, integraciones empresariales, microservicios y APIs backend.',
+					stack: 'TypeScript · Node.js / NestJS · Go · SQL · Docker',
+				},
+				{
+					category: 'Participación en Comunidad',
+					title: 'Google Developer Groups (GDG Americana)',
+					desc: 'Contribución activa a la comunidad tecnológica en Americana/SP, facilitando charlas técnicas, talleres y eventos de software.',
+					stack: 'Comunidad Técnica · Americana/SP',
+					linkText: 'LinkedIn ↗',
+					linkUrl: 'https://www.linkedin.com/in/gabriel-lopes-campos/',
+				},
+			],
+		},
+		principles: {
+			title: 'CÓMO TRABAJO',
+			items: [
+				{
+					badge: '01',
+					title: 'Comunicación Directa',
+					desc: 'Dialogas y defines requisitos directamente con el desarrollador a cargo de la ejecución, sin capas intermedias ni fricción.',
+				},
+				{
+					badge: '02',
+					title: 'Entregas por Checkpoints',
+					desc: 'El proyecto progresa en hitos verificables, permitiendo validar continuamente lo construido antes de la entrega final.',
+				},
+				{
+					badge: '03',
+					title: 'Estándares Mantenibles',
+					desc: 'El proyecto se construye con tecnologías y patrones modernos que facilitan el mantenimiento y la continuidad por otros equipos.',
+				},
+			],
+		},
+		about: {
+			title: 'SOBRE GABRIEL CAMPOS',
+			bio1: 'Soy desarrollador de software enfocado en ingeniería web, sistemas e integraciones. Priorizo el código limpio, la estabilidad técnica y la comprensión profunda de la necesidad operativa antes de proponer soluciones.',
+			bio2: 'Participo en la comunidad tecnológica local a través de GDG Americana y colaboro de forma remota con empresas de diversas regiones.',
+			siteStackTitle: 'Tecnologías de este portafolio:',
+			siteStack: 'Astro · Tailwind CSS v4 · Cloudflare Pages',
+			profStackTitle: 'Especialidades y tecnologías profesionales:',
+			profStack: 'TypeScript · Go · Node.js / NestJS · Docker · PostgreSQL · REST APIs',
+			githubLabel: 'GitHub ↗',
+			linkedinLabel: 'LinkedIn ↗',
 		},
 		faqs: {
 			title: 'PREGUNTAS FRECUENTES',
@@ -346,19 +564,41 @@ export const ui = {
 				{
 					question: '¿Qué tipo de proyectos desarrollas?',
 					answer:
-						'Sistemas web, aplicaciones a medida, APIs, integraciones de servicios e interfaces de alto rendimiento.',
+						'Desarrollo sistemas web a medida (como paneles de gestión y portales internos), APIs, rutinas de integración de datos y sitios web de alto rendimiento.',
 				},
 				{
-					question: '¿Cómo puedo contactarte?',
+					question: '¿Trabajas en sistemas existentes?',
 					answer:
-						'Puedes iniciar una conversación por WhatsApp o enviar un correo a las direcciones del pie de página.',
+						'Sí. Puedo colaborar en la modernización de herramientas en producción, desarrollo de nuevas rutas de API, integraciones de servicios o corrección de lentitud.',
 				},
 				{
-					question: '¿Dónde operas?',
+					question: '¿Cómo funciona la propuesta y el inicio del proyecto?',
 					answer:
-						'Atención remota para proyectos en todo Brasil y en el extranjero.',
+						'Conversamos inicialmente por WhatsApp o correo electrónico para entender el alcance y las necesidades técnicas. Luego presento una propuesta detallada con etapas y valores.',
+				},
+				{
+					question: '¿Trabajas de forma remota?',
+					answer:
+						'Sí. Atiendo de forma remota con comunicación clara y reuniones periódicas para empresas en cualquier región de Brasil o en el extranjero.',
+				},
+				{
+					question: '¿De quién es la propiedad del código desarrollado?',
+					answer:
+						'Los términos de propiedad, acceso al código fuente y entregables se definen formalmente en la propuesta y el contrato del proyecto.',
 				},
 			],
+		},
+		contactSection: {
+			title: '¿HABLAMOS SOBRE TU PROYECTO?',
+			heading: '¿Tienes una necesidad técnica o un sistema que construir?',
+			desc: 'Envía un mensaje por WhatsApp o correo electrónico para evaluar el alcance y los requerimientos de tu proyecto.',
+			buttonWa: 'Hablar por WhatsApp',
+			buttonEmail: 'Enviar un Correo',
+			connect: 'Conéctate en redes:',
+		},
+		testimonials: {
+			title: 'TESTIMONIOS',
+			items: [] as { quote: string; name: string; role: string; avatar: string }[],
 		},
 		footer: {
 			joinTitle: 'GABRIEL CAMPOS',
@@ -370,7 +610,7 @@ export const ui = {
 			links: {
 				home: 'Inicio',
 				services: 'Servicios',
-				features: 'Principios',
+				features: 'Cómo trabajo',
 				community: 'Contacto',
 				faqs: 'Preguntas',
 				contactUs: 'Contáctanos',

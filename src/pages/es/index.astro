@@ -1,10 +1,13 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import Hero from '../../components/sections/Hero.astro';
+import Problems from '../../components/sections/Problems.astro';
 import Services from '../../components/sections/Services.astro';
-import Features from '../../components/sections/Features.astro';
-import Community from '../../components/sections/Community.astro';
+import Work from '../../components/sections/Work.astro';
+import Principles from '../../components/sections/Principles.astro';
+import About from '../../components/sections/About.astro';
 import FAQs from '../../components/sections/FAQs.astro';
+import ContactSection from '../../components/sections/ContactSection.astro';
 import { useTranslations } from '../../i18n/utils';
 
 const lang = 'es';
@@ -13,8 +16,11 @@ const t = useTranslations(lang)();
 
 <PageLayout lang={lang} title={t.meta.title} description={t.meta.description}>
 	<Hero {lang} />
+	<Problems {lang} />
 	<Services {lang} />
-	<Features {lang} />
+	<Work {lang} />
+	<Principles {lang} />
+	<About {lang} />
 	<FAQs {lang} />
-	<Community {lang} />
+	<ContactSection {lang} />
 </PageLayout>
