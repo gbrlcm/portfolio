@@ -19,11 +19,10 @@ const {
 	noIndex = false,
 } = Astro.props;
 
-const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, '') : 'https://gabrielcampos.dev';
-const canonical = new URL(Astro.url.pathname, siteUrl);
-const ogImage = image ? new URL(image, siteUrl).toString() : undefined;
+const siteUrl: string = Astro.site ? Astro.site.toString().replace(/\/$/, '') : 'https://gabrielcampos.dev';
+const canonical: URL = new URL(Astro.url.pathname, siteUrl);
+const ogImage: string | undefined = image ? new URL(image, siteUrl).toString() : undefined;
 
-// Alternate hreflangs for multilingual homepage versions
 const hreflangs = [
 	{ lang: 'pt-BR', href: `${siteUrl}/` },
 	{ lang: 'en', href: `${siteUrl}/en/` },
@@ -31,7 +30,6 @@ const hreflangs = [
 	{ lang: 'x-default', href: `${siteUrl}/` },
 ];
 
-// Structured data localized descriptions and roles
 const siteDescriptions: Record<SupportedLanguage, string> = {
 	'pt-BR': 'Portfólio profissional e desenvolvimento de sistemas web sob medida.',
 	en: 'Professional portfolio and custom web systems development.',
@@ -59,7 +57,6 @@ const schema = {
 			url: `${siteUrl}/`,
 			name: 'Gabriel Campos',
 			description: siteDescriptions[lang] ?? siteDescriptions['pt-BR'],
-			inLanguage: lang,
 			publisher: {
 				'@id': `${siteUrl}/#person`,
 			},
