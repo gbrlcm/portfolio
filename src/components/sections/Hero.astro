@@ -93,19 +93,19 @@ const waUrl = getWhatsAppUrl(lang);
 					</p>
 
 					<!-- Action Buttons -->
-					<div class="flex flex-wrap items-center gap-4 pt-1">
+					<div class="grid w-full grid-cols-1 sm:w-fit sm:grid-cols-2 items-center gap-4 pt-1">
 						<a
 							href={waUrl}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="group inline-flex items-center gap-2 transition-transform duration-200 active:scale-95"
+							class="group flex w-full items-center gap-2 transition-transform duration-200 active:scale-95"
 							aria-label={t.hero.ctaPrimary}
 						>
 							<!-- Wrapper (Text Pill) -->
 							<div
-								class="flex h-12 sm:h-13 items-center justify-center gap-2.5 rounded-full bg-task-yellow px-6 sm:px-8 shadow-xs transition-all duration-200 group-hover:brightness-105"
+								class="flex flex-1 h-12 sm:h-13 items-center justify-center gap-2.5 rounded-full bg-task-yellow px-6 sm:px-8 shadow-xs transition-all duration-200 group-hover:brightness-105"
 							>
-								<Icon name="simple-icons:whatsapp" class="size-5 text-task-dark transition-transform duration-200 group-hover:scale-110" />
+								<Icon name="simple-icons:whatsapp" class="size-5 shrink-0 text-task-dark transition-transform duration-200 group-hover:scale-110" />
 								<span class="font-jakarta text-base sm:text-lg font-semibold tracking-tight text-task-dark">
 									{t.hero.ctaPrimary}
 								</span>
@@ -113,7 +113,7 @@ const waUrl = getWhatsAppUrl(lang);
 
 							<!-- Arrow Circle -->
 							<div
-								class="relative flex size-12 sm:size-13 items-center justify-center overflow-hidden rounded-full bg-task-yellow shadow-xs transition-all duration-200 group-hover:brightness-105"
+								class="relative flex size-12 sm:size-13 shrink-0 items-center justify-center overflow-hidden rounded-full bg-task-yellow shadow-xs transition-all duration-200 group-hover:brightness-105"
 							>
 								<!-- Icon 1 (slides out top-right on hover) -->
 								<svg
@@ -146,10 +146,35 @@ const waUrl = getWhatsAppUrl(lang);
 						</a>
 						<a
 							href="#servicos"
-							class="group flex h-12 sm:h-13 items-center justify-center gap-2 rounded-full border border-task-border bg-white px-6 sm:px-7 font-outfit text-sm sm:text-base font-semibold text-task-dark transition-all duration-200 hover:border-task-dark hover:bg-task-bg active:scale-95 shadow-2xs"
+							class="group flex w-full items-center gap-2 transition-transform duration-200 active:scale-95"
+							aria-label={t.hero.ctaSecondary}
 						>
-							<span>{t.hero.ctaSecondary}</span>
-							<Icon name="lucide:arrow-down" class="size-4 text-task-dark transition-transform duration-200 group-hover:translate-y-0.5" />
+							<!-- Wrapper (Text Pill) -->
+							<div
+								class="flex flex-1 h-12 sm:h-13 items-center justify-center gap-2.5 rounded-full border border-task-border bg-white px-6 sm:px-8 shadow-2xs transition-all duration-200 group-hover:border-task-dark group-hover:bg-task-bg"
+							>
+								<Icon name="lucide:layers" class="size-5 shrink-0 text-task-dark transition-transform duration-200 group-hover:scale-110" />
+								<span class="font-outfit text-sm sm:text-base font-semibold text-task-dark whitespace-nowrap">
+									{t.hero.ctaSecondary}
+								</span>
+							</div>
+
+							<!-- Arrow Circle -->
+							<div
+								class="relative flex size-12 sm:size-13 shrink-0 items-center justify-center overflow-hidden rounded-full border border-task-border bg-white shadow-2xs transition-all duration-200 group-hover:border-task-dark group-hover:bg-task-bg"
+							>
+								<!-- Icon 1 (slides out down on hover) -->
+								<Icon
+									name="lucide:arrow-down"
+									class="size-4.5 sm:size-5 text-task-dark transition-all duration-300 ease-out group-hover:translate-y-9 group-hover:opacity-0"
+								/>
+
+								<!-- Icon 2 (slides in from top on hover) -->
+								<Icon
+									name="lucide:arrow-down"
+									class="absolute size-4.5 sm:size-5 -translate-y-9 opacity-0 text-task-dark transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100"
+								/>
+							</div>
 						</a>
 					</div>
 

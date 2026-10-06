@@ -25,15 +25,14 @@ const activeIndex = currentLangIndex >= 0 ? currentLangIndex : 0;
 <header class={`sticky top-0 z-50 w-full border-b border-task-border bg-task-bg/90 backdrop-blur-md ${className}`}>
 	<div class="mx-auto flex h-21 w-full max-w-300 items-center justify-between px-5 md:px-8">
 		<!-- Logo -->
-		<a href="#home" class="relative block size-7.5 shrink-0 transition-transform hover:scale-105" aria-label="Gabriel Campos">
-			<img
-				src="/icons/icon.svg"
-				alt="Gabriel Campos"
-				class="size-full rounded-inherit object-cover"
-				width="30"
-				height="30"
-				loading="eager"
-			/>
+		<a href="#home" class="group flex items-center gap-2.5 transition-transform active:scale-95" aria-label="Gabriel Campos - Início">
+			<span class="flex size-11 items-center justify-center rounded-lg bg-task-dark font-anton text-lg leading-none shadow-xs transition-transform group-hover:scale-105">
+				<span class="text-white">G</span>
+				<span class="text-task-yellow">C</span>
+			</span>
+			<span class="font-anton text-xl tracking-tight text-task-dark uppercase sm:text-xl">
+				Gabriel Campos
+			</span>
 		</a>
 
 		<!-- Desktop Navigation Links -->

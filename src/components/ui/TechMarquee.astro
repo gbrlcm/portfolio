@@ -1,0 +1,84 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface TechItem {
+	name: string;
+	icon: string;
+}
+
+const technologies: TechItem[] = [
+	{ name: 'TypeScript', icon: 'simple-icons:typescript' },
+	{ name: 'Go', icon: 'simple-icons:go' },
+	{ name: 'Java', icon: 'java' },
+	{ name: 'Spring Boot', icon: 'simple-icons:springboot' },
+	{ name: 'C#', icon: 'simple-icons:csharp' },
+	{ name: 'PHP', icon: 'simple-icons:php' },
+	{ name: 'Laravel', icon: 'simple-icons:laravel' },
+	{ name: 'Symfony', icon: 'simple-icons:symfony' },
+	{ name: 'Node.js', icon: 'simple-icons:nodedotjs' },
+	{ name: 'NestJS', icon: 'simple-icons:nestjs' },
+	{ name: 'Python', icon: 'simple-icons:python' },
+	{ name: 'Flutter', icon: 'simple-icons:flutter' },
+	{ name: 'React', icon: 'simple-icons:react' },
+	{ name: 'Next.js', icon: 'simple-icons:nextdotjs' },
+	{ name: 'Astro', icon: 'simple-icons:astro' },
+	{ name: 'Tailwind CSS', icon: 'simple-icons:tailwindcss' },
+	{ name: 'PostgreSQL', icon: 'simple-icons:postgresql' },
+	{ name: 'MySQL', icon: 'simple-icons:mysql' },
+	{ name: 'Redis', icon: 'simple-icons:redis' },
+	{ name: 'Valkey', icon: 'valkey' },
+	{ name: 'Docker', icon: 'simple-icons:docker' },
+	{ name: 'AWS', icon: 'simple-icons:amazonwebservices' },
+	{ name: 'Digital Ocean', icon: 'simple-icons:digitalocean' },
+	{ name: 'Linux', icon: 'simple-icons:linux' },
+	{ name: 'Git', icon: 'simple-icons:git' },
+];
+
+export interface Props {
+	class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div
+	class={`relative w-full overflow-hidden select-none [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] ${className}`}
+	aria-label="Linguagens e tecnologias"
+>
+	<div class="animate-marquee flex w-max items-center py-2">
+		<!-- Primeira faixa -->
+		<div class="flex shrink-0 items-center gap-10 sm:gap-14 pr-10 sm:pr-14">
+			{
+				technologies.map((tech) => (
+					<div
+						class="group flex items-center justify-center transition-transform duration-200 hover:scale-110"
+						title={tech.name}
+						aria-label={tech.name}
+					>
+						<Icon
+							name={tech.icon}
+							class="size-7 sm:size-8 text-[#9ea8a3] transition-colors duration-200 group-hover:text-task-dark"
+						/>
+					</div>
+				))
+			}
+		</div>
+
+		<!-- Segunda faixa (duplicada para loop infinito 100% contínuo) -->
+		<div class="flex shrink-0 items-center gap-10 sm:gap-14 pr-10 sm:pr-14" aria-hidden="true">
+			{
+				technologies.map((tech) => (
+					<div
+						class="group flex items-center justify-center transition-transform duration-200 hover:scale-110"
+						title={tech.name}
+					>
+						<Icon
+							name={tech.icon}
+							class="size-7 sm:size-8 text-[#9ea8a3] transition-colors duration-200 group-hover:text-task-dark"
+						/>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</div>

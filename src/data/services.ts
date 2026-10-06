@@ -10,7 +10,7 @@ export const services: Service[] = [
 		code: '01',
 		title: 'Landing pages e sites institucionais',
 		summary:
-			'Presença digital rápida, com carregamento instantâneo e estrutura pronta para posicionar a marca.',
+			'Presença digital rápida, com carregamento rápido e estrutura pronta para posicionar a marca.',
 		items: ['Design sob medida', 'Deploy e domínio', 'SEO técnico'],
 	},
 	{

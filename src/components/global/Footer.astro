@@ -79,7 +79,7 @@ const telegramUrl = getTelegramUrl();
 						>
 							<Icon name="simple-icons:whatsapp" class="size-3.5 shrink-0 text-[#25D366]" />
 							<span class="font-medium">WhatsApp:</span>
-							<span class="font-mono text-xs">{WHATSAPP_PHONE}</span>
+							<span class="text-sm">{WHATSAPP_PHONE}</span>
 						</a>
 					</li>
 					<li>
@@ -91,7 +91,7 @@ const telegramUrl = getTelegramUrl();
 						>
 							<Icon name="simple-icons:telegram" class="size-3.5 shrink-0 text-[#229ED9]" />
 							<span class="font-medium">Telegram:</span>
-							<span class="font-mono text-xs">{TELEGRAM_PHONE}</span>
+							<span class="text-sm">{TELEGRAM_PHONE}</span>
 						</a>
 					</li>
 				</ul>
@@ -106,7 +106,7 @@ const telegramUrl = getTelegramUrl();
 					<li>
 						<a
 							href={`mailto:${email}`}
-							class="block transition-colors hover:underline font-mono text-xs text-task-dark/90"
+							class="block transition-colors hover:underline text-xs text-task-dark/90"
 							title={email}
 						>
 							{email}
@@ -124,7 +124,7 @@ const telegramUrl = getTelegramUrl();
 
 	<!-- Bottom Copyright -->
 	<div class="mx-auto mt-14 flex w-full max-w-270 items-center justify-between border-t border-task-border pt-6 font-outfit text-xs text-task-gray">
-		<p>© {new Date().getFullYear()} Gabriel Campos. Designed for multilingual portfolios.</p>
+		<p>© {new Date().getFullYear()} Gabriel Campos.</p>
 		<p class="font-medium text-task-dark">Astro + Tailwind CSS v4</p>
 	</div>
 </footer>
