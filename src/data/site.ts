@@ -29,4 +29,5 @@ export const heroImageConfig = {
 	width: 1600,
 	height: 901,
 	type: 'image/webp',
+	ogImage: '/images/og-image.jpg',
 } as const;

@@ -23,7 +23,7 @@ const {
 	lang = "pt-BR",
 	title = "Gabriel Campos — Desenvolvimento de Software & Sistemas Web",
 	description = "Desenvolvimento de software, sistemas web sob medida e integrações de APIs por Gabriel Campos. Código limpo, estabilidade e arquitetura moderna para empresas.",
-	image,
+	image = "/images/og-image.jpg",
 	noIndex = false,
 	preloadImage,
 } = Astro.props;
@@ -35,6 +35,11 @@ const canonical: URL = new URL(Astro.url.pathname, siteUrl);
 const ogImage: string | undefined = image
 	? new URL(image, siteUrl).toString()
 	: undefined;
+const ogImageType: string = ogImage?.endsWith(".png")
+	? "image/png"
+	: ogImage?.endsWith(".webp")
+		? "image/webp"
+		: "image/jpeg";
 
 const hreflangs = [
 	{ lang: "pt-BR", href: `${siteUrl}/` },
@@ -189,7 +194,18 @@ const schema = {
 			property="og:locale"
 			content={lang === "pt-BR" ? "pt_BR" : lang === "es" ? "es_ES" : "en_US"}
 		/>
-		{ogImage && <meta property="og:image" content={ogImage} />}
+		{
+			ogImage && (
+				<>
+					<meta property="og:image" content={ogImage} />
+					<meta property="og:image:secure_url" content={ogImage} />
+					<meta property="og:image:type" content={ogImageType} />
+					<meta property="og:image:alt" content={title} />
+					<meta property="og:image:width" content="1200" />
+					<meta property="og:image:height" content="630" />
+				</>
+			)
+		}
 
 		<meta
 			name="twitter:card"
