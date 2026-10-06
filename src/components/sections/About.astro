@@ -14,13 +14,13 @@ const t = useTranslations(lang)();
 
 <section class="relative w-full overflow-hidden px-4 pt-20 md:px-8 md:pt-28" id="sobre">
 	<div class="mx-auto w-full max-w-270">
+		<div class="mb-10 text-center md:mb-14">
+			<h2 class="font-anton text-3xl leading-tight text-task-dark sm:text-4xl md:text-[50px] uppercase">
+				{t.about.title}
+			</h2>
+		</div>
+		
 		<div class="rounded-[50px] bg-white p-8 sm:p-12 md:p-16 shadow-xs">
-			<!-- Title -->
-			<div class="mb-8">
-				<h2 class="font-anton text-3xl leading-tight text-task-dark sm:text-4xl md:text-[46px] uppercase">
-					{t.about.title}
-				</h2>
-			</div>
 
 			<!-- Bio Paragraphs -->
 			<div class="flex flex-col gap-5 font-outfit text-base sm:text-lg leading-relaxed text-task-dark/85 max-w-3xl">
@@ -28,16 +28,8 @@ const t = useTranslations(lang)();
 				<p>{t.about.bio2}</p>
 			</div>
 
-			<!-- Tech Stacks Distinction -->
-			<div class="mt-10 grid grid-cols-1 gap-6 border-t border-task-border/60 pt-8 sm:grid-cols-2">
-				<div class="flex flex-col gap-2">
-					<span class="font-outfit text-xs font-semibold uppercase tracking-wider text-task-gray">
-						{t.about.siteStackTitle}
-					</span>
-					<span class="font-mono text-sm text-task-dark font-medium">
-						{t.about.siteStack}
-					</span>
-				</div>
+			<!-- Professional Stack -->
+			<div class="mt-10 grid grid-cols-1 gap-6 border-t border-task-border/60 pt-8">
 				<div class="flex flex-col gap-2">
 					<span class="font-outfit text-xs font-semibold uppercase tracking-wider text-task-gray">
 						{t.about.profStackTitle}

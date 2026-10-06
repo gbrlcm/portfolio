@@ -63,8 +63,13 @@ const t = useTranslations(lang)();
 
 <script>
 	function initFaqAccordion() {
-		const items = document.querySelectorAll('.faq-item');
+		const items = document.querySelectorAll<HTMLElement>('.faq-item');
 		items.forEach((item) => {
+			// astro:page-load also fires on the first load, so the immediate call above
+			// would register a second listener and cancel its own toggle.
+			if (item.dataset.faqInit === 'true') return;
+			item.dataset.faqInit = 'true';
+
 			const trigger = item.querySelector('.faq-trigger');
 			const answer = item.querySelector('.faq-answer');
 			const verticalBar = item.querySelector('.faq-icon-vertical');

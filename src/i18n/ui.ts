@@ -18,7 +18,6 @@ export const ui = {
 			home: 'Início',
 			problems: 'Problemas',
 			services: 'Serviços',
-			work: 'Experiência',
 			principles: 'Como trabalho',
 			about: 'Sobre',
 			faqs: 'Dúvidas',
@@ -26,7 +25,6 @@ export const ui = {
 			getInTouch: 'Falar no WhatsApp',
 		},
 		hero: {
-			badge: 'Desenvolvimento de Software',
 			title: 'Sistemas web e aplicações sob medida.',
 			subtitle:
 				'Desenvolvo sistemas internos, integrações de APIs e aplicações web com arquitetura moderna, código limpo e foco na operação do seu negócio.',
@@ -57,6 +55,7 @@ export const ui = {
 		services: {
 			title: 'SERVIÇOS E ESPECIALIDADES',
 			readMore: 'Conversar sobre este serviço',
+			readMoreShort: 'Conversar sobre',
 			items: [
 				{
 					label: 'Sistemas Web',
@@ -78,40 +77,6 @@ export const ui = {
 					desc: 'Presença digital com carregamento instantâneo, código enxuto e estrutura técnica pronta para motores de busca e acessibilidade.',
 					deliverables: 'Astro e Tailwind CSS · Otimização de Core Web Vitals · SEO técnico',
 					image: '/images/service-3.webp',
-				},
-			],
-		},
-		work: {
-			title: 'TRABALHO E ATUAÇÃO TÉCNICA',
-			subtitle: 'Projetos de código aberto, arquitetura de sistemas e experiência profissional.',
-			items: [
-				{
-					category: 'Projeto Open Source',
-					title: 'Plataforma Web Multilíngue',
-					desc: 'Estrutura de alta performance com arquitetura Jamstack estática, i18n nativo, tokens centralizados e deploy na borda via Cloudflare Pages.',
-					stack: 'Astro · TypeScript · Tailwind CSS · Cloudflare Pages',
-					linkText: 'Ver no GitHub ↗',
-					linkUrl: 'https://github.com/gbrlcm/portfolio',
-				},
-				{
-					category: 'Estudo Técnico de Arquitetura',
-					title: 'Serviços e APIs em Go e Docker',
-					desc: 'Implementação de serviços concorrentes em Go, persistência relacional com PostgreSQL e empacotamento conteinerizado.',
-					stack: 'Go · PostgreSQL · Docker · REST APIs',
-				},
-				{
-					category: 'Experiência Profissional',
-					title: 'Sistemas Distribuídos e Integrações',
-					desc: 'Atuação profissional no desenvolvimento de sistemas web, APIs transacionais, integrações entre plataformas corporativas e microsserviços.',
-					stack: 'TypeScript · Node.js / NestJS · Go · SQL · Docker',
-				},
-				{
-					category: 'Participação em Comunidade',
-					title: 'Google Developer Groups (GDG Americana)',
-					desc: 'Contribuição ativa com a comunidade local de tecnologia em Americana/SP, facilitando discussões técnicas, workshops e eventos.',
-					stack: 'Comunidade Técnica · Americana/SP',
-					linkText: 'LinkedIn ↗',
-					linkUrl: 'https://www.linkedin.com/in/gabriel-lopes-campos/',
 				},
 			],
 		},
@@ -139,8 +104,6 @@ export const ui = {
 			title: 'SOBRE GABRIEL CAMPOS',
 			bio1: 'Sou desenvolvedor de software com foco em engenharia web, sistemas e integração de serviços. Priorizo código limpo, estabilidade e compreensão profunda do contexto de negócio antes de propor qualquer solução técnica.',
 			bio2: 'Atuo na comunidade técnica local através do GDG Americana e trabalho de forma remota com empresas e equipes de diversas regiões.',
-			siteStackTitle: 'Tecnologias deste portfólio:',
-			siteStack: 'Astro · Tailwind CSS v4 · Cloudflare Pages',
 			profStackTitle: 'Especialidades e tecnologias profissionais:',
 			profStack: 'TypeScript · Go · Node.js / NestJS · Docker · PostgreSQL · REST APIs',
 			githubLabel: 'GitHub ↗',
@@ -224,7 +187,6 @@ export const ui = {
 			home: 'Home',
 			problems: 'Challenges',
 			services: 'Services',
-			work: 'Experience',
 			principles: 'How I Work',
 			about: 'About',
 			faqs: 'FAQs',
@@ -232,7 +194,6 @@ export const ui = {
 			getInTouch: 'Chat on WhatsApp',
 		},
 		hero: {
-			badge: 'Software Development',
 			title: 'Custom web systems and software engineering.',
 			subtitle:
 				'I build internal tools, API integrations, and tailored web applications with modern architecture, clean code, and a focus on your business operations.',
@@ -263,6 +224,7 @@ export const ui = {
 		services: {
 			title: 'SERVICES & EXPERTISE',
 			readMore: 'Discuss this service',
+			readMoreShort: 'Discuss',
 			items: [
 				{
 					label: 'Web Systems',
@@ -284,40 +246,6 @@ export const ui = {
 					desc: 'Lightning-fast digital presence built with lean code, solid Core Web Vitals, and native technical SEO.',
 					deliverables: 'Astro & Tailwind CSS · Core Web Vitals optimization · Technical SEO',
 					image: '/images/service-3.webp',
-				},
-			],
-		},
-		work: {
-			title: 'TECHNICAL WORK & PROJECTS',
-			subtitle: 'Open-source repositories, architectural implementations, and professional experience.',
-			items: [
-				{
-					category: 'Open Source Project',
-					title: 'Multilingual Jamstack Platform',
-					desc: 'High-performance architecture with static generation, native i18n, unified design tokens, and edge deployment on Cloudflare Pages.',
-					stack: 'Astro · TypeScript · Tailwind CSS · Cloudflare Pages',
-					linkText: 'View on GitHub ↗',
-					linkUrl: 'https://github.com/gbrlcm/portfolio',
-				},
-				{
-					category: 'Technical Architectural Study',
-					title: 'Backend Services in Go & Docker',
-					desc: 'Implementation of concurrent services in Go, transactional persistence with PostgreSQL, and containerized deployment.',
-					stack: 'Go · PostgreSQL · Docker · REST APIs',
-				},
-				{
-					category: 'Professional Experience',
-					title: 'Distributed Systems & Integrations',
-					desc: 'Professional engineering on transactional platforms, corporate system integrations, microservices, and backend APIs.',
-					stack: 'TypeScript · Node.js / NestJS · Go · SQL · Docker',
-				},
-				{
-					category: 'Community Contribution',
-					title: 'Google Developer Groups (GDG Americana)',
-					desc: 'Active involvement in the regional tech ecosystem, facilitating technical meetups, talks, and knowledge sharing in software development.',
-					stack: 'Technical Community · Americana/SP',
-					linkText: 'LinkedIn ↗',
-					linkUrl: 'https://www.linkedin.com/in/gabriel-lopes-campos/',
 				},
 			],
 		},
@@ -345,8 +273,6 @@ export const ui = {
 			title: 'ABOUT GABRIEL CAMPOS',
 			bio1: 'I am a software developer focused on web engineering, systems, and service integrations. I prioritize clean code, architectural simplicity, and a thorough understanding of the business problem before proposing technical solutions.',
 			bio2: 'I actively contribute to the local tech community through GDG Americana and work remotely with organizations across diverse locations.',
-			siteStackTitle: 'Technologies behind this portfolio:',
-			siteStack: 'Astro · Tailwind CSS v4 · Cloudflare Pages',
 			profStackTitle: 'Professional tech stack & expertise:',
 			profStack: 'TypeScript · Go · Node.js / NestJS · Docker · PostgreSQL · REST APIs',
 			githubLabel: 'GitHub ↗',
@@ -430,7 +356,6 @@ export const ui = {
 			home: 'Inicio',
 			problems: 'Desafíos',
 			services: 'Servicios',
-			work: 'Experiencia',
 			principles: 'Cómo trabajo',
 			about: 'Sobre mí',
 			faqs: 'Preguntas',
@@ -438,7 +363,6 @@ export const ui = {
 			getInTouch: 'Hablar por WhatsApp',
 		},
 		hero: {
-			badge: 'Desarrollo de Software',
 			title: 'Sistemas web y aplicaciones a medida.',
 			subtitle:
 				'Desarrollo herramientas internas, integraciones de APIs y aplicaciones web con arquitectura moderna, código limpio y foco en la operación de tu negocio.',
@@ -469,6 +393,7 @@ export const ui = {
 		services: {
 			title: 'SERVICIOS Y CAPACIDADES',
 			readMore: 'Conversar sobre este servicio',
+			readMoreShort: 'Conversar sobre',
 			items: [
 				{
 					label: 'Sistemas Web',
@@ -490,40 +415,6 @@ export const ui = {
 					desc: 'Presencia digital con carga instantánea, código optimizado y estructura técnica lista para motores de búsqueda y accesibilidad.',
 					deliverables: 'Astro y Tailwind CSS · Optimización de Core Web Vitals · SEO técnico',
 					image: '/images/service-3.webp',
-				},
-			],
-		},
-		work: {
-			title: 'TRABAJO TÉCNICO Y PROYECTOS',
-			subtitle: 'Proyectos de código abierto, implementaciones de arquitectura y experiencia profesional.',
-			items: [
-				{
-					category: 'Proyecto Open Source',
-					title: 'Plataforma Web Multilingüe',
-					desc: 'Arquitectura de alto rendimiento con generación Jamstack estática, i18n nativo, tokens de diseño y despliegue en el borde mediante Cloudflare Pages.',
-					stack: 'Astro · TypeScript · Tailwind CSS · Cloudflare Pages',
-					linkText: 'Ver en GitHub ↗',
-					linkUrl: 'https://github.com/gbrlcm/portfolio',
-				},
-				{
-					category: 'Estudio Técnico de Arquitectura',
-					title: 'Servicios y APIs en Go y Docker',
-					desc: 'Implementación de servicios concurrentes en Go, persistencia relacional con PostgreSQL y empaquetado en contenedores.',
-					stack: 'Go · PostgreSQL · Docker · REST APIs',
-				},
-				{
-					category: 'Experiencia Profesional',
-					title: 'Sistemas Distribuidos e Integraciones',
-					desc: 'Actividad profesional en plataformas transaccionales, integraciones empresariales, microservicios y APIs backend.',
-					stack: 'TypeScript · Node.js / NestJS · Go · SQL · Docker',
-				},
-				{
-					category: 'Participación en Comunidad',
-					title: 'Google Developer Groups (GDG Americana)',
-					desc: 'Contribución activa a la comunidad tecnológica en Americana/SP, facilitando charlas técnicas, talleres y eventos de software.',
-					stack: 'Comunidad Técnica · Americana/SP',
-					linkText: 'LinkedIn ↗',
-					linkUrl: 'https://www.linkedin.com/in/gabriel-lopes-campos/',
 				},
 			],
 		},
@@ -551,8 +442,6 @@ export const ui = {
 			title: 'SOBRE GABRIEL CAMPOS',
 			bio1: 'Soy desarrollador de software enfocado en ingeniería web, sistemas e integraciones. Priorizo el código limpio, la estabilidad técnica y la comprensión profunda de la necesidad operativa antes de proponer soluciones.',
 			bio2: 'Participo en la comunidad tecnológica local a través de GDG Americana y colaboro de forma remota con empresas de diversas regiones.',
-			siteStackTitle: 'Tecnologías de este portafolio:',
-			siteStack: 'Astro · Tailwind CSS v4 · Cloudflare Pages',
 			profStackTitle: 'Especialidades y tecnologías profesionales:',
 			profStack: 'TypeScript · Go · Node.js / NestJS · Docker · PostgreSQL · REST APIs',
 			githubLabel: 'GitHub ↗',

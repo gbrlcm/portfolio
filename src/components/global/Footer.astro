@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import type { SupportedLanguage } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 import {
@@ -76,6 +77,7 @@ const telegramUrl = getTelegramUrl();
 							rel="noopener noreferrer"
 							class="inline-flex items-center gap-1.5 whitespace-nowrap transition-colors hover:underline"
 						>
+							<Icon name="simple-icons:whatsapp" class="size-3.5 shrink-0 text-[#25D366]" />
 							<span class="font-medium">WhatsApp:</span>
 							<span class="font-mono text-xs">{WHATSAPP_PHONE}</span>
 						</a>
@@ -87,6 +89,7 @@ const telegramUrl = getTelegramUrl();
 							rel="noopener noreferrer"
 							class="inline-flex items-center gap-1.5 whitespace-nowrap transition-colors hover:underline"
 						>
+							<Icon name="simple-icons:telegram" class="size-3.5 shrink-0 text-[#229ED9]" />
 							<span class="font-medium">Telegram:</span>
 							<span class="font-mono text-xs">{TELEGRAM_PHONE}</span>
 						</a>
