@@ -1,7 +1,7 @@
 ---
-import type { SupportedLanguage } from '../i18n/ui';
-import { ClientRouter } from 'astro:transitions';
-import '../styles/styles.css';
+import type { SupportedLanguage } from "../i18n/ui";
+import { ClientRouter } from "astro:transitions";
+import "../styles/styles.css";
 
 export interface Props {
 	title?: string;
@@ -12,67 +12,74 @@ export interface Props {
 }
 
 const {
-	lang = 'pt-BR',
-	title = 'Gabriel Campos — Desenvolvimento de Software & Sistemas Web',
-	description = 'Desenvolvimento de software, sistemas web sob medida e integrações de APIs por Gabriel Campos. Código limpo, estabilidade e arquitetura moderna para empresas.',
+	lang = "pt-BR",
+	title = "Gabriel Campos — Desenvolvimento de Software & Sistemas Web",
+	description = "Desenvolvimento de software, sistemas web sob medida e integrações de APIs por Gabriel Campos. Código limpo, estabilidade e arquitetura moderna para empresas.",
 	image,
 	noIndex = false,
 } = Astro.props;
 
-const siteUrl: string = Astro.site ? Astro.site.toString().replace(/\/$/, '') : 'https://gabrielcampos.dev';
+const siteUrl: string = Astro.site
+	? Astro.site.toString().replace(/\/$/, "")
+	: "https://gabrielcampos.dev";
 const canonical: URL = new URL(Astro.url.pathname, siteUrl);
-const ogImage: string | undefined = image ? new URL(image, siteUrl).toString() : undefined;
+const ogImage: string | undefined = image
+	? new URL(image, siteUrl).toString()
+	: undefined;
 
 const hreflangs = [
-	{ lang: 'pt-BR', href: `${siteUrl}/` },
-	{ lang: 'en', href: `${siteUrl}/en/` },
-	{ lang: 'es', href: `${siteUrl}/es/` },
-	{ lang: 'x-default', href: `${siteUrl}/` },
+	{ lang: "pt-BR", href: `${siteUrl}/` },
+	{ lang: "en", href: `${siteUrl}/en/` },
+	{ lang: "es", href: `${siteUrl}/es/` },
+	{ lang: "x-default", href: `${siteUrl}/` },
 ];
 
 const siteDescriptions: Record<SupportedLanguage, string> = {
-	'pt-BR': 'Portfólio profissional e desenvolvimento de sistemas web sob medida.',
-	en: 'Professional portfolio and custom web systems development.',
-	es: 'Portafolio profesional y desarrollo de sistemas web a medida.',
+	"pt-BR":
+		"Portfólio profissional e desenvolvimento de sistemas web sob medida.",
+	en: "Professional portfolio and custom web systems development.",
+	es: "Portafolio profesional y desarrollo de sistemas web a medida.",
 };
 
 const jobTitles: Record<SupportedLanguage, string> = {
-	'pt-BR': 'Desenvolvedor de Software',
-	en: 'Software Engineer',
-	es: 'Desarrollador de Software',
+	"pt-BR": "Desenvolvedor de Software",
+	en: "Software Engineer",
+	es: "Desarrollador de Software",
 };
 
 const personDescriptions: Record<SupportedLanguage, string> = {
-	'pt-BR': 'Desenvolvedor de software com foco em engenharia web, sistemas sob medida e integração de serviços.',
-	en: 'Software developer focused on web engineering, custom systems, and service integrations.',
-	es: 'Desarrollador de software enfocado en ingeniería web, sistemas a medida e integración de servicios.',
+	"pt-BR":
+		"Desenvolvedor de software com foco em engenharia web, sistemas sob medida e integração de serviços.",
+	en: "Software developer focused on web engineering, custom systems, and service integrations.",
+	es: "Desarrollador de software enfocado en ingeniería web, sistemas a medida e integración de servicios.",
 };
 
 const schema = {
-	'@context': 'https://schema.org',
-	'@graph': [
+	"@context": "https://schema.org",
+	"@graph": [
 		{
-			'@type': 'WebSite',
-			'@id': `${siteUrl}/#website`,
+			"@type": "WebSite",
+			"@id": `${siteUrl}/#website`,
 			url: `${siteUrl}/`,
-			name: 'Gabriel Campos',
-			description: siteDescriptions[lang] ?? siteDescriptions['pt-BR'],
+			name: "Gabriel Campos",
+			description: siteDescriptions[lang] ?? siteDescriptions["pt-BR"],
 			publisher: {
-				'@id': `${siteUrl}/#person`,
+				"@id": `${siteUrl}/#person`,
 			},
 		},
 		{
-			'@type': 'Person',
-			'@id': `${siteUrl}/#person`,
-			name: 'Gabriel Campos',
-			alternateName: 'Gabriel Lopes Campos',
+			"@type": "Person",
+			"@id": `${siteUrl}/#person`,
+			name: "Gabriel Campos",
+			alternateName: "Gabriel Lopes Campos",
 			url: `${siteUrl}/`,
-			jobTitle: jobTitles[lang] ?? jobTitles['pt-BR'],
-			description: personDescriptions[lang] ?? personDescriptions['pt-BR'],
+			jobTitle: jobTitles[lang] ?? jobTitles["pt-BR"],
+			description:
+				personDescriptions[lang] ?? personDescriptions["pt-BR"],
 			sameAs: [
-				'https://github.com/gbrlcm',
-				'https://www.linkedin.com/in/gabriel-lopes-campos',
-				'https://x.com/Gabriel07132569',
+				"https://github.com/gbrlcm",
+				"https://www.linkedin.com/in/gabriel-lopes-campos",
+				"https://x.com/Gabriel07132569",
 			],
 		},
 	],
@@ -86,24 +93,56 @@ const schema = {
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 
+		<!-- Google tag (gtag.js) -->
+		<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-MD22RB1J4Z"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+			gtag('config', 'G-MD22RB1J4Z');
+
+			document.addEventListener('astro:page-load', () => {
+				if (window.__gaInitialLoadDone) {
+					gtag('event', 'page_view', {
+						page_location: window.location.href,
+						page_path: window.location.pathname,
+						page_title: document.title,
+					});
+				} else {
+					window.__gaInitialLoadDone = true;
+				}
+			});
+		</script>
+
 		<title>{title}</title>
 		{description && <meta name="description" content={description} />}
 		{!noIndex && <link rel="canonical" href={canonical.href} />}
 		{noIndex && <meta name="robots" content="noindex, follow" />}
 
-		{!noIndex && hreflangs.map((item) => (
-			<link rel="alternate" hreflang={item.lang} href={item.href} />
-		))}
+		{
+			!noIndex &&
+				hreflangs.map((item) => (
+					<link rel="alternate" hreflang={item.lang} href={item.href} />
+				))
+		}
 
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="Gabriel Campos" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonical.href} />
-		<meta property="og:locale" content={lang === 'pt-BR' ? 'pt_BR' : lang === 'es' ? 'es_ES' : 'en_US'} />
+		<meta
+			property="og:locale"
+			content={lang === "pt-BR" ? "pt_BR" : lang === "es" ? "es_ES" : "en_US"}
+		/>
 		{ogImage && <meta property="og:image" content={ogImage} />}
 
-		<meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+		<meta
+			name="twitter:card"
+			content={ogImage ? "summary_large_image" : "summary"}
+		/>
 		<meta name="twitter:creator" content="@Gabriel07132569" />
 		<meta name="twitter:site" content="@Gabriel07132569" />
 		<meta name="twitter:title" content={title} />
@@ -124,9 +163,14 @@ const schema = {
 			rel="stylesheet"
 		/>
 
-		{!noIndex && (
-			<script type="application/ld+json" set:html={JSON.stringify(schema)} />
-		)}
+		{
+			!noIndex && (
+				<script
+					type="application/ld+json"
+					set:html={JSON.stringify(schema)}
+				/>
+			)
+		}
 
 		<ClientRouter />
 	</head>
