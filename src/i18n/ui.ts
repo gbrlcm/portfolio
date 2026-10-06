@@ -23,6 +23,7 @@ export const ui = {
 			faqs: 'Dúvidas',
 			contact: 'Contato',
 			getInTouch: 'Falar no WhatsApp',
+			getInTouchShort: 'Conversar',
 		},
 		hero: {
 			title: 'Sistemas web e aplicações sob medida.',
@@ -200,6 +201,7 @@ export const ui = {
 			faqs: 'FAQs',
 			contact: 'Contact',
 			getInTouch: 'Chat on WhatsApp',
+			getInTouchShort: 'Chat',
 		},
 		hero: {
 			title: 'Custom web systems and software engineering.',
@@ -377,6 +379,7 @@ export const ui = {
 			faqs: 'Preguntas',
 			contact: 'Contacto',
 			getInTouch: 'Hablar por WhatsApp',
+			getInTouchShort: 'Conversar',
 		},
 		hero: {
 			title: 'Sistemas web y aplicaciones a medida.',

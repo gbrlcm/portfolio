@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import type { SupportedLanguage } from '../../i18n/ui';
 import { useTranslations, getLocalizedPath } from '../../i18n/utils';
 import { getWhatsAppUrl } from '../../data/contact';
@@ -126,10 +127,14 @@ const activeIndex = currentLangIndex >= 0 ? currentLangIndex : 0;
 			>
 				<!-- Wrapper (Text Pill) -->
 				<div
-					class="flex h-11 items-center justify-center rounded-full bg-task-yellow px-5 transition-all duration-200 group-hover:brightness-105"
+					class="flex h-11 items-center justify-center gap-2 rounded-full bg-task-yellow px-5 transition-all duration-200 group-hover:brightness-105"
 				>
-					<span class="font-jakarta text-sm sm:text-[15px] font-semibold tracking-tight text-task-dark">
+					<Icon name="simple-icons:whatsapp" class="size-4 shrink-0 text-task-dark" />
+					<span class="font-jakarta text-sm sm:text-[15px] font-semibold tracking-tight text-task-dark min-[768px]:hidden min-[1119px]:inline">
 						{t.nav.getInTouch}
+					</span>
+					<span class="hidden font-jakarta text-sm sm:text-[15px] font-semibold tracking-tight text-task-dark min-[768px]:inline min-[1119px]:hidden">
+						{t.nav.getInTouchShort}
 					</span>
 				</div>
 
