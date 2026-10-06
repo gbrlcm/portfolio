@@ -100,7 +100,6 @@ const t = useTranslations(lang)();
 </section>
 
 <style>
-	/* Responsive Card Width Calculations */
 	.testimonial-card {
 		width: 100%;
 	}
@@ -113,15 +112,17 @@ const t = useTranslations(lang)();
 </style>
 
 <script>
-	function initTestimonialsSlider() {
-		const track = document.getElementById('testimonials-track');
-		const prevBtn = document.getElementById('testimonials-prev');
-		const nextBtn = document.getElementById('testimonials-next');
-		const viewport = document.getElementById('testimonials-viewport');
+	function initTestimonialsSlider(): void {
+		const track: HTMLElement | null = document.getElementById('testimonials-track');
+		const prevBtn: HTMLElement | null = document.getElementById('testimonials-prev');
+		const nextBtn: HTMLElement | null = document.getElementById('testimonials-next');
+		const viewport: HTMLElement | null = document.getElementById('testimonials-viewport');
+
 		if (!track || !prevBtn || !nextBtn || !viewport) return;
 
-		const cards = track.querySelectorAll('.testimonial-card');
-		const totalCards = cards.length;
+		const cards: NodeListOf<Element> = track.querySelectorAll('.testimonial-card');
+		const totalCards: number = cards.length;
+
 		let currentIndex = 0;
 
 		function getVisibleCount() {
@@ -129,18 +130,23 @@ const t = useTranslations(lang)();
 			return 1;
 		}
 
-		function updateSlider() {
+		function updateSlider(): void {
 			if (!track || !prevBtn || !nextBtn) return;
-			const visible = getVisibleCount();
-			const maxIndex = Math.max(0, totalCards - visible);
+
+			const visible: 2 | 1 = getVisibleCount();
+			const maxIndex: number = Math.max(0, totalCards - visible);
+
 			if (currentIndex > maxIndex) currentIndex = maxIndex;
 			if (currentIndex < 0) currentIndex = 0;
 
-			const card = cards[0];
+			const card: Element = cards[0];
+			
 			if (!(card instanceof HTMLElement)) return;
-			const cardWidth = card.getBoundingClientRect().width;
-			const gap = 20;
-			const offset = currentIndex * (cardWidth + gap);
+
+			const cardWidth: number = card.getBoundingClientRect().width;
+			const gap: number = 20;
+			const offset: number = currentIndex * (cardWidth + gap);
+			
 			track.style.transform = `translateX(-${offset}px)`;
 
 			prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
@@ -149,14 +155,14 @@ const t = useTranslations(lang)();
 			nextBtn.style.cursor = currentIndex >= maxIndex ? 'not-allowed' : 'pointer';
 		}
 
-		prevBtn.addEventListener('click', () => {
+		prevBtn.addEventListener('click', (): void => {
 			if (currentIndex > 0) {
 				currentIndex--;
 				updateSlider();
 			}
 		});
 
-		nextBtn.addEventListener('click', () => {
+		nextBtn.addEventListener('click', (): void => {
 			const maxIndex = Math.max(0, totalCards - getVisibleCount());
 			if (currentIndex < maxIndex) {
 				currentIndex++;
@@ -165,8 +171,8 @@ const t = useTranslations(lang)();
 		});
 
 		// Touch swipe
-		let startX = 0;
-		let isTouching = false;
+		let startX: number = 0;
+		let isTouching: boolean = false;
 
 		viewport.addEventListener(
 			'touchstart',
@@ -181,9 +187,11 @@ const t = useTranslations(lang)();
 			'touchend',
 			(e) => {
 				if (!isTouching) return;
-				const endX = e.changedTouches[0].clientX;
-				const diff = startX - endX;
-				const maxIndex = Math.max(0, totalCards - getVisibleCount());
+
+				const endX: number = e.changedTouches[0].clientX;
+				const diff: number = startX - endX;
+				const maxIndex: number = Math.max(0, totalCards - getVisibleCount());
+				
 				if (diff > 50 && currentIndex < maxIndex) {
 					currentIndex++;
 					updateSlider();
