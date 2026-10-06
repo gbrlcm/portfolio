@@ -1,6 +1,38 @@
 @import "tailwindcss";
 
 @font-face {
+	font-family: 'Anton';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('/fonts/anton-v27-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Archivo Black';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('/fonts/archivo-black-v23-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Outfit';
+	font-style: normal;
+	font-weight: 400 700;
+	font-display: swap;
+	src: url('/fonts/outfit-v15-latin-variable.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Plus Jakarta Sans';
+	font-style: normal;
+	font-weight: 400 700;
+	font-display: swap;
+	src: url('/fonts/plus-jakarta-sans-v12-latin-variable.woff2') format('woff2');
+}
+
+@font-face {
 	font-family: 'Instrument Serif';
 	font-style: normal;
 	font-weight: 400;
