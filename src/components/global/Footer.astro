@@ -123,15 +123,12 @@ const telegramUrl = getTelegramUrl();
 					<li>
 						<a
 							href={`mailto:${email}`}
-							class="block transition-colors hover:underline text-xs text-task-dark/90"
+							class="inline-flex flex-wrap items-center gap-1.5 transition-colors hover:underline"
 							title={email}
 						>
-							{email}
-						</a>
-					</li>
-					<li>
-						<a href={`mailto:${email}`} class="transition-colors hover:underline">
-							{t.footer.links.customerSupport}
+							<Icon name="lucide:mail" class="size-3.5 shrink-0 text-task-dark" />
+							<span class="font-medium">{t.footer.links.customerSupport}:</span>
+							<span class="text-sm text-task-dark/90">{email}</span>
 						</a>
 					</li>
 				</ul>
