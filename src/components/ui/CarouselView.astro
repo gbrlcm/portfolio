@@ -91,6 +91,7 @@ const {
 			{
 				items.map((item, index) => (
 					<div
+						id={`${id}-slide-${index}`}
 						class:list={[
 							'm3-carousel-card group relative shrink-0 overflow-hidden transition-none will-change-[width,border-radius]',
 							cardHeight,
@@ -169,10 +170,14 @@ const {
 				{items.map((_, index) => (
 					<button
 						type="button"
+						role="tab"
+						id={`${id}-tab-${index}`}
+						aria-controls={`${id}-slide-${index}`}
 						class="m3-indicator-btn flex size-12 items-center justify-center rounded-full transition-transform focus:outline-hidden focus-visible:ring-2 focus-visible:ring-task-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-task-dark"
 						data-target-index={index}
 						aria-label={`Ir para o slide ${index + 1}`}
-						aria-current={index === 0 ? 'true' : 'false'}
+						aria-selected={index === 0 ? 'true' : 'false'}
+						tabindex={index === 0 ? 0 : -1}
 					>
 						<span
 							class="m3-indicator-dot pointer-events-none block h-2 rounded-full transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)]"
@@ -417,7 +422,9 @@ const {
 			if (this.indicatorDots.length > 0) {
 				const activeIndex = Math.round(S);
 				this.indicatorBtns.forEach((btn, index) => {
-					btn.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
+					const isActive = index === activeIndex;
+					btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+					btn.tabIndex = isActive ? 0 : -1;
 				});
 				this.indicatorDots.forEach((dot, index) => {
 					const dist = Math.abs(S - index);
@@ -491,10 +498,32 @@ const {
 				this.animateTo(Math.round(this.S) + 1);
 			});
 
-			// Indicator Buttons Click
+			// Indicator Buttons Click & Keyboard Navigation
 			this.indicatorBtns.forEach((btn, index) => {
 				btn.addEventListener('click', () => {
 					this.animateTo(index);
+				});
+
+				btn.addEventListener('keydown', (e) => {
+					if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+						e.preventDefault();
+						const nextIndex = (index + 1) % this.totalItems;
+						this.animateTo(nextIndex);
+						this.indicatorBtns[nextIndex]?.focus();
+					} else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+						e.preventDefault();
+						const prevIndex = (index - 1 + this.totalItems) % this.totalItems;
+						this.animateTo(prevIndex);
+						this.indicatorBtns[prevIndex]?.focus();
+					} else if (e.key === 'Home') {
+						e.preventDefault();
+						this.animateTo(0);
+						this.indicatorBtns[0]?.focus();
+					} else if (e.key === 'End') {
+						e.preventDefault();
+						this.animateTo(this.totalItems - 1);
+						this.indicatorBtns[this.totalItems - 1]?.focus();
+					}
 				});
 			});
 
