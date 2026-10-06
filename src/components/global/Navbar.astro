@@ -45,42 +45,42 @@ const i18nLabel = langLabels[lang] || langLabels['pt-BR'];
 		<nav class="hidden items-center gap-6 lg:gap-8 md:flex" aria-label="Main Navigation">
 			<a
 				href="#home"
-				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-task-gray transition-colors hover:text-task-dark"
 			>
 				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
 				{t.nav.home}
 			</a>
 			<a
 				href="#problemas"
-				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-task-gray transition-colors hover:text-task-dark"
 			>
 				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
 				{t.nav.problems}
 			</a>
 			<a
 				href="#servicos"
-				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-task-gray transition-colors hover:text-task-dark"
 			>
 				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
 				{t.nav.services}
 			</a>
 			<a
 				href="#como-trabalho"
-				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-task-gray transition-colors hover:text-task-dark"
 			>
 				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
 				{t.nav.principles}
 			</a>
 			<a
 				href="#sobre"
-				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-task-gray transition-colors hover:text-task-dark"
 			>
 				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
 				{t.nav.about}
 			</a>
 			<a
 				href="#faqs"
-				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-[#6e6e6e] transition-colors hover:text-task-dark"
+				class="group relative flex items-center font-outfit text-sm lg:text-base font-medium text-task-gray transition-colors hover:text-task-dark"
 			>
 				<span class="absolute -left-3 size-1.5 rounded-full bg-task-dark opacity-0 transition-all duration-200 group-hover:opacity-100"></span>
 				{t.nav.faqs}
@@ -157,7 +157,7 @@ const i18nLabel = langLabels[lang] || langLabels['pt-BR'];
 									aria-selected={isActive ? 'true' : 'false'}
 								>
 									<span>{item.fullLabel}</span>
-									<span class={isActive ? 'text-white/70 text-[10px]' : 'text-task-dark/40 text-[10px]'}>{item.label}</span>
+									<span class={isActive ? 'text-white/85 text-[10px]' : 'text-task-gray text-[10px]'}>{item.label}</span>
 								</a>
 							);
 						})
@@ -178,10 +178,10 @@ const i18nLabel = langLabels[lang] || langLabels['pt-BR'];
 					class="flex h-11 items-center justify-center gap-2 rounded-full bg-task-yellow px-5 transition-all duration-200 group-hover:brightness-105"
 				>
 					<Icon name="simple-icons:whatsapp" class="size-4 shrink-0 text-task-dark" />
-					<span class="font-jakarta text-sm sm:text-[15px] font-semibold tracking-tight text-task-dark min-[768px]:hidden min-[1119px]:inline">
+					<span class="font-outfit text-sm sm:text-[15px] font-semibold tracking-tight text-task-dark min-[768px]:hidden min-[1119px]:inline">
 						{t.nav.getInTouch}
 					</span>
-					<span class="hidden font-jakarta text-sm sm:text-[15px] font-semibold tracking-tight text-task-dark min-[768px]:inline min-[1119px]:hidden">
+					<span class="hidden font-outfit text-sm sm:text-[15px] font-semibold tracking-tight text-task-dark min-[768px]:inline min-[1119px]:hidden">
 						{t.nav.getInTouchShort}
 					</span>
 				</div>
@@ -258,7 +258,7 @@ const i18nLabel = langLabels[lang] || langLabels['pt-BR'];
 									aria-selected={isActive ? 'true' : 'false'}
 								>
 									<span>{item.fullLabel}</span>
-									<span class={isActive ? 'text-white/70 text-[10px]' : 'text-task-dark/40 text-[10px]'}>{item.label}</span>
+									<span class={isActive ? 'text-white/85 text-[10px]' : 'text-task-gray text-[10px]'}>{item.label}</span>
 								</a>
 							);
 						})
@@ -293,7 +293,7 @@ const i18nLabel = langLabels[lang] || langLabels['pt-BR'];
 		class="hidden flex-col border-b border-task-border bg-task-bg px-6 pt-2 pb-6 md:hidden animate-in fade-in slide-in-from-top-2 duration-200"
 	>
 		<nav class="flex flex-col gap-2.5 py-4" aria-label="Mobile Navigation">
-			<span class="font-outfit text-xs font-semibold text-task-dark/60">{i18nLabel.navigation}:</span>
+			<span class="font-outfit text-xs font-semibold text-task-gray">{i18nLabel.navigation}:</span>
 			<div class="flex flex-col gap-4 pt-1">
 				<a href="#home" class="mobile-nav-link font-outfit text-lg font-medium text-task-dark hover:text-black">
 					{t.nav.home}
@@ -318,7 +318,7 @@ const i18nLabel = langLabels[lang] || langLabels['pt-BR'];
 
 		<!-- Mobile Languages (Segmented Selector in Drawer) -->
 		<div class="flex flex-col gap-2.5 border-t border-task-border py-4">
-			<span class="font-outfit text-xs font-semibold text-task-dark/60">{i18nLabel.language}:</span>
+			<span class="font-outfit text-xs font-semibold text-task-gray">{i18nLabel.language}:</span>
 			<div
 				class="lang-switcher relative flex w-full max-w-xs items-center rounded-2xl border border-task-border bg-white/80 p-1 text-xs font-semibold text-task-dark backdrop-blur-sm shadow-2xs select-none"
 				role="group"
@@ -364,7 +364,7 @@ const i18nLabel = langLabels[lang] || langLabels['pt-BR'];
 				class="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-task-yellow px-5 transition-all duration-200 active:brightness-105"
 			>
 				<Icon name="simple-icons:whatsapp" class="size-5 shrink-0 text-task-dark" />
-				<span class="font-jakarta text-base font-semibold text-task-dark">
+				<span class="font-outfit text-base font-semibold text-task-dark">
 					{t.nav.getInTouch}
 				</span>
 			</div>

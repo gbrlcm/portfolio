@@ -9,14 +9,6 @@
 }
 
 @font-face {
-	font-family: 'Archivo Black';
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-	src: url('/fonts/archivo-black-v23-latin-regular.woff2') format('woff2');
-}
-
-@font-face {
 	font-family: 'Outfit';
 	font-style: normal;
 	font-weight: 400 700;
@@ -24,36 +16,9 @@
 	src: url('/fonts/outfit-v15-latin-variable.woff2') format('woff2');
 }
 
-@font-face {
-	font-family: 'Plus Jakarta Sans';
-	font-style: normal;
-	font-weight: 400 700;
-	font-display: swap;
-	src: url('/fonts/plus-jakarta-sans-v12-latin-variable.woff2') format('woff2');
-}
-
-@font-face {
-	font-family: 'Instrument Serif';
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-	src: url('/fonts/instrument-serif-v5-latin-regular.woff2') format('woff2');
-}
-
-@font-face {
-	font-family: 'Instrument Serif';
-	font-style: italic;
-	font-weight: 400;
-	font-display: swap;
-	src: url('/fonts/instrument-serif-v5-latin-italic.woff2') format('woff2');
-}
-
 @theme {
 	--font-anton: 'Anton', sans-serif;
-	--font-archivo: 'Archivo Black', sans-serif;
 	--font-outfit: 'Outfit', sans-serif;
-	--font-jakarta: 'Plus Jakarta Sans', sans-serif;
-	--font-serif: 'Instrument Serif', Georgia, serif;
 
 	--color-task-dark: #0d251a;
 	--color-task-white: #fdfffe;
@@ -62,7 +27,7 @@
 	--color-task-olive-label: #889269;
 	--color-task-olive-text: #b6bca4;
 	--color-task-yellow: #f6ed5b;
-	--color-task-gray: #85928c;
+	--color-task-gray: #47554e;
 	--color-task-bg: #f5f5f5;
 	--color-task-border: #e0e0e0;
 	--color-task-star: #ff8c05;
@@ -78,7 +43,7 @@
 		--token-cream: #f3eed0;
 		--token-yellow: #f6ed5b;
 		--token-bg: #f5f5f5;
-		--token-gray: #85928c;
+		--token-gray: #47554e;
 		--token-border: #e0e0e0;
 	}
 
