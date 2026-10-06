@@ -23,18 +23,32 @@ const initialPhrase = typewriterPhrases[0] ?? 'construindo o futuro da web.';
 	<div class="mx-auto flex w-full max-w-270 flex-col items-center lg:max-w-300 lg:flex-row lg:items-center lg:justify-between lg:gap-12 xl:gap-16">
 		<!-- Main H1 Heading & Personal Intro -->
 		<div class="mb-8 w-full text-center md:mb-10 lg:mb-0 lg:w-5/12 lg:text-left xl:w-5/12 flex flex-col items-center lg:items-start">
-			<!-- Main Name Heading (H1) -->
-			<h1 class="font-anton text-[36px] leading-[1.08] text-task-dark sm:text-[48px] md:text-[58px] lg:text-[44px] xl:text-[54px] max-w-5xl uppercase tracking-tight">
-				<span>{titlePrefix}</span><span class="inline text-task-dark"
-					><span
-						id="hero-typewriter-text"
-						data-phrases={JSON.stringify(typewriterPhrases)}
-					>{initialPhrase}</span><span
-						id="hero-typewriter-cursor"
-						class="hero-typewriter-cursor"
-						aria-hidden="true"
-					></span></span
-				>
+			<!-- Main Name Heading (H1) with fixed grid reservation to prevent layout shift -->
+			<h1 class="grid grid-cols-1 font-anton text-[36px] leading-[1.08] text-task-dark sm:text-[48px] md:text-[58px] lg:text-[44px] xl:text-[54px] max-w-5xl uppercase tracking-tight text-center lg:text-left">
+				<!-- Invisible Sizers: Reserves the maximum height among all phrases for current viewport width -->
+				{
+					typewriterPhrases.map((phrase) => (
+						<span class="col-start-1 row-start-1 invisible select-none pointer-events-none" aria-hidden="true">
+							<span>{titlePrefix}</span>
+							<span>{phrase}</span>
+							<span class="inline-block w-2" aria-hidden="true"></span>
+						</span>
+					))
+				}
+
+				<!-- Visible Typewriter Text -->
+				<span class="col-start-1 row-start-1">
+					<span>{titlePrefix}</span><span class="inline text-task-dark"
+						><span
+							id="hero-typewriter-text"
+							data-phrases={JSON.stringify(typewriterPhrases)}
+						>{initialPhrase}</span><span
+							id="hero-typewriter-cursor"
+							class="hero-typewriter-cursor"
+							aria-hidden="true"
+						></span></span
+					>
+				</span>
 			</h1>
 
 			<!-- Experience Statement -->
