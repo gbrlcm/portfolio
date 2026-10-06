@@ -1,7 +1,7 @@
 # Gabriel Campos
 
 ## About
-Gabriel Campos (Gabriel Lopes Campos) é desenvolvedor de software com foco em desenvolvimento web, sistemas e engenharia de software. Contribui com a comunidade técnica local (GDG Americana).
+Gabriel Campos (Gabriel Lopes Campos) é desenvolvedor de software com foco em engenharia web, sistemas sob medida e integração de serviços. Contribui com a comunidade técnica local (GDG Americana).
 
 ## Stack e Tecnologias
 - TypeScript / JavaScript
@@ -12,7 +12,12 @@ Gabriel Campos (Gabriel Lopes Campos) é desenvolvedor de software com foco em d
 - Docker
 - PostgreSQL
 
-## Links
-- Portfólio: https://gabrielcampos.dev
+## Links Canônicos
+- Portfólio (PT): https://gabrielcampos.dev/
+- Portfolio (EN): https://gabrielcampos.dev/en/
+- Portafolio (ES): https://gabrielcampos.dev/es/
+
+## Perfis Oficiais
 - GitHub: https://github.com/gbrlcm
 - LinkedIn: https://www.linkedin.com/in/gabriel-lopes-campos/
+- X: https://x.com/Gabriel07132569

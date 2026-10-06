@@ -1,6 +1,6 @@
 /* TEAM */
-  Developer: Gabriel Lopes (Gabriel Campos)
-  Site: https://gabrielcampos.dev
+  Developer: Gabriel Campos (Gabriel Lopes Campos)
+  Site: https://gabrielcampos.dev/
   Community: GDG Americana
 
 /* SITE */

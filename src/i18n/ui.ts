@@ -12,7 +12,7 @@ export const ui = {
 		meta: {
 			title: 'Gabriel Campos — Desenvolvimento de Software & Sistemas Web',
 			description:
-				'Desenvolvimento de software, sistemas web sob medida e integrações de APIs. Soluções rápidas e código limpo para empresas e produtos digitais.',
+				'Desenvolvimento de software, sistemas web sob medida e integrações de APIs por Gabriel Campos. Código limpo, estabilidade e arquitetura moderna para empresas.',
 		},
 		nav: {
 			home: 'Início',
@@ -181,7 +181,7 @@ export const ui = {
 		meta: {
 			title: 'Gabriel Campos — Software Development & Web Systems',
 			description:
-				'Custom software development, tailored web systems, and API integrations. Fast, clean-code engineering for companies and digital products.',
+				'Custom software development, tailored web systems, and API integrations by Gabriel Campos. Clean code, modern architecture, and direct engineering.',
 		},
 		nav: {
 			home: 'Home',
@@ -350,7 +350,7 @@ export const ui = {
 		meta: {
 			title: 'Gabriel Campos — Desarrollo de Software & Sistemas Web',
 			description:
-				'Desarrollo de software, sistemas web a medida e integraciones de APIs. Código limpio y alto rendimiento para empresas y productos digitales.',
+				'Desarrollo de software, sistemas web a medida e integraciones de APIs por Gabriel Campos. Código limpio, arquitectura moderna y comunicación directa para empresas.',
 		},
 		nav: {
 			home: 'Inicio',

@@ -9,13 +9,14 @@ export interface Props {
 	title?: string;
 	description?: string;
 	lang?: SupportedLanguage;
+	image?: string;
 	noIndex?: boolean;
 }
 
-const { lang = 'pt-BR', title, description, noIndex } = Astro.props;
+const { lang = 'pt-BR', title, description, image, noIndex } = Astro.props;
 ---
 
-<BaseLayout {lang} {title} {description} {noIndex}>
+<BaseLayout {lang} {title} {description} {image} {noIndex}>
 	<Navbar {lang} />
 
 	<main id="main" class="w-full">
