@@ -43,6 +43,7 @@ const { class: className = '' } = Astro.props;
 
 <div
 	class={`relative w-full overflow-hidden select-none [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] ${className}`}
+	role="group"
 	aria-label="Linguagens e tecnologias"
 >
 	<div class="animate-marquee flex w-max items-center py-2">
@@ -53,6 +54,7 @@ const { class: className = '' } = Astro.props;
 					<div
 						class="group flex items-center justify-center transition-transform duration-200 hover:scale-110"
 						title={tech.name}
+						role="img"
 						aria-label={tech.name}
 					>
 						<Icon

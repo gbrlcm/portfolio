@@ -35,6 +35,7 @@ const {
 
 <div
 	class={`relative w-full overflow-hidden select-none [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] ${className}`}
+	role="group"
 	aria-label={ariaLabel}
 >
 	<div class="animate-marquee flex w-max items-center py-2">
@@ -45,7 +46,6 @@ const {
 					<div
 						class="group flex items-center gap-2.5 sm:gap-3 transition-transform duration-200 hover:scale-110"
 						title={item.name}
-						aria-label={item.name}
 					>
 						<Icon
 							name={item.icon}

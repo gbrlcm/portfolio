@@ -67,37 +67,39 @@ const socialItems = [
 ];
 ---
 
-<div class="flex flex-wrap items-center gap-2 sm:gap-2.5" role="list" aria-label="Social Profiles">
+<ul class="flex flex-wrap items-center gap-2 sm:gap-2.5" aria-label="Social Profiles">
 	{
 		socialItems.map((item) => (
-			<a
-				href={item.href}
-				target="_blank"
-				rel="noopener noreferrer"
-				title={item.title}
-				class={`group relative inline-flex items-center gap-2 rounded-full border px-3.5 py-2 font-outfit text-xs font-semibold transition-all duration-200 hover:-translate-y-0.5 active:scale-95 shadow-2xs ${
-					variant === 'light'
-						? 'border-black/10 bg-white text-task-dark hover:border-task-dark hover:bg-task-yellow'
-						: 'border-white/15 bg-task-dark text-white hover:border-task-yellow hover:bg-task-yellow hover:text-task-dark'
-				}`}
-			>
-				<Icon 
-					name={item.icon} 
-					class={`size-4 shrink-0 transition-transform duration-200 group-hover:scale-110 ${item.iconColor ? item.iconColor : 'text-current'} ${item.iconColor ? 'group-hover:text-task-dark' : ''}`} 
-				/>
+			<li>
+				<a
+					href={item.href}
+					target="_blank"
+					rel="noopener noreferrer"
+					title={item.title}
+					class={`group relative inline-flex items-center gap-2 rounded-full border px-3.5 py-2 font-outfit text-xs font-semibold transition-all duration-200 hover:-translate-y-0.5 active:scale-95 shadow-2xs ${
+						variant === 'light'
+							? 'border-black/10 bg-white text-task-dark hover:border-task-dark hover:bg-task-yellow'
+							: 'border-white/15 bg-task-dark text-white hover:border-task-yellow hover:bg-task-yellow hover:text-task-dark'
+					}`}
+				>
+					<Icon 
+						name={item.icon} 
+						class={`size-4 shrink-0 transition-transform duration-200 group-hover:scale-110 ${item.iconColor ? item.iconColor : 'text-current'} ${item.iconColor ? 'group-hover:text-task-dark' : ''}`} 
+					/>
 
-				<span>{item.name}</span>
+					<span>{item.name}</span>
 
-				{showHandles && (
-					<span class="hidden text-[11px] opacity-60 sm:inline">
-						{item.handle}
+					{showHandles && (
+						<span class="hidden text-[11px] opacity-60 sm:inline">
+							{item.handle}
+						</span>
+					)}
+
+					<span class="text-[10px] opacity-40 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100">
+						↗
 					</span>
-				)}
-
-				<span class="text-[10px] opacity-40 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100">
-					↗
-				</span>
-			</a>
+				</a>
+			</li>
 		))
 	}
-</div>
+</ul>
