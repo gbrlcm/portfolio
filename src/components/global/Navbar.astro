@@ -180,12 +180,16 @@ const activeIndex = currentLangIndex >= 0 ? currentLangIndex : 0;
 		<button
 			type="button"
 			id="mobile-menu-toggle"
-			class="flex size-11 flex-col items-center justify-center gap-1.5 rounded-[10px] bg-task-yellow p-2 transition-transform active:scale-90 md:hidden"
+			class="relative flex size-11 items-center justify-center rounded-[10px] bg-task-yellow transition-transform active:scale-90 md:hidden"
 			aria-label="Toggle navigation menu"
 			aria-expanded="false"
 		>
-			<span class="h-0.5 w-5 rounded-full bg-task-dark transition-all duration-300" id="hamburger-bar-1"></span>
-			<span class="h-0.5 w-5 rounded-full bg-task-dark transition-all duration-300" id="hamburger-bar-2"></span>
+			<span class="absolute top-1/2 left-1/2 h-0.5 w-5 -translate-x-1/2 -translate-y-1/2">
+				<span class="block h-full w-full rounded-full bg-task-dark transition-transform duration-300 ease-out" id="hamburger-bar-1"></span>
+			</span>
+			<span class="absolute top-1/2 left-1/2 h-0.5 w-5 -translate-x-1/2 -translate-y-1/2">
+				<span class="block h-full w-full rounded-full bg-task-dark transition-transform duration-300 ease-out" id="hamburger-bar-2"></span>
+			</span>
 		</button>
 	</div>
 
@@ -311,8 +315,8 @@ const activeIndex = currentLangIndex >= 0 ? currentLangIndex : 0;
 					menu.classList.remove('hidden');
 					toggle.setAttribute('aria-expanded', 'true');
 					if (bar1 && bar2) {
-						bar1.style.transform = 'translateY(3px) rotate(45deg)';
-						bar2.style.transform = 'translateY(-3px) rotate(-45deg)';
+						bar1.style.transform = 'rotate(45deg)';
+						bar2.style.transform = 'rotate(-45deg)';
 					}
 				}
 			};
