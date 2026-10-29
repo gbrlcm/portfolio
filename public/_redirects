@@ -1,0 +1,8 @@
+# Cloudflare Pages _redirects file
+# Redirect root to default language /pt/
+/             /pt/               301
+
+# Redirect legacy un-prefixed blog routes to /pt/blog
+/blog         /pt/blog/          301
+/blog/        /pt/blog/          301
+/blog/*       /pt/blog/:splat    301

@@ -37,10 +37,8 @@ export function getPostSlug(postOrId: CollectionEntry<'blog'> | string): string 
 export function getPostUrl(post: CollectionEntry<'blog'>): string {
 	const lang = getPostLang(post);
 	const slug = getPostSlug(post);
-	if (lang === 'pt-BR') {
-		return `/blog/${slug}`;
-	}
-	return `/${lang}/blog/${slug}`;
+	const prefix = lang === 'pt-BR' ? 'pt' : lang;
+	return `/${prefix}/blog/${slug}`;
 }
 
 export function getPostAbsoluteUrl(
@@ -53,8 +51,8 @@ export function getPostAbsoluteUrl(
 }
 
 export function getBlogIndexUrl(lang: SupportedBlogLanguage): string {
-	if (lang === 'pt-BR') return '/blog';
-	return `/${lang}/blog`;
+	const prefix = lang === 'pt-BR' ? 'pt' : lang;
+	return `/${prefix}/blog`;
 }
 
 export function getBlogIndexAbsoluteUrl(

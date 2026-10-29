@@ -19,9 +19,17 @@ export interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang)();
 const pathname = Astro.url.pathname;
-const isHome = pathname === '/' || pathname === '/en/' || pathname === '/en' || pathname === '/es/' || pathname === '/es';
-const homePrefix = isHome ? '' : (lang === 'pt-BR' ? '/' : `/${lang}/`);
-const blogHref = lang === 'pt-BR' ? '/blog' : `/${lang}/blog`;
+const isHome =
+	pathname === '/' ||
+	pathname === '/pt/' ||
+	pathname === '/pt' ||
+	pathname === '/en/' ||
+	pathname === '/en' ||
+	pathname === '/es/' ||
+	pathname === '/es';
+const langPrefix = lang === 'pt-BR' ? '/pt' : `/${lang}`;
+const homePrefix = isHome ? '' : `${langPrefix}/`;
+const blogHref = `${langPrefix}/blog`;
 const email: string = getContactEmail(lang);
 const waUrl: string = getWhatsAppUrl(lang);
 const telegramUrl: string = getTelegramUrl();

@@ -13,10 +13,22 @@ export interface Props {
 const { lang = 'pt-BR', class: className = '', customLanguageUrls } = Astro.props;
 const t = useTranslations(lang)();
 const pathname = Astro.url.pathname;
-const isHome = pathname === '/' || pathname === '/en/' || pathname === '/en' || pathname === '/es/' || pathname === '/es';
-const homePrefix = isHome ? '' : (lang === 'pt-BR' ? '/' : `/${lang}/`);
-const isBlog = pathname.startsWith('/blog') || pathname.startsWith('/en/blog') || pathname.startsWith('/es/blog');
-const blogHref = lang === 'pt-BR' ? '/blog' : `/${lang}/blog`;
+const isHome =
+	pathname === '/' ||
+	pathname === '/pt/' ||
+	pathname === '/pt' ||
+	pathname === '/en/' ||
+	pathname === '/en' ||
+	pathname === '/es/' ||
+	pathname === '/es';
+const langPrefix = lang === 'pt-BR' ? '/pt' : `/${lang}`;
+const homePrefix = isHome ? '' : `${langPrefix}/`;
+const isBlog =
+	pathname.startsWith('/pt/blog') ||
+	pathname.startsWith('/blog') ||
+	pathname.startsWith('/en/blog') ||
+	pathname.startsWith('/es/blog');
+const blogHref = `${langPrefix}/blog`;
 const waUrl: string = getWhatsAppUrl(lang);
 
 function resolveLangHref(targetCode: SupportedLanguage): string {
@@ -46,7 +58,7 @@ const i18nLabel = langLabels[lang] || langLabels['pt-BR'];
 <header class={`sticky top-0 z-50 w-full border-b border-task-border bg-task-bg/90 backdrop-blur-md ${className}`}>
 	<div class="mx-auto flex h-21 w-full max-w-300 items-center justify-between px-5 md:px-8">
 		<!-- Logo -->
-		<a href={`${homePrefix || '/'}#home`} class="group flex items-center gap-2.5 transition-transform active:scale-95" aria-label="Gabriel Campos - Início">
+		<a href={`${homePrefix || `${langPrefix}/`}#home`} class="group flex items-center gap-2.5 transition-transform active:scale-95" aria-label="Gabriel Campos - Início">
 			<span class="flex size-11 items-center justify-center rounded-lg bg-task-dark font-anton text-2xl leading-none shadow-xs transition-transform group-hover:scale-105">
 				<span class="text-white">G</span>
 				<span class="text-task-yellow">C</span>

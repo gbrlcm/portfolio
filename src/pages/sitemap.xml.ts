@@ -20,10 +20,10 @@ export const GET: APIRoute = async ({ site }) => {
 
 	// Static core routes for all supported languages
 	const coreUrls: SitemapEntry[] = [
-		{ loc: `${baseUrl}/`, priority: '1.0', changefreq: 'weekly' },
+		{ loc: `${baseUrl}/pt/`, priority: '1.0', changefreq: 'weekly' },
 		{ loc: `${baseUrl}/en/`, priority: '0.8', changefreq: 'weekly' },
 		{ loc: `${baseUrl}/es/`, priority: '0.8', changefreq: 'weekly' },
-		{ loc: `${baseUrl}/blog/`, priority: '0.9', changefreq: 'daily' },
+		{ loc: `${baseUrl}/pt/blog/`, priority: '0.9', changefreq: 'daily' },
 		{ loc: `${baseUrl}/en/blog/`, priority: '0.8', changefreq: 'daily' },
 		{ loc: `${baseUrl}/es/blog/`, priority: '0.8', changefreq: 'daily' },
 		{ loc: `${baseUrl}/ferramentas/gerador-de-assinatura-de-email/`, priority: '0.9', changefreq: 'monthly' },

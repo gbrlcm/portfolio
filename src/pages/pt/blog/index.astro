@@ -1,0 +1,151 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import BlogCard from '../../../components/blog/BlogCard.astro';
+import Breadcrumbs from '../../../components/blog/Breadcrumbs.astro';
+import CategoryDropdown from '../../../components/blog/CategoryDropdown.astro';
+import {
+	getBlogPostsByLang,
+	getBlogIndexHreflangs,
+	validateBlogCollection,
+} from '../../../lib/blog';
+
+// Fetch all non-draft articles and validate collection
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+validateBlogCollection(allPosts);
+
+// Filter exclusively for pt-BR articles
+const sortedPosts = getBlogPostsByLang(allPosts, 'pt-BR');
+
+const [featuredPost, ...otherPosts] = sortedPosts;
+const totalPosts = sortedPosts.length;
+
+// Extract categories from pt-BR articles
+const categories = Array.from(
+	new Set(sortedPosts.map((p) => p.data.category).filter(Boolean))
+);
+
+const title = 'Blog & Artigos Técnicos — Gabriel Campos';
+const description =
+	'Artigos sobre engenharia de software, arquitetura de sistemas web, otimização de performance e boas práticas de desenvolvimento.';
+const siteUrl = 'https://gabrielcampos.dev';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+
+const customLanguageUrls = {
+	'pt-BR': '/pt/blog',
+	en: '/en/blog',
+	es: '/es/blog',
+};
+
+// Schema.org Structured Data
+const schemaGraph = [
+	{
+		'@type': 'CollectionPage',
+		'@id': `${canonicalUrl}#webpage`,
+		url: canonicalUrl,
+		name: title,
+		description: description,
+		inLanguage: 'pt-BR',
+		isPartOf: {
+			'@id': `${siteUrl}/#website`,
+		},
+		about: {
+			'@id': `${siteUrl}/#person`,
+		},
+	},
+	{
+		'@type': 'BreadcrumbList',
+		'@id': `${canonicalUrl}#breadcrumb`,
+		itemListElement: [
+			{
+				'@type': 'ListItem',
+				position: 1,
+				name: 'Início',
+				item: `${siteUrl}/pt/`,
+			},
+			{
+				'@type': 'ListItem',
+				position: 2,
+				name: 'Blog',
+				item: canonicalUrl,
+			},
+		],
+	},
+];
+---
+
+<PageLayout
+	lang="pt-BR"
+	title={title}
+	description={description}
+	ogType="website"
+	schemaGraph={schemaGraph}
+	customHreflangs={getBlogIndexHreflangs(siteUrl)}
+	customLanguageUrls={customLanguageUrls}
+>
+	<div class="mx-auto w-full max-w-6xl pt-10 pb-20 sm:pt-14 sm:pb-28 px-5 md:px-8 lg:px-2">
+		<!-- Breadcrumbs -->
+		<Breadcrumbs
+			items={[
+				{ label: 'Início', href: '/pt' },
+				{ label: 'Blog' },
+			]}
+			class="mb-8"
+		/>
+
+		<!-- Section Header -->
+		<header class="max-w-4xl">
+			<h1 class="font-anton text-4xl uppercase tracking-tight text-task-dark sm:text-5xl lg:text-6xl">
+				Blog & Conteúdo Técnico
+			</h1>
+
+			<p class="mt-4 font-outfit text-base text-task-gray sm:text-lg leading-relaxed max-w-3xl">
+				Reflexões práticas sobre desenvolvimento de sistemas, engenharia de software, performance web e soluções para problemas reais de operação.
+			</p>
+
+			<div class="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-task-border pb-6">
+				<div class="flex items-center gap-3">
+					<span class="inline-flex items-center rounded-full bg-task-dark px-3 py-1 font-outfit text-xs font-semibold text-white">
+						{totalPosts} {totalPosts === 1 ? 'artigo' : 'artigos'}
+					</span>
+					<span class="font-outfit text-xs text-task-gray">
+						Leituras técnicas aprofundadas
+					</span>
+				</div>
+
+				<!-- Category Dropdown Filter with in-memory search -->
+				<div class="w-full sm:w-auto">
+					<CategoryDropdown categories={categories} lang="pt-BR" />
+				</div>
+			</div>
+		</header>
+
+		<!-- Empty state for search/category filters -->
+		<div data-filter-empty-state class="hidden py-16 text-center">
+			<p class="font-anton text-2xl uppercase tracking-tight text-task-dark">
+				Nenhum artigo encontrado
+			</p>
+			<p class="mt-2 font-outfit text-sm text-task-gray">
+				Tente buscar por outro termo ou selecione outra categoria.
+			</p>
+		</div>
+
+		<!-- Featured Post -->
+		{featuredPost && (
+			<section class="mt-10 sm:mt-12" aria-label="Artigo em destaque" data-featured-section>
+				<BlogCard post={featuredPost} featured={true} />
+			</section>
+		)}
+
+		<!-- Article Grid -->
+		{otherPosts.length > 0 && (
+			<section class="mt-10 sm:mt-14" aria-label="Todos os artigos">
+				<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+					{otherPosts.map((post) => (
+						<BlogCard post={post} />
+					))}
+				</div>
+			</section>
+		)}
+	</div>
+</PageLayout>

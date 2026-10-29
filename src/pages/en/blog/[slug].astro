@@ -90,7 +90,7 @@ const translations = getPostTranslations(post, allPosts);
 const hreflangs = getPostHreflangs(post, allPosts, siteUrl);
 
 const customLanguageUrls = {
-	'pt-BR': translations.find((t) => t.lang === 'pt-BR')?.url ?? '/blog',
+	'pt-BR': translations.find((t) => t.lang === 'pt-BR')?.url ?? '/pt/blog',
 	en: getPostUrl(post),
 	es: translations.find((t) => t.lang === 'es')?.url ?? '/es/blog',
 };

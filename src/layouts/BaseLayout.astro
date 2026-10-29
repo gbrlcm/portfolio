@@ -58,10 +58,10 @@ const ogImageType: string = ogImage?.endsWith(".png")
 		: "image/jpeg";
 
 const hreflangs = [
-	{ lang: "pt-BR", href: `${siteUrl}/` },
+	{ lang: "pt-BR", href: `${siteUrl}/pt/` },
 	{ lang: "en", href: `${siteUrl}/en/` },
 	{ lang: "es", href: `${siteUrl}/es/` },
-	{ lang: "x-default", href: `${siteUrl}/` },
+	{ lang: "x-default", href: `${siteUrl}/pt/` },
 ];
 
 const siteDescriptions: Record<SupportedLanguage, string> = {
@@ -203,7 +203,7 @@ const schema = {
 		}
 		{
 			!noIndex && !customHreflangs &&
-				(showHreflangs || Astro.url.pathname === "/" || Astro.url.pathname === "/en/" || Astro.url.pathname === "/es/") &&
+				(showHreflangs || Astro.url.pathname === "/pt/" || Astro.url.pathname === "/en/" || Astro.url.pathname === "/es/") &&
 				hreflangs.map((item) => (
 					<link rel="alternate" hreflang={item.lang} href={item.href} />
 				))

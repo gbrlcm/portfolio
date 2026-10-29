@@ -6,8 +6,8 @@ Gabriel Campos atua no desenvolvimento de software de ponta a ponta, com experi�
 
 ## Páginas e Idiomas
 
-- [Portfólio (Português)](https://gabrielcampos.dev/): Página principal com apresentação profissional, projetos e canais de contato direto.
-- [Blog & Artigos Técnicos](https://gabrielcampos.dev/blog/): Artigos práticos sobre engenharia de software, arquitetura de sistemas web, performance e integrações.
+- [Portfólio (Português)](https://gabrielcampos.dev/pt/): Página principal com apresentação profissional, projetos e canais de contato direto.
+- [Blog & Artigos Técnicos](https://gabrielcampos.dev/pt/blog/): Artigos práticos sobre engenharia de software, arquitetura de sistemas web, performance e integrações.
 - [Portfolio (English)](https://gabrielcampos.dev/en/): English version of Gabriel Campos' professional portfolio, projects, and contact channels.
 - [Portafolio (Español)](https://gabrielcampos.dev/es/): Versión en español del portafolio profesional de Gabriel Campos, proyectos y canales de contacto.
 

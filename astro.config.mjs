@@ -9,8 +9,8 @@ export default defineConfig({
   site: "https://gabrielcampos.dev",
 
   i18n: {
-    defaultLocale: "pt-BR",
-    locales: ["pt-BR", "en", "es"],
+    defaultLocale: "pt",
+    locales: ["pt", "en", "es"],
     routing: {
       prefixDefaultLocale: false,
       redirectToDefaultLocale: false,
