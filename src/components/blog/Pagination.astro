@@ -60,11 +60,10 @@ const paginationItems = getPaginationItems(currentPage, totalPages);
 				</a>
 			)}
 
-			{paginationItems.map((item, idx) => {
+			{paginationItems.map((item) => {
 				if (typeof item === 'string') {
 					return (
 						<span
-							key={`ellipsis-${idx}`}
 							class="px-2 py-2 font-outfit text-sm font-semibold text-task-gray"
 							aria-hidden="true"
 						>
