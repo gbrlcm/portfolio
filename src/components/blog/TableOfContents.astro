@@ -1,0 +1,56 @@
+---
+import { Icon } from 'astro-icon/components';
+
+export interface HeadingItem {
+	depth: number;
+	slug: string;
+	text: string;
+}
+
+export interface Props {
+	headings: HeadingItem[];
+	class?: string;
+}
+
+const { headings, class: className = '' } = Astro.props;
+
+// Filter for h2 and h3
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{
+	tocHeadings.length > 0 && (
+		<aside
+			class:list={[
+				'rounded-2xl border border-task-border bg-white p-5 sm:p-6 shadow-2xs',
+				className,
+			]}
+			aria-labelledby="toc-heading"
+		>
+			<div class="flex items-center gap-2 border-b border-task-border pb-3">
+				<Icon name="lucide:list" class="size-4 text-task-dark" aria-hidden="true" />
+				<h2 id="toc-heading" class="font-anton text-base tracking-wide uppercase text-task-dark">
+					Índice de conteúdo
+				</h2>
+			</div>
+
+			<nav class="mt-4" aria-label="Sumário do artigo">
+				<ul class="flex flex-col gap-2 font-outfit text-sm">
+					{tocHeadings.map((heading) => {
+						const isSub = heading.depth === 3;
+						return (
+							<li class:list={[isSub ? 'pl-4 border-l border-task-border' : '']}>
+								<a
+									href={`#${heading.slug}`}
+									class="inline-block py-1 text-task-gray transition-colors hover:text-task-dark hover:translate-x-0.5 duration-150"
+								>
+									{heading.text}
+								</a>
+							</li>
+						);
+					})}
+				</ul>
+			</nav>
+		</aside>
+	)
+}

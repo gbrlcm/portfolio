@@ -21,8 +21,8 @@ export interface Props {
 
 const { lang = 'pt-BR', showHandles = false, variant = 'light' } = Astro.props;
 const t = useTranslations(lang)();
-const waUrl = getWhatsAppUrl(lang);
-const telegramUrl = getTelegramUrl();
+const waUrl: string = getWhatsAppUrl(lang);
+const telegramUrl: string = getTelegramUrl();
 
 interface SocialItem {
 	id: string;

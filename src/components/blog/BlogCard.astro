@@ -1,0 +1,121 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+	post: CollectionEntry<'blog'>;
+	featured?: boolean;
+}
+
+const { post, featured = false } = Astro.props;
+const { title, description, pubDate, cover, coverAlt, category } = post.data;
+
+const formattedDate = new Intl.DateTimeFormat('pt-BR', {
+	day: '2-digit',
+	month: 'short',
+	year: 'numeric',
+}).format(pubDate);
+
+// Calculate estimated reading time
+const words = (post.body ?? '').trim().split(/\s+/).filter(Boolean).length;
+const readTimeMinutes = Math.max(1, Math.ceil(words / 200));
+---
+
+<article
+	class:list={[
+		'group relative flex flex-col overflow-hidden rounded-2xl border border-task-border bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg',
+		featured ? 'lg:grid lg:grid-cols-12 lg:gap-8 items-stretch' : '',
+	]}
+>
+	<!-- Cover Image Container -->
+	<a
+		href={`/blog/${post.id}`}
+		class:list={[
+			'relative block overflow-hidden bg-task-border/40 aspect-[16/10]',
+			featured ? 'lg:col-span-7 lg:aspect-auto' : '',
+		]}
+		tabindex="-1"
+		aria-hidden="true"
+	>
+		{
+			cover ? (
+				<img
+					src={cover}
+					alt={coverAlt ?? title}
+					width="800"
+					height="500"
+					loading={featured ? 'eager' : 'lazy'}
+					decoding="async"
+					class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+				/>
+			) : (
+				<div class="flex h-full w-full items-center justify-center bg-task-dark text-white p-8">
+					<span class="font-anton text-2xl uppercase tracking-wider text-task-yellow">
+						{category}
+					</span>
+				</div>
+			)
+		}
+		<div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+	</a>
+
+	<!-- Card Content -->
+	<div
+		class:list={[
+			'flex flex-1 flex-col justify-between p-6 sm:p-7',
+			featured ? 'lg:col-span-5 lg:p-8 lg:py-10' : '',
+		]}
+	>
+		<div>
+			<!-- Category & Read Time Meta -->
+			<div class="flex flex-wrap items-center gap-2.5 text-xs">
+				<span class="inline-flex items-center rounded-full bg-task-dark px-3 py-1 font-outfit font-semibold uppercase tracking-wider text-task-yellow">
+					{category}
+				</span>
+				<span class="text-task-gray/80 font-outfit">·</span>
+				<span class="text-task-gray font-outfit font-medium">
+					{readTimeMinutes} min de leitura
+				</span>
+			</div>
+
+			<!-- Title -->
+			<h2
+				class:list={[
+					'mt-4 font-anton uppercase tracking-tight text-task-dark transition-colors group-hover:text-[#184a34]',
+					featured ? 'text-2xl sm:text-3xl lg:text-4xl leading-[1.15]' : 'text-xl sm:text-2xl leading-tight',
+				]}
+			>
+				<a href={`/blog/${post.id}`} class="focus:outline-none focus:underline">
+					<span class="absolute inset-0" aria-hidden="true"></span>
+					{title}
+				</a>
+			</h2>
+
+			<!-- Description -->
+			<p
+				class:list={[
+					'mt-3 font-outfit text-task-gray line-clamp-3 leading-relaxed',
+					featured ? 'text-base sm:text-lg' : 'text-sm sm:text-base',
+				]}
+			>
+				{description}
+			</p>
+		</div>
+
+		<!-- Card Footer: Date & Link CTA -->
+		<div class="mt-6 flex items-center justify-between border-t border-task-border/70 pt-4 text-xs sm:text-sm font-outfit">
+			<time datetime={pubDate.toISOString()} class="text-task-gray font-medium">
+				{formattedDate}
+			</time>
+
+			<span class="inline-flex items-center gap-1.5 font-semibold text-task-dark group-hover:text-[#184a34]">
+				<span>Ler artigo</span>
+				<Icon
+					name="lucide:arrow-right"
+					class="size-4 transition-transform duration-300 group-hover:translate-x-1"
+					aria-hidden="true"
+				/>
+			</span>
+		</div>
+	</div>
+</article>

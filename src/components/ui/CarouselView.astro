@@ -1,12 +1,13 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
 
 export interface CarouselItem {
 	id?: string | number;
 	label?: string;
 	title: string;
 	desc?: string;
-	image: string;
+	image: ImageMetadata;
 	href?: string;
 	ctaText?: string;
 	ctaTextShort?: string;
@@ -106,12 +107,13 @@ const {
 						<!-- Outer Mask Container -->
 						<div class="relative size-full overflow-hidden">
 							<!-- Background Image with Ambient Zoom on Hover -->
-							<img
+							<Image
 								src={item.image}
+								widths={[480, 768, 1024]}
+								sizes="(min-width: 1080px) 952px, calc(100vw - 4.5rem)"
 								alt={item.title}
 								title={item.title}
 								class="pointer-events-none absolute inset-0 size-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-								loading={index === 0 ? 'eager' : 'lazy'}
 								draggable="false"
 							/>
 

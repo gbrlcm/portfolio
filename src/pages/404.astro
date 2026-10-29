@@ -3,7 +3,7 @@ import PageLayout from '../layouts/PageLayout.astro';
 import { getWhatsAppUrl } from '../data/contact';
 
 const lang = 'pt-BR';
-const waUrl = getWhatsAppUrl(lang);
+const waUrl: string = getWhatsAppUrl(lang);
 ---
 
 <PageLayout

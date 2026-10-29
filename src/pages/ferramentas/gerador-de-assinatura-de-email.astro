@@ -1,0 +1,54 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import SignatureGenerator from '../../components/tools/email-signature/SignatureGenerator.astro';
+
+const lang = 'pt-BR';
+const title = 'Gerador de Assinatura de E-mail Gratuito e Profissional — Gabriel Campos';
+const description = 'Crie assinaturas de e-mail profissionais compatíveis com Gmail, Microsoft Outlook e Apple Mail. Modelos clássicos, minimalistas e corporativos gerados em HTML limpo, sem cadastro e 100% privado.';
+
+const schemaGraph = [
+	{
+		'@type': 'WebApplication',
+		'@id': 'https://gabrielcampos.dev/ferramentas/gerador-de-assinatura-de-email#app',
+		'url': 'https://gabrielcampos.dev/ferramentas/gerador-de-assinatura-de-email',
+		'name': 'Gerador de Assinatura de E-mail Profissional',
+		'applicationCategory': 'BusinessApplication',
+		'operatingSystem': 'All',
+		'browserRequirements': 'Requires JavaScript. Requires HTML5.',
+		'description': description,
+		'offers': {
+			'@type': 'Offer',
+			'price': '0',
+			'priceCurrency': 'BRL',
+		},
+		'creator': {
+			'@type': 'Person',
+			'name': 'Gabriel Campos',
+			'url': 'https://gabrielcampos.dev',
+		},
+	},
+];
+---
+
+<PageLayout
+	{lang}
+	{title}
+	{description}
+	{schemaGraph}
+>
+	<div class="relative w-full overflow-hidden px-4 pt-10 pb-20 md:px-8 md:pt-14 md:pb-28">
+		<div class="mx-auto w-full max-w-300">
+			<!-- Breadcrumb -->
+			<nav class="mb-6 flex items-center gap-2 font-outfit text-xs text-task-gray" aria-label="Breadcrumb">
+				<a href="/" class="transition-colors hover:text-task-dark">Início</a>
+				<span>/</span>
+				<span class="text-task-dark font-medium">Ferramentas</span>
+				<span>/</span>
+				<span class="text-task-olive font-semibold">Gerador de Assinatura de E-mail</span>
+			</nav>
+
+			<!-- Componente Interativo do Gerador -->
+			<SignatureGenerator />
+		</div>
+	</div>
+</PageLayout>

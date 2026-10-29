@@ -16,8 +16,8 @@ export interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang)();
-const waUrl = getWhatsAppUrl(lang);
-const telegramUrl = getTelegramUrl();
+const waUrl: string = getWhatsAppUrl(lang);
+const telegramUrl: string = getTelegramUrl();
 
 const contactButtons = [
 	{
@@ -74,7 +74,7 @@ const contactButtons = [
 		<Icon name="simple-icons:wechat" class="size-6 shrink-0 transition-transform duration-300 group-hover:scale-110" />
 
 		<!-- Floating Micro-Tooltip -->
-		<span class="quick-wechat-tooltip pointer-events-none absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-task-dark px-3 py-1 font-outfit text-xs font-semibold text-white opacity-0 shadow-xl transition-all duration-200 group-hover:opacity-100 group-hover:-translate-y-1">
+		<span class="quick-wechat-tooltip pointer-events-none absolute -top-11 right-0 whitespace-nowrap rounded-full bg-task-dark px-3 py-1 font-outfit text-xs font-semibold text-white opacity-0 shadow-xl transition-all duration-200 group-hover:opacity-100 group-hover:-translate-y-1">
 			{`WeChat: ${WECHAT_ID}`}
 		</span>
 	</button>

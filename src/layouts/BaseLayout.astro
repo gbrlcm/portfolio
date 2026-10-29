@@ -17,6 +17,16 @@ export interface Props {
 	image?: string;
 	noIndex?: boolean;
 	preloadImage?: string | PreloadImageConfig;
+	ogType?: "website" | "article";
+	articleMeta?: {
+		publishedTime?: string;
+		modifiedTime?: string;
+		author?: string;
+		section?: string;
+		tags?: string[];
+	};
+	schemaGraph?: Record<string, unknown>[];
+	showHreflangs?: boolean;
 }
 
 const {
@@ -26,6 +36,10 @@ const {
 	image = "/images/og-image.jpg",
 	noIndex = false,
 	preloadImage,
+	ogType = "website",
+	articleMeta,
+	schemaGraph = [],
+	showHreflangs = false,
 } = Astro.props;
 
 const siteUrl: string = Astro.site
@@ -96,6 +110,7 @@ const schema = {
 				"https://x.com/Gabriel07132569",
 			],
 		},
+		...schemaGraph,
 	],
 };
 ---
@@ -180,12 +195,28 @@ const schema = {
 
 		{
 			!noIndex &&
+				(showHreflangs || Astro.url.pathname === "/" || Astro.url.pathname === "/en/" || Astro.url.pathname === "/es/") &&
 				hreflangs.map((item) => (
 					<link rel="alternate" hreflang={item.lang} href={item.href} />
 				))
 		}
 
-		<meta property="og:type" content="website" />
+		<meta property="og:type" content={ogType} />
+		{ogType === "article" && articleMeta?.publishedTime && (
+			<meta property="article:published_time" content={articleMeta.publishedTime} />
+		)}
+		{ogType === "article" && articleMeta?.modifiedTime && (
+			<meta property="article:modified_time" content={articleMeta.modifiedTime} />
+		)}
+		{ogType === "article" && articleMeta?.author && (
+			<meta property="article:author" content={articleMeta.author} />
+		)}
+		{ogType === "article" && articleMeta?.section && (
+			<meta property="article:section" content={articleMeta.section} />
+		)}
+		{ogType === "article" && articleMeta?.tags?.map((tag) => (
+			<meta property="article:tag" content={tag} />
+		))}
 		<meta property="og:site_name" content="Gabriel Campos" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />

@@ -18,14 +18,16 @@ export interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang)();
-const email = getContactEmail(lang);
-const waUrl = getWhatsAppUrl(lang);
-const telegramUrl = getTelegramUrl();
+const pathname = Astro.url.pathname;
+const isHome = pathname === '/' || pathname === '/en/' || pathname === '/en' || pathname === '/es/' || pathname === '/es';
+const homePrefix = isHome ? '' : (lang === 'pt-BR' ? '/' : `/${lang}/`);
+const email: string = getContactEmail(lang);
+const waUrl: string = getWhatsAppUrl(lang);
+const telegramUrl: string = getTelegramUrl();
 ---
 
 <footer class="w-full border-t border-task-border px-4 pt-20 pb-16 md:px-8">
 	<div class="mx-auto flex w-full max-w-270 flex-col justify-between gap-12 lg:flex-row lg:gap-16">
-		<!-- Left Column: Social Icons & Direct Contact -->
 		<div class="flex max-w-110 flex-col items-start gap-6">
 			<div>
 				<h4 class="font-anton text-xl leading-tight text-task-dark sm:text-[22px]">
@@ -57,15 +59,16 @@ const telegramUrl = getTelegramUrl();
 					{t.footer.aboutTitle}
 				</h5>
 				<ul class="flex flex-col gap-2.5 font-outfit text-[15px] text-task-dark">
-					<li><a href="#home" class="transition-colors hover:underline">{t.footer.links.home}</a></li>
-					<li><a href="#servicos" class="transition-colors hover:underline">{t.footer.links.services}</a></li>
-					<li><a href="#como-trabalho" class="transition-colors hover:underline">{t.footer.links.features}</a></li>
-					<li><a href="#contato" class="transition-colors hover:underline">{t.footer.links.community}</a></li>
-					<li><a href="#faqs" class="transition-colors hover:underline">{t.footer.links.faqs}</a></li>
+					<li><a href={`${homePrefix}#home`} class="transition-colors hover:underline">{t.footer.links.home}</a></li>
+					<li><a href={`${homePrefix}#servicos`} class="transition-colors hover:underline">{t.footer.links.services}</a></li>
+					<li><a href={`${homePrefix}#como-trabalho`} class="transition-colors hover:underline">{t.footer.links.features}</a></li>
+					<li><a href={`${homePrefix}#contato`} class="transition-colors hover:underline">{t.footer.links.community}</a></li>
+					<li><a href={`${homePrefix}#faqs`} class="transition-colors hover:underline">{t.footer.links.faqs}</a></li>
+					<li><a href="/blog" class="transition-colors hover:underline font-medium text-task-dark">Blog</a></li>
+					<li><a href="/ferramentas/gerador-de-assinatura-de-email" class="transition-colors hover:underline text-task-dark">Gerador de Assinatura</a></li>
 				</ul>
 			</div>
 
-			<!-- Group 2: Support & Direct Channels -->
 			<div class="flex flex-col gap-4">
 				<h5 class="font-anton text-base text-task-dark">
 					{t.footer.supportTitle}

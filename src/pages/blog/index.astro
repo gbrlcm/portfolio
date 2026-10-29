@@ -1,0 +1,175 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import BlogCard from '../../components/blog/BlogCard.astro';
+import Breadcrumbs from '../../components/blog/Breadcrumbs.astro';
+
+// Fetch only non-draft articles and sort newest to oldest
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const sortedPosts = allPosts.sort(
+	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+
+const POSTS_PER_PAGE = 6;
+const totalPosts = sortedPosts.length;
+const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
+const currentPagePosts = sortedPosts.slice(0, POSTS_PER_PAGE);
+
+const [featuredPost, ...otherPosts] = currentPagePosts;
+
+// Extract categories
+const categories = Array.from(
+	new Set(allPosts.map((p) => p.data.category).filter(Boolean))
+);
+
+const title = 'Blog & Artigos Técnicos — Gabriel Campos';
+const description =
+	'Artigos sobre engenharia de software, arquitetura de sistemas web, otimização de performance e boas práticas de desenvolvimento.';
+const siteUrl = 'https://gabrielcampos.dev';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+
+// Schema.org Structured Data
+const schemaGraph = [
+	{
+		'@type': 'CollectionPage',
+		'@id': `${canonicalUrl}#webpage`,
+		url: canonicalUrl,
+		name: title,
+		description: description,
+		isPartOf: {
+			'@id': `${siteUrl}/#website`,
+		},
+		about: {
+			'@id': `${siteUrl}/#person`,
+		},
+	},
+	{
+		'@type': 'BreadcrumbList',
+		'@id': `${canonicalUrl}#breadcrumb`,
+		itemListElement: [
+			{
+				'@type': 'ListItem',
+				position: 1,
+				name: 'Início',
+				item: `${siteUrl}/`,
+			},
+			{
+				'@type': 'ListItem',
+				position: 2,
+				name: 'Blog',
+				item: canonicalUrl,
+			},
+		],
+	},
+];
+---
+
+<PageLayout
+	lang="pt-BR"
+	title={title}
+	description={description}
+	ogType="website"
+	schemaGraph={schemaGraph}
+>
+	<div class="mx-auto w-full max-w-6xl px-5 pt-10 pb-20 sm:pt-14 sm:pb-28 md:px-8">
+		<!-- Breadcrumbs -->
+		<Breadcrumbs
+			items={[
+				{ label: 'Início', href: '/' },
+				{ label: 'Blog' },
+			]}
+			class="mb-8"
+		/>
+
+		<!-- Section Header -->
+		<header class="max-w-3xl">
+			<h1 class="font-anton text-4xl uppercase tracking-tight text-task-dark sm:text-5xl lg:text-6xl">
+				Blog & Conteúdo Técnico
+			</h1>
+
+			<p class="mt-4 font-outfit text-base text-task-gray sm:text-lg leading-relaxed">
+				Reflexões práticas sobre desenvolvimento de sistemas, engenharia de software, performance web e soluções para problemas reais de operação.
+			</p>
+
+			<!-- Categories Bar -->
+			{
+				categories.length > 0 && (
+					<div class="mt-6 flex flex-wrap items-center gap-2 pt-2">
+						<span class="font-outfit text-xs font-medium text-task-gray">Categorias:</span>
+						{categories.map((cat) => (
+							<span class="rounded-lg border border-task-border bg-white px-3 py-1 font-outfit text-xs font-medium text-task-dark shadow-2xs">
+								{cat}
+							</span>
+						))}
+					</div>
+				)
+			}
+		</header>
+
+		<!-- Content Listing -->
+		{
+			totalPosts === 0 ? (
+				/* Empty State */
+				<div class="mt-14 rounded-3xl border border-dashed border-task-border bg-white/60 p-12 text-center sm:p-20">
+					<div class="mx-auto flex size-14 items-center justify-center rounded-2xl bg-task-dark text-task-yellow">
+						<span class="font-anton text-2xl">GC</span>
+					</div>
+					<h2 class="mt-5 font-anton text-2xl uppercase tracking-tight text-task-dark sm:text-3xl">
+						Nenhum artigo publicado no momento
+					</h2>
+					<p class="mx-auto mt-2 max-w-md font-outfit text-sm text-task-gray sm:text-base">
+						Novos artigos técnicos estão sendo preparados. Em breve traremos publicações sobre arquitetura e performance.
+					</p>
+					<a
+						href="/"
+						class="mt-6 inline-flex items-center justify-center rounded-xl bg-task-yellow px-5 py-2.5 font-outfit text-sm font-semibold text-task-dark transition-all hover:bg-yellow-300"
+					>
+						Voltar para a página inicial
+					</a>
+				</div>
+			) : (
+				<div class="mt-12 space-y-10 sm:mt-14 sm:space-y-12">
+					{/* Featured First Post */}
+					{featuredPost && (
+						<section aria-label="Artigo em destaque">
+							<BlogCard post={featuredPost} featured={true} />
+						</section>
+					)}
+
+					{/* Other Posts Grid */}
+					{otherPosts.length > 0 && (
+						<section aria-label="Mais artigos">
+							<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+								{otherPosts.map((post) => (
+									<BlogCard post={post} />
+								))}
+							</div>
+						</section>
+					)}
+
+					{/* Pagination Controls (when totalPosts > POSTS_PER_PAGE) */}
+					{totalPages > 1 && (
+						<nav aria-label="Paginação do blog" class="flex items-center justify-center gap-2 pt-8">
+							<span class="rounded-xl border border-task-border bg-task-dark px-4 py-2 font-outfit text-sm font-semibold text-white shadow-xs">
+								1
+							</span>
+							<a
+								href="/blog/page/2"
+								class="rounded-xl border border-task-border bg-white px-4 py-2 font-outfit text-sm font-semibold text-task-dark transition-colors hover:bg-task-border/40"
+							>
+								2
+							</a>
+							<a
+								href="/blog/page/2"
+								class="inline-flex items-center gap-1.5 rounded-xl border border-task-border bg-white px-4 py-2 font-outfit text-sm font-semibold text-task-dark transition-colors hover:bg-task-border/40"
+							>
+								<span>Próxima</span>
+								<span>→</span>
+							</a>
+						</nav>
+					)}
+				</div>
+			)
+		}
+	</div>
+</PageLayout>

@@ -12,12 +12,44 @@ export interface Props {
 	image?: string;
 	noIndex?: boolean;
 	preloadImage?: string | PreloadImageConfig;
+	ogType?: "website" | "article";
+	articleMeta?: {
+		publishedTime?: string;
+		modifiedTime?: string;
+		author?: string;
+		section?: string;
+		tags?: string[];
+	};
+	schemaGraph?: Record<string, unknown>[];
+	showHreflangs?: boolean;
 }
 
-const { lang = 'pt-BR', title, description, image, noIndex, preloadImage } = Astro.props;
+const {
+	lang = 'pt-BR',
+	title,
+	description,
+	image,
+	noIndex,
+	preloadImage,
+	ogType,
+	articleMeta,
+	schemaGraph,
+	showHreflangs,
+} = Astro.props;
 ---
 
-<BaseLayout {lang} {title} {description} {image} {noIndex} {preloadImage}>
+<BaseLayout
+	{lang}
+	{title}
+	{description}
+	{image}
+	{noIndex}
+	{preloadImage}
+	{ogType}
+	{articleMeta}
+	{schemaGraph}
+	{showHreflangs}
+>
 	<Navbar {lang} />
 
 	<main id="main" class="w-full">

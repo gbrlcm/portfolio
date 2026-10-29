@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
 import type { SupportedLanguage } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 import { getWhatsAppUrl } from '../../data/contact';
@@ -12,7 +13,7 @@ export interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang)();
-const waUrl = getWhatsAppUrl(lang);
+const waUrl: string = getWhatsAppUrl(lang);
 
 const titlePrefix = t.hero.titlePrefix ?? 'Sou Gabriel Campos, desenvolvedor full stack ';
 const typewriterPhrases = t.hero.typewriterPhrases ?? ['construindo o futuro da web.'];
@@ -64,15 +65,14 @@ const initialPhrase = typewriterPhrases[0] ?? 'construindo o futuro da web.';
 		<div class="relative w-full lg:w-7/12 xl:w-7/12">
 			<!-- Banner Image -->
 			<div class="relative h-70 w-full overflow-hidden rounded-[30px] sm:h-95 md:h-115 lg:h-80 xl:h-96 lg:rounded-[40px]">
-				<img
+				<Image
 					src={heroImageConfig.src}
-					srcset={heroImageConfig.srcset}
+					widths={[...heroImageConfig.widths]}
 					sizes={heroImageConfig.sizes}
+					format={heroImageConfig.format}
 					alt={t.hero.imageAlt}
 					title={t.hero.imageTitle}
 					class="size-full object-cover object-bottom"
-					width={heroImageConfig.width}
-					height={heroImageConfig.height}
 					loading="eager"
 					fetchpriority="high"
 					decoding="async"

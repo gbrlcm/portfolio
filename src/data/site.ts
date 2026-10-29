@@ -1,3 +1,6 @@
+import { getImage } from 'astro:assets';
+import heroImage from '../assets/images/hero.webp';
+
 export const site = {
 	name: 'Gabriel Campos',
 	domain: 'gabrielcampos.dev',
@@ -20,14 +23,24 @@ export const site = {
 
 export type Site = typeof site;
 
+/**
+ * Hero image options shared by the <Image /> in Hero.astro and the
+ * <link rel="preload"> generated in the pages. Both must use the same
+ * options so Astro emits identical URLs (avoids a double download).
+ */
 export const heroImageConfig = {
-	src: '/images/hero-750.webp',
-	srcset:
-		'/images/hero-400.webp 400w, /images/hero-640.webp 640w, /images/hero-750.webp 750w, /images/hero-1080.webp 1080w, /images/hero-1600.webp 1600w',
+	src: heroImage,
+	widths: [400, 640, 750, 1080, 1600],
 	sizes:
 		'(min-width: 1280px) 700px, (min-width: 1024px) 55vw, (min-width: 768px) calc(100vw - 4rem), calc(100vw - 2rem)',
-	width: 1600,
-	height: 901,
+	format: 'webp',
 	type: 'image/webp',
 	ogImage: '/images/og-image.jpg',
 } as const;
+
+/** Builds the preload config for the hero image (same URLs as <Image />). */
+export async function getHeroPreload() {
+	const { src, widths, sizes, format, type } = heroImageConfig;
+	const img = await getImage({ src, widths: [...widths], sizes, format });
+	return { href: img.src, imagesrcset: img.srcSet.attribute, imagesizes: sizes, type };
+}

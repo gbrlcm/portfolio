@@ -1,0 +1,1585 @@
+---
+import { Icon } from 'astro-icon/components';
+import {
+	DEFAULT_SIGNATURE_DATA,
+	AVAILABLE_FONTS,
+	PRESET_PRIMARY_COLORS,
+	PRESET_TEXT_COLORS,
+	PRESET_LINK_COLORS,
+} from '../../../lib/email-signature/defaults';
+import { generateSignatureHtml } from '../../../lib/email-signature/generator';
+
+// Render inicial no servidor usando os dados padrão
+const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
+---
+
+<div id="email-signature-app" class="relative w-full">
+	<!-- Top Bar com Título e Ações Rápidas -->
+	<div class="mb-8 flex flex-col justify-between gap-4 pb-6 sm:flex-row sm:items-end">
+		<div>
+		
+			<h1 class="font-anton text-3xl tracking-tight text-task-dark sm:text-4xl md:text-5xl uppercase">
+				Gerador de Assinatura de E-mail
+			</h1>
+			<p class="mt-2 max-w-2xl font-outfit text-sm text-task-gray sm:text-base">
+				Crie assinaturas profissionais compatíveis com Gmail, Outlook e Apple Mail em poucos cliques. Sem cadastro e 100% privado no seu navegador.
+			</p>
+		</div>
+
+		<!-- Quick Actions -->
+		<div class="flex items-center gap-2 self-start sm:self-end">
+			<button
+				type="button"
+				id="btn-fill-example"
+				class="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-task-border bg-white px-4 py-2 font-outfit text-xs font-semibold text-task-dark shadow-2xs transition-all hover:border-task-dark hover:bg-task-bg active:scale-95"
+				title="Preencher todos os campos com dados de exemplo"
+			>
+				<Icon name="lucide:sparkles" class="size-3.5 text-task-olive" />
+				Preencher Exemplo
+			</button>
+			<button
+				type="button"
+				id="btn-clear-fields"
+				class="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-task-border bg-white px-4 py-2 font-outfit text-xs font-semibold text-task-gray shadow-2xs transition-all hover:border-red-300 hover:text-red-700 active:scale-95"
+				title="Limpar formulário"
+			>
+				<Icon name="lucide:rotate-ccw" class="size-3.5" />
+				Limpar
+			</button>
+		</div>
+	</div>
+
+	<!-- Container Principal de 2 Colunas no Desktop -->
+	<div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-6">
+		<!-- Coluna da Esquerda: Formulário e Passos (7 colunas) -->
+		<div class="flex min-w-0 flex-col rounded-3xl border border-task-border bg-white p-4 shadow-xs sm:p-7 md:p-8 lg:col-span-7">
+			<!-- Stepper de Navegação das 4 Etapas -->
+			<div class="mb-8">
+				<div class="grid grid-cols-4 gap-1 sm:gap-2.5" role="tablist" aria-label="Etapas do gerador">
+					<!-- Etapa 1 -->
+					<button
+						type="button"
+						class="step-tab group flex cursor-pointer flex-col items-center gap-1 rounded-2xl p-1.5 text-center transition-all sm:flex-row sm:gap-2.5 sm:p-2.5 sm:text-left active:scale-95"
+						data-step="1"
+						role="tab"
+						aria-selected="true"
+						aria-controls="panel-step-1"
+						id="tab-step-1"
+					>
+						<span class="step-badge flex size-7 shrink-0 items-center justify-center rounded-xl bg-task-dark font-anton text-xs text-white transition-all sm:size-9 sm:text-sm">
+							1
+						</span>
+						<div class="min-w-0">
+							<span class="block font-outfit text-[11px] font-bold text-task-dark sm:text-xs md:text-sm">
+								Modelo
+							</span>
+							<span class="hidden font-outfit text-[11px] text-task-gray sm:block">
+								Layout visual
+							</span>
+						</div>
+					</button>
+
+					<!-- Etapa 2 -->
+					<button
+						type="button"
+						class="step-tab group flex cursor-pointer flex-col items-center gap-1 rounded-2xl p-1.5 text-center transition-all sm:flex-row sm:gap-2.5 sm:p-2.5 sm:text-left active:scale-95"
+						data-step="2"
+						role="tab"
+						aria-selected="false"
+						aria-controls="panel-step-2"
+						id="tab-step-2"
+					>
+						<span class="step-badge flex size-7 shrink-0 items-center justify-center rounded-xl bg-task-bg font-anton text-xs text-task-gray transition-all sm:size-9 sm:text-sm">
+							2
+						</span>
+						<div class="min-w-0">
+							<span class="block font-outfit text-[11px] font-bold text-task-dark sm:text-xs md:text-sm">
+								Info
+							</span>
+							<span class="hidden font-outfit text-[11px] text-task-gray sm:block">
+								Dados & contatos
+							</span>
+						</div>
+					</button>
+
+					<!-- Etapa 3 -->
+					<button
+						type="button"
+						class="step-tab group flex cursor-pointer flex-col items-center gap-1 rounded-2xl p-1.5 text-center transition-all sm:flex-row sm:gap-2.5 sm:p-2.5 sm:text-left active:scale-95"
+						data-step="3"
+						role="tab"
+						aria-selected="false"
+						aria-controls="panel-step-3"
+						id="tab-step-3"
+					>
+						<span class="step-badge flex size-7 shrink-0 items-center justify-center rounded-xl bg-task-bg font-anton text-xs text-task-gray transition-all sm:size-9 sm:text-sm">
+							3
+						</span>
+						<div class="min-w-0">
+							<span class="block font-outfit text-[11px] font-bold text-task-dark sm:text-xs md:text-sm">
+								Estilo
+							</span>
+							<span class="hidden font-outfit text-[11px] text-task-gray sm:block">
+								Cores & fontes
+							</span>
+						</div>
+					</button>
+
+					<!-- Etapa 4 -->
+					<button
+						type="button"
+						class="step-tab group flex cursor-pointer flex-col items-center gap-1 rounded-2xl p-1.5 text-center transition-all sm:flex-row sm:gap-2.5 sm:p-2.5 sm:text-left active:scale-95"
+						data-step="4"
+						role="tab"
+						aria-selected="false"
+						aria-controls="panel-step-4"
+						id="tab-step-4"
+					>
+						<span class="step-badge flex size-7 shrink-0 items-center justify-center rounded-xl bg-task-bg font-anton text-xs text-task-gray transition-all sm:size-9 sm:text-sm">
+							4
+						</span>
+						<div class="min-w-0">
+							<span class="block font-outfit text-[11px] font-bold text-task-dark sm:text-xs md:text-sm">
+								Extras
+							</span>
+							<span class="hidden font-outfit text-[11px] text-task-gray sm:block">
+								Fotos & CTA
+							</span>
+						</div>
+					</button>
+				</div>
+			</div>
+
+			<!-- Painéis de Conteúdo das Etapas -->
+			<form id="signature-form" onsubmit="return false;" class="flex flex-col">
+				<!-- ============================================== -->
+				<!-- ETAPA 1: MODELO                                 -->
+				<!-- ============================================== -->
+				<div class="step-panel" id="panel-step-1" role="tabpanel" aria-labelledby="tab-step-1">
+					<div class="mb-6">
+						<h2 class="font-anton text-xl text-task-dark sm:text-2xl">
+							Escolha o modelo de assinatura
+						</h2>
+						<p class="font-outfit text-xs text-task-gray sm:text-sm">
+							Compare as estruturas abaixo e selecione a que melhor representa seu perfil profissional.
+						</p>
+					</div>
+
+					<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+						<!-- Modelo 1: Clássico -->
+						<label class="template-card relative flex cursor-pointer flex-col rounded-2xl border-2 border-task-dark bg-task-bg/50 p-4 transition-all hover:border-task-dark" data-template="classic">
+							<input type="radio" name="templateId" value="classic" checked class="sr-only" />
+							<!-- Miniatura Visual Fiel -->
+							<div class="mb-3.5 flex h-32 w-full items-center justify-center rounded-xl border border-task-border bg-white p-3">
+								<div class="flex w-full items-center gap-3">
+									<div class="size-12 shrink-0 rounded-lg bg-task-dark/15 flex items-center justify-center font-anton text-xs text-task-dark">
+										FOTO
+									</div>
+									<div class="h-16 w-0.5 bg-task-dark"></div>
+									<div class="flex flex-1 flex-col gap-1">
+										<div class="h-2.5 w-24 rounded bg-task-dark"></div>
+										<div class="h-1.5 w-16 rounded bg-task-gray/40"></div>
+										<div class="mt-1 flex flex-col gap-0.5">
+											<div class="h-1.5 w-28 rounded bg-task-gray/25"></div>
+											<div class="h-1.5 w-20 rounded bg-task-gray/25"></div>
+										</div>
+										<div class="mt-1 flex gap-1">
+											<div class="size-2 rounded bg-task-dark/60"></div>
+											<div class="size-2 rounded bg-task-dark/60"></div>
+											<div class="size-2 rounded bg-task-dark/60"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="flex items-center justify-between">
+								<div>
+									<span class="block font-anton text-base text-task-dark">Clássico</span>
+									<span class="block font-outfit text-xs text-task-gray">Divisor vertical & foto destacada</span>
+								</div>
+								<span class="template-check flex size-5 items-center justify-center rounded-full bg-task-dark text-white">
+									<Icon name="lucide:check" class="size-3" />
+								</span>
+							</div>
+						</label>
+
+						<!-- Modelo 2: Minimalista -->
+						<label class="template-card relative flex cursor-pointer flex-col rounded-2xl border-2 border-task-border bg-white p-4 transition-all hover:border-task-gray" data-template="minimal">
+							<input type="radio" name="templateId" value="minimal" class="sr-only" />
+							<!-- Miniatura Visual Fiel -->
+							<div class="mb-3.5 flex h-32 w-full items-center justify-center rounded-xl border border-task-border bg-white p-3">
+								<div class="flex w-full items-center gap-3">
+									<div class="size-10 shrink-0 rounded-full bg-task-dark/15 flex items-center justify-center font-anton text-[10px] text-task-dark">
+										FOTO
+									</div>
+									<div class="flex flex-1 flex-col gap-1">
+										<div class="h-2.5 w-20 rounded bg-task-dark"></div>
+										<div class="h-1.5 w-24 rounded bg-task-gray/40"></div>
+										<div class="mt-1.5 h-1.5 w-full rounded bg-task-gray/20"></div>
+										<div class="mt-1 flex items-center gap-1.5">
+											<div class="h-1.5 w-10 rounded bg-task-olive"></div>
+											<div class="h-1.5 w-10 rounded bg-task-olive"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="flex items-center justify-between">
+								<div>
+									<span class="block font-anton text-base text-task-dark">Minimalista</span>
+									<span class="block font-outfit text-xs text-task-gray">Tipografia limpa & bullets sutis</span>
+								</div>
+								<span class="template-check hidden size-5 items-center justify-center rounded-full bg-task-dark text-white">
+									<Icon name="lucide:check" class="size-3" />
+								</span>
+							</div>
+						</label>
+
+						<!-- Modelo 3: Corporativo -->
+						<label class="template-card relative flex cursor-pointer flex-col rounded-2xl border-2 border-task-border bg-white p-4 transition-all hover:border-task-gray" data-template="corporate">
+							<input type="radio" name="templateId" value="corporate" class="sr-only" />
+							<!-- Miniatura Visual Fiel -->
+							<div class="mb-3.5 flex h-32 w-full flex-col justify-between rounded-xl border border-task-border bg-white p-3">
+								<div class="h-1 w-full rounded bg-task-dark"></div>
+								<div class="flex w-full items-center justify-between gap-2">
+									<div class="flex flex-col gap-1">
+										<div class="h-2.5 w-20 rounded bg-task-dark"></div>
+										<div class="h-1.5 w-28 rounded bg-task-gray/40"></div>
+										<div class="mt-1 flex flex-col gap-0.5">
+											<div class="h-1.5 w-24 rounded bg-task-gray/25"></div>
+											<div class="h-1.5 w-20 rounded bg-task-gray/25"></div>
+										</div>
+									</div>
+									<div class="flex flex-col items-center gap-1.5">
+										<div class="size-9 rounded-md bg-task-dark/15"></div>
+										<div class="h-3 w-12 rounded bg-task-dark"></div>
+									</div>
+								</div>
+								<div class="h-1 w-full rounded bg-task-border"></div>
+							</div>
+							<div class="flex items-center justify-between">
+								<div>
+									<span class="block font-anton text-base text-task-dark">Corporativo</span>
+									<span class="block font-outfit text-xs text-task-gray">Barra de marca, dados & CTA duplo</span>
+								</div>
+								<span class="template-check hidden size-5 items-center justify-center rounded-full bg-task-dark text-white">
+									<Icon name="lucide:check" class="size-3" />
+								</span>
+							</div>
+						</label>
+
+						<!-- Modelo 4: Visual Moderno -->
+						<label class="template-card relative flex cursor-pointer flex-col rounded-2xl border-2 border-task-border bg-white p-4 transition-all hover:border-task-gray" data-template="modern-visual">
+							<input type="radio" name="templateId" value="modern-visual" class="sr-only" />
+							<!-- Miniatura Visual Fiel -->
+							<div class="mb-3.5 flex h-32 w-full items-center justify-center rounded-xl border border-task-border bg-white p-3">
+								<div class="flex w-full items-center gap-3">
+									<div class="flex flex-col items-center gap-1">
+										<div class="size-11 shrink-0 rounded-full border-2 border-task-dark p-0.5">
+											<div class="size-full rounded-full bg-task-dark/20"></div>
+										</div>
+										<div class="h-1.5 w-8 rounded bg-task-gray/30"></div>
+									</div>
+									<div class="flex flex-1 flex-col gap-1">
+										<div class="h-3 w-24 rounded bg-task-dark"></div>
+										<div class="h-1.5 w-32 rounded bg-task-gray/40"></div>
+										<div class="mt-1 flex gap-2">
+											<div class="h-1.5 w-16 rounded bg-task-gray/30"></div>
+											<div class="h-1.5 w-16 rounded bg-task-gray/30"></div>
+										</div>
+										<div class="mt-1.5 flex items-center gap-2">
+											<div class="flex gap-0.5">
+												<div class="size-2 rounded-full bg-task-dark/50"></div>
+												<div class="size-2 rounded-full bg-task-dark/50"></div>
+											</div>
+											<div class="h-3.5 w-16 rounded-full bg-task-dark"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="flex items-center justify-between">
+								<div>
+									<span class="block font-anton text-base text-task-dark">Visual Moderno</span>
+									<span class="block font-outfit text-xs text-task-gray">Avatar com anel de marca & pílula CTA</span>
+								</div>
+								<span class="template-check hidden size-5 items-center justify-center rounded-full bg-task-dark text-white">
+									<Icon name="lucide:check" class="size-3" />
+								</span>
+							</div>
+						</label>
+					</div>
+				</div>
+
+				<!-- ============================================== -->
+				<!-- ETAPA 2: INFORMAÇÕES                            -->
+				<!-- ============================================== -->
+				<div class="step-panel hidden" id="panel-step-2" role="tabpanel" aria-labelledby="tab-step-2">
+					<div class="mb-6">
+						<h2 class="font-anton text-xl text-task-dark sm:text-2xl">
+							Seus dados de contato
+						</h2>
+						<p class="font-outfit text-xs text-task-gray sm:text-sm">
+							Campos vazios serão omitidos automaticamente da assinatura final.
+						</p>
+					</div>
+
+					<!-- Grupo 1: Dados Pessoais -->
+					<div class="mb-7 rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
+						<div class="mb-4 flex items-center gap-2">
+							<Icon name="lucide:user" class="size-4 text-task-olive" />
+							<h3 class="font-anton text-sm uppercase tracking-wider text-task-dark">
+								Dados Pessoais
+							</h3>
+						</div>
+						<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+							<div>
+								<label for="input-fullName" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									Nome e Sobrenome *
+								</label>
+								<input
+									type="text"
+									id="input-fullName"
+									name="fullName"
+									placeholder="Ex.: Gabriel Campos"
+									value={DEFAULT_SIGNATURE_DATA.fullName}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+								/>
+							</div>
+							<div>
+								<label for="input-jobTitle" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									Cargo / Especialidade
+								</label>
+								<input
+									type="text"
+									id="input-jobTitle"
+									name="jobTitle"
+									placeholder="Ex.: Engenheiro de Software"
+									value={DEFAULT_SIGNATURE_DATA.jobTitle}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+								/>
+							</div>
+							<div>
+								<label for="input-department" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									Departamento (Opcional)
+								</label>
+								<input
+									type="text"
+									id="input-department"
+									name="department"
+									placeholder="Ex.: Engenharia de Produto"
+									value={DEFAULT_SIGNATURE_DATA.department}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+								/>
+							</div>
+							<div>
+								<label for="input-email" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									E-mail Profissional *
+								</label>
+								<input
+									type="email"
+									id="input-email"
+									name="email"
+									placeholder="seu@email.com"
+									value={DEFAULT_SIGNATURE_DATA.email}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+								/>
+							</div>
+							<div>
+								<label for="input-phone" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									Telefone Principal
+								</label>
+								<input
+									type="tel"
+									id="input-phone"
+									name="phone"
+									placeholder="+55 11 99999-9999"
+									value={DEFAULT_SIGNATURE_DATA.phone}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+								/>
+							</div>
+							<div>
+								<label for="input-mobilePhone" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									Telefone Alternativo (Opcional)
+								</label>
+								<input
+									type="tel"
+									id="input-mobilePhone"
+									name="mobilePhone"
+									placeholder="+55 11 98888-8888"
+									value={DEFAULT_SIGNATURE_DATA.mobilePhone}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+								/>
+							</div>
+						</div>
+					</div>
+
+					<!-- Grupo 2: Empresa -->
+					<div class="mb-7 rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
+						<div class="mb-4 flex items-center gap-2">
+							<Icon name="lucide:building-2" class="size-4 text-task-olive" />
+							<h3 class="font-anton text-sm uppercase tracking-wider text-task-dark">
+								Empresa & Endereço
+							</h3>
+						</div>
+						<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+							<div>
+								<label for="input-companyName" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									Nome da Empresa
+								</label>
+								<input
+									type="text"
+									id="input-companyName"
+									name="companyName"
+									placeholder="Ex.: Gabriel Campos Tech"
+									value={DEFAULT_SIGNATURE_DATA.companyName}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+								/>
+							</div>
+							<div>
+								<label for="input-website" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									Site da Empresa
+								</label>
+								<input
+									type="url"
+									id="input-website"
+									name="website"
+									placeholder="https://gabrielcampos.dev"
+									value={DEFAULT_SIGNATURE_DATA.website}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+								/>
+							</div>
+							<div class="sm:col-span-2">
+								<label for="input-address" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									Endereço Comercial (Opcional)
+								</label>
+								<input
+									type="text"
+									id="input-address"
+									name="address"
+									placeholder="Ex.: Av. Paulista, 1000 — São Paulo, SP"
+									value={DEFAULT_SIGNATURE_DATA.address}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+								/>
+							</div>
+						</div>
+					</div>
+
+					<!-- Grupo 3: Links e Redes Sociais -->
+					<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
+						<div class="mb-4 flex items-center gap-2">
+							<Icon name="lucide:share-2" class="size-4 text-task-olive" />
+							<h3 class="font-anton text-sm uppercase tracking-wider text-task-dark">
+								Links & Redes Profissionais
+							</h3>
+						</div>
+						<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+							<div>
+								<label for="input-linkedin" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									LinkedIn (URL)
+								</label>
+								<input
+									type="url"
+									id="input-linkedin"
+									name="linkedin"
+									placeholder="https://linkedin.com/in/usuario"
+									value={DEFAULT_SIGNATURE_DATA.linkedin}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+								/>
+							</div>
+							<div>
+								<label for="input-whatsapp" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									WhatsApp (Número ou Link)
+								</label>
+								<input
+									type="text"
+									id="input-whatsapp"
+									name="whatsapp"
+									placeholder="+55 11 99999-9999"
+									value={DEFAULT_SIGNATURE_DATA.whatsapp}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+								/>
+							</div>
+							<div>
+								<label for="input-github" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									GitHub (URL)
+								</label>
+								<input
+									type="url"
+									id="input-github"
+									name="github"
+									placeholder="https://github.com/usuario"
+									value={DEFAULT_SIGNATURE_DATA.github}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+								/>
+							</div>
+							<div>
+								<label for="input-instagram" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									Instagram (URL)
+								</label>
+								<input
+									type="url"
+									id="input-instagram"
+									name="instagram"
+									placeholder="https://instagram.com/usuario"
+									value={DEFAULT_SIGNATURE_DATA.instagram}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+								/>
+							</div>
+							<div>
+								<label for="input-facebook" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									Facebook (URL)
+								</label>
+								<input
+									type="url"
+									id="input-facebook"
+									name="facebook"
+									placeholder="https://facebook.com/pagina"
+									value={DEFAULT_SIGNATURE_DATA.facebook}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+								/>
+							</div>
+							<div>
+								<label for="input-twitter" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									X / Twitter (URL)
+								</label>
+								<input
+									type="url"
+									id="input-twitter"
+									name="twitter"
+									placeholder="https://x.com/usuario"
+									value={DEFAULT_SIGNATURE_DATA.twitter}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ============================================== -->
+				<!-- ETAPA 3: ESTILO                                 -->
+				<!-- ============================================== -->
+				<div class="step-panel hidden" id="panel-step-3" role="tabpanel" aria-labelledby="tab-step-3">
+					<div class="mb-6">
+						<h2 class="font-anton text-xl text-task-dark sm:text-2xl">
+							Personalização visual
+						</h2>
+						<p class="font-outfit text-xs text-task-gray sm:text-sm">
+							Ajuste as cores da sua marca e a tipografia. A prévia ao lado reflete as alterações instantaneamente.
+						</p>
+					</div>
+
+					<!-- Cor Principal -->
+					<div class="mb-6 rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
+						<label class="mb-2 block font-outfit text-xs font-semibold text-task-dark">
+							Cor Principal da Marca (Destaques e divisores)
+						</label>
+						<div class="flex flex-wrap items-center gap-2 mb-3">
+							{PRESET_PRIMARY_COLORS.map((preset) => (
+								<button
+									type="button"
+									class="color-preset-btn flex size-8 cursor-pointer items-center justify-center rounded-full border border-task-border shadow-2xs transition-transform hover:scale-110 active:scale-95"
+									data-target="primaryColor"
+									data-color={preset.hex}
+									style={`background-color: ${preset.hex};`}
+									title={preset.label}
+								/>
+							))}
+						</div>
+						<div class="flex items-center gap-3">
+							<input
+								type="color"
+								id="color-picker-primary"
+								name="primaryColorPicker"
+								value={DEFAULT_SIGNATURE_DATA.primaryColor}
+								class="size-10 cursor-pointer rounded-xl border border-task-border bg-white p-1"
+							/>
+							<input
+								type="text"
+								id="input-primaryColor"
+								name="primaryColor"
+								value={DEFAULT_SIGNATURE_DATA.primaryColor}
+								maxlength="7"
+								class="w-32 rounded-xl border border-task-border bg-white px-3 py-2 font-mono text-xs text-task-dark uppercase focus:border-task-dark focus:outline-none"
+							/>
+							<span class="font-outfit text-xs text-task-gray">Código HEX</span>
+						</div>
+					</div>
+
+					<!-- Cores de Texto e Links -->
+					<div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+						<!-- Cor do Texto -->
+						<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4">
+							<label class="mb-2 block font-outfit text-xs font-semibold text-task-dark">
+								Cor do Texto
+							</label>
+							<div class="flex flex-wrap items-center gap-2 mb-3">
+								{PRESET_TEXT_COLORS.map((preset) => (
+									<button
+										type="button"
+										class="color-preset-btn flex size-7 cursor-pointer items-center justify-center rounded-full border border-task-border shadow-2xs hover:scale-110 transition-transform"
+										data-target="textColor"
+										data-color={preset.hex}
+										style={`background-color: ${preset.hex};`}
+										title={preset.label}
+									/>
+								))}
+							</div>
+							<div class="flex items-center gap-2">
+								<input
+									type="color"
+									id="color-picker-text"
+									name="textColorPicker"
+									value={DEFAULT_SIGNATURE_DATA.textColor}
+									class="size-9 cursor-pointer rounded-lg border border-task-border bg-white p-1"
+								/>
+								<input
+									type="text"
+									id="input-textColor"
+									name="textColor"
+									value={DEFAULT_SIGNATURE_DATA.textColor}
+									maxlength="7"
+									class="w-28 rounded-xl border border-task-border bg-white px-3 py-2 font-mono text-xs text-task-dark uppercase focus:border-task-dark focus:outline-none"
+								/>
+							</div>
+						</div>
+
+						<!-- Cor dos Links -->
+						<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4">
+							<label class="mb-2 block font-outfit text-xs font-semibold text-task-dark">
+								Cor dos Links
+							</label>
+							<div class="flex flex-wrap items-center gap-2 mb-3">
+								{PRESET_LINK_COLORS.map((preset) => (
+									<button
+										type="button"
+										class="color-preset-btn flex size-7 cursor-pointer items-center justify-center rounded-full border border-task-border shadow-2xs hover:scale-110 transition-transform"
+										data-target="linkColor"
+										data-color={preset.hex}
+										style={`background-color: ${preset.hex};`}
+										title={preset.label}
+									/>
+								))}
+							</div>
+							<div class="flex items-center gap-2">
+								<input
+									type="color"
+									id="color-picker-link"
+									name="linkColorPicker"
+									value={DEFAULT_SIGNATURE_DATA.linkColor}
+									class="size-9 cursor-pointer rounded-lg border border-task-border bg-white p-1"
+								/>
+								<input
+									type="text"
+									id="input-linkColor"
+									name="linkColor"
+									value={DEFAULT_SIGNATURE_DATA.linkColor}
+									maxlength="7"
+									class="w-28 rounded-xl border border-task-border bg-white px-3 py-2 font-mono text-xs text-task-dark uppercase focus:border-task-dark focus:outline-none"
+								/>
+							</div>
+						</div>
+					</div>
+
+					<!-- Tipografia -->
+					<div class="mb-6 rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
+						<label for="select-fontFamily" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+							Fonte da Assinatura (Fontes universais para e-mail)
+						</label>
+						<p class="mb-3 font-outfit text-xs text-task-gray">
+							Clientes de e-mail como Outlook e Gmail bloqueiam fontes web externas. Usamos fontes seguras que funcionam em todos os dispositivos.
+						</p>
+						<select
+							id="select-fontFamily"
+							name="fontFamily"
+							class="w-full cursor-pointer rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark focus:border-task-dark focus:outline-none"
+						>
+							{AVAILABLE_FONTS.map((font) => (
+								<option value={font.id} selected={font.id === DEFAULT_SIGNATURE_DATA.fontFamily}>
+									{font.label}
+								</option>
+							))}
+						</select>
+					</div>
+
+					<!-- Tamanho da Fonte -->
+					<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
+						<label class="mb-2 block font-outfit text-xs font-semibold text-task-dark">
+							Escala da Assinatura
+						</label>
+						<div class="grid grid-cols-3 gap-3" role="radiogroup" aria-label="Tamanho da fonte">
+							<label class="font-size-option flex cursor-pointer items-center justify-center rounded-xl border-2 border-task-border bg-white py-2.5 px-3 text-center transition-all hover:border-task-gray">
+								<input type="radio" name="fontSize" value="sm" class="sr-only" />
+								<span class="font-outfit text-xs font-semibold text-task-dark">Compacto (P)</span>
+							</label>
+							<label class="font-size-option flex cursor-pointer items-center justify-center rounded-xl border-2 border-task-dark bg-task-bg py-2.5 px-3 text-center transition-all hover:border-task-dark">
+								<input type="radio" name="fontSize" value="md" checked class="sr-only" />
+								<span class="font-outfit text-xs font-semibold text-task-dark">Padrão (M)</span>
+							</label>
+							<label class="font-size-option flex cursor-pointer items-center justify-center rounded-xl border-2 border-task-border bg-white py-2.5 px-3 text-center transition-all hover:border-task-gray">
+								<input type="radio" name="fontSize" value="lg" class="sr-only" />
+								<span class="font-outfit text-xs font-semibold text-task-dark">Expandido (G)</span>
+							</label>
+						</div>
+					</div>
+				</div>
+
+				<!-- ============================================== -->
+				<!-- ETAPA 4: IMAGENS E EXTRAS                       -->
+				<!-- ============================================== -->
+				<div class="step-panel hidden" id="panel-step-4" role="tabpanel" aria-labelledby="tab-step-4">
+					<div class="mb-6">
+						<h2 class="font-anton text-xl text-task-dark sm:text-2xl">
+							Imagens e elementos adicionais
+						</h2>
+						<p class="font-outfit text-xs text-task-gray sm:text-sm">
+							Adicione fotos, logotipo ou uma chamada para ação. Todos os itens desta etapa são opcionais.
+						</p>
+					</div>
+
+					<!-- Foto de Perfil & Logotipo -->
+					<div class="mb-6 rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
+						<div class="mb-4 flex items-center gap-2">
+							<Icon name="lucide:image" class="size-4 text-task-olive" />
+							<h3 class="font-anton text-sm uppercase tracking-wider text-task-dark">
+								Imagens Hospedadas (URLs Públicas HTTPS)
+							</h3>
+						</div>
+						<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+							<div>
+								<label for="input-avatarUrl" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									Foto de Perfil (URL)
+								</label>
+								<input
+									type="url"
+									id="input-avatarUrl"
+									name="avatarUrl"
+									placeholder="https://site.com/sua-foto.jpg"
+									value={DEFAULT_SIGNATURE_DATA.avatarUrl}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none"
+								/>
+								<p class="mt-1 font-outfit text-[11px] text-task-gray">
+									Use uma imagem quadrada pública (PNG, JPG ou WebP).
+								</p>
+							</div>
+							<div>
+								<label for="input-logoUrl" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									Logotipo da Empresa (URL)
+								</label>
+								<input
+									type="url"
+									id="input-logoUrl"
+									name="logoUrl"
+									placeholder="https://site.com/logo.png"
+									value={DEFAULT_SIGNATURE_DATA.logoUrl}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none"
+								/>
+								<p class="mt-1 font-outfit text-[11px] text-task-gray">
+									Prefira logotipo com fundo transparente.
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- Chamada para Ação (CTA Button) -->
+					<div class="mb-6 rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
+						<div class="mb-4 flex items-center gap-2">
+							<Icon name="lucide:mouse-pointer-click" class="size-4 text-task-olive" />
+							<h3 class="font-anton text-sm uppercase tracking-wider text-task-dark">
+								Botão de Chamada para Ação (CTA)
+							</h3>
+						</div>
+						<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+							<div>
+								<label for="input-ctaText" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									Texto do Botão
+								</label>
+								<input
+									type="text"
+									id="input-ctaText"
+									name="ctaText"
+									placeholder="Ex.: Agendar reunião"
+									value={DEFAULT_SIGNATURE_DATA.ctaText}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none"
+								/>
+							</div>
+							<div>
+								<label for="input-ctaUrl" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+									Link de Destino (URL)
+								</label>
+								<input
+									type="url"
+									id="input-ctaUrl"
+									name="ctaUrl"
+									placeholder="https://calendly.com/seu-link"
+									value={DEFAULT_SIGNATURE_DATA.ctaUrl}
+									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none"
+								/>
+							</div>
+						</div>
+					</div>
+
+					<!-- Frase Institucional / Disclaimer -->
+					<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
+						<div class="mb-2 flex items-center gap-2">
+							<Icon name="lucide:shield-alert" class="size-4 text-task-olive" />
+							<h3 class="font-anton text-sm uppercase tracking-wider text-task-dark">
+								Aviso Legal / Frase Institucional (Opcional)
+							</h3>
+						</div>
+						<textarea
+							id="textarea-disclaimer"
+							name="disclaimer"
+							rows="3"
+							placeholder="Texto de confidencialidade exibido em tamanho reduzido no rodapé da assinatura..."
+							class="w-full rounded-xl border border-task-border bg-white p-3 font-outfit text-xs text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none"
+						>{DEFAULT_SIGNATURE_DATA.disclaimer}</textarea>
+					</div>
+				</div>
+
+				<!-- Barra Inferior de Navegação entre Etapas -->
+				<div class="mt-8 flex items-center justify-between pt-6">
+					<button
+						type="button"
+						id="btn-step-prev"
+						class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-task-border bg-white px-5 py-2.5 font-outfit text-xs font-semibold text-task-dark shadow-2xs transition-all hover:bg-task-bg disabled:cursor-not-allowed disabled:opacity-40 active:scale-95"
+						disabled
+					>
+						<Icon name="lucide:arrow-left" class="size-4" />
+						Voltar
+					</button>
+
+					<span class="font-outfit text-xs font-semibold text-task-gray" id="step-indicator-text">
+						Etapa 1 de 4
+					</span>
+
+					<button
+						type="button"
+						id="btn-step-next"
+						class="inline-flex cursor-pointer items-center gap-2 rounded-full bg-task-dark px-6 py-2.5 font-outfit text-xs font-semibold text-white shadow-xs transition-all hover:bg-black active:scale-95"
+					>
+						<span id="btn-next-text">Avançar</span>
+						<Icon name="lucide:arrow-right" class="size-4" id="btn-next-icon" />
+					</button>
+				</div>
+
+				<!-- Atalho Mobile para Prévia -->
+				<div class="mt-4 flex justify-center lg:hidden">
+					<a
+						href="#preview-section"
+						class="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-task-border bg-task-bg px-3.5 py-1.5 font-outfit text-xs font-semibold text-task-dark transition-colors hover:bg-white"
+					>
+						<Icon name="lucide:eye" class="size-3.5 text-task-olive" />
+						Ver prévia da assinatura abaixo
+					</a>
+				</div>
+			</form>
+		</div>
+
+		<!-- Coluna da Direita: Prévia e Ações (5 colunas, Sticky no Desktop) -->
+		<div id="preview-section" class="flex min-w-0 flex-col gap-6 lg:sticky lg:top-28 lg:col-span-5 scroll-mt-24">
+			<!-- Janela Simuladora de E-mail -->
+			<div class="min-w-0 overflow-hidden rounded-3xl border border-task-border bg-white shadow-xs">
+				<!-- Barra de Título da Janela -->
+				<div class="flex items-center justify-between border-b border-task-border bg-task-bg/70 px-4 py-3">
+					<div class="flex items-center gap-1.5">
+						<span class="size-2.5 rounded-full bg-[#ff5f56]"></span>
+						<span class="size-2.5 rounded-full bg-[#ffbd2e]"></span>
+						<span class="size-2.5 rounded-full bg-[#27c93f]"></span>
+					</div>
+					<div class="flex items-center gap-2">
+						<Icon name="lucide:mail" class="size-3.5 text-task-gray" />
+						<span class="font-outfit text-xs font-semibold text-task-gray">Novo E-mail</span>
+					</div>
+					<div class="w-10"></div>
+				</div>
+
+				<!-- Cabeçalho do E-mail Simulado -->
+				<div class="border-b border-task-border/60 bg-white px-5 py-3 font-outfit text-xs text-task-gray">
+					<div class="flex items-center gap-2 py-0.5">
+						<span class="w-12 font-semibold text-task-dark">Para:</span>
+						<span class="text-task-gray/80">cliente@empresa.com</span>
+					</div>
+					<div class="flex items-center gap-2 py-0.5">
+						<span class="w-12 font-semibold text-task-dark">Assunto:</span>
+						<span class="font-medium text-task-dark">Proposta de Desenvolvimento Técnico</span>
+					</div>
+				</div>
+
+				<!-- Mensagem Simulada & Container da Assinatura -->
+				<div class="min-h-70 bg-white p-4 sm:p-6">
+					<p class="mb-4 font-outfit text-xs leading-relaxed text-task-gray/80 sm:text-sm">
+						Olá! Segue o detalhamento solicitado da arquitetura e do escopo do projeto. Estou à disposição para alinharmos os próximos passos.
+						<br /><br />
+						Atenciosamente,
+					</p>
+
+					<!-- Divisor sutil de assinatura -->
+					<div class="mb-4 w-12 border-t border-task-border"></div>
+
+					<!-- Container onde a assinatura real é renderizada com scroll horizontal local se a tela for menor que a assinatura -->
+					<div class="w-full min-w-0 overflow-x-auto pb-2">
+						<div
+							id="signature-preview-container"
+							class="min-w-fit selection:bg-task-yellow"
+							set:html={initialHtml}
+						/>
+					</div>
+				</div>
+			</div>
+
+			<!-- Bloco de Ações de Cópia e Exportação -->
+			<div class="rounded-3xl border border-task-border bg-white p-5 shadow-xs sm:p-6">
+				<div class="mb-4">
+					<h3 class="font-anton text-base uppercase tracking-tight text-task-dark">
+						Copiar ou Exportar
+					</h3>
+					<p class="font-outfit text-xs text-task-gray">
+						Escolha como deseja transferir sua assinatura para seu programa de e-mail.
+					</p>
+				</div>
+
+				<div class="flex flex-col gap-2.5">
+					<!-- Ação Principal: Copiar Assinatura Formatada -->
+					<button
+						type="button"
+						id="btn-copy-signature"
+						class="group flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl bg-task-yellow px-5 py-3.5 font-outfit text-sm font-bold text-task-dark shadow-2xs transition-all hover:brightness-105 active:scale-95"
+					>
+						<Icon name="lucide:copy" class="size-4 shrink-0 transition-transform group-hover:scale-110" id="icon-copy-sig" />
+						<Icon name="lucide:check" class="hidden size-4 shrink-0 text-task-dark" id="icon-copy-sig-success" />
+						<span id="text-copy-sig">Copiar Assinatura Formatada</span>
+					</button>
+
+					<!-- Ações Secundárias -->
+					<div class="grid grid-cols-1 min-[440px]:grid-cols-2 gap-2.5">
+						<button
+							type="button"
+							id="btn-copy-html"
+							class="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-task-border bg-white px-3 py-2.5 font-outfit text-xs font-semibold text-task-dark transition-all hover:border-task-dark hover:bg-task-bg active:scale-95"
+						>
+							<Icon name="lucide:code-xml" class="size-3.5" />
+							<span id="text-copy-html">Copiar Código HTML</span>
+						</button>
+
+						<button
+							type="button"
+							id="btn-download-html"
+							class="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-task-border bg-white px-3 py-2.5 font-outfit text-xs font-semibold text-task-dark transition-all hover:border-task-dark hover:bg-task-bg active:scale-95"
+						>
+							<Icon name="lucide:download" class="size-3.5" />
+							<span>Baixar .HTML</span>
+						</button>
+					</div>
+				</div>
+
+				<!-- Aviso de Privacidade e Segurança -->
+				<div class="mt-4 flex items-center gap-2">
+					<p class="font-outfit text-[11px] leading-tight">
+						Seus dados nunca são enviados a nenhum servidor. O código é gerado 100% no seu navegador.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Notificação Toast Flutuante -->
+	<div
+		id="sig-toast"
+		class="pointer-events-none fixed bottom-6 right-6 z-50 flex translate-y-10 items-center gap-3 rounded-2xl border border-task-dark bg-task-dark px-4 py-3 text-white shadow-xl opacity-0 transition-all duration-300"
+		role="status"
+		aria-live="polite"
+	>
+		<div class="flex size-7 items-center justify-center rounded-full bg-task-yellow text-task-dark">
+			<Icon name="lucide:check" class="size-4" />
+		</div>
+		<div>
+			<span class="block font-outfit text-xs font-bold text-white" id="toast-title">Assinatura copiada!</span>
+			<span class="block font-outfit text-[11px] text-white/80" id="toast-desc">Agora basta colar (Ctrl+V ou Cmd+V) no seu e-mail.</span>
+		</div>
+	</div>
+
+	<!-- Seção de Instruções de Instalação e Dicas -->
+	<div class="mt-16 rounded-3xl border border-task-border bg-white p-6 sm:p-10 shadow-xs">
+		<div class="mb-8 text-center sm:text-left">
+			<div class="mb-2 inline-flex items-center gap-2 ">
+				<Icon name="lucide:book-open" class="size-3.5 text-task-olive" />
+				<span class="font-outfit text-xs font-semibold uppercase tracking-wider text-task-dark">
+					Guia Prático
+				</span>
+			</div>
+			<h2 class="font-anton text-2xl text-task-dark sm:text-3xl uppercase">
+				Como instalar no seu cliente de e-mail
+			</h2>
+			<p class="mt-1 font-outfit text-sm text-task-gray">
+				Siga as instruções abaixo de acordo com a sua ferramenta de preferência:
+			</p>
+		</div>
+
+		<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+			<!-- Gmail -->
+			<div class="flex flex-col rounded-2xl border border-task-border bg-task-bg/40 p-5">
+				<div class="mb-3.5 flex items-center gap-3">
+					<Icon name="simple-icons:gmail" class="size-6 shrink-0 text-[#EA4335]" />
+					<h3 class="font-anton text-base text-task-dark">Gmail / Google Workspace</h3>
+				</div>
+				<ol class="flex flex-col gap-2.5 font-outfit text-xs text-task-gray leading-relaxed list-decimal pl-4">
+					<li>Clique no botão <strong>"Copiar Assinatura Formatada"</strong> acima.</li>
+					<li>No Gmail, clique no ícone da engrenagem no canto superior direito e selecione <strong>"Ver todas as configurações"</strong>.</li>
+					<li>Role a aba <strong>"Geral"</strong> até a seção <strong>"Assinatura"</strong>.</li>
+					<li>Crie uma nova assinatura e cole (<kbd class="rounded border border-task-border bg-white px-1 font-mono">Cmd+V</kbd> ou <kbd class="rounded border border-task-border bg-white px-1 font-mono">Ctrl+V</kbd>) no editor.</li>
+					<li>Defina os padrões de assinatura e clique em <strong>"Salvar alterações"</strong> no fim da página.</li>
+				</ol>
+			</div>
+
+			<!-- Outlook -->
+			<div class="flex flex-col rounded-2xl border border-task-border bg-task-bg/40 p-5">
+				<div class="mb-3.5 flex items-center gap-3">
+					<Icon name="simple-icons:microsoftoutlook" class="size-6 shrink-0 text-[#0078D4]" />
+					<h3 class="font-anton text-base text-task-dark">Microsoft Outlook</h3>
+				</div>
+				<ol class="flex flex-col gap-2.5 font-outfit text-xs text-task-gray leading-relaxed list-decimal pl-4">
+					<li>Copie a assinatura com o botão <strong>"Copiar Assinatura Formatada"</strong>.</li>
+					<li>No Outlook Web: vá em <strong>Configurações &rarr; E-mail &rarr; Redigir e responder</strong>.</li>
+					<li>No Outlook Desktop: vá em <strong>Arquivo &rarr; Opções &rarr; E-mail &rarr; Assinaturas</strong>.</li>
+					<li>Crie uma assinatura, cole no campo de texto e clique em <strong>Salvar</strong>.</li>
+					<li>O formato em tabelas garante alinhamento consistente mesmo no Outlook Windows.</li>
+				</ol>
+			</div>
+
+			<!-- Apple Mail -->
+			<div class="flex flex-col rounded-2xl border border-task-border bg-task-bg/40 p-5">
+				<div class="mb-3.5 flex items-center gap-3">
+					<Icon name="simple-icons:apple" class="size-6.5 shrink-0 text-task-dark" />
+					<h3 class="font-anton text-base text-task-dark">Apple Mail (Mac & iOS)</h3>
+				</div>
+				<ol class="flex flex-col gap-2.5 font-outfit text-xs text-task-gray leading-relaxed list-decimal pl-4">
+					<li>Copie a assinatura formatada com o botão acima.</li>
+					<li>No macOS, abra o <strong>Mail &rarr; Ajustes (Settings) &rarr; Assinaturas</strong>.</li>
+					<li>Adicione uma nova assinatura, desmarque a opção <em>"Sempre usar minha fonte padrão"</em>.</li>
+					<li>Cole o conteúdo diretamente na caixa de edição da assinatura.</li>
+					<li>No iPhone/iPad: acesse <strong>Ajustes &rarr; Mail &rarr; Assinatura</strong> e cole.</li>
+				</ol>
+			</div>
+		</div>
+
+		<!-- Dica de Hospedagem de Imagens -->
+		<div class="mt-8 rounded-2xl border border-task-border bg-white p-5">
+			<div class="flex items-start gap-3">
+				<Icon name="lucide:info" class="size-5 shrink-0 text-task-olive mt-0.5" />
+				<div>
+					<h4 class="font-anton text-sm uppercase tracking-wide text-task-dark">
+						Onde hospedar suas fotos e logotipos?
+					</h4>
+					<p class="mt-1 font-outfit text-xs text-task-gray leading-relaxed">
+						Clientes de e-mail exigem que as imagens estejam acessíveis via <strong>link público HTTPS direto</strong> (terminando em .jpg, .png ou .webp). Você pode utilizar a foto do seu próprio site, foto do seu perfil do LinkedIn (aberta ao público), Imgur, Cloudinary ou Google Drive (com permissão pública de visualização direta).
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	#email-signature-app button,
+	#email-signature-app [role="button"],
+	#email-signature-app [role="tab"],
+	#email-signature-app select,
+	#email-signature-app .template-card,
+	#email-signature-app .font-size-option,
+	#email-signature-app .color-preset-btn {
+		cursor: pointer;
+	}
+
+	#email-signature-app button:disabled,
+	#email-signature-app [disabled] {
+		cursor: not-allowed;
+	}
+</style>
+
+<script>
+	import type { SignatureData, TemplateId, TextSize } from '../../../lib/email-signature/types';
+	import { DEFAULT_SIGNATURE_DATA } from '../../../lib/email-signature/defaults';
+	import { generateSignatureHtml, generateExportDocument } from '../../../lib/email-signature/generator';
+
+	const STORAGE_KEY = 'gabrielcampos_email_sig_state';
+
+	// Estado local inicial
+	let signatureState: SignatureData = { ...DEFAULT_SIGNATURE_DATA };
+	let currentStep = 1;
+
+	// Carrega dados salvos se existirem
+	try {
+		const saved = localStorage.getItem(STORAGE_KEY);
+		if (saved) {
+			const parsed = JSON.parse(saved);
+			if (parsed.avatarUrl === 'https://gabrielcampos.dev/images/hero.webp') {
+				parsed.avatarUrl = DEFAULT_SIGNATURE_DATA.avatarUrl;
+			}
+			signatureState = { ...DEFAULT_SIGNATURE_DATA, ...parsed };
+		}
+	} catch (e) {
+		console.warn('Erro ao carregar localStorage:', e);
+	}
+
+	// Elementos DOM
+	const previewContainer = document.getElementById('signature-preview-container');
+	const stepTabs = document.querySelectorAll<HTMLButtonElement>('.step-tab');
+	const stepPanels = document.querySelectorAll<HTMLElement>('.step-panel');
+	const btnPrev = document.getElementById('btn-step-prev') as HTMLButtonElement | null;
+	const btnNext = document.getElementById('btn-step-next') as HTMLButtonElement | null;
+	const btnNextText = document.getElementById('btn-next-text');
+	const stepIndicatorText = document.getElementById('step-indicator-text');
+	const toast = document.getElementById('sig-toast');
+	const toastTitle = document.getElementById('toast-title');
+	const toastDesc = document.getElementById('toast-desc');
+
+	// Inputs
+	const form = document.getElementById('signature-form') as HTMLFormElement | null;
+	const templateCards = document.querySelectorAll<HTMLElement>('.template-card');
+	const colorPresetBtns = document.querySelectorAll<HTMLButtonElement>('.color-preset-btn');
+	const fontSizeLabels = document.querySelectorAll<HTMLElement>('.font-size-option');
+
+	const colorPickerPrimary = document.getElementById('color-picker-primary') as HTMLInputElement | null;
+	const inputPrimaryColor = document.getElementById('input-primaryColor') as HTMLInputElement | null;
+	const colorPickerText = document.getElementById('color-picker-text') as HTMLInputElement | null;
+	const inputTextColor = document.getElementById('input-textColor') as HTMLInputElement | null;
+	const colorPickerLink = document.getElementById('color-picker-link') as HTMLInputElement | null;
+	const inputLinkColor = document.getElementById('input-linkColor') as HTMLInputElement | null;
+
+	// Botões de Ação
+	const btnCopySig = document.getElementById('btn-copy-signature');
+	const btnCopyHtml = document.getElementById('btn-copy-html');
+	const btnDownloadHtml = document.getElementById('btn-download-html');
+	const btnFillExample = document.getElementById('btn-fill-example');
+	const btnClearFields = document.getElementById('btn-clear-fields');
+
+	// Função de atualização da prévia
+	function updatePreview() {
+		if (!previewContainer) return;
+		const html = generateSignatureHtml(signatureState);
+		const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+		previewContainer.innerHTML = isLocalhost
+			? html.replaceAll('https://gabrielcampos.dev/', '/')
+			: html;
+
+		// Persiste em localStorage
+		try {
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(signatureState));
+		} catch (e) {
+			// ignora quota exceeded
+		}
+	}
+
+	// Atualiza os campos do formulário para refletir o estado
+	function syncFormWithState() {
+		// Template selection
+		templateCards.forEach((card) => {
+			const id = card.dataset.template as TemplateId;
+			const isSelected = id === signatureState.templateId;
+			const check = card.querySelector('.template-check');
+			const radio = card.querySelector('input[type="radio"]') as HTMLInputElement | null;
+
+			if (isSelected) {
+				card.classList.add('border-task-dark', 'bg-task-bg/50');
+				card.classList.remove('border-task-border', 'bg-white');
+				check?.classList.remove('hidden');
+				if (radio) radio.checked = true;
+			} else {
+				card.classList.remove('border-task-dark', 'bg-task-bg/50');
+				card.classList.add('border-task-border', 'bg-white');
+				check?.classList.add('hidden');
+				if (radio) radio.checked = false;
+			}
+		});
+
+		// Inputs de texto
+		const textInputs = [
+			'fullName', 'jobTitle', 'department', 'email', 'phone', 'mobilePhone',
+			'companyName', 'website', 'address', 'linkedin', 'instagram', 'facebook',
+			'whatsapp', 'github', 'twitter', 'avatarUrl', 'logoUrl', 'ctaText', 'ctaUrl'
+		] as const;
+
+		textInputs.forEach((name) => {
+			const el = document.getElementById(`input-${name}`) as HTMLInputElement | null;
+			if (el) {
+				el.value = (signatureState[name] as string) || '';
+			}
+		});
+
+		const disclaimerEl = document.getElementById('textarea-disclaimer') as HTMLTextAreaElement | null;
+		if (disclaimerEl) {
+			disclaimerEl.value = signatureState.disclaimer || '';
+		}
+
+		// Cores
+		if (colorPickerPrimary && inputPrimaryColor) {
+			colorPickerPrimary.value = signatureState.primaryColor;
+			inputPrimaryColor.value = signatureState.primaryColor;
+		}
+		if (colorPickerText && inputTextColor) {
+			colorPickerText.value = signatureState.textColor;
+			inputTextColor.value = signatureState.textColor;
+		}
+		if (colorPickerLink && inputLinkColor) {
+			colorPickerLink.value = signatureState.linkColor;
+			inputLinkColor.value = signatureState.linkColor;
+		}
+
+		// Fonte
+		const fontSelect = document.getElementById('select-fontFamily') as HTMLSelectElement | null;
+		if (fontSelect) {
+			fontSelect.value = signatureState.fontFamily;
+		}
+
+		// Tamanho
+		fontSizeLabels.forEach((label) => {
+			const radio = label.querySelector('input[type="radio"]') as HTMLInputElement | null;
+			if (radio) {
+				const isSelected = radio.value === signatureState.fontSize;
+				radio.checked = isSelected;
+				if (isSelected) {
+					label.classList.add('border-task-dark', 'bg-task-bg');
+					label.classList.remove('border-task-border', 'bg-white');
+				} else {
+					label.classList.remove('border-task-dark', 'bg-task-bg');
+					label.classList.add('border-task-border', 'bg-white');
+				}
+			}
+		});
+	}
+
+	// Mudança de etapa
+	function goToStep(step: number) {
+		if (step < 1 || step > 4) return;
+		currentStep = step;
+
+		// Atualiza tabs
+		stepTabs.forEach((tab) => {
+			const tabStep = parseInt(tab.dataset.step || '1', 10);
+			const badge = tab.querySelector('.step-badge');
+			const isCurrent = tabStep === currentStep;
+			const isDone = tabStep < currentStep;
+
+			tab.setAttribute('aria-selected', isCurrent ? 'true' : 'false');
+
+			if (isCurrent) {
+				tab.classList.add('bg-task-bg/60');
+				if (badge) {
+					badge.classList.remove('bg-task-bg', 'text-task-gray', 'bg-task-olive');
+					badge.classList.add('bg-task-dark', 'text-white');
+				}
+			} else if (isDone) {
+				tab.classList.remove('bg-task-bg/60');
+				if (badge) {
+					badge.classList.remove('bg-task-bg', 'text-task-gray', 'bg-task-dark');
+					badge.classList.add('bg-task-olive', 'text-white');
+				}
+			} else {
+				tab.classList.remove('bg-task-bg/60');
+				if (badge) {
+					badge.classList.remove('bg-task-dark', 'bg-task-olive', 'text-white');
+					badge.classList.add('bg-task-bg', 'text-task-gray');
+				}
+			}
+		});
+
+		// Exibe painel correspondente
+		stepPanels.forEach((panel) => {
+			const panelId = panel.id;
+			if (panelId === `panel-step-${currentStep}`) {
+				panel.classList.remove('hidden');
+			} else {
+				panel.classList.add('hidden');
+			}
+		});
+
+		// Atualiza botões de navegação
+		if (btnPrev) {
+			btnPrev.disabled = currentStep === 1;
+		}
+
+		if (btnNext && btnNextText) {
+			if (currentStep === 4) {
+				btnNextText.textContent = 'Concluir & Copiar';
+			} else {
+				btnNextText.textContent = 'Avançar';
+			}
+		}
+
+		if (stepIndicatorText) {
+			stepIndicatorText.textContent = `Etapa ${currentStep} de 4`;
+		}
+	}
+
+	// Notificação Toast
+	let toastTimeout: ReturnType<typeof setTimeout> | null = null;
+	function showToast(title: string, desc: string) {
+		if (!toast || !toastTitle || !toastDesc) return;
+		toastTitle.textContent = title;
+		toastDesc.textContent = desc;
+
+		toast.classList.remove('opacity-0', 'translate-y-10');
+		toast.classList.add('opacity-100', 'translate-y-0');
+
+		if (toastTimeout) clearTimeout(toastTimeout);
+		toastTimeout = setTimeout(() => {
+			toast.classList.remove('opacity-100', 'translate-y-0');
+			toast.classList.add('opacity-0', 'translate-y-10');
+		}, 4000);
+	}
+
+	// Cópia Formatada da Assinatura (Rich HTML)
+	async function copyFormattedSignature() {
+		const html = generateSignatureHtml(signatureState);
+
+		try {
+			// Tenta Clipboard API com Blob text/html
+			if (navigator.clipboard && window.ClipboardItem) {
+				const blobHtml = new Blob([html], { type: 'text/html' });
+				const blobText = new Blob([previewContainer?.innerText || ''], { type: 'text/plain' });
+				await navigator.clipboard.write([
+					new ClipboardItem({
+						'text/html': blobHtml,
+						'text/plain': blobText,
+					}),
+				]);
+				showToast('Assinatura copiada com sucesso!', 'Pronta para colar (Cmd+V ou Ctrl+V) no Gmail ou Outlook.');
+				triggerSuccessIcon();
+				return;
+			}
+		} catch (err) {
+			console.warn('Clipboard API falhou, tentando fallback por seleção DOM:', err);
+		}
+
+		// Fallback para seleção de nó no DOM
+		try {
+			if (previewContainer) {
+				const range = document.createRange();
+				range.selectNodeContents(previewContainer);
+				const selection = window.getSelection();
+				if (selection) {
+					selection.removeAllRanges();
+					selection.addRange(range);
+					document.execCommand('copy');
+					selection.removeAllRanges();
+					showToast('Assinatura copiada!', 'Cole diretamente nas configurações do seu cliente de e-mail.');
+					triggerSuccessIcon();
+					return;
+				}
+			}
+		} catch (fallbackErr) {
+			console.error('Fallback de cópia falhou:', fallbackErr);
+			showToast('Não foi possível copiar automaticamente', 'Por favor, selecione e copie manualmente ou use "Copiar Código HTML".');
+		}
+	}
+
+	function triggerSuccessIcon() {
+		const iconNormal = document.getElementById('icon-copy-sig');
+		const iconSuccess = document.getElementById('icon-copy-sig-success');
+		const textEl = document.getElementById('text-copy-sig');
+
+		if (iconNormal && iconSuccess && textEl) {
+			iconNormal.classList.add('hidden');
+			iconSuccess.classList.remove('hidden');
+			const originalText = textEl.textContent;
+			textEl.textContent = 'Copiado para a área de transferência!';
+
+			setTimeout(() => {
+				iconNormal.classList.remove('hidden');
+				iconSuccess.classList.add('hidden');
+				textEl.textContent = originalText;
+			}, 2500);
+		}
+	}
+
+	// Cópia de Código HTML Puro
+	async function copyHtmlCode() {
+		const html = generateSignatureHtml(signatureState);
+		try {
+			await navigator.clipboard.writeText(html);
+			showToast('Código HTML copiado!', 'Código-fonte pronto para colar em clientes com suporte a HTML direto.');
+		} catch (err) {
+			// Fallback textarea
+			const textarea = document.createElement('textarea');
+			textarea.value = html;
+			textarea.style.position = 'fixed';
+			textarea.style.opacity = '0';
+			document.body.appendChild(textarea);
+			textarea.select();
+			document.execCommand('copy');
+			document.body.removeChild(textarea);
+			showToast('Código HTML copiado!', 'Código-fonte na área de transferência.');
+		}
+	}
+
+	// Download de Arquivo .HTML
+	function downloadHtmlFile() {
+		const doc = generateExportDocument(signatureState);
+		const blob = new Blob([doc], { type: 'text/html;charset=utf-8' });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		const safeName = (signatureState.fullName || 'assinatura')
+			.toLowerCase()
+			.replace(/[^a-z0-9]/g, '-');
+		a.href = url;
+		a.download = `assinatura-${safeName}.html`;
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+		URL.revokeObjectURL(url);
+		showToast('Download iniciado!', 'O arquivo .html foi salvo no seu computador.');
+	}
+
+	// Event Listeners: Stepper Tabs
+	stepTabs.forEach((tab) => {
+		tab.addEventListener('click', () => {
+			const step = parseInt(tab.dataset.step || '1', 10);
+			goToStep(step);
+		});
+	});
+
+	btnPrev?.addEventListener('click', () => {
+		goToStep(currentStep - 1);
+	});
+
+	btnNext?.addEventListener('click', () => {
+		if (currentStep === 4) {
+			copyFormattedSignature();
+		} else {
+			goToStep(currentStep + 1);
+		}
+	});
+
+	// Event Listeners: Seleção de Templates
+	templateCards.forEach((card) => {
+		card.addEventListener('click', () => {
+			const templateId = card.dataset.template as TemplateId;
+			if (templateId) {
+				signatureState.templateId = templateId;
+				syncFormWithState();
+				updatePreview();
+			}
+		});
+	});
+
+	// Event Listeners: Inputs de Formulário em Tempo Real
+	if (form) {
+		form.addEventListener('input', (e) => {
+			const target = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+			if (!target || !target.name) return;
+
+			const name = target.name as keyof SignatureData;
+			if (name in signatureState) {
+				(signatureState as any)[name] = target.value;
+				updatePreview();
+			}
+		});
+	}
+
+	// Event Listeners: Color Pickers e Hex
+	function bindColorPair(
+		picker: HTMLInputElement | null,
+		textInput: HTMLInputElement | null,
+		stateKey: 'primaryColor' | 'textColor' | 'linkColor'
+	) {
+		picker?.addEventListener('input', () => {
+			if (textInput) textInput.value = picker.value;
+			signatureState[stateKey] = picker.value;
+			updatePreview();
+		});
+
+		textInput?.addEventListener('input', () => {
+			let val = textInput.value.trim();
+			if (!val.startsWith('#') && val.length > 0) val = `#${val}`;
+			if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+				if (picker) picker.value = val;
+				signatureState[stateKey] = val;
+				updatePreview();
+			}
+		});
+	}
+
+	bindColorPair(colorPickerPrimary, inputPrimaryColor, 'primaryColor');
+	bindColorPair(colorPickerText, inputTextColor, 'textColor');
+	bindColorPair(colorPickerLink, inputLinkColor, 'linkColor');
+
+	// Presets de Cores
+	colorPresetBtns.forEach((btn) => {
+		btn.addEventListener('click', () => {
+			const targetKey = btn.dataset.target as 'primaryColor' | 'textColor' | 'linkColor';
+			const color = btn.dataset.color;
+			if (targetKey && color) {
+				signatureState[targetKey] = color;
+				syncFormWithState();
+				updatePreview();
+			}
+		});
+	});
+
+	// Seleção de Fonte
+	const fontSelect = document.getElementById('select-fontFamily') as HTMLSelectElement | null;
+	fontSelect?.addEventListener('change', () => {
+		signatureState.fontFamily = fontSelect.value;
+		updatePreview();
+	});
+
+	// Seleção de Tamanho de Fonte
+	fontSizeLabels.forEach((label) => {
+		label.addEventListener('click', () => {
+			const radio = label.querySelector('input[type="radio"]') as HTMLInputElement | null;
+			if (radio) {
+				signatureState.fontSize = radio.value as TextSize;
+				syncFormWithState();
+				updatePreview();
+			}
+		});
+	});
+
+	// Ações de Botões de Exportação
+	btnCopySig?.addEventListener('click', copyFormattedSignature);
+	btnCopyHtml?.addEventListener('click', copyHtmlCode);
+	btnDownloadHtml?.addEventListener('click', downloadHtmlFile);
+
+	// Ações Rápidas: Preencher Exemplo
+	btnFillExample?.addEventListener('click', () => {
+		signatureState = { ...DEFAULT_SIGNATURE_DATA };
+		syncFormWithState();
+		updatePreview();
+		showToast('Exemplo carregado!', 'Os campos foram preenchidos com dados completos para demonstração.');
+	});
+
+	// Ações Rápidas: Limpar Campos
+	btnClearFields?.addEventListener('click', () => {
+		if (confirm('Deseja realmente limpar todos os campos preenchidos?')) {
+			signatureState = {
+				...DEFAULT_SIGNATURE_DATA,
+				fullName: '',
+				jobTitle: '',
+				department: '',
+				email: '',
+				phone: '',
+				mobilePhone: '',
+				companyName: '',
+				website: '',
+				address: '',
+				linkedin: '',
+				instagram: '',
+				facebook: '',
+				whatsapp: '',
+				github: '',
+				twitter: '',
+				avatarUrl: '',
+				logoUrl: '',
+				ctaText: '',
+				ctaUrl: '',
+				disclaimer: '',
+			};
+			syncFormWithState();
+			updatePreview();
+			showToast('Campos limpos', 'O formulário foi redefinido.');
+		}
+	});
+
+	// Inicialização
+	syncFormWithState();
+	updatePreview();
+	goToStep(1);
+</script>
