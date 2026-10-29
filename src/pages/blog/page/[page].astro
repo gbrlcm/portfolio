@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import PageLayout from '../../../layouts/PageLayout.astro';
 import BlogCard from '../../../components/blog/BlogCard.astro';
 import Breadcrumbs from '../../../components/blog/Breadcrumbs.astro';
+import Pagination from '../../../components/blog/Pagination.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -73,28 +74,6 @@ const description = `Página ${currentPage} com artigos de engenharia de softwar
 		</div>
 
 		<!-- Pagination Navigation -->
-		<nav aria-label="Paginação do blog" class="mt-12 flex items-center justify-center gap-2">
-			<a
-				href={currentPage === 2 ? '/blog' : `/blog/page/${currentPage - 1}`}
-				class="rounded-xl border border-task-border bg-white px-4 py-2 font-outfit text-sm font-semibold text-task-dark transition-colors hover:bg-task-border/40"
-			>
-				← Anterior
-			</a>
-
-			<span class="rounded-xl border border-task-border bg-task-dark px-4 py-2 font-outfit text-sm font-semibold text-white shadow-xs">
-				{currentPage}
-			</span>
-
-			{
-				currentPage < totalPages && (
-					<a
-						href={`/blog/page/${currentPage + 1}`}
-						class="rounded-xl border border-task-border bg-white px-4 py-2 font-outfit text-sm font-semibold text-task-dark transition-colors hover:bg-task-border/40"
-					>
-						Próxima →
-					</a>
-				)
-			}
-		</nav>
+		<Pagination currentPage={currentPage} totalPages={totalPages} basePath="/blog" />
 	</div>
 </PageLayout>

@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import PageLayout from '../../layouts/PageLayout.astro';
 import BlogCard from '../../components/blog/BlogCard.astro';
 import Breadcrumbs from '../../components/blog/Breadcrumbs.astro';
+import Pagination from '../../components/blog/Pagination.astro';
 
 // Fetch only non-draft articles and sort newest to oldest
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
@@ -147,27 +148,8 @@ const schemaGraph = [
 						</section>
 					)}
 
-					{/* Pagination Controls (when totalPosts > POSTS_PER_PAGE) */}
-					{totalPages > 1 && (
-						<nav aria-label="Paginação do blog" class="flex items-center justify-center gap-2 pt-8">
-							<span class="rounded-xl border border-task-border bg-task-dark px-4 py-2 font-outfit text-sm font-semibold text-white shadow-xs">
-								1
-							</span>
-							<a
-								href="/blog/page/2"
-								class="rounded-xl border border-task-border bg-white px-4 py-2 font-outfit text-sm font-semibold text-task-dark transition-colors hover:bg-task-border/40"
-							>
-								2
-							</a>
-							<a
-								href="/blog/page/2"
-								class="inline-flex items-center gap-1.5 rounded-xl border border-task-border bg-white px-4 py-2 font-outfit text-sm font-semibold text-task-dark transition-colors hover:bg-task-border/40"
-							>
-								<span>Próxima</span>
-								<span>→</span>
-							</a>
-						</nav>
-					)}
+					{/* Pagination Controls */}
+					<Pagination currentPage={1} totalPages={totalPages} basePath="/blog" />
 				</div>
 			)
 		}
