@@ -3,6 +3,8 @@ title: "SEO em 2026: o que a documentação do Google realmente recomenda"
 description: "SEO a partir da fonte primária: rastreamento, conteúdo útil, títulos, links, dados estruturados e os mitos que o próprio Google desmente na documentação."
 pubDate: 2026-10-29
 author: "Gabriel Campos"
+cover: "/images/blog/seo-o-que-o-google-recomenda.webp"
+coverAlt: "Ilustração de uma barra de busca e três resultados, com o primeiro destacado em amarelo, ao lado do título SEO sem folclore"
 category: "SEO e AI Search"
 tags:
   - "SEO"

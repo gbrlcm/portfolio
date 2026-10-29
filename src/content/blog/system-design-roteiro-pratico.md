@@ -3,6 +3,8 @@ title: "System design na prática: um roteiro antes de escrever código"
 description: "Um roteiro de system design para projetos reais: requisitos, estimativas, componentes, dados, gargalos e trade-offs, com base no SRE Book, no DDIA e na AWS."
 pubDate: 2026-10-29
 author: "Gabriel Campos"
+cover: "/images/blog/system-design-roteiro-pratico.webp"
+coverAlt: "Diagrama ilustrativo com cliente, load balancer, três instâncias de aplicação, banco de dados e um cache destacado em amarelo"
 category: "Arquitetura de Software"
 tags:
   - "System Design"

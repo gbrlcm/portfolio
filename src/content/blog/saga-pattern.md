@@ -3,6 +3,8 @@ title: "Saga pattern: transações entre microsserviços sem 2PC"
 description: "Como o padrão Saga mantém consistência entre serviços: coreografia ou orquestração, compensações, ponto sem retorno, anomalias de isolamento e outbox."
 pubDate: 2026-10-29
 author: "Gabriel Campos"
+cover: "/images/blog/saga-pattern.webp"
+coverAlt: "Ilustração de três etapas de uma saga, pedido, estoque e pagamento, em que a última falha e setas tracejadas indicam as compensações C1 e C2"
 category: "Arquitetura de Software"
 tags:
   - "Saga Pattern"

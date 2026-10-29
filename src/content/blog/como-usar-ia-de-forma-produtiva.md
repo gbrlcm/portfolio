@@ -3,6 +3,8 @@ title: "Como usar IA de forma produtiva no desenvolvimento de software"
 description: "O que estudos do METR, DORA, Stack Overflow e GitHub mostram sobre IA no desenvolvimento, e práticas para ganhar velocidade sem perder qualidade nem controle."
 pubDate: 2026-10-29
 author: "Gabriel Campos"
+cover: "/images/blog/como-usar-ia-de-forma-produtiva.webp"
+coverAlt: "Ilustração de uma lista de etapas, explorar, planejar, implementar e verificar, com a etapa verificar destacada em amarelo"
 category: "Inteligência Artificial"
 tags:
   - "IA"

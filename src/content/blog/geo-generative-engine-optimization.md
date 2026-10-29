@@ -3,6 +3,8 @@ title: "GEO: o que a pesquisa diz sobre aparecer em respostas de IA"
 description: "Generative Engine Optimization a partir do artigo original (KDD 2024): o que foi testado, o que funcionou, os limites do estudo e o que aplicar hoje."
 pubDate: 2026-10-29
 author: "Gabriel Campos"
+cover: "/images/blog/geo-generative-engine-optimization.webp"
+coverAlt: "Ilustração de uma resposta gerada por IA com marcadores de citação numerados, um deles ligado a uma fonte destacada em amarelo"
 category: "SEO e AI Search"
 tags:
   - "GEO"

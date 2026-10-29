@@ -3,6 +3,8 @@ title: "Observer pattern: desacoplando quem emite de quem reage"
 description: "Como funciona o padrão Observer, uma implementação tipada em TypeScript, o EventEmitter do Node.js, as armadilhas mais comuns e quando usar eventos de verdade."
 pubDate: 2026-10-29
 author: "Gabriel Campos"
+cover: "/images/blog/observer-pattern.webp"
+coverAlt: "Ilustração de um emissor de eventos em amarelo ligado a quatro observadores: e-mail, nota fiscal, estoque e métricas"
 category: "Engenharia de Software"
 tags:
   - "Design Patterns"

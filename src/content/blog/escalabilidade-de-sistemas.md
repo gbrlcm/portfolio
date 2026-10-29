@@ -3,6 +3,8 @@ title: "Escalabilidade de sistemas: lições de Figma, Notion e Discord"
 description: "Escala vertical e horizontal, cache, filas, réplicas e sharding explicados com casos públicos da Figma, da Notion e do Discord, e quando usar cada técnica."
 pubDate: 2026-10-29
 author: "Gabriel Campos"
+cover: "/images/blog/escalabilidade-de-sistemas.webp"
+coverAlt: "Ilustração comparando um servidor grande, escala vertical, com uma grade de servidores menores, escala horizontal, um deles em amarelo"
 category: "Arquitetura de Software"
 tags:
   - "Escalabilidade"

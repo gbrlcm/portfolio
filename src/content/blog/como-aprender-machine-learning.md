@@ -3,6 +3,8 @@ title: "Como aprender machine learning: um roteiro com fontes confiáveis"
 description: "Roteiro para aprender machine learning sendo desenvolvedor: fundamentos de matemática, cursos gratuitos e reconhecidos, projetos práticos e erros mais comuns."
 pubDate: 2026-10-29
 author: "Gabriel Campos"
+cover: "/images/blog/como-aprender-machine-learning.webp"
+coverAlt: "Ilustração de pontos de duas classes separados por uma fronteira de decisão curva destacada em amarelo"
 category: "Inteligência Artificial"
 tags:
   - "Machine Learning"

@@ -3,6 +3,8 @@ title: "Design system: quando vale a pena e como começar pequeno"
 description: "O que é um design system de verdade, quando ele se paga, como usar design tokens (especificação W3C 2025.10) e como começar sem transformar tudo em burocracia."
 pubDate: 2026-10-29
 author: "Gabriel Campos"
+cover: "/images/blog/design-system-como-comecar.webp"
+coverAlt: "Ilustração de quatro design tokens de cor aplicados a um componente de cartão com um botão Confirmar em amarelo"
 category: "Frontend"
 tags:
   - "Design System"

@@ -3,6 +3,8 @@ title: "Go para backend: por que a linguagem funciona bem em serviços"
 description: "Por que Go é tão usado em backend e infraestrutura: design voltado à engenharia em escala, concorrência com goroutines, ferramentas padrão e limitações."
 pubDate: 2026-10-29
 author: "Gabriel Campos"
+cover: "/images/blog/go-para-backend.webp"
+coverAlt: "Ilustração de três goroutines em linhas paralelas trocando valores por um channel destacado em amarelo"
 category: "Backend"
 tags:
   - "Go"

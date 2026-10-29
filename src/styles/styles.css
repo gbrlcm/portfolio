@@ -299,6 +299,22 @@
 	display: block;
 }
 
+.prose-blog figure {
+	margin: 2rem 0;
+}
+
+.prose-blog figure img {
+	margin: 0 auto;
+}
+
+.prose-blog figcaption {
+	margin-top: 0.75rem;
+	font-size: 0.875rem;
+	line-height: 1.5;
+	text-align: center;
+	color: var(--token-gray);
+}
+
 .prose-blog hr {
 	border: 0;
 	border-top: 1px solid var(--token-border);

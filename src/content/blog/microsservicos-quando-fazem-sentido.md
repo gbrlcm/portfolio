@@ -3,6 +3,8 @@ title: "Microsserviços: quando fazem sentido (e quando não fazem)"
 description: "O que são microsserviços segundo Lewis e Fowler, pré-requisitos, custos reais e o que os casos de Segment, Prime Video e Shopify ensinam sobre a escolha."
 pubDate: 2026-10-29
 author: "Gabriel Campos"
+cover: "/images/blog/microsservicos-quando-fazem-sentido.webp"
+coverAlt: "Ilustração de um monólito dividido em quatro módulos ao lado de uma rede de serviços distribuídos interligados"
 category: "Arquitetura de Software"
 tags:
   - "Microsserviços"

@@ -60,15 +60,13 @@ const formatDate = (date: Date) =>
 const publishedDateFormatted = formatDate(pubDate);
 const updatedDateFormatted = updatedDate ? formatDate(updatedDate) : null;
 
-// Reading time
-const words = (post.body ?? '').trim().split(/\s+/).filter(Boolean).length;
-const readTimeMinutes = Math.max(1, Math.ceil(words / 200));
+const words: number = (post.body ?? '').trim().split(/\s+/).filter(Boolean).length;
+const readTimeMinutes: number = Math.max(1, Math.ceil(words / 200));
 
 const siteUrl = 'https://gabrielcampos.dev';
-const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
-const ogImage = cover ? (cover.startsWith('http') ? cover : `${siteUrl}${cover}`) : `${siteUrl}/images/og-image.jpg`;
+const canonicalUrl: string = new URL(Astro.url.pathname, siteUrl).href;
+const ogImage: string = cover ? (cover.startsWith('http') ? cover : `${siteUrl}${cover}`) : `${siteUrl}/images/og-image.jpg`;
 
-// JSON-LD structured data for BlogPosting & BreadcrumbList
 const schemaGraph = [
 	{
 		'@type': 'BlogPosting',
@@ -139,7 +137,7 @@ const schemaGraph = [
 	}}
 	schemaGraph={schemaGraph}
 >
-	<article class="mx-auto w-full max-w-5xl px-5 pt-8 pb-20 sm:pt-12 sm:pb-28 md:px-8">
+	<article class="mx-auto w-full max-w-6xl px-5 pt-8 pb-20 sm:pt-12 sm:pb-28 md:px-8 lg:px-2">
 		<!-- Top Navigation & Breadcrumbs -->
 		<div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 			<Breadcrumbs
@@ -163,7 +161,11 @@ const schemaGraph = [
 		<header class="border-b border-task-border pb-8 sm:pb-10">
 			<!-- Meta badge & reading time -->
 			<div class="flex flex-wrap items-center gap-2.5 text-xs sm:text-sm">
-				<span class="inline-flex items-center rounded-full bg-task-dark px-3 py-1 font-outfit font-semibold uppercase tracking-wider text-task-yellow">
+				<span class="relative inline-flex items-center pl-2.5 py-1 uppercase tracking-wider font-bold">
+					<span
+						class="absolute left-0 bottom-1 h-3 w-1 rounded-full bg-task-yellow"
+						aria-hidden="true"
+					></span>
 					{category}
 				</span>
 				<span class="text-task-gray/60">·</span>
@@ -227,7 +229,7 @@ const schemaGraph = [
 						height="630"
 						loading="eager"
 						decoding="async"
-						class="w-full h-auto max-h-[500px] object-cover"
+						class="w-full h-auto max-h-125 object-cover"
 					/>
 				</div>
 			)

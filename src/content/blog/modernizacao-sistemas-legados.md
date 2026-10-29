@@ -3,6 +3,8 @@ title: "Sistemas legados: como modernizar sem reescrever do zero"
 description: "Por que grandes reescritas costumam falhar e como modernizar sistemas legados aos poucos, com Strangler Fig, testes de caracterização e camada anticorrupção."
 pubDate: 2026-10-29
 author: "Gabriel Campos"
+cover: "/images/blog/modernizacao-sistemas-legados.webp"
+coverAlt: "Ilustração de uma camada de roteamento enviando tráfego para um sistema legado tracejado e para novos componentes, o primeiro em amarelo"
 category: "Arquitetura de Software"
 tags:
   - "Sistemas Legados"

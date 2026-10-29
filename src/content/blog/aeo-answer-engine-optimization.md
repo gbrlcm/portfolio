@@ -3,6 +3,8 @@ title: "AEO: como estruturar conteúdo para virar a resposta"
 description: "O que é Answer Engine Optimization, como snippets e assistentes de IA extraem respostas de páginas e como escrever conteúdo com respostas diretas, sem truques."
 pubDate: 2026-10-29
 author: "Gabriel Campos"
+cover: "/images/blog/aeo-answer-engine-optimization.webp"
+coverAlt: "Ilustração de uma pergunta em balão e um cartão de resposta cujas primeiras linhas estão destacadas em amarelo"
 category: "SEO e AI Search"
 tags:
   - "AEO"
