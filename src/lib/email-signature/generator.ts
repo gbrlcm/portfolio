@@ -1,4 +1,6 @@
 import type { SignatureData } from './types';
+import type { SupportedLanguage } from '../i18n/ui';
+import { EMAIL_SIGNATURE_I18N } from './i18n';
 import { renderClassicTemplate } from './templates/classic';
 import { renderMinimalTemplate } from './templates/minimal';
 import { renderCorporateTemplate } from './templates/corporate';
@@ -21,24 +23,29 @@ export function generateSignatureHtml(data: SignatureData): string {
 /**
  * Gera um arquivo HTML completo, autônomo e válido para download com meta tags e charset UTF-8
  */
-export function generateExportDocument(data: SignatureData): string {
+export function generateExportDocument(
+	data: SignatureData,
+	lang: SupportedLanguage = 'pt-BR'
+): string {
 	const signatureBody = generateSignatureHtml(data);
+	const i18n = EMAIL_SIGNATURE_I18N[lang] || EMAIL_SIGNATURE_I18N['pt-BR'];
+	const docLang = lang === 'pt-BR' ? 'pt-BR' : lang;
 	const title = data.fullName
-		? `Assinatura de E-mail — ${data.fullName}`
-		: 'Assinatura de E-mail';
+		? `${i18n.exportDoc.titleSuffix} — ${data.fullName}`
+		: i18n.exportDoc.defaultTitle;
 
 	return `<!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="${docLang}">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>${title}</title>
-	<!-- Gerado por gabrielcampos.dev/ferramentas/gerador-de-assinatura-de-email -->
+	<!-- ${i18n.exportDoc.generatorComment} -->
 </head>
 <body style="margin: 0; padding: 20px; background-color: #ffffff;">
-	<!-- Início da Assinatura -->
+	<!-- Start Signature -->
 	${signatureBody}
-	<!-- Fim da Assinatura -->
+	<!-- End Signature -->
 </body>
 </html>`;
 }

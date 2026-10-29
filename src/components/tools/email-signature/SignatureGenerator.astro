@@ -1,28 +1,38 @@
 ---
 import { Icon } from 'astro-icon/components';
-import {
-	DEFAULT_SIGNATURE_DATA,
-	AVAILABLE_FONTS,
-	PRESET_PRIMARY_COLORS,
-	PRESET_TEXT_COLORS,
-	PRESET_LINK_COLORS,
-} from '../../../lib/email-signature/defaults';
+import type { SupportedLanguage } from '../../../i18n/ui';
+import { EMAIL_SIGNATURE_I18N } from '../../../lib/email-signature/i18n';
 import { generateSignatureHtml } from '../../../lib/email-signature/generator';
 
-// Render inicial no servidor usando os dados padrão
-const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
+export interface Props {
+	lang?: SupportedLanguage;
+}
+
+const { lang = 'pt-BR' } = Astro.props;
+const t = EMAIL_SIGNATURE_I18N[lang] || EMAIL_SIGNATURE_I18N['pt-BR'];
+
+// Render inicial no servidor usando os dados padrão do idioma selecionado
+const initialHtml = generateSignatureHtml(t.defaultData);
+
+// Serialização dos dados do cliente para JavaScript
+const clientConfig = {
+	lang,
+	defaultData: t.defaultData,
+	toasts: t.toasts,
+	navigation: t.navigation,
+	preview: t.preview,
+};
 ---
 
-<div id="email-signature-app" class="relative w-full">
+<div id="email-signature-app" class="relative w-full" data-config={JSON.stringify(clientConfig)}>
 	<!-- Top Bar com Título e Ações Rápidas -->
 	<div class="mb-8 flex flex-col justify-between gap-4 pb-6 sm:flex-row sm:items-end">
 		<div>
-		
 			<h1 class="font-anton text-3xl tracking-tight text-task-dark sm:text-4xl md:text-5xl uppercase">
-				Gerador de Assinatura de E-mail
+				{t.header.title}
 			</h1>
 			<p class="mt-2 max-w-2xl font-outfit text-sm text-task-gray sm:text-base">
-				Crie assinaturas profissionais compatíveis com Gmail, Outlook e Apple Mail em poucos cliques. Sem cadastro e 100% privado no seu navegador.
+				{t.header.subtitle}
 			</p>
 		</div>
 
@@ -32,19 +42,19 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 				type="button"
 				id="btn-fill-example"
 				class="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-task-border bg-white px-4 py-2 font-outfit text-xs font-semibold text-task-dark shadow-2xs transition-all hover:border-task-dark hover:bg-task-bg active:scale-95"
-				title="Preencher todos os campos com dados de exemplo"
+				title={t.header.fillExampleTitle}
 			>
 				<Icon name="lucide:sparkles" class="size-3.5 text-task-olive" />
-				Preencher Exemplo
+				{t.header.fillExample}
 			</button>
 			<button
 				type="button"
 				id="btn-clear-fields"
 				class="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-task-border bg-white px-4 py-2 font-outfit text-xs font-semibold text-task-gray shadow-2xs transition-all hover:border-red-300 hover:text-red-700 active:scale-95"
-				title="Limpar formulário"
+				title={t.header.clearTitle}
 			>
 				<Icon name="lucide:rotate-ccw" class="size-3.5" />
-				Limpar
+				{t.header.clear}
 			</button>
 		</div>
 	</div>
@@ -71,10 +81,10 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 						</span>
 						<div class="min-w-0">
 							<span class="block font-outfit text-[11px] font-bold text-task-dark sm:text-xs md:text-sm">
-								Modelo
+								{t.steps.step1Title}
 							</span>
 							<span class="hidden font-outfit text-[11px] text-task-gray sm:block">
-								Layout visual
+								{t.steps.step1Subtitle}
 							</span>
 						</div>
 					</button>
@@ -94,10 +104,10 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 						</span>
 						<div class="min-w-0">
 							<span class="block font-outfit text-[11px] font-bold text-task-dark sm:text-xs md:text-sm">
-								Info
+								{t.steps.step2Title}
 							</span>
 							<span class="hidden font-outfit text-[11px] text-task-gray sm:block">
-								Dados & contatos
+								{t.steps.step2Subtitle}
 							</span>
 						</div>
 					</button>
@@ -117,10 +127,10 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 						</span>
 						<div class="min-w-0">
 							<span class="block font-outfit text-[11px] font-bold text-task-dark sm:text-xs md:text-sm">
-								Estilo
+								{t.steps.step3Title}
 							</span>
 							<span class="hidden font-outfit text-[11px] text-task-gray sm:block">
-								Cores & fontes
+								{t.steps.step3Subtitle}
 							</span>
 						</div>
 					</button>
@@ -140,10 +150,10 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 						</span>
 						<div class="min-w-0">
 							<span class="block font-outfit text-[11px] font-bold text-task-dark sm:text-xs md:text-sm">
-								Extras
+								{t.steps.step4Title}
 							</span>
 							<span class="hidden font-outfit text-[11px] text-task-gray sm:block">
-								Fotos & CTA
+								{t.steps.step4Subtitle}
 							</span>
 						</div>
 					</button>
@@ -158,10 +168,10 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 				<div class="step-panel" id="panel-step-1" role="tabpanel" aria-labelledby="tab-step-1">
 					<div class="mb-6">
 						<h2 class="font-anton text-xl text-task-dark sm:text-2xl">
-							Escolha o modelo de assinatura
+							{t.step1.title}
 						</h2>
 						<p class="font-outfit text-xs text-task-gray sm:text-sm">
-							Compare as estruturas abaixo e selecione a que melhor representa seu perfil profissional.
+							{t.step1.subtitle}
 						</p>
 					</div>
 
@@ -173,7 +183,7 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 							<div class="mb-3.5 flex h-32 w-full items-center justify-center rounded-xl border border-task-border bg-white p-3">
 								<div class="flex w-full items-center gap-3">
 									<div class="size-12 shrink-0 rounded-lg bg-task-dark/15 flex items-center justify-center font-anton text-xs text-task-dark">
-										FOTO
+										{t.step1.photoLabel}
 									</div>
 									<div class="h-16 w-0.5 bg-task-dark"></div>
 									<div class="flex flex-1 flex-col gap-1">
@@ -193,8 +203,8 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 							</div>
 							<div class="flex items-center justify-between">
 								<div>
-									<span class="block font-anton text-base text-task-dark">Clássico</span>
-									<span class="block font-outfit text-xs text-task-gray">Divisor vertical & foto destacada</span>
+									<span class="block font-anton text-base text-task-dark">{t.step1.classicTitle}</span>
+									<span class="block font-outfit text-xs text-task-gray">{t.step1.classicDesc}</span>
 								</div>
 								<span class="template-check flex size-5 items-center justify-center rounded-full bg-task-dark text-white">
 									<Icon name="lucide:check" class="size-3" />
@@ -209,7 +219,7 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 							<div class="mb-3.5 flex h-32 w-full items-center justify-center rounded-xl border border-task-border bg-white p-3">
 								<div class="flex w-full items-center gap-3">
 									<div class="size-10 shrink-0 rounded-full bg-task-dark/15 flex items-center justify-center font-anton text-[10px] text-task-dark">
-										FOTO
+										{t.step1.photoLabel}
 									</div>
 									<div class="flex flex-1 flex-col gap-1">
 										<div class="h-2.5 w-20 rounded bg-task-dark"></div>
@@ -224,8 +234,8 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 							</div>
 							<div class="flex items-center justify-between">
 								<div>
-									<span class="block font-anton text-base text-task-dark">Minimalista</span>
-									<span class="block font-outfit text-xs text-task-gray">Tipografia limpa & bullets sutis</span>
+									<span class="block font-anton text-base text-task-dark">{t.step1.minimalTitle}</span>
+									<span class="block font-outfit text-xs text-task-gray">{t.step1.minimalDesc}</span>
 								</div>
 								<span class="template-check hidden size-5 items-center justify-center rounded-full bg-task-dark text-white">
 									<Icon name="lucide:check" class="size-3" />
@@ -248,17 +258,20 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 											<div class="h-1.5 w-20 rounded bg-task-gray/25"></div>
 										</div>
 									</div>
-									<div class="flex flex-col items-center gap-1.5">
-										<div class="size-9 rounded-md bg-task-dark/15"></div>
-										<div class="h-3 w-12 rounded bg-task-dark"></div>
+									<div class="size-11 shrink-0 rounded-lg bg-task-dark/15 flex items-center justify-center font-anton text-xs text-task-dark">
+										{t.step1.photoLabel}
 									</div>
 								</div>
-								<div class="h-1 w-full rounded bg-task-border"></div>
+								<div class="flex gap-1.5 border-t border-task-border pt-1">
+									<div class="size-2 rounded bg-task-dark/60"></div>
+									<div class="size-2 rounded bg-task-dark/60"></div>
+									<div class="size-2 rounded bg-task-dark/60"></div>
+								</div>
 							</div>
 							<div class="flex items-center justify-between">
 								<div>
-									<span class="block font-anton text-base text-task-dark">Corporativo</span>
-									<span class="block font-outfit text-xs text-task-gray">Barra de marca, dados & CTA duplo</span>
+									<span class="block font-anton text-base text-task-dark">{t.step1.corporateTitle}</span>
+									<span class="block font-outfit text-xs text-task-gray">{t.step1.corporateDesc}</span>
 								</div>
 								<span class="template-check hidden size-5 items-center justify-center rounded-full bg-task-dark text-white">
 									<Icon name="lucide:check" class="size-3" />
@@ -266,39 +279,29 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 							</div>
 						</label>
 
-						<!-- Modelo 4: Visual Moderno -->
+						<!-- Modelo 4: Moderno Visual -->
 						<label class="template-card relative flex cursor-pointer flex-col rounded-2xl border-2 border-task-border bg-white p-4 transition-all hover:border-task-gray" data-template="modern-visual">
 							<input type="radio" name="templateId" value="modern-visual" class="sr-only" />
 							<!-- Miniatura Visual Fiel -->
-							<div class="mb-3.5 flex h-32 w-full items-center justify-center rounded-xl border border-task-border bg-white p-3">
+							<div class="mb-3.5 flex h-32 w-full items-center justify-center rounded-xl border border-task-border bg-[#faf9f5] p-3">
 								<div class="flex w-full items-center gap-3">
-									<div class="flex flex-col items-center gap-1">
-										<div class="size-11 shrink-0 rounded-full border-2 border-task-dark p-0.5">
-											<div class="size-full rounded-full bg-task-dark/20"></div>
-										</div>
-										<div class="h-1.5 w-8 rounded bg-task-gray/30"></div>
+									<div class="size-12 shrink-0 rounded-full border-2 border-task-dark bg-task-dark/10 flex items-center justify-center font-anton text-[10px] text-task-dark">
+										{t.step1.photoLabel}
 									</div>
 									<div class="flex flex-1 flex-col gap-1">
-										<div class="h-3 w-24 rounded bg-task-dark"></div>
-										<div class="h-1.5 w-32 rounded bg-task-gray/40"></div>
-										<div class="mt-1 flex gap-2">
-											<div class="h-1.5 w-16 rounded bg-task-gray/30"></div>
-											<div class="h-1.5 w-16 rounded bg-task-gray/30"></div>
-										</div>
-										<div class="mt-1.5 flex items-center gap-2">
-											<div class="flex gap-0.5">
-												<div class="size-2 rounded-full bg-task-dark/50"></div>
-												<div class="size-2 rounded-full bg-task-dark/50"></div>
-											</div>
-											<div class="h-3.5 w-16 rounded-full bg-task-dark"></div>
+										<div class="h-2.5 w-24 rounded bg-task-dark"></div>
+										<div class="h-1.5 w-28 rounded bg-task-gray/50"></div>
+										<div class="mt-1 flex flex-wrap gap-1">
+											<div class="h-2 w-10 rounded-full bg-task-dark/15"></div>
+											<div class="h-2 w-12 rounded-full bg-task-dark/15"></div>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="flex items-center justify-between">
 								<div>
-									<span class="block font-anton text-base text-task-dark">Visual Moderno</span>
-									<span class="block font-outfit text-xs text-task-gray">Avatar com anel de marca & pílula CTA</span>
+									<span class="block font-anton text-base text-task-dark">{t.step1.modernTitle}</span>
+									<span class="block font-outfit text-xs text-task-gray">{t.step1.modernDesc}</span>
 								</div>
 								<span class="template-check hidden size-5 items-center justify-center rounded-full bg-task-dark text-white">
 									<Icon name="lucide:check" class="size-3" />
@@ -309,245 +312,239 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 				</div>
 
 				<!-- ============================================== -->
-				<!-- ETAPA 2: INFORMAÇÕES                            -->
+				<!-- ETAPA 2: DADOS & INFORMAÇÕES                    -->
 				<!-- ============================================== -->
 				<div class="step-panel hidden" id="panel-step-2" role="tabpanel" aria-labelledby="tab-step-2">
 					<div class="mb-6">
 						<h2 class="font-anton text-xl text-task-dark sm:text-2xl">
-							Seus dados de contato
+							{t.step2.title}
 						</h2>
 						<p class="font-outfit text-xs text-task-gray sm:text-sm">
-							Campos vazios serão omitidos automaticamente da assinatura final.
+							{t.step2.subtitle}
 						</p>
 					</div>
 
-					<!-- Grupo 1: Dados Pessoais -->
-					<div class="mb-7 rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
-						<div class="mb-4 flex items-center gap-2">
-							<Icon name="lucide:user" class="size-4 text-task-olive" />
-							<h3 class="font-anton text-sm uppercase tracking-wider text-task-dark">
-								Dados Pessoais
+					<div class="space-y-6">
+						<!-- Grupo: Dados Principais -->
+						<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
+							<h3 class="mb-3 font-anton text-sm uppercase tracking-wide text-task-dark">
+								{t.step2.personalData}
 							</h3>
-						</div>
-						<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-							<div>
-								<label for="input-fullName" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									Nome e Sobrenome *
-								</label>
-								<input
-									type="text"
-									id="input-fullName"
-									name="fullName"
-									placeholder="Ex.: Gabriel Campos"
-									value={DEFAULT_SIGNATURE_DATA.fullName}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
-								/>
-							</div>
-							<div>
-								<label for="input-jobTitle" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									Cargo / Especialidade
-								</label>
-								<input
-									type="text"
-									id="input-jobTitle"
-									name="jobTitle"
-									placeholder="Ex.: Engenheiro de Software"
-									value={DEFAULT_SIGNATURE_DATA.jobTitle}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
-								/>
-							</div>
-							<div>
-								<label for="input-department" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									Departamento (Opcional)
-								</label>
-								<input
-									type="text"
-									id="input-department"
-									name="department"
-									placeholder="Ex.: Engenharia de Produto"
-									value={DEFAULT_SIGNATURE_DATA.department}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
-								/>
-							</div>
-							<div>
-								<label for="input-email" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									E-mail Profissional *
-								</label>
-								<input
-									type="email"
-									id="input-email"
-									name="email"
-									placeholder="seu@email.com"
-									value={DEFAULT_SIGNATURE_DATA.email}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
-								/>
-							</div>
-							<div>
-								<label for="input-phone" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									Telefone Principal
-								</label>
-								<input
-									type="tel"
-									id="input-phone"
-									name="phone"
-									placeholder="+55 11 99999-9999"
-									value={DEFAULT_SIGNATURE_DATA.phone}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
-								/>
-							</div>
-							<div>
-								<label for="input-mobilePhone" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									Telefone Alternativo (Opcional)
-								</label>
-								<input
-									type="tel"
-									id="input-mobilePhone"
-									name="mobilePhone"
-									placeholder="+55 11 98888-8888"
-									value={DEFAULT_SIGNATURE_DATA.mobilePhone}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
-								/>
+							<div class="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+								<div class="sm:col-span-2">
+									<label for="input-fullName" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										{t.step2.fullName} *
+									</label>
+									<input
+										type="text"
+										id="input-fullName"
+										name="fullName"
+										placeholder={t.step2.fullNamePlaceholder}
+										value={t.defaultData.fullName}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+										required
+									/>
+								</div>
+								<div>
+									<label for="input-jobTitle" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										{t.step2.jobTitle}
+									</label>
+									<input
+										type="text"
+										id="input-jobTitle"
+										name="jobTitle"
+										placeholder={t.step2.jobTitlePlaceholder}
+										value={t.defaultData.jobTitle}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+								</div>
+								<div>
+									<label for="input-department" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										{t.step2.department}
+									</label>
+									<input
+										type="text"
+										id="input-department"
+										name="department"
+										placeholder={t.step2.departmentPlaceholder}
+										value={t.defaultData.department}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+								</div>
+								<div class="sm:col-span-2">
+									<label for="input-companyName" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										{t.step2.companyName}
+									</label>
+									<input
+										type="text"
+										id="input-companyName"
+										name="companyName"
+										placeholder={t.step2.companyNamePlaceholder}
+										value={t.defaultData.companyName}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<!-- Grupo 2: Empresa -->
-					<div class="mb-7 rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
-						<div class="mb-4 flex items-center gap-2">
-							<Icon name="lucide:building-2" class="size-4 text-task-olive" />
-							<h3 class="font-anton text-sm uppercase tracking-wider text-task-dark">
-								Empresa & Endereço
+						<!-- Grupo: Contatos Diretos -->
+						<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
+							<h3 class="mb-3 font-anton text-sm uppercase tracking-wide text-task-dark">
+								{t.step2.contactChannels}
 							</h3>
+							<div class="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+								<div>
+									<label for="input-email" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										{t.step2.email}
+									</label>
+									<input
+										type="email"
+										id="input-email"
+										name="email"
+										placeholder="seu.nome@empresa.com"
+										value={t.defaultData.email}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+								</div>
+								<div>
+									<label for="input-mobilePhone" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										{t.step2.mobilePhone}
+									</label>
+									<input
+										type="tel"
+										id="input-mobilePhone"
+										name="mobilePhone"
+										placeholder="+55 11 98888-8888"
+										value={t.defaultData.mobilePhone}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+								</div>
+								<div>
+									<label for="input-phone" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										{t.step2.phone}
+									</label>
+									<input
+										type="tel"
+										id="input-phone"
+										name="phone"
+										placeholder="+55 11 3000-0000"
+										value={t.defaultData.phone}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+								</div>
+								<div>
+									<label for="input-website" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										{t.step2.website}
+									</label>
+									<input
+										type="url"
+										id="input-website"
+										name="website"
+										placeholder="https://gabrielcampos.dev"
+										value={t.defaultData.website}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+								</div>
+								<div class="sm:col-span-2">
+									<label for="input-address" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										{t.step2.address}
+									</label>
+									<input
+										type="text"
+										id="input-address"
+										name="address"
+										placeholder={t.step2.addressPlaceholder}
+										value={t.defaultData.address}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+								</div>
+							</div>
 						</div>
-						<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-							<div>
-								<label for="input-companyName" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									Nome da Empresa
-								</label>
-								<input
-									type="text"
-									id="input-companyName"
-									name="companyName"
-									placeholder="Ex.: Gabriel Campos Tech"
-									value={DEFAULT_SIGNATURE_DATA.companyName}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
-								/>
-							</div>
-							<div>
-								<label for="input-website" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									Site da Empresa
-								</label>
-								<input
-									type="url"
-									id="input-website"
-									name="website"
-									placeholder="https://gabrielcampos.dev"
-									value={DEFAULT_SIGNATURE_DATA.website}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
-								/>
-							</div>
-							<div class="sm:col-span-2">
-								<label for="input-address" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									Endereço Comercial (Opcional)
-								</label>
-								<input
-									type="text"
-									id="input-address"
-									name="address"
-									placeholder="Ex.: Av. Paulista, 1000 — São Paulo, SP"
-									value={DEFAULT_SIGNATURE_DATA.address}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
-								/>
-							</div>
-						</div>
-					</div>
 
-					<!-- Grupo 3: Links e Redes Sociais -->
-					<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
-						<div class="mb-4 flex items-center gap-2">
-							<Icon name="lucide:share-2" class="size-4 text-task-olive" />
-							<h3 class="font-anton text-sm uppercase tracking-wider text-task-dark">
-								Links & Redes Profissionais
+						<!-- Grupo: Redes Sociais -->
+						<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
+							<h3 class="mb-3 font-anton text-sm uppercase tracking-wide text-task-dark">
+								{t.step2.socialNetworks}
 							</h3>
-						</div>
-						<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-							<div>
-								<label for="input-linkedin" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									LinkedIn (URL)
-								</label>
-								<input
-									type="url"
-									id="input-linkedin"
-									name="linkedin"
-									placeholder="https://linkedin.com/in/usuario"
-									value={DEFAULT_SIGNATURE_DATA.linkedin}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
-								/>
-							</div>
-							<div>
-								<label for="input-whatsapp" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									WhatsApp (Número ou Link)
-								</label>
-								<input
-									type="text"
-									id="input-whatsapp"
-									name="whatsapp"
-									placeholder="+55 11 99999-9999"
-									value={DEFAULT_SIGNATURE_DATA.whatsapp}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
-								/>
-							</div>
-							<div>
-								<label for="input-github" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									GitHub (URL)
-								</label>
-								<input
-									type="url"
-									id="input-github"
-									name="github"
-									placeholder="https://github.com/usuario"
-									value={DEFAULT_SIGNATURE_DATA.github}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
-								/>
-							</div>
-							<div>
-								<label for="input-instagram" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									Instagram (URL)
-								</label>
-								<input
-									type="url"
-									id="input-instagram"
-									name="instagram"
-									placeholder="https://instagram.com/usuario"
-									value={DEFAULT_SIGNATURE_DATA.instagram}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
-								/>
-							</div>
-							<div>
-								<label for="input-facebook" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									Facebook (URL)
-								</label>
-								<input
-									type="url"
-									id="input-facebook"
-									name="facebook"
-									placeholder="https://facebook.com/pagina"
-									value={DEFAULT_SIGNATURE_DATA.facebook}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
-								/>
-							</div>
-							<div>
-								<label for="input-twitter" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									X / Twitter (URL)
-								</label>
-								<input
-									type="url"
-									id="input-twitter"
-									name="twitter"
-									placeholder="https://x.com/usuario"
-									value={DEFAULT_SIGNATURE_DATA.twitter}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
-								/>
+							<div class="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+								<div>
+									<label for="input-linkedin" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										LinkedIn (URL)
+									</label>
+									<input
+										type="url"
+										id="input-linkedin"
+										name="linkedin"
+										placeholder="https://linkedin.com/in/usuario"
+										value={t.defaultData.linkedin}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+								</div>
+								<div>
+									<label for="input-whatsapp" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										WhatsApp (Número ou Link wa.me)
+									</label>
+									<input
+										type="text"
+										id="input-whatsapp"
+										name="whatsapp"
+										placeholder="+55 11 99999-9999"
+										value={t.defaultData.whatsapp}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+								</div>
+								<div>
+									<label for="input-github" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										GitHub (URL)
+									</label>
+									<input
+										type="url"
+										id="input-github"
+										name="github"
+										placeholder="https://github.com/usuario"
+										value={t.defaultData.github}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+								</div>
+								<div>
+									<label for="input-instagram" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										Instagram (URL)
+									</label>
+									<input
+										type="url"
+										id="input-instagram"
+										name="instagram"
+										placeholder="https://instagram.com/usuario"
+										value={t.defaultData.instagram}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+								</div>
+								<div>
+									<label for="input-facebook" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										Facebook (URL)
+									</label>
+									<input
+										type="url"
+										id="input-facebook"
+										name="facebook"
+										placeholder="https://facebook.com/pagina"
+										value={t.defaultData.facebook}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+								</div>
+								<div>
+									<label for="input-twitter" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										X / Twitter (URL)
+									</label>
+									<input
+										type="url"
+										id="input-twitter"
+										name="twitter"
+										placeholder="https://x.com/usuario"
+										value={t.defaultData.twitter}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -559,20 +556,20 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 				<div class="step-panel hidden" id="panel-step-3" role="tabpanel" aria-labelledby="tab-step-3">
 					<div class="mb-6">
 						<h2 class="font-anton text-xl text-task-dark sm:text-2xl">
-							Personalização visual
+							{t.step3.title}
 						</h2>
 						<p class="font-outfit text-xs text-task-gray sm:text-sm">
-							Ajuste as cores da sua marca e a tipografia. A prévia ao lado reflete as alterações instantaneamente.
+							{t.step3.subtitle}
 						</p>
 					</div>
 
 					<!-- Cor Principal -->
 					<div class="mb-6 rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
 						<label class="mb-2 block font-outfit text-xs font-semibold text-task-dark">
-							Cor Principal da Marca (Destaques e divisores)
+							{t.step3.primaryColor}
 						</label>
 						<div class="flex flex-wrap items-center gap-2 mb-3">
-							{PRESET_PRIMARY_COLORS.map((preset) => (
+							{t.primaryColors.map((preset) => (
 								<button
 									type="button"
 									class="color-preset-btn flex size-8 cursor-pointer items-center justify-center rounded-full border border-task-border shadow-2xs transition-transform hover:scale-110 active:scale-95"
@@ -587,34 +584,31 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 							<input
 								type="color"
 								id="color-picker-primary"
-								name="primaryColorPicker"
-								value={DEFAULT_SIGNATURE_DATA.primaryColor}
+								value={t.defaultData.primaryColor}
 								class="size-10 cursor-pointer rounded-xl border border-task-border bg-white p-1"
 							/>
 							<input
 								type="text"
 								id="input-primaryColor"
 								name="primaryColor"
-								value={DEFAULT_SIGNATURE_DATA.primaryColor}
-								maxlength="7"
-								class="w-32 rounded-xl border border-task-border bg-white px-3 py-2 font-mono text-xs text-task-dark uppercase focus:border-task-dark focus:outline-none"
+								value={t.defaultData.primaryColor}
+								class="w-32 rounded-xl border border-task-border bg-white px-3 py-2 font-mono text-xs uppercase text-task-dark focus:border-task-dark focus:outline-none"
+								placeholder={t.step3.hexPlaceholder}
 							/>
-							<span class="font-outfit text-xs text-task-gray">Código HEX</span>
 						</div>
 					</div>
 
 					<!-- Cores de Texto e Links -->
 					<div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-						<!-- Cor do Texto -->
-						<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4">
+						<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
 							<label class="mb-2 block font-outfit text-xs font-semibold text-task-dark">
-								Cor do Texto
+								{t.step3.textColor}
 							</label>
 							<div class="flex flex-wrap items-center gap-2 mb-3">
-								{PRESET_TEXT_COLORS.map((preset) => (
+								{t.textColors.map((preset) => (
 									<button
 										type="button"
-										class="color-preset-btn flex size-7 cursor-pointer items-center justify-center rounded-full border border-task-border shadow-2xs hover:scale-110 transition-transform"
+										class="color-preset-btn flex size-8 cursor-pointer items-center justify-center rounded-full border border-task-border shadow-2xs transition-transform hover:scale-110 active:scale-95"
 										data-target="textColor"
 										data-color={preset.hex}
 										style={`background-color: ${preset.hex};`}
@@ -622,35 +616,33 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 									/>
 								))}
 							</div>
-							<div class="flex items-center gap-2">
+							<div class="flex items-center gap-3">
 								<input
 									type="color"
 									id="color-picker-text"
-									name="textColorPicker"
-									value={DEFAULT_SIGNATURE_DATA.textColor}
-									class="size-9 cursor-pointer rounded-lg border border-task-border bg-white p-1"
+									value={t.defaultData.textColor}
+									class="size-10 cursor-pointer rounded-xl border border-task-border bg-white p-1"
 								/>
 								<input
 									type="text"
 									id="input-textColor"
 									name="textColor"
-									value={DEFAULT_SIGNATURE_DATA.textColor}
-									maxlength="7"
-									class="w-28 rounded-xl border border-task-border bg-white px-3 py-2 font-mono text-xs text-task-dark uppercase focus:border-task-dark focus:outline-none"
+									value={t.defaultData.textColor}
+									class="w-32 rounded-xl border border-task-border bg-white px-3 py-2 font-mono text-xs uppercase text-task-dark focus:border-task-dark focus:outline-none"
+									placeholder={t.step3.hexPlaceholder}
 								/>
 							</div>
 						</div>
 
-						<!-- Cor dos Links -->
-						<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4">
+						<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
 							<label class="mb-2 block font-outfit text-xs font-semibold text-task-dark">
-								Cor dos Links
+								{t.step3.linkColor}
 							</label>
 							<div class="flex flex-wrap items-center gap-2 mb-3">
-								{PRESET_LINK_COLORS.map((preset) => (
+								{t.linkColors.map((preset) => (
 									<button
 										type="button"
-										class="color-preset-btn flex size-7 cursor-pointer items-center justify-center rounded-full border border-task-border shadow-2xs hover:scale-110 transition-transform"
+										class="color-preset-btn flex size-8 cursor-pointer items-center justify-center rounded-full border border-task-border shadow-2xs transition-transform hover:scale-110 active:scale-95"
 										data-target="linkColor"
 										data-color={preset.hex}
 										style={`background-color: ${preset.hex};`}
@@ -658,404 +650,326 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 									/>
 								))}
 							</div>
-							<div class="flex items-center gap-2">
+							<div class="flex items-center gap-3">
 								<input
 									type="color"
 									id="color-picker-link"
-									name="linkColorPicker"
-									value={DEFAULT_SIGNATURE_DATA.linkColor}
-									class="size-9 cursor-pointer rounded-lg border border-task-border bg-white p-1"
+									value={t.defaultData.linkColor}
+									class="size-10 cursor-pointer rounded-xl border border-task-border bg-white p-1"
 								/>
 								<input
 									type="text"
 									id="input-linkColor"
 									name="linkColor"
-									value={DEFAULT_SIGNATURE_DATA.linkColor}
-									maxlength="7"
-									class="w-28 rounded-xl border border-task-border bg-white px-3 py-2 font-mono text-xs text-task-dark uppercase focus:border-task-dark focus:outline-none"
+									value={t.defaultData.linkColor}
+									class="w-32 rounded-xl border border-task-border bg-white px-3 py-2 font-mono text-xs uppercase text-task-dark focus:border-task-dark focus:outline-none"
+									placeholder={t.step3.hexPlaceholder}
 								/>
 							</div>
 						</div>
 					</div>
 
 					<!-- Tipografia -->
-					<div class="mb-6 rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
-						<label for="select-fontFamily" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-							Fonte da Assinatura (Fontes universais para e-mail)
-						</label>
-						<p class="mb-3 font-outfit text-xs text-task-gray">
-							Clientes de e-mail como Outlook e Gmail bloqueiam fontes web externas. Usamos fontes seguras que funcionam em todos os dispositivos.
-						</p>
-						<select
-							id="select-fontFamily"
-							name="fontFamily"
-							class="w-full cursor-pointer rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark focus:border-task-dark focus:outline-none"
-						>
-							{AVAILABLE_FONTS.map((font) => (
-								<option value={font.id} selected={font.id === DEFAULT_SIGNATURE_DATA.fontFamily}>
-									{font.label}
-								</option>
-							))}
-						</select>
-					</div>
-
-					<!-- Tamanho da Fonte -->
 					<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
-						<label class="mb-2 block font-outfit text-xs font-semibold text-task-dark">
-							Escala da Assinatura
-						</label>
-						<div class="grid grid-cols-3 gap-3" role="radiogroup" aria-label="Tamanho da fonte">
-							<label class="font-size-option flex cursor-pointer items-center justify-center rounded-xl border-2 border-task-border bg-white py-2.5 px-3 text-center transition-all hover:border-task-gray">
-								<input type="radio" name="fontSize" value="sm" class="sr-only" />
-								<span class="font-outfit text-xs font-semibold text-task-dark">Compacto (P)</span>
+						<div class="mb-4">
+							<label for="select-fontFamily" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+								{t.step3.fontFamily}
 							</label>
-							<label class="font-size-option flex cursor-pointer items-center justify-center rounded-xl border-2 border-task-dark bg-task-bg py-2.5 px-3 text-center transition-all hover:border-task-dark">
-								<input type="radio" name="fontSize" value="md" checked class="sr-only" />
-								<span class="font-outfit text-xs font-semibold text-task-dark">Padrão (M)</span>
+							<select
+								id="select-fontFamily"
+								name="fontFamily"
+								class="w-full cursor-pointer rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark focus:border-task-dark focus:outline-none"
+							>
+								{t.fonts.map((f) => (
+									<option value={f.id} selected={f.id === t.defaultData.fontFamily}>
+										{f.label}
+									</option>
+								))}
+							</select>
+						</div>
+
+						<div>
+							<label class="mb-2 block font-outfit text-xs font-semibold text-task-dark">
+								{t.step3.fontSize}
 							</label>
-							<label class="font-size-option flex cursor-pointer items-center justify-center rounded-xl border-2 border-task-border bg-white py-2.5 px-3 text-center transition-all hover:border-task-gray">
-								<input type="radio" name="fontSize" value="lg" class="sr-only" />
-								<span class="font-outfit text-xs font-semibold text-task-dark">Expandido (G)</span>
-							</label>
+							<div class="grid grid-cols-3 gap-2">
+								<label class="font-size-option flex cursor-pointer flex-col items-center justify-center rounded-xl border border-task-border bg-white p-3 text-center transition-all hover:border-task-dark">
+									<input type="radio" name="fontSize" value="sm" class="sr-only" />
+									<span class="font-anton text-sm text-task-dark">{t.step3.sizeSm}</span>
+									<span class="font-outfit text-[11px] text-task-gray">{t.step3.sizeSmDesc}</span>
+								</label>
+								<label class="font-size-option flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-task-dark bg-task-bg p-3 text-center transition-all">
+									<input type="radio" name="fontSize" value="md" checked class="sr-only" />
+									<span class="font-anton text-sm text-task-dark">{t.step3.sizeMd}</span>
+									<span class="font-outfit text-[11px] text-task-gray">{t.step3.sizeMdDesc}</span>
+								</label>
+								<label class="font-size-option flex cursor-pointer flex-col items-center justify-center rounded-xl border border-task-border bg-white p-3 text-center transition-all hover:border-task-dark">
+									<input type="radio" name="fontSize" value="lg" class="sr-only" />
+									<span class="font-anton text-sm text-task-dark">{t.step3.sizeLg}</span>
+									<span class="font-outfit text-[11px] text-task-gray">{t.step3.sizeLgDesc}</span>
+								</label>
+							</div>
 						</div>
 					</div>
 				</div>
 
 				<!-- ============================================== -->
-				<!-- ETAPA 4: IMAGENS E EXTRAS                       -->
+				<!-- ETAPA 4: FOTOS, CTA & EXTRAS                    -->
 				<!-- ============================================== -->
 				<div class="step-panel hidden" id="panel-step-4" role="tabpanel" aria-labelledby="tab-step-4">
 					<div class="mb-6">
 						<h2 class="font-anton text-xl text-task-dark sm:text-2xl">
-							Imagens e elementos adicionais
+							{t.step4.title}
 						</h2>
 						<p class="font-outfit text-xs text-task-gray sm:text-sm">
-							Adicione fotos, logotipo ou uma chamada para ação. Todos os itens desta etapa são opcionais.
+							{t.step4.subtitle}
 						</p>
 					</div>
 
-					<!-- Foto de Perfil & Logotipo -->
-					<div class="mb-6 rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
-						<div class="mb-4 flex items-center gap-2">
-							<Icon name="lucide:image" class="size-4 text-task-olive" />
-							<h3 class="font-anton text-sm uppercase tracking-wider text-task-dark">
-								Imagens Hospedadas (URLs Públicas HTTPS)
-							</h3>
-						</div>
-						<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-							<div>
-								<label for="input-avatarUrl" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									Foto de Perfil (URL)
-								</label>
-								<input
-									type="url"
-									id="input-avatarUrl"
-									name="avatarUrl"
-									placeholder="https://site.com/sua-foto.jpg"
-									value={DEFAULT_SIGNATURE_DATA.avatarUrl}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none"
-								/>
-								<p class="mt-1 font-outfit text-[11px] text-task-gray">
-									Use uma imagem quadrada pública (PNG, JPG ou WebP).
-								</p>
-							</div>
-							<div>
-								<label for="input-logoUrl" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									Logotipo da Empresa (URL)
-								</label>
-								<input
-									type="url"
-									id="input-logoUrl"
-									name="logoUrl"
-									placeholder="https://site.com/logo.png"
-									value={DEFAULT_SIGNATURE_DATA.logoUrl}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none"
-								/>
-								<p class="mt-1 font-outfit text-[11px] text-task-gray">
-									Prefira logotipo com fundo transparente.
-								</p>
+					<div class="space-y-6">
+						<!-- Fotos e Logos -->
+						<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
+							<div class="space-y-4">
+								<div>
+									<label for="input-avatarUrl" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										{t.step4.avatarLabel}
+									</label>
+									<input
+										type="url"
+										id="input-avatarUrl"
+										name="avatarUrl"
+										placeholder="https://seusite.com/foto.jpg"
+										value={t.defaultData.avatarUrl}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+									<p class="mt-1 font-outfit text-[11px] text-task-gray">
+										{t.step4.avatarHint}
+									</p>
+								</div>
+								<div>
+									<label for="input-logoUrl" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										{t.step4.logoLabel}
+									</label>
+									<input
+										type="url"
+										id="input-logoUrl"
+										name="logoUrl"
+										placeholder="https://seusite.com/logo.png"
+										value={t.defaultData.logoUrl}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+									<p class="mt-1 font-outfit text-[11px] text-task-gray">
+										{t.step4.logoHint}
+									</p>
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<!-- Chamada para Ação (CTA Button) -->
-					<div class="mb-6 rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
-						<div class="mb-4 flex items-center gap-2">
-							<Icon name="lucide:mouse-pointer-click" class="size-4 text-task-olive" />
-							<h3 class="font-anton text-sm uppercase tracking-wider text-task-dark">
-								Botão de Chamada para Ação (CTA)
+						<!-- Botão de Chamada (CTA) -->
+						<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
+							<h3 class="mb-3 font-anton text-sm uppercase tracking-wide text-task-dark">
+								{t.step4.ctaLabel}
 							</h3>
-						</div>
-						<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-							<div>
-								<label for="input-ctaText" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									Texto do Botão
-								</label>
-								<input
-									type="text"
-									id="input-ctaText"
-									name="ctaText"
-									placeholder="Ex.: Agendar reunião"
-									value={DEFAULT_SIGNATURE_DATA.ctaText}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none"
-								/>
+							<div class="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+								<div>
+									<label for="input-ctaText" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										{t.step4.ctaTextLabel}
+									</label>
+									<input
+										type="text"
+										id="input-ctaText"
+										name="ctaText"
+										placeholder={t.step4.ctaTextPlaceholder}
+										value={t.defaultData.ctaText}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+								</div>
+								<div>
+									<label for="input-ctaUrl" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+										{t.step4.ctaUrlLabel}
+									</label>
+									<input
+										type="url"
+										id="input-ctaUrl"
+										name="ctaUrl"
+										placeholder={t.step4.ctaUrlPlaceholder}
+										value={t.defaultData.ctaUrl}
+										class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+									/>
+								</div>
 							</div>
-							<div>
-								<label for="input-ctaUrl" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
-									Link de Destino (URL)
-								</label>
-								<input
-									type="url"
-									id="input-ctaUrl"
-									name="ctaUrl"
-									placeholder="https://calendly.com/seu-link"
-									value={DEFAULT_SIGNATURE_DATA.ctaUrl}
-									class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-sm text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none"
-								/>
-							</div>
 						</div>
-					</div>
 
-					<!-- Frase Institucional / Disclaimer -->
-					<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
-						<div class="mb-2 flex items-center gap-2">
-							<Icon name="lucide:shield-alert" class="size-4 text-task-olive" />
-							<h3 class="font-anton text-sm uppercase tracking-wider text-task-dark">
-								Aviso Legal / Frase Institucional (Opcional)
-							</h3>
+						<!-- Disclaimer / Aviso Legal -->
+						<div class="rounded-2xl border border-task-border bg-task-bg/40 p-4 sm:p-5">
+							<label for="textarea-disclaimer" class="mb-1.5 block font-outfit text-xs font-semibold text-task-dark">
+								{t.step4.disclaimerLabel}
+							</label>
+							<textarea
+								id="textarea-disclaimer"
+								name="disclaimer"
+								rows="3"
+								placeholder={t.step4.disclaimerPlaceholder}
+								class="w-full rounded-xl border border-task-border bg-white px-3.5 py-2.5 font-outfit text-xs text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none focus:ring-1 focus:ring-task-dark transition-all"
+							>{t.defaultData.disclaimer}</textarea>
+							<p class="mt-1 font-outfit text-[11px] text-task-gray">
+								{t.step4.disclaimerHint}
+							</p>
 						</div>
-						<textarea
-							id="textarea-disclaimer"
-							name="disclaimer"
-							rows="3"
-							placeholder="Texto de confidencialidade exibido em tamanho reduzido no rodapé da assinatura..."
-							class="w-full rounded-xl border border-task-border bg-white p-3 font-outfit text-xs text-task-dark placeholder:text-task-gray/40 focus:border-task-dark focus:outline-none"
-						>{DEFAULT_SIGNATURE_DATA.disclaimer}</textarea>
 					</div>
 				</div>
 
-				<!-- Barra Inferior de Navegação entre Etapas -->
-				<div class="mt-8 flex items-center justify-between pt-6">
+				<!-- Controles de Navegação Anterior / Próximo -->
+				<div class="mt-8 flex items-center justify-between border-t border-task-border pt-6">
 					<button
 						type="button"
 						id="btn-step-prev"
-						class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-task-border bg-white px-5 py-2.5 font-outfit text-xs font-semibold text-task-dark shadow-2xs transition-all hover:bg-task-bg disabled:cursor-not-allowed disabled:opacity-40 active:scale-95"
+						class="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-task-border bg-white px-5 py-2.5 font-outfit text-xs font-semibold text-task-dark shadow-2xs transition-all hover:border-task-dark hover:bg-task-bg disabled:cursor-not-allowed disabled:opacity-40 active:scale-95"
 						disabled
 					>
-						<Icon name="lucide:arrow-left" class="size-4" />
-						Voltar
+						<Icon name="lucide:chevron-left" class="size-4" />
+						{t.navigation.prev}
 					</button>
 
-					<span class="font-outfit text-xs font-semibold text-task-gray" id="step-indicator-text">
-						Etapa 1 de 4
+					<span class="font-outfit text-xs text-task-gray" id="step-indicator-text">
+						{t.navigation.stepIndicator.replace('{current}', '1')}
 					</span>
 
 					<button
 						type="button"
 						id="btn-step-next"
-						class="inline-flex cursor-pointer items-center gap-2 rounded-full bg-task-dark px-6 py-2.5 font-outfit text-xs font-semibold text-white shadow-xs transition-all hover:bg-black active:scale-95"
+						class="inline-flex cursor-pointer items-center gap-1.5 rounded-full bg-task-dark px-6 py-2.5 font-outfit text-xs font-semibold text-white shadow-2xs transition-all hover:bg-task-dark/90 active:scale-95"
 					>
-						<span id="btn-next-text">Avançar</span>
-						<Icon name="lucide:arrow-right" class="size-4" id="btn-next-icon" />
+						<span id="btn-next-text">{t.navigation.next}</span>
+						<Icon name="lucide:chevron-right" class="size-4" />
 					</button>
-				</div>
-
-				<!-- Atalho Mobile para Prévia -->
-				<div class="mt-4 flex justify-center lg:hidden">
-					<a
-						href="#preview-section"
-						class="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-task-border bg-task-bg px-3.5 py-1.5 font-outfit text-xs font-semibold text-task-dark transition-colors hover:bg-white"
-					>
-						<Icon name="lucide:eye" class="size-3.5 text-task-olive" />
-						Ver prévia da assinatura abaixo
-					</a>
 				</div>
 			</form>
 		</div>
 
-		<!-- Coluna da Direita: Prévia e Ações (5 colunas, Sticky no Desktop) -->
-		<div id="preview-section" class="flex min-w-0 flex-col gap-6 lg:sticky lg:top-28 lg:col-span-5 scroll-mt-24">
-			<!-- Janela Simuladora de E-mail -->
-			<div class="min-w-0 overflow-hidden rounded-3xl border border-task-border bg-white shadow-xs">
-				<!-- Barra de Título da Janela -->
-				<div class="flex items-center justify-between border-b border-task-border bg-task-bg/70 px-4 py-3">
-					<div class="flex items-center gap-1.5">
-						<span class="size-2.5 rounded-full bg-[#ff5f56]"></span>
-						<span class="size-2.5 rounded-full bg-[#ffbd2e]"></span>
-						<span class="size-2.5 rounded-full bg-[#27c93f]"></span>
-					</div>
+		<!-- Coluna da Direita: Prévia Fixa & Ações de Exportação (5 colunas) -->
+		<div class="lg:sticky lg:top-24 lg:col-span-5">
+			<div class="flex flex-col rounded-3xl border border-task-border bg-white p-5 shadow-xs sm:p-6">
+				<!-- Header da Prévia -->
+				<div class="mb-4 flex items-center justify-between border-b border-task-border pb-4">
 					<div class="flex items-center gap-2">
-						<Icon name="lucide:mail" class="size-3.5 text-task-gray" />
-						<span class="font-outfit text-xs font-semibold text-task-gray">Novo E-mail</span>
+						<span class="size-2 rounded-full bg-task-olive animate-pulse"></span>
+						<h3 class="font-anton text-base tracking-wide uppercase text-task-dark">
+							{t.preview.liveTitle}
+						</h3>
 					</div>
-					<div class="w-10"></div>
+					<span class="font-outfit text-[11px] font-medium text-task-gray">
+						{t.preview.liveBadge}
+					</span>
 				</div>
 
-				<!-- Cabeçalho do E-mail Simulado -->
-				<div class="border-b border-task-border/60 bg-white px-5 py-3 font-outfit text-xs text-task-gray">
-					<div class="flex items-center gap-2 py-0.5">
-						<span class="w-12 font-semibold text-task-dark">Para:</span>
-						<span class="text-task-gray/80">cliente@empresa.com</span>
-					</div>
-					<div class="flex items-center gap-2 py-0.5">
-						<span class="w-12 font-semibold text-task-dark">Assunto:</span>
-						<span class="font-medium text-task-dark">Proposta de Desenvolvimento Técnico</span>
-					</div>
+				<!-- Container de Renderização Visual da Prévia -->
+				<div class="mb-5 overflow-x-auto rounded-2xl border border-task-border/80 bg-white p-4 shadow-2xs min-h-[220px] flex items-center justify-center">
+					<div
+						id="signature-preview-container"
+						class="w-full origin-top-left transition-all"
+						set:html={initialHtml}
+					/>
 				</div>
 
-				<!-- Mensagem Simulada & Container da Assinatura -->
-				<div class="min-h-70 bg-white p-4 sm:p-6">
-					<p class="mb-4 font-outfit text-xs leading-relaxed text-task-gray/80 sm:text-sm">
-						Olá! Segue o detalhamento solicitado da arquitetura e do escopo do projeto. Estou à disposição para alinharmos os próximos passos.
-						<br /><br />
-						Atenciosamente,
-					</p>
-
-					<!-- Divisor sutil de assinatura -->
-					<div class="mb-4 w-12 border-t border-task-border"></div>
-
-					<!-- Container onde a assinatura real é renderizada com scroll horizontal local se a tela for menor que a assinatura -->
-					<div class="w-full min-w-0 overflow-x-auto pb-2">
-						<div
-							id="signature-preview-container"
-							class="min-w-fit selection:bg-task-yellow"
-							set:html={initialHtml}
-						/>
-					</div>
-				</div>
-			</div>
-
-			<!-- Bloco de Ações de Cópia e Exportação -->
-			<div class="rounded-3xl border border-task-border bg-white p-5 shadow-xs sm:p-6">
-				<div class="mb-4">
-					<h3 class="font-anton text-base uppercase tracking-tight text-task-dark">
-						Copiar ou Exportar
-					</h3>
-					<p class="font-outfit text-xs text-task-gray">
-						Escolha como deseja transferir sua assinatura para seu programa de e-mail.
-					</p>
-				</div>
-
-				<div class="flex flex-col gap-2.5">
-					<!-- Ação Principal: Copiar Assinatura Formatada -->
+				<!-- Botões Principais de Ação -->
+				<div class="space-y-2.5">
+					<!-- Copiar Assinatura Formatada (Principal) -->
 					<button
 						type="button"
 						id="btn-copy-signature"
-						class="group flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl bg-task-yellow px-5 py-3.5 font-outfit text-sm font-bold text-task-dark shadow-2xs transition-all hover:brightness-105 active:scale-95"
+						class="group relative flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl bg-task-dark px-4 py-3.5 font-outfit text-sm font-semibold text-white shadow-xs transition-all hover:bg-task-dark/90 active:scale-98"
 					>
-						<Icon name="lucide:copy" class="size-4 shrink-0 transition-transform group-hover:scale-110" id="icon-copy-sig" />
-						<Icon name="lucide:check" class="hidden size-4 shrink-0 text-task-dark" id="icon-copy-sig-success" />
-						<span id="text-copy-sig">Copiar Assinatura Formatada</span>
+						<Icon name="lucide:copy" class="size-4 transition-transform group-hover:scale-110" id="icon-copy-sig" />
+						<Icon name="lucide:check" class="size-4 hidden text-emerald-400" id="icon-copy-sig-success" />
+						<span id="text-copy-sig">{t.preview.copyFormatted}</span>
 					</button>
 
 					<!-- Ações Secundárias -->
-					<div class="grid grid-cols-1 min-[440px]:grid-cols-2 gap-2.5">
+					<div class="grid grid-cols-2 gap-2">
 						<button
 							type="button"
 							id="btn-copy-html"
-							class="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-task-border bg-white px-3 py-2.5 font-outfit text-xs font-semibold text-task-dark transition-all hover:border-task-dark hover:bg-task-bg active:scale-95"
+							class="flex cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-task-border bg-white px-3 py-2.5 font-outfit text-xs font-semibold text-task-dark shadow-2xs transition-all hover:border-task-dark hover:bg-task-bg active:scale-95"
+							title="Copiar código-fonte HTML da assinatura"
 						>
-							<Icon name="lucide:code-xml" class="size-3.5" />
-							<span id="text-copy-html">Copiar Código HTML</span>
+							<Icon name="lucide:code-xml" class="size-3.5 text-task-gray" />
+							<span>{t.preview.copyHtml}</span>
 						</button>
 
 						<button
 							type="button"
 							id="btn-download-html"
-							class="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-task-border bg-white px-3 py-2.5 font-outfit text-xs font-semibold text-task-dark transition-all hover:border-task-dark hover:bg-task-bg active:scale-95"
+							class="flex cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-task-border bg-white px-3 py-2.5 font-outfit text-xs font-semibold text-task-dark shadow-2xs transition-all hover:border-task-dark hover:bg-task-bg active:scale-95"
+							title="Baixar arquivo .html pronto para envio ou template"
 						>
-							<Icon name="lucide:download" class="size-3.5" />
-							<span>Baixar .HTML</span>
+							<Icon name="lucide:download" class="size-3.5 text-task-gray" />
+							<span>{t.preview.downloadHtml}</span>
 						</button>
 					</div>
 				</div>
 
-				<!-- Aviso de Privacidade e Segurança -->
-				<div class="mt-4 flex items-center gap-2">
-					<p class="font-outfit text-[11px] leading-tight">
-						Seus dados nunca são enviados a nenhum servidor. O código é gerado 100% no seu navegador.
-					</p>
+				<!-- Toast Flutuante de Feedback -->
+				<div
+					id="sig-toast"
+					class="pointer-events-none mt-4 flex items-center gap-2 rounded-xl bg-task-dark px-4 py-3 text-xs text-white shadow-lg transition-all duration-300 opacity-0 translate-y-2"
+					role="alert"
+				>
+					<Icon name="lucide:check-circle-2" class="size-4 shrink-0 text-task-olive" />
+					<div class="min-w-0">
+						<span class="block font-semibold" id="toast-title">{t.toasts.copySuccess}</span>
+						<span class="block text-task-gray-light text-[11px]" id="toast-desc">{t.toasts.copySuccessDesc}</span>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<!-- Notificação Toast Flutuante -->
-	<div
-		id="sig-toast"
-		class="pointer-events-none fixed bottom-6 right-6 z-50 flex translate-y-10 items-center gap-3 rounded-2xl border border-task-dark bg-task-dark px-4 py-3 text-white shadow-xl opacity-0 transition-all duration-300"
-		role="status"
-		aria-live="polite"
-	>
-		<div class="flex size-7 items-center justify-center rounded-full bg-task-yellow text-task-dark">
-			<Icon name="lucide:check" class="size-4" />
-		</div>
-		<div>
-			<span class="block font-outfit text-xs font-bold text-white" id="toast-title">Assinatura copiada!</span>
-			<span class="block font-outfit text-[11px] text-white/80" id="toast-desc">Agora basta colar (Ctrl+V ou Cmd+V) no seu e-mail.</span>
-		</div>
-	</div>
-
-	<!-- Seção de Instruções de Instalação e Dicas -->
-	<div class="mt-16 rounded-3xl border border-task-border bg-white p-6 sm:p-10 shadow-xs">
-		<div class="mb-8 text-center sm:text-left">
-			<div class="mb-2 inline-flex items-center gap-2 ">
-				<Icon name="lucide:book-open" class="size-3.5 text-task-olive" />
-				<span class="font-outfit text-xs font-semibold uppercase tracking-wider text-task-dark">
-					Guia Prático
-				</span>
-			</div>
-			<h2 class="font-anton text-2xl text-task-dark sm:text-3xl uppercase">
-				Como instalar no seu cliente de e-mail
+	<!-- Guia Passo a Passo de Instalação no Cliente de E-mail -->
+	<div class="mt-14 border-t border-task-border pt-12">
+		<div class="mb-8">
+			<h2 class="font-anton text-2xl tracking-tight text-task-dark sm:text-3xl uppercase">
+				{t.preview.instructionsTitle}
 			</h2>
-			<p class="mt-1 font-outfit text-sm text-task-gray">
-				Siga as instruções abaixo de acordo com a sua ferramenta de preferência:
-			</p>
 		</div>
 
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
 			<!-- Gmail -->
-			<div class="flex flex-col rounded-2xl border border-task-border bg-task-bg/40 p-5">
-				<div class="mb-3.5 flex items-center gap-3">
+			<div class="flex flex-col rounded-2xl border border-task-border bg-white p-5 shadow-xs">
+				<div class="mb-3.5 flex items-center gap-2.5">
 					<Icon name="simple-icons:gmail" class="size-6 shrink-0 text-[#EA4335]" />
-					<h3 class="font-anton text-base text-task-dark">Gmail / Google Workspace</h3>
+					<h3 class="font-anton text-base text-task-dark">{t.preview.gmailTitle}</h3>
 				</div>
 				<ol class="flex flex-col gap-2.5 font-outfit text-xs text-task-gray leading-relaxed list-decimal pl-4">
-					<li>Clique no botão <strong>"Copiar Assinatura Formatada"</strong> acima.</li>
-					<li>No Gmail, clique no ícone da engrenagem no canto superior direito e selecione <strong>"Ver todas as configurações"</strong>.</li>
-					<li>Role a aba <strong>"Geral"</strong> até a seção <strong>"Assinatura"</strong>.</li>
-					<li>Crie uma nova assinatura e cole (<kbd class="rounded border border-task-border bg-white px-1 font-mono">Cmd+V</kbd> ou <kbd class="rounded border border-task-border bg-white px-1 font-mono">Ctrl+V</kbd>) no editor.</li>
-					<li>Defina os padrões de assinatura e clique em <strong>"Salvar alterações"</strong> no fim da página.</li>
+					{t.preview.gmailSteps.map((step) => (
+						<li>{step}</li>
+					))}
 				</ol>
 			</div>
 
 			<!-- Outlook -->
-			<div class="flex flex-col rounded-2xl border border-task-border bg-task-bg/40 p-5">
-				<div class="mb-3.5 flex items-center gap-3">
+			<div class="flex flex-col rounded-2xl border border-task-border bg-white p-5 shadow-xs">
+				<div class="mb-3.5 flex items-center gap-2.5">
 					<Icon name="simple-icons:microsoftoutlook" class="size-6 shrink-0 text-[#0078D4]" />
-					<h3 class="font-anton text-base text-task-dark">Microsoft Outlook</h3>
+					<h3 class="font-anton text-base text-task-dark">{t.preview.outlookTitle}</h3>
 				</div>
 				<ol class="flex flex-col gap-2.5 font-outfit text-xs text-task-gray leading-relaxed list-decimal pl-4">
-					<li>Copie a assinatura com o botão <strong>"Copiar Assinatura Formatada"</strong>.</li>
-					<li>No Outlook Web: vá em <strong>Configurações &rarr; E-mail &rarr; Redigir e responder</strong>.</li>
-					<li>No Outlook Desktop: vá em <strong>Arquivo &rarr; Opções &rarr; E-mail &rarr; Assinaturas</strong>.</li>
-					<li>Crie uma assinatura, cole no campo de texto e clique em <strong>Salvar</strong>.</li>
-					<li>O formato em tabelas garante alinhamento consistente mesmo no Outlook Windows.</li>
+					{t.preview.outlookSteps.map((step) => (
+						<li>{step}</li>
+					))}
 				</ol>
 			</div>
 
 			<!-- Apple Mail -->
-			<div class="flex flex-col rounded-2xl border border-task-border bg-task-bg/40 p-5">
-				<div class="mb-3.5 flex items-center gap-3">
+			<div class="flex flex-col rounded-2xl border border-task-border bg-white p-5 shadow-xs">
+				<div class="mb-3.5 flex items-center gap-2.5">
 					<Icon name="simple-icons:apple" class="size-6.5 shrink-0 text-task-dark" />
-					<h3 class="font-anton text-base text-task-dark">Apple Mail (Mac & iOS)</h3>
+					<h3 class="font-anton text-base text-task-dark">{t.preview.appleTitle}</h3>
 				</div>
 				<ol class="flex flex-col gap-2.5 font-outfit text-xs text-task-gray leading-relaxed list-decimal pl-4">
-					<li>Copie a assinatura formatada com o botão acima.</li>
-					<li>No macOS, abra o <strong>Mail &rarr; Ajustes (Settings) &rarr; Assinaturas</strong>.</li>
-					<li>Adicione uma nova assinatura, desmarque a opção <em>"Sempre usar minha fonte padrão"</em>.</li>
-					<li>Cole o conteúdo diretamente na caixa de edição da assinatura.</li>
-					<li>No iPhone/iPad: acesse <strong>Ajustes &rarr; Mail &rarr; Assinatura</strong> e cole.</li>
+					{t.preview.appleSteps.map((step) => (
+						<li>{step}</li>
+					))}
 				</ol>
 			</div>
 		</div>
@@ -1066,10 +980,10 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 				<Icon name="lucide:info" class="size-5 shrink-0 text-task-olive mt-0.5" />
 				<div>
 					<h4 class="font-anton text-sm uppercase tracking-wide text-task-dark">
-						Onde hospedar suas fotos e logotipos?
+						{t.preview.imageHostTitle}
 					</h4>
 					<p class="mt-1 font-outfit text-xs text-task-gray leading-relaxed">
-						Clientes de e-mail exigem que as imagens estejam acessíveis via <strong>link público HTTPS direto</strong> (terminando em .jpg, .png ou .webp). Você pode utilizar a foto do seu próprio site, foto do seu perfil do LinkedIn (aberta ao público), Imgur, Cloudinary ou Google Drive (com permissão pública de visualização direta).
+						{t.preview.imageHostDesc}
 					</p>
 				</div>
 			</div>
@@ -1096,13 +1010,21 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 
 <script>
 	import type { SignatureData, TemplateId, TextSize } from '../../../lib/email-signature/types';
-	import { DEFAULT_SIGNATURE_DATA } from '../../../lib/email-signature/defaults';
+	import type { SupportedLanguage } from '../../../i18n/ui';
 	import { generateSignatureHtml, generateExportDocument } from '../../../lib/email-signature/generator';
 
-	const STORAGE_KEY = 'gabrielcampos_email_sig_state';
+	const appRoot = document.getElementById('email-signature-app');
+	const configData = appRoot?.dataset.config ? JSON.parse(appRoot.dataset.config) : null;
+	const currentLang: SupportedLanguage = (configData?.lang as SupportedLanguage) || 'pt-BR';
+	const defaultData: SignatureData = configData?.defaultData;
+	const toastsI18n = configData?.toasts;
+	const navigationI18n = configData?.navigation;
+
+	// Chave de storage específica por idioma para não misturar dados
+	const STORAGE_KEY = `gabrielcampos_email_sig_state_${currentLang}`;
 
 	// Estado local inicial
-	let signatureState: SignatureData = { ...DEFAULT_SIGNATURE_DATA };
+	let signatureState: SignatureData = { ...defaultData };
 	let currentStep = 1;
 
 	// Carrega dados salvos se existirem
@@ -1111,9 +1033,9 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 		if (saved) {
 			const parsed = JSON.parse(saved);
 			if (parsed.avatarUrl === 'https://gabrielcampos.dev/images/hero.webp') {
-				parsed.avatarUrl = DEFAULT_SIGNATURE_DATA.avatarUrl;
+				parsed.avatarUrl = defaultData.avatarUrl;
 			}
-			signatureState = { ...DEFAULT_SIGNATURE_DATA, ...parsed };
+			signatureState = { ...defaultData, ...parsed };
 		}
 	} catch (e) {
 		console.warn('Erro ao carregar localStorage:', e);
@@ -1298,14 +1220,15 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 
 		if (btnNext && btnNextText) {
 			if (currentStep === 4) {
-				btnNextText.textContent = 'Concluir & Copiar';
+				btnNextText.textContent = navigationI18n?.finish || 'Concluir & Copiar';
 			} else {
-				btnNextText.textContent = 'Avançar';
+				btnNextText.textContent = navigationI18n?.next || 'Avançar';
 			}
 		}
 
 		if (stepIndicatorText) {
-			stepIndicatorText.textContent = `Etapa ${currentStep} de 4`;
+			const template = navigationI18n?.stepIndicator || 'Etapa {current} de 4';
+			stepIndicatorText.textContent = template.replace('{current}', String(currentStep));
 		}
 	}
 
@@ -1316,13 +1239,13 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 		toastTitle.textContent = title;
 		toastDesc.textContent = desc;
 
-		toast.classList.remove('opacity-0', 'translate-y-10');
+		toast.classList.remove('opacity-0', 'translate-y-2');
 		toast.classList.add('opacity-100', 'translate-y-0');
 
 		if (toastTimeout) clearTimeout(toastTimeout);
 		toastTimeout = setTimeout(() => {
 			toast.classList.remove('opacity-100', 'translate-y-0');
-			toast.classList.add('opacity-0', 'translate-y-10');
+			toast.classList.add('opacity-0', 'translate-y-2');
 		}, 4000);
 	}
 
@@ -1341,7 +1264,10 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 						'text/plain': blobText,
 					}),
 				]);
-				showToast('Assinatura copiada com sucesso!', 'Pronta para colar (Cmd+V ou Ctrl+V) no Gmail ou Outlook.');
+				showToast(
+					toastsI18n?.copySuccess || 'Assinatura copiada com sucesso!',
+					toastsI18n?.copySuccessDesc || 'Pronta para colar (Cmd+V ou Ctrl+V) no Gmail ou Outlook.'
+				);
 				triggerSuccessIcon();
 				return;
 			}
@@ -1360,14 +1286,20 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 					selection.addRange(range);
 					document.execCommand('copy');
 					selection.removeAllRanges();
-					showToast('Assinatura copiada!', 'Cole diretamente nas configurações do seu cliente de e-mail.');
+					showToast(
+						toastsI18n?.copyFallback || 'Assinatura copiada!',
+						toastsI18n?.copyFallbackDesc || 'Cole diretamente nas configurações do seu cliente de e-mail.'
+					);
 					triggerSuccessIcon();
 					return;
 				}
 			}
 		} catch (fallbackErr) {
 			console.error('Fallback de cópia falhou:', fallbackErr);
-			showToast('Não foi possível copiar automaticamente', 'Por favor, selecione e copie manualmente ou use "Copiar Código HTML".');
+			showToast(
+				toastsI18n?.copyError || 'Não foi possível copiar automaticamente',
+				toastsI18n?.copyErrorDesc || 'Por favor, selecione e copie manualmente ou use "Copiar Código HTML".'
+			);
 		}
 	}
 
@@ -1380,7 +1312,7 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 			iconNormal.classList.add('hidden');
 			iconSuccess.classList.remove('hidden');
 			const originalText = textEl.textContent;
-			textEl.textContent = 'Copiado para a área de transferência!';
+			textEl.textContent = toastsI18n?.copySuccess || 'Copiado para a área de transferência!';
 
 			setTimeout(() => {
 				iconNormal.classList.remove('hidden');
@@ -1395,7 +1327,10 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 		const html = generateSignatureHtml(signatureState);
 		try {
 			await navigator.clipboard.writeText(html);
-			showToast('Código HTML copiado!', 'Código-fonte pronto para colar em clientes com suporte a HTML direto.');
+			showToast(
+				toastsI18n?.htmlCopied || 'Código HTML copiado!',
+				toastsI18n?.htmlCopiedDesc || 'Código-fonte pronto para colar em clientes com suporte a HTML direto.'
+			);
 		} catch (err) {
 			// Fallback textarea
 			const textarea = document.createElement('textarea');
@@ -1406,26 +1341,32 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 			textarea.select();
 			document.execCommand('copy');
 			document.body.removeChild(textarea);
-			showToast('Código HTML copiado!', 'Código-fonte na área de transferência.');
+			showToast(
+				toastsI18n?.htmlCopied || 'Código HTML copiado!',
+				toastsI18n?.htmlCopiedDesc || 'Código-fonte na área de transferência.'
+			);
 		}
 	}
 
 	// Download de Arquivo .HTML
 	function downloadHtmlFile() {
-		const doc = generateExportDocument(signatureState);
+		const doc = generateExportDocument(signatureState, currentLang);
 		const blob = new Blob([doc], { type: 'text/html;charset=utf-8' });
 		const url = URL.createObjectURL(blob);
 		const a = document.createElement('a');
-		const safeName = (signatureState.fullName || 'assinatura')
+		const safeName = (signatureState.fullName || 'signature')
 			.toLowerCase()
 			.replace(/[^a-z0-9]/g, '-');
 		a.href = url;
-		a.download = `assinatura-${safeName}.html`;
+		a.download = `signature-${safeName}.html`;
 		document.body.appendChild(a);
 		a.click();
 		document.body.removeChild(a);
 		URL.revokeObjectURL(url);
-		showToast('Download iniciado!', 'O arquivo .html foi salvo no seu computador.');
+		showToast(
+			toastsI18n?.downloadStarted || 'Download iniciado!',
+			toastsI18n?.downloadStartedDesc || 'O arquivo .html foi salvo no seu computador.'
+		);
 	}
 
 	// Event Listeners: Stepper Tabs
@@ -1540,17 +1481,21 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 
 	// Ações Rápidas: Preencher Exemplo
 	btnFillExample?.addEventListener('click', () => {
-		signatureState = { ...DEFAULT_SIGNATURE_DATA };
+		signatureState = { ...defaultData };
 		syncFormWithState();
 		updatePreview();
-		showToast('Exemplo carregado!', 'Os campos foram preenchidos com dados completos para demonstração.');
+		showToast(
+			toastsI18n?.exampleLoaded || 'Exemplo carregado!',
+			toastsI18n?.exampleLoadedDesc || 'Os campos foram preenchidos com dados completos para demonstração.'
+		);
 	});
 
 	// Ações Rápidas: Limpar Campos
 	btnClearFields?.addEventListener('click', () => {
-		if (confirm('Deseja realmente limpar todos os campos preenchidos?')) {
+		const confirmMsg = toastsI18n?.confirmClear || 'Deseja realmente limpar todos os campos preenchidos?';
+		if (confirm(confirmMsg)) {
 			signatureState = {
-				...DEFAULT_SIGNATURE_DATA,
+				...defaultData,
 				fullName: '',
 				jobTitle: '',
 				department: '',
@@ -1574,7 +1519,10 @@ const initialHtml = generateSignatureHtml(DEFAULT_SIGNATURE_DATA);
 			};
 			syncFormWithState();
 			updatePreview();
-			showToast('Campos limpos', 'O formulário foi redefinido.');
+			showToast(
+				toastsI18n?.fieldsCleared || 'Campos limpos',
+				toastsI18n?.fieldsClearedDesc || 'O formulário foi redefinido.'
+			);
 		}
 	});
 

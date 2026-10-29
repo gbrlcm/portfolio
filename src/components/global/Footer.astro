@@ -10,6 +10,7 @@ import {
 	TELEGRAM_PHONE,
 	WECHAT_ID,
 } from '../../data/contact';
+import { EMAIL_SIGNATURE_ROUTES } from '../../lib/email-signature/routes';
 import SocialLinks from '../ui/SocialLinks.astro';
 
 export interface Props {
@@ -30,6 +31,7 @@ const isHome =
 const langPrefix = lang === 'pt-BR' ? '/pt' : `/${lang}`;
 const homePrefix = isHome ? '' : `${langPrefix}/`;
 const blogHref = `${langPrefix}/blog`;
+const toolSigHref = EMAIL_SIGNATURE_ROUTES[lang]?.path || EMAIL_SIGNATURE_ROUTES['pt-BR'].path;
 const email: string = getContactEmail(lang);
 const waUrl: string = getWhatsAppUrl(lang);
 const telegramUrl: string = getTelegramUrl();
@@ -74,7 +76,7 @@ const telegramUrl: string = getTelegramUrl();
 					<li><a href={`${homePrefix}#contato`} class="transition-colors hover:underline">{t.footer.links.community}</a></li>
 					<li><a href={`${homePrefix}#faqs`} class="transition-colors hover:underline">{t.footer.links.faqs}</a></li>
 					<li><a href={blogHref} class="transition-colors hover:underline font-medium text-task-dark">Blog</a></li>
-					<li><a href="/ferramentas/gerador-de-assinatura-de-email" class="transition-colors hover:underline text-task-dark">Gerador de Assinatura</a></li>
+					<li><a href={toolSigHref} class="transition-colors hover:underline text-task-dark">{t.footer.links.signatureGenerator}</a></li>
 				</ul>
 			</div>
 

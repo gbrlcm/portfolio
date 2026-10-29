@@ -197,6 +197,7 @@ export const ui = {
 				telegram: 'Telegram',
 				wechat: 'WeChat',
 				customerSupport: 'E-mail Principal',
+				signatureGenerator: 'Gerador de Assinatura',
 			},
 		},
 		quickContact: {
@@ -394,6 +395,7 @@ export const ui = {
 				telegram: 'Telegram',
 				wechat: 'WeChat',
 				customerSupport: 'Primary Email',
+				signatureGenerator: 'Signature Generator',
 			},
 		},
 		quickContact: {
@@ -591,6 +593,7 @@ export const ui = {
 				telegram: 'Telegram',
 				wechat: 'WeChat',
 				customerSupport: 'Correo Principal',
+				signatureGenerator: 'Generador de Firma',
 			},
 		},
 		quickContact: {

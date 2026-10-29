@@ -1,0 +1,63 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+import SignatureGenerator from '../../../components/tools/email-signature/SignatureGenerator.astro';
+import { EMAIL_SIGNATURE_I18N } from '../../../lib/email-signature/i18n';
+import {
+	EMAIL_SIGNATURE_ROUTES,
+	SIGNATURE_CUSTOM_LANGUAGE_URLS,
+	getSignatureHreflangs,
+} from '../../../lib/email-signature/routes';
+
+const lang = 'pt-BR';
+const t = EMAIL_SIGNATURE_I18N[lang];
+const siteUrl = 'https://gabrielcampos.dev';
+const canonicalUrl = `${siteUrl}${EMAIL_SIGNATURE_ROUTES[lang].path}`;
+
+const schemaGraph = [
+	{
+		'@type': 'WebApplication',
+		'@id': `${canonicalUrl}#app`,
+		'url': canonicalUrl,
+		'name': t.meta.appName,
+		'applicationCategory': 'BusinessApplication',
+		'operatingSystem': 'All',
+		'browserRequirements': 'Requires JavaScript. Requires HTML5.',
+		'description': t.meta.description,
+		'offers': {
+			'@type': 'Offer',
+			'price': '0',
+			'priceCurrency': t.meta.offersCurrency,
+		},
+		'creator': {
+			'@type': 'Person',
+			'name': 'Gabriel Campos',
+			'url': siteUrl,
+		},
+	},
+];
+---
+
+<PageLayout
+	{lang}
+	title={t.meta.title}
+	description={t.meta.description}
+	{schemaGraph}
+	customLanguageUrls={SIGNATURE_CUSTOM_LANGUAGE_URLS}
+	customHreflangs={getSignatureHreflangs(siteUrl)}
+>
+	<div class="relative w-full overflow-hidden px-4 pt-10 pb-20 md:px-8 md:pt-14 md:pb-28">
+		<div class="mx-auto w-full max-w-300">
+			<!-- Breadcrumb -->
+			<nav class="mb-6 flex items-center gap-2 font-outfit text-xs text-task-gray" aria-label="Breadcrumb">
+				<a href="/pt/" class="transition-colors hover:text-task-dark">{t.breadcrumbs.home}</a>
+				<span>/</span>
+				<span class="text-task-dark font-medium">{t.breadcrumbs.tools}</span>
+				<span>/</span>
+				<span class="text-task-olive font-semibold">{t.breadcrumbs.current}</span>
+			</nav>
+
+			<!-- Componente Interativo do Gerador -->
+			<SignatureGenerator {lang} />
+		</div>
+	</div>
+</PageLayout>

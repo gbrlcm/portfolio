@@ -26,7 +26,9 @@ export const GET: APIRoute = async ({ site }) => {
 		{ loc: `${baseUrl}/pt/blog/`, priority: '0.9', changefreq: 'daily' },
 		{ loc: `${baseUrl}/en/blog/`, priority: '0.8', changefreq: 'daily' },
 		{ loc: `${baseUrl}/es/blog/`, priority: '0.8', changefreq: 'daily' },
-		{ loc: `${baseUrl}/ferramentas/gerador-de-assinatura-de-email/`, priority: '0.9', changefreq: 'monthly' },
+		{ loc: `${baseUrl}/pt/ferramentas/gerador-de-assinatura-de-email/`, priority: '0.9', changefreq: 'monthly' },
+		{ loc: `${baseUrl}/en/tools/email-signature-generator/`, priority: '0.9', changefreq: 'monthly' },
+		{ loc: `${baseUrl}/es/herramientas/generador-de-firma-de-correo/`, priority: '0.9', changefreq: 'monthly' },
 	];
 
 	// Dynamic blog post routes mapped cleanly by language and slug
