@@ -143,7 +143,7 @@ const schema = {
 					<!-- CookieYes Consent Banner -->
 					<script is:inline defer id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/573752ad712e81805ca1f1e5/script.js"></script>
 
-					<!-- Google Tag Manager / Analytics (gtag.js & GTM) - Deferred loading to preserve initial paint & reduce TBT -->
+					<!-- Google Tag Manager / Analytics / Meta Pixel - Deferred loading to preserve initial paint & reduce TBT -->
 					<script is:inline>
 						window.dataLayer = window.dataLayer || [];
 						function gtag() {
@@ -151,6 +151,23 @@ const schema = {
 						}
 						gtag('js', new Date());
 						gtag('config', 'G-MD22RB1J4Z');
+
+						// Meta Pixel stub
+						!(function (f, b, e, v, n, t, s) {
+							if (f.fbq) return;
+							n = f.fbq = function () {
+								n.callMethod
+									? n.callMethod.apply(n, arguments)
+									: n.queue.push(arguments);
+							};
+							if (!f._fbq) f._fbq = n;
+							n.push = n;
+							n.loaded = !0;
+							n.version = '2.0';
+							n.queue = [];
+						})(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+						fbq('init', '2993310047692425');
+						fbq('track', 'PageView');
 
 						document.addEventListener('astro:page-load', () => {
 							if (window.__gaInitialLoadDone) {
@@ -165,6 +182,9 @@ const schema = {
 									url: window.location.href,
 									title: document.title,
 								});
+								if (typeof window.fbq === 'function') {
+									window.fbq('track', 'PageView');
+								}
 							} else {
 								window.__gaInitialLoadDone = true;
 							}
@@ -185,6 +205,12 @@ const schema = {
 							gaScript.async = true;
 							gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-MD22RB1J4Z';
 							document.head.appendChild(gaScript);
+
+							// Meta Pixel (2993310047692425)
+							const fbScript = document.createElement('script');
+							fbScript.async = true;
+							fbScript.src = 'https://connect.facebook.net/en_US/fbevents.js';
+							document.head.appendChild(fbScript);
 						}
 
 						if ('requestIdleCallback' in window) {
@@ -200,6 +226,15 @@ const schema = {
 							window.addEventListener(evt, loadTracking, { once: true, passive: true });
 						});
 					</script>
+					<noscript>
+						<img
+							height="1"
+							width="1"
+							style="display:none"
+							src="https://www.facebook.com/tr?id=2993310047692425&ev=PageView&noscript=1"
+							alt=""
+						/>
+					</noscript>
 				</>
 			)
 		}
