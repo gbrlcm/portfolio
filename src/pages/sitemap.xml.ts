@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
+import { getPostAbsoluteUrl, validateBlogCollection } from '../lib/blog';
 
 export const prerender = true;
 
@@ -13,21 +14,24 @@ interface SitemapEntry {
 export const GET: APIRoute = async ({ site }) => {
 	const baseUrl = (site ? site.toString() : 'https://gabrielcampos.dev').replace(/\/$/, '');
 
-	// Fetch only non-draft articles
+	// Fetch only non-draft articles and validate collection
 	const posts = await getCollection('blog', ({ data }) => !data.draft);
+	validateBlogCollection(posts);
 
-	// Static core routes
+	// Static core routes for all supported languages
 	const coreUrls: SitemapEntry[] = [
 		{ loc: `${baseUrl}/`, priority: '1.0', changefreq: 'weekly' },
 		{ loc: `${baseUrl}/en/`, priority: '0.8', changefreq: 'weekly' },
 		{ loc: `${baseUrl}/es/`, priority: '0.8', changefreq: 'weekly' },
 		{ loc: `${baseUrl}/blog/`, priority: '0.9', changefreq: 'daily' },
+		{ loc: `${baseUrl}/en/blog/`, priority: '0.8', changefreq: 'daily' },
+		{ loc: `${baseUrl}/es/blog/`, priority: '0.8', changefreq: 'daily' },
 		{ loc: `${baseUrl}/ferramentas/gerador-de-assinatura-de-email/`, priority: '0.9', changefreq: 'monthly' },
 	];
 
-	// Dynamic blog post routes
+	// Dynamic blog post routes mapped cleanly by language and slug
 	const postUrls: SitemapEntry[] = posts.map((post) => ({
-		loc: `${baseUrl}/blog/${post.id}/`,
+		loc: getPostAbsoluteUrl(post, baseUrl),
 		lastmod: (post.data.updatedDate || post.data.pubDate).toISOString().split('T')[0],
 		priority: '0.8',
 		changefreq: 'monthly',

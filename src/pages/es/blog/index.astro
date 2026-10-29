@@ -1,0 +1,181 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import BlogCard from '../../../components/blog/BlogCard.astro';
+import Breadcrumbs from '../../../components/blog/Breadcrumbs.astro';
+import CategoryDropdown from '../../../components/blog/CategoryDropdown.astro';
+import {
+	getBlogPostsByLang,
+	getBlogIndexHreflangs,
+	validateBlogCollection,
+} from '../../../lib/blog';
+
+// Fetch all non-draft articles and validate collection
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+validateBlogCollection(allPosts);
+
+// Filter exclusively for Spanish articles
+const sortedPosts = getBlogPostsByLang(allPosts, 'es');
+
+const [featuredPost, ...otherPosts] = sortedPosts;
+const totalPosts = sortedPosts.length;
+
+// Extract categories from Spanish articles
+const categories = Array.from(
+	new Set(sortedPosts.map((p) => p.data.category).filter(Boolean))
+);
+
+const title = 'Blog y Artículos Técnicos — Gabriel Campos';
+const description =
+	'Artículos prácticos sobre ingeniería de software, arquitectura de sistemas web, rendimiento e integraciones de servicios por Gabriel Campos.';
+const siteUrl = 'https://gabrielcampos.dev';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+
+const customLanguageUrls = {
+	'pt-BR': '/blog',
+	en: '/en/blog',
+	es: '/es/blog',
+};
+
+// Schema.org Structured Data
+const schemaGraph = [
+	{
+		'@type': 'CollectionPage',
+		'@id': `${canonicalUrl}#webpage`,
+		url: canonicalUrl,
+		name: title,
+		description: description,
+		inLanguage: 'es',
+		isPartOf: {
+			'@id': `${siteUrl}/#website`,
+		},
+		about: {
+			'@id': `${siteUrl}/#person`,
+		},
+	},
+	{
+		'@type': 'BreadcrumbList',
+		'@id': `${canonicalUrl}#breadcrumb`,
+		itemListElement: [
+			{
+				'@type': 'ListItem',
+				position: 1,
+				name: 'Inicio',
+				item: `${siteUrl}/es/`,
+			},
+			{
+				'@type': 'ListItem',
+				position: 2,
+				name: 'Blog',
+				item: canonicalUrl,
+			},
+		],
+	},
+];
+---
+
+<PageLayout
+	lang="es"
+	title={title}
+	description={description}
+	ogType="website"
+	schemaGraph={schemaGraph}
+	customHreflangs={getBlogIndexHreflangs(siteUrl)}
+	customLanguageUrls={customLanguageUrls}
+>
+	<div class="mx-auto w-full max-w-6xl pt-10 pb-20 sm:pt-14 sm:pb-28 px-5 md:px-8 lg:px-2">
+		<!-- Breadcrumbs -->
+		<Breadcrumbs
+			items={[
+				{ label: 'Inicio', href: '/es/' },
+				{ label: 'Blog' },
+			]}
+			class="mb-8"
+		/>
+
+		<!-- Section Header -->
+		<header class="max-w-4xl">
+			<h1 class="font-anton text-4xl uppercase tracking-tight text-task-dark sm:text-5xl lg:text-6xl">
+				Blog y Contenido Técnico
+			</h1>
+
+			<p class="mt-4 font-outfit text-base text-task-gray sm:text-lg leading-relaxed max-w-3xl">
+				Reflexiones prácticas sobre desarrollo de sistemas, ingeniería de software, rendimiento web y soluciones técnicas para problemas operativos reales.
+			</p>
+
+			<!-- Search and Category Filters -->
+			{
+				categories.length > 0 && (
+					<div class="mt-8 pt-2">
+						<CategoryDropdown
+							categories={categories}
+							lang="es"
+							categoryLabel="Categoría:"
+							allLabel="Todas las categorías"
+							searchPlaceholder="Buscar artículos por título, tema o contenido..."
+							clearFiltersLabel="Limpiar filtros"
+							resultsCountLabel="artículos encontrados"
+						/>
+					</div>
+				)
+			}
+		</header>
+
+		<!-- Content Listing -->
+		{
+			totalPosts === 0 ? (
+				/* Empty State */
+				<div class="mt-14 rounded-3xl border border-dashed border-task-border bg-white/60 p-12 text-center sm:p-20">
+					<div class="mx-auto flex size-14 items-center justify-center rounded-2xl bg-task-dark text-task-yellow">
+						<span class="font-anton text-2xl">GC</span>
+					</div>
+					<h2 class="mt-5 font-anton text-2xl uppercase tracking-tight text-task-dark sm:text-3xl">
+						No hay artículos publicados por el momento en español
+					</h2>
+					<p class="mx-auto mt-2 max-w-md font-outfit text-sm text-task-gray sm:text-base">
+						Nuevas publicaciones técnicas están en preparación. Mientras tanto, explora nuestros servicios de software o consulta los artículos en portugués.
+					</p>
+					<a
+						href="/es/"
+						class="mt-6 inline-flex items-center justify-center rounded-xl bg-task-yellow px-5 py-2.5 font-outfit text-sm font-semibold text-task-dark transition-all hover:bg-yellow-300"
+					>
+						Volver al inicio
+					</a>
+				</div>
+			) : (
+				<div class="mt-12 space-y-10 sm:mt-14 sm:space-y-12">
+					{/* Empty state for filtered results */}
+					<div
+						data-filter-empty-state
+						class="hidden rounded-3xl border border-dashed border-task-border bg-white/60 p-10 text-center sm:p-14"
+					>
+						<p class="font-anton text-xl uppercase tracking-tight text-task-dark sm:text-2xl">
+							No se encontraron artículos en esta categoría
+						</p>
+						<p class="mt-2 font-outfit text-sm text-task-gray">
+							Prueba seleccionando otra categoría o viendo todas las categorías.
+						</p>
+					</div>
+
+					{/* Featured First Post */}
+					{featuredPost && (
+						<section aria-label="Artículo destacado">
+							<BlogCard post={featuredPost} featured={true} />
+						</section>
+					)}
+
+					{/* Other Posts Grid */}
+					{otherPosts.length > 0 && (
+						<section aria-label="Más artículos">
+							<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+								{otherPosts.map((post) => (
+									<BlogCard post={post} />
+								))}
+							</div>
+						</section>
+					)}
+				</div>
+			)
+		}
+	</div>
+</PageLayout>

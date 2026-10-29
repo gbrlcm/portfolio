@@ -27,6 +27,7 @@ export interface Props {
 	};
 	schemaGraph?: Record<string, unknown>[];
 	showHreflangs?: boolean;
+	customHreflangs?: { lang: string; href: string }[];
 }
 
 const {
@@ -40,6 +41,7 @@ const {
 	articleMeta,
 	schemaGraph = [],
 	showHreflangs = false,
+	customHreflangs,
 } = Astro.props;
 
 const siteUrl: string = Astro.site
@@ -194,7 +196,13 @@ const schema = {
 		{noIndex && <meta name="robots" content="noindex, follow" />}
 
 		{
-			!noIndex &&
+			!noIndex && customHreflangs && customHreflangs.length > 0 &&
+				customHreflangs.map((item) => (
+					<link rel="alternate" hreflang={item.lang} href={item.href} />
+				))
+		}
+		{
+			!noIndex && !customHreflangs &&
 				(showHreflangs || Astro.url.pathname === "/" || Astro.url.pathname === "/en/" || Astro.url.pathname === "/es/") &&
 				hreflangs.map((item) => (
 					<link rel="alternate" hreflang={item.lang} href={item.href} />

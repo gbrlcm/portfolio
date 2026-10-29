@@ -1,15 +1,54 @@
 ---
 import { Icon } from 'astro-icon/components';
+import type { SupportedLanguage } from '../../i18n/ui';
 import { getWhatsAppUrl } from '../../data/contact';
 
 export interface Props {
 	category?: string;
 	class?: string;
+	lang?: SupportedLanguage;
 }
 
-const { category, class: className = '' } = Astro.props;
-const waUrl = getWhatsAppUrl('pt-BR');
-const badgeText = category ? `CONSULTORIA & ${category.toUpperCase()}` : 'ENGENHARIA SOB MEDIDA';
+const { category, class: className = '', lang = 'pt-BR' } = Astro.props;
+const waUrl = getWhatsAppUrl(lang);
+
+const badgeText = category
+	? lang === 'en'
+		? `CONSULTING & ${category.toUpperCase()}`
+		: lang === 'es'
+			? `CONSULTORÍA & ${category.toUpperCase()}`
+			: `CONSULTORIA & ${category.toUpperCase()}`
+	: lang === 'en'
+		? 'CUSTOM ENGINEERING'
+		: lang === 'es'
+			? 'INGENIERÍA A MEDIDA'
+			: 'ENGENHARIA SOB MEDIDA';
+
+const title =
+	lang === 'en'
+		? 'Need technical support for your software architecture or systems?'
+		: lang === 'es'
+			? '¿Necesitas apoyo técnico en tu arquitectura o sistemas de software?'
+			: 'Precisa de apoio técnico no seu projeto ou sistema?';
+
+const description =
+	lang === 'en'
+		? 'I build resilient custom web systems, high-throughput API integrations, and performance diagnostics. Direct collaboration with the engineer, zero intermediaries.'
+		: lang === 'es'
+			? 'Desarrollo sistemas web a medida, integraciones de APIs y diagnóstico de rendimiento. Comunicación directa con el desarrollador, sin intermediarios.'
+			: 'Atuo no desenvolvimento de sistemas web sob medida, integrações de APIs e diagnóstico de performance. Atendimento direto com o desenvolvedor, sem intermediários.';
+
+const ctaPrimary =
+	lang === 'en' ? 'Chat on WhatsApp' : lang === 'es' ? 'Hablar por WhatsApp' : 'Conversar no WhatsApp';
+
+const ctaSecondary =
+	lang === 'en'
+		? 'View services and capabilities'
+		: lang === 'es'
+			? 'Ver servicios y especialidades'
+			: 'Ver serviços e especialidades';
+
+const servicesHref = lang === 'pt-BR' ? '/#servicos' : `/${lang}/#services`;
 ---
 
 <div
@@ -30,11 +69,11 @@ const badgeText = category ? `CONSULTORIA & ${category.toUpperCase()}` : 'ENGENH
 		</div>
 
 		<h3 class="mt-4 font-anton text-2xl uppercase tracking-tight text-white sm:text-3xl lg:text-4xl">
-			Precisa de apoio técnico no seu projeto ou sistema?
+			{title}
 		</h3>
 
 		<p class="mt-3 font-outfit text-base text-task-cream/90 sm:text-lg leading-relaxed">
-			Atuo no desenvolvimento de sistemas web sob medida, integrações de APIs e diagnóstico de performance. Atendimento direto com o desenvolvedor, sem intermediários.
+			{description}
 		</p>
 
 		<div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -45,14 +84,14 @@ const badgeText = category ? `CONSULTORIA & ${category.toUpperCase()}` : 'ENGENH
 				class="inline-flex items-center justify-center gap-2 rounded-xl bg-task-yellow px-6 py-3.5 font-outfit text-sm font-semibold text-task-dark transition-all duration-200 hover:-translate-y-0.5 hover:bg-yellow-300 active:scale-95 shadow-md"
 			>
 				<Icon name="simple-icons:whatsapp" class="size-4 text-task-dark" />
-				<span>Conversar no WhatsApp</span>
+				<span>{ctaPrimary}</span>
 			</a>
 
 			<a
-				href="/#servicos"
+				href={servicesHref}
 				class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-6 py-3.5 font-outfit text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10 active:scale-95"
 			>
-				<span>Ver serviços e especialidades</span>
+				<span>{ctaSecondary}</span>
 				<Icon name="lucide:arrow-up-right" class="size-4" />
 			</a>
 		</div>

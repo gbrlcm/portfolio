@@ -3,9 +3,17 @@ export interface Props {
 	currentPage: number;
 	totalPages: number;
 	basePath?: string;
+	prevLabel?: string;
+	nextLabel?: string;
 }
 
-const { currentPage, totalPages, basePath = '/blog' } = Astro.props;
+const {
+	currentPage,
+	totalPages,
+	basePath = '/blog',
+	prevLabel = '← Anterior',
+	nextLabel = 'Próxima →',
+} = Astro.props;
 
 function getPageUrl(p: number) {
 	if (p === 1) return basePath;
@@ -19,7 +27,7 @@ function getPaginationItems(current: number, total: number) {
 	}
 
 	const items: (number | string)[] = [];
-	
+
 	// Always include first page
 	items.push(1);
 
@@ -49,14 +57,14 @@ const paginationItems = getPaginationItems(currentPage, totalPages);
 
 {
 	totalPages > 1 && (
-		<nav aria-label="Paginação do blog" class="mt-12 flex flex-wrap items-center justify-center gap-2">
+		<nav data-blog-pagination aria-label="Paginação do blog" class="mt-12 flex flex-wrap items-center justify-center gap-2">
 			{currentPage > 1 && (
 				<a
 					href={getPageUrl(currentPage - 1)}
 					class="rounded-xl border border-task-border bg-white px-4 py-2 font-outfit text-sm font-semibold text-task-dark transition-colors hover:bg-task-border/40"
-					aria-label="Página anterior"
+					aria-label={prevLabel}
 				>
-					← Anterior
+					{prevLabel}
 				</a>
 			)}
 
@@ -98,9 +106,9 @@ const paginationItems = getPaginationItems(currentPage, totalPages);
 				<a
 					href={getPageUrl(currentPage + 1)}
 					class="rounded-xl border border-task-border bg-white px-4 py-2 font-outfit text-sm font-semibold text-task-dark transition-colors hover:bg-task-border/40"
-					aria-label="Próxima página"
+					aria-label={nextLabel}
 				>
-					Próxima →
+					{nextLabel}
 				</a>
 			)}
 		</nav>

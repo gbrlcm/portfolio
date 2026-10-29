@@ -1,6 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 import type { CollectionEntry } from 'astro:content';
+import { getPostUrl, getPostLang, getPostSlug } from '../../lib/blog';
 
 export interface Props {
 	post: CollectionEntry<'blog'>;
@@ -10,7 +11,12 @@ export interface Props {
 const { post, featured = false } = Astro.props;
 const { title, description, pubDate, cover, coverAlt, category } = post.data;
 
-const formattedDate = new Intl.DateTimeFormat('pt-BR', {
+const postLang = getPostLang(post);
+const postSlug = getPostSlug(post);
+const postUrl = getPostUrl(post);
+
+const locale = postLang === 'en' ? 'en-US' : postLang === 'es' ? 'es-ES' : 'pt-BR';
+const formattedDate = new Intl.DateTimeFormat(locale, {
 	day: '2-digit',
 	month: 'short',
 	year: 'numeric',
@@ -19,9 +25,23 @@ const formattedDate = new Intl.DateTimeFormat('pt-BR', {
 // Calculate estimated reading time
 const words = (post.body ?? '').trim().split(/\s+/).filter(Boolean).length;
 const readTimeMinutes = Math.max(1, Math.ceil(words / 200));
+
+const readTimeLabel =
+	postLang === 'en'
+		? `${readTimeMinutes} min read`
+		: postLang === 'es'
+			? `${readTimeMinutes} min de lectura`
+			: `${readTimeMinutes} min de leitura`;
+
+const readArticleLabel =
+	postLang === 'en' ? 'Read article' : postLang === 'es' ? 'Leer artículo' : 'Ler artigo';
 ---
 
 <article
+	data-category={category}
+	data-slug={postSlug}
+	data-title={title}
+	data-description={description}
 	class:list={[
 		'group relative flex flex-col overflow-hidden rounded-2xl border border-task-border bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg',
 		featured ? 'lg:grid lg:grid-cols-12 lg:gap-8 items-stretch' : '',
@@ -29,7 +49,7 @@ const readTimeMinutes = Math.max(1, Math.ceil(words / 200));
 >
 	<!-- Cover Image Container -->
 	<a
-		href={`/blog/${post.id}`}
+		href={postUrl}
 		class:list={[
 			'relative block overflow-hidden bg-task-border/40 aspect-16/10',
 			featured ? 'lg:col-span-7 lg:aspect-auto' : '',
@@ -78,7 +98,7 @@ const readTimeMinutes = Math.max(1, Math.ceil(words / 200));
 				</span>
 				<span class="text-task-gray/80 font-outfit">·</span>
 				<span class="text-task-gray font-outfit font-medium">
-					{readTimeMinutes} min de leitura
+					{readTimeLabel}
 				</span>
 			</div>
 
@@ -89,7 +109,7 @@ const readTimeMinutes = Math.max(1, Math.ceil(words / 200));
 					featured ? 'text-2xl sm:text-3xl lg:text-4xl leading-[1.15]' : 'text-xl sm:text-2xl leading-tight',
 				]}
 			>
-				<a href={`/blog/${post.id}`} class="focus:outline-none focus:underline">
+				<a href={postUrl} class="focus:outline-none focus:underline">
 					<span class="absolute inset-0" aria-hidden="true"></span>
 					{title}
 				</a>
@@ -113,7 +133,7 @@ const readTimeMinutes = Math.max(1, Math.ceil(words / 200));
 			</time>
 
 			<span class="inline-flex items-center gap-1.5 font-semibold text-task-dark group-hover:text-[#184a34]">
-				<span>Ler artigo</span>
+				<span>{readArticleLabel}</span>
 				<Icon
 					name="lucide:arrow-right"
 					class="size-4 transition-transform duration-300 group-hover:translate-x-1"

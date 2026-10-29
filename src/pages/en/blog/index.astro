@@ -1,0 +1,181 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import BlogCard from '../../../components/blog/BlogCard.astro';
+import Breadcrumbs from '../../../components/blog/Breadcrumbs.astro';
+import CategoryDropdown from '../../../components/blog/CategoryDropdown.astro';
+import {
+	getBlogPostsByLang,
+	getBlogIndexHreflangs,
+	validateBlogCollection,
+} from '../../../lib/blog';
+
+// Fetch all non-draft articles and validate collection
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+validateBlogCollection(allPosts);
+
+// Filter exclusively for English articles
+const sortedPosts = getBlogPostsByLang(allPosts, 'en');
+
+const [featuredPost, ...otherPosts] = sortedPosts;
+const totalPosts = sortedPosts.length;
+
+// Extract categories from English articles
+const categories = Array.from(
+	new Set(sortedPosts.map((p) => p.data.category).filter(Boolean))
+);
+
+const title = 'Blog & Technical Writing — Gabriel Campos';
+const description =
+	'Practical articles on software engineering, distributed systems architecture, database internals, and web performance by Gabriel Campos.';
+const siteUrl = 'https://gabrielcampos.dev';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+
+const customLanguageUrls = {
+	'pt-BR': '/blog',
+	en: '/en/blog',
+	es: '/es/blog',
+};
+
+// Schema.org Structured Data
+const schemaGraph = [
+	{
+		'@type': 'CollectionPage',
+		'@id': `${canonicalUrl}#webpage`,
+		url: canonicalUrl,
+		name: title,
+		description: description,
+		inLanguage: 'en',
+		isPartOf: {
+			'@id': `${siteUrl}/#website`,
+		},
+		about: {
+			'@id': `${siteUrl}/#person`,
+		},
+	},
+	{
+		'@type': 'BreadcrumbList',
+		'@id': `${canonicalUrl}#breadcrumb`,
+		itemListElement: [
+			{
+				'@type': 'ListItem',
+				position: 1,
+				name: 'Home',
+				item: `${siteUrl}/en/`,
+			},
+			{
+				'@type': 'ListItem',
+				position: 2,
+				name: 'Blog',
+				item: canonicalUrl,
+			},
+		],
+	},
+];
+---
+
+<PageLayout
+	lang="en"
+	title={title}
+	description={description}
+	ogType="website"
+	schemaGraph={schemaGraph}
+	customHreflangs={getBlogIndexHreflangs(siteUrl)}
+	customLanguageUrls={customLanguageUrls}
+>
+	<div class="mx-auto w-full max-w-6xl pt-10 pb-20 sm:pt-14 sm:pb-28 px-5 md:px-8 lg:px-2">
+		<!-- Breadcrumbs -->
+		<Breadcrumbs
+			items={[
+				{ label: 'Home', href: '/en/' },
+				{ label: 'Blog' },
+			]}
+			class="mb-8"
+		/>
+
+		<!-- Section Header -->
+		<header class="max-w-4xl">
+			<h1 class="font-anton text-4xl uppercase tracking-tight text-task-dark sm:text-5xl lg:text-6xl">
+				Blog & Technical Writing
+			</h1>
+
+			<p class="mt-4 font-outfit text-base text-task-gray sm:text-lg leading-relaxed max-w-3xl">
+				Practical insights on software systems architecture, database internals, high-performance web engineering, and solutions to real operational bottlenecks.
+			</p>
+
+			<!-- Search and Category Filters -->
+			{
+				categories.length > 0 && (
+					<div class="mt-8 pt-2">
+						<CategoryDropdown
+							categories={categories}
+							lang="en"
+							categoryLabel="Category:"
+							allLabel="All categories"
+							searchPlaceholder="Search articles by title, topic, or content..."
+							clearFiltersLabel="Clear filters"
+							resultsCountLabel="articles found"
+						/>
+					</div>
+				)
+			}
+		</header>
+
+		<!-- Content Listing -->
+		{
+			totalPosts === 0 ? (
+				/* Empty State */
+				<div class="mt-14 rounded-3xl border border-dashed border-task-border bg-white/60 p-12 text-center sm:p-20">
+					<div class="mx-auto flex size-14 items-center justify-center rounded-2xl bg-task-dark text-task-yellow">
+						<span class="font-anton text-2xl">GC</span>
+					</div>
+					<h2 class="mt-5 font-anton text-2xl uppercase tracking-tight text-task-dark sm:text-3xl">
+						No articles published yet in English
+					</h2>
+					<p class="mx-auto mt-2 max-w-md font-outfit text-sm text-task-gray sm:text-base">
+						New technical deep-dives are in preparation. In the meantime, explore our engineering services or view articles in Portuguese.
+					</p>
+					<a
+						href="/en/"
+						class="mt-6 inline-flex items-center justify-center rounded-xl bg-task-yellow px-5 py-2.5 font-outfit text-sm font-semibold text-task-dark transition-all hover:bg-yellow-300"
+					>
+						Return to homepage
+					</a>
+				</div>
+			) : (
+				<div class="mt-12 space-y-10 sm:mt-14 sm:space-y-12">
+					{/* Empty state for filtered results */}
+					<div
+						data-filter-empty-state
+						class="hidden rounded-3xl border border-dashed border-task-border bg-white/60 p-10 text-center sm:p-14"
+					>
+						<p class="font-anton text-xl uppercase tracking-tight text-task-dark sm:text-2xl">
+							No articles found in this category
+						</p>
+						<p class="mt-2 font-outfit text-sm text-task-gray">
+							Try selecting another category or view all categories.
+						</p>
+					</div>
+
+					{/* Featured First Post */}
+					{featuredPost && (
+						<section aria-label="Featured article">
+							<BlogCard post={featuredPost} featured={true} />
+						</section>
+					)}
+
+					{/* Other Posts Grid */}
+					{otherPosts.length > 0 && (
+						<section aria-label="More articles">
+							<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+								{otherPosts.map((post) => (
+									<BlogCard post={post} />
+								))}
+							</div>
+						</section>
+					)}
+				</div>
+			)
+		}
+	</div>
+</PageLayout>

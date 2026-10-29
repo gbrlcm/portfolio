@@ -7,15 +7,24 @@ import { getWhatsAppUrl } from '../../data/contact';
 export interface Props {
 	lang?: SupportedLanguage;
 	class?: string;
+	customLanguageUrls?: Partial<Record<SupportedLanguage, string>>;
 }
 
-const { lang = 'pt-BR', class: className = '' } = Astro.props;
+const { lang = 'pt-BR', class: className = '', customLanguageUrls } = Astro.props;
 const t = useTranslations(lang)();
 const pathname = Astro.url.pathname;
 const isHome = pathname === '/' || pathname === '/en/' || pathname === '/en' || pathname === '/es/' || pathname === '/es';
 const homePrefix = isHome ? '' : (lang === 'pt-BR' ? '/' : `/${lang}/`);
-const isBlog = pathname.startsWith('/blog');
+const isBlog = pathname.startsWith('/blog') || pathname.startsWith('/en/blog') || pathname.startsWith('/es/blog');
+const blogHref = lang === 'pt-BR' ? '/blog' : `/${lang}/blog`;
 const waUrl: string = getWhatsAppUrl(lang);
+
+function resolveLangHref(targetCode: SupportedLanguage): string {
+	if (customLanguageUrls && customLanguageUrls[targetCode]) {
+		return customLanguageUrls[targetCode]!;
+	}
+	return getLocalizedPath(pathname, targetCode);
+}
 
 const languages: { code: SupportedLanguage; label: string; fullLabel: string; index: number }[] = [
 	{ code: 'pt-BR', label: 'PT', fullLabel: 'Português', index: 0 },
@@ -89,7 +98,7 @@ const i18nLabel = langLabels[lang] || langLabels['pt-BR'];
 				{t.nav.faqs}
 			</a>
 			<a
-				href="/blog"
+				href={blogHref}
 				class={`group relative flex items-center font-outfit text-sm lg:text-base font-medium transition-colors hover:text-task-dark ${
 					isBlog ? 'font-semibold text-task-dark' : 'text-task-gray'
 				}`}
@@ -123,7 +132,7 @@ const i18nLabel = langLabels[lang] || langLabels['pt-BR'];
 						const isActive = lang === item.code;
 						return (
 							<a
-								href={getLocalizedPath(pathname, item.code)}
+								href={resolveLangHref(item.code)}
 								data-index={item.index}
 								class={`lang-btn relative z-10 flex h-6 w-8 items-center justify-center rounded-full text-xs font-semibold transition-colors duration-200 ${
 									isActive ? 'text-white' : 'text-task-dark/70 hover:text-task-dark'
@@ -163,7 +172,7 @@ const i18nLabel = langLabels[lang] || langLabels['pt-BR'];
 							const isActive = lang === item.code;
 							return (
 								<a
-									href={getLocalizedPath(pathname, item.code)}
+									href={resolveLangHref(item.code)}
 									class={`flex items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold transition-colors ${
 										isActive
 											? 'bg-task-dark text-white'
@@ -264,7 +273,7 @@ const i18nLabel = langLabels[lang] || langLabels['pt-BR'];
 							const isActive = lang === item.code;
 							return (
 								<a
-									href={getLocalizedPath(pathname, item.code)}
+									href={resolveLangHref(item.code)}
 									class={`flex items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold transition-colors ${
 										isActive
 											? 'bg-task-dark text-white'
@@ -330,7 +339,7 @@ const i18nLabel = langLabels[lang] || langLabels['pt-BR'];
 					{t.nav.faqs}
 				</a>
 				<a
-					href="/blog"
+					href={blogHref}
 					class={`mobile-nav-link font-outfit text-lg font-medium hover:text-black ${
 						isBlog ? 'font-bold text-task-dark underline decoration-task-yellow decoration-2 underline-offset-4' : 'text-task-dark'
 					}`}
@@ -360,7 +369,7 @@ const i18nLabel = langLabels[lang] || langLabels['pt-BR'];
 						const isActive = lang === item.code;
 						return (
 							<a
-								href={getLocalizedPath(pathname, item.code)}
+								href={resolveLangHref(item.code)}
 								data-index={item.index}
 								class={`lang-btn relative z-10 flex h-10 flex-1 items-center justify-center rounded-xl text-xs font-semibold transition-colors duration-200 ${
 									isActive ? 'text-white' : 'text-task-dark/70 hover:text-task-dark'

@@ -22,6 +22,8 @@ export interface Props {
 	};
 	schemaGraph?: Record<string, unknown>[];
 	showHreflangs?: boolean;
+	customHreflangs?: { lang: string; href: string }[];
+	customLanguageUrls?: Partial<Record<SupportedLanguage, string>>;
 }
 
 const {
@@ -35,6 +37,8 @@ const {
 	articleMeta,
 	schemaGraph,
 	showHreflangs,
+	customHreflangs,
+	customLanguageUrls,
 } = Astro.props;
 ---
 
@@ -49,8 +53,9 @@ const {
 	{articleMeta}
 	{schemaGraph}
 	{showHreflangs}
+	{customHreflangs}
 >
-	<Navbar {lang} />
+	<Navbar {lang} {customLanguageUrls} />
 
 	<main id="main" class="w-full">
 		<slot />

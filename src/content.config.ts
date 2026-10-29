@@ -15,6 +15,11 @@ const blog = defineCollection({
 		category: z.string().min(1, 'A categoria é obrigatória'),
 		tags: z.array(z.string()).default([]),
 		draft: z.boolean().default(false),
+		lang: z
+			.enum(['pt-BR', 'pt-br', 'en', 'es'])
+			.default('pt-BR')
+			.transform((val) => (val.toLowerCase() === 'pt-br' ? 'pt-BR' : val) as 'pt-BR' | 'en' | 'es'),
+		translationKey: z.string().optional(),
 	}),
 });
 

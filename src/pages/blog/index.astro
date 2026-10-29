@@ -3,24 +3,26 @@ import { getCollection } from 'astro:content';
 import PageLayout from '../../layouts/PageLayout.astro';
 import BlogCard from '../../components/blog/BlogCard.astro';
 import Breadcrumbs from '../../components/blog/Breadcrumbs.astro';
-import Pagination from '../../components/blog/Pagination.astro';
+import CategoryDropdown from '../../components/blog/CategoryDropdown.astro';
+import {
+	getBlogPostsByLang,
+	getBlogIndexHreflangs,
+	validateBlogCollection,
+} from '../../lib/blog';
 
-// Fetch only non-draft articles and sort newest to oldest
+// Fetch all non-draft articles and validate collection
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
-const sortedPosts = allPosts.sort(
-	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
-);
+validateBlogCollection(allPosts);
 
-const POSTS_PER_PAGE = 6;
+// Filter exclusively for pt-BR articles
+const sortedPosts = getBlogPostsByLang(allPosts, 'pt-BR');
+
+const [featuredPost, ...otherPosts] = sortedPosts;
 const totalPosts = sortedPosts.length;
-const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
-const currentPagePosts = sortedPosts.slice(0, POSTS_PER_PAGE);
 
-const [featuredPost, ...otherPosts] = currentPagePosts;
-
-// Extract categories
+// Extract categories from pt-BR articles
 const categories = Array.from(
-	new Set(allPosts.map((p) => p.data.category).filter(Boolean))
+	new Set(sortedPosts.map((p) => p.data.category).filter(Boolean))
 );
 
 const title = 'Blog & Artigos Técnicos — Gabriel Campos';
@@ -28,6 +30,12 @@ const description =
 	'Artigos sobre engenharia de software, arquitetura de sistemas web, otimização de performance e boas práticas de desenvolvimento.';
 const siteUrl = 'https://gabrielcampos.dev';
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+
+const customLanguageUrls = {
+	'pt-BR': '/blog',
+	en: '/en/blog',
+	es: '/es/blog',
+};
 
 // Schema.org Structured Data
 const schemaGraph = [
@@ -37,6 +45,7 @@ const schemaGraph = [
 		url: canonicalUrl,
 		name: title,
 		description: description,
+		inLanguage: 'pt-BR',
 		isPartOf: {
 			'@id': `${siteUrl}/#website`,
 		},
@@ -71,6 +80,8 @@ const schemaGraph = [
 	description={description}
 	ogType="website"
 	schemaGraph={schemaGraph}
+	customHreflangs={getBlogIndexHreflangs(siteUrl)}
+	customLanguageUrls={customLanguageUrls}
 >
 	<div class="mx-auto w-full max-w-6xl pt-10 pb-20 sm:pt-14 sm:pb-28 px-5 md:px-8 lg:px-2">
 		<!-- Breadcrumbs -->
@@ -83,25 +94,20 @@ const schemaGraph = [
 		/>
 
 		<!-- Section Header -->
-		<header class="max-w-3xl">
+		<header class="max-w-4xl">
 			<h1 class="font-anton text-4xl uppercase tracking-tight text-task-dark sm:text-5xl lg:text-6xl">
 				Blog & Conteúdo Técnico
 			</h1>
 
-			<p class="mt-4 font-outfit text-base text-task-gray sm:text-lg leading-relaxed">
+			<p class="mt-4 font-outfit text-base text-task-gray sm:text-lg leading-relaxed max-w-3xl">
 				Reflexões práticas sobre desenvolvimento de sistemas, engenharia de software, performance web e soluções para problemas reais de operação.
 			</p>
 
-			<!-- Categories Bar -->
+			<!-- Search and Category Filters -->
 			{
 				categories.length > 0 && (
-					<div class="mt-6 flex flex-wrap items-center gap-2 pt-2">
-						<span class="font-outfit text-xs font-medium text-task-gray">Categorias:</span>
-						{categories.map((cat) => (
-							<span class="rounded-lg border border-task-border bg-white px-3 py-1 font-outfit text-xs font-medium text-task-dark shadow-2xs">
-								{cat}
-							</span>
-						))}
+					<div class="mt-8 pt-2">
+						<CategoryDropdown categories={categories} lang="pt-BR" />
 					</div>
 				)
 			}
@@ -130,6 +136,19 @@ const schemaGraph = [
 				</div>
 			) : (
 				<div class="mt-12 space-y-10 sm:mt-14 sm:space-y-12">
+					{/* Empty state for filtered results */}
+					<div
+						data-filter-empty-state
+						class="hidden rounded-3xl border border-dashed border-task-border bg-white/60 p-10 text-center sm:p-14"
+					>
+						<p class="font-anton text-xl uppercase tracking-tight text-task-dark sm:text-2xl">
+							Nenhum artigo nesta categoria
+						</p>
+						<p class="mt-2 font-outfit text-sm text-task-gray">
+							Tente selecionar outra categoria ou voltar para todas as categorias.
+						</p>
+					</div>
+
 					{/* Featured First Post */}
 					{featuredPost && (
 						<section aria-label="Artigo em destaque">
@@ -147,9 +166,6 @@ const schemaGraph = [
 							</div>
 						</section>
 					)}
-
-					{/* Pagination Controls */}
-					<Pagination currentPage={1} totalPages={totalPages} basePath="/blog" />
 				</div>
 			)
 		}

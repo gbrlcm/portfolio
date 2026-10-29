@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
+import type { SupportedLanguage } from '../../i18n/ui';
 
 export interface HeadingItem {
 	depth: number;
@@ -10,12 +11,18 @@ export interface HeadingItem {
 export interface Props {
 	headings: HeadingItem[];
 	class?: string;
+	lang?: SupportedLanguage;
 }
 
-const { headings, class: className = '' } = Astro.props;
+const { headings, class: className = '', lang = 'pt-BR' } = Astro.props;
 
 // Filter for h2 and h3
 const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+
+const titleText =
+	lang === 'en' ? 'Table of Contents' : lang === 'es' ? 'Índice de contenidos' : 'Índice de conteúdo';
+const navLabel =
+	lang === 'en' ? 'Article outline' : lang === 'es' ? 'Sumario del artículo' : 'Sumário do artigo';
 ---
 
 {
@@ -30,11 +37,11 @@ const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 			<div class="flex items-center gap-2 border-b border-task-border pb-3">
 				<Icon name="lucide:list" class="size-4 text-task-dark" aria-hidden="true" />
 				<h2 id="toc-heading" class="font-anton text-base tracking-wide uppercase text-task-dark">
-					Índice de conteúdo
+					{titleText}
 				</h2>
 			</div>
 
-			<nav class="mt-4" aria-label="Sumário do artigo">
+			<nav class="mt-4" aria-label={navLabel}>
 				<ul class="flex flex-col gap-2 font-outfit text-sm">
 					{tocHeadings.map((heading) => {
 						const isSub = heading.depth === 3;
