@@ -110,6 +110,7 @@ const {
 							<Image
 								src={item.image}
 								widths={[480, 768, 1024]}
+								quality={65}
 								sizes="(min-width: 1080px) 952px, calc(100vw - 4.5rem)"
 								alt={item.title}
 								title={item.title}
@@ -529,10 +530,8 @@ const {
 				});
 			});
 
-			// Card Click (focus clicked card)
 			this.cards.forEach((card, index) => {
 				card.addEventListener('click', (e) => {
-					// Ignore if clicking an active button/link or if was dragging
 					if (this.isDragging) return;
 					const target = e.target as HTMLElement;
 					if (target.closest('a') || target.closest('button')) return;
