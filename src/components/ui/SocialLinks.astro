@@ -165,6 +165,7 @@ const socialItems: SocialItem[] = [
 </ul>
 
 <script>
+	import { copyText } from '../../lib/clipboard';
 	function setupSocialCopy() {
 		document.querySelectorAll<HTMLButtonElement>('[data-social-copy-btn]').forEach((btn) => {
 			if (btn.dataset.copyInit === 'true') return;
@@ -175,19 +176,7 @@ const socialItems: SocialItem[] = [
 				if (!value) return;
 
 				try {
-					if (navigator.clipboard && window.isSecureContext) {
-						await navigator.clipboard.writeText(value);
-					} else {
-						const textArea = document.createElement('textarea');
-						textArea.value = value;
-						textArea.style.position = 'fixed';
-						textArea.style.left = '-999999px';
-						document.body.appendChild(textArea);
-						textArea.focus();
-						textArea.select();
-						document.execCommand('copy');
-						textArea.remove();
-					}
+					await copyText(value);
 
 					const label = btn.querySelector<HTMLElement>('.social-btn-label');
 					const copiedText = btn.dataset.copiedText || 'Copiado!';

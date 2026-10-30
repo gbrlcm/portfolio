@@ -81,6 +81,7 @@ const contactButtons = [
 </aside>
 
 <script>
+	import { copyText } from '../../lib/clipboard';
 	function setupQuickWechat() {
 		const btn = document.querySelector<HTMLButtonElement>('[data-quick-wechat-btn]');
 		if (!btn || btn.dataset.wechatInit === 'true') return;
@@ -95,19 +96,7 @@ const contactButtons = [
 			if (!wechatId) return;
 
 			try {
-				if (navigator.clipboard && window.isSecureContext) {
-					await navigator.clipboard.writeText(wechatId);
-				} else {
-					const textArea = document.createElement('textarea');
-					textArea.value = wechatId;
-					textArea.style.position = 'fixed';
-					textArea.style.left = '-999999px';
-					document.body.appendChild(textArea);
-					textArea.focus();
-					textArea.select();
-					document.execCommand('copy');
-					textArea.remove();
-				}
+				await copyText(wechatId);
 
 				if (tooltip) {
 					tooltip.textContent = copiedTooltip;
