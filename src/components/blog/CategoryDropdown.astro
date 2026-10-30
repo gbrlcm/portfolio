@@ -50,7 +50,7 @@ const sortedCategories = [...categories].sort((a, b) => a.localeCompare(b));
 			<button
 				type="button"
 				data-clear-search
-				class="hidden absolute inset-y-0 right-0 flex items-center pr-3 text-task-gray hover:text-task-dark focus:outline-none"
+				class="absolute inset-y-0 right-0 flex items-center pr-3 text-task-gray hover:text-task-dark focus:outline-none"
 				aria-label="Limpar busca"
 			>
 				<Icon name="lucide:x" class="size-4" aria-hidden="true" />
@@ -70,7 +70,7 @@ const sortedCategories = [...categories].sort((a, b) => a.localeCompare(b));
 					aria-haspopup="listbox"
 					class="group inline-flex items-center gap-2.5 rounded-xl border border-task-border bg-white px-3.5 py-2 font-outfit text-xs sm:text-sm font-medium text-task-dark shadow-2xs transition-all hover:border-task-dark/30 hover:bg-neutral-50/80 focus:outline-none focus:ring-2 focus:ring-task-dark/10 active:scale-[0.99]"
 				>
-					<span data-selected-label class="max-w-[180px] truncate text-task-dark font-medium">
+					<span data-selected-label class="max-w-45 truncate text-task-dark font-medium">
 						{selectedCategory === 'all' ? allLabel : selectedCategory}
 					</span>
 					<Icon
@@ -84,7 +84,7 @@ const sortedCategories = [...categories].sort((a, b) => a.localeCompare(b));
 				<div
 					data-dropdown-menu
 					role="listbox"
-					class="invisible opacity-0 pointer-events-none absolute left-0 sm:left-auto sm:right-0 top-[calc(100%+6px)] z-30 min-w-[240px] max-w-[320px] max-h-80 overflow-y-auto rounded-2xl border border-task-border bg-white p-1.5 shadow-xl transition-all duration-150 ease-out origin-top-left sm:origin-top-right"
+					class="invisible opacity-0 pointer-events-none absolute left-0 sm:left-auto sm:right-0 top-[calc(100%+6px)] z-30 min-w-60 max-w-[320px] max-h-80 overflow-y-auto rounded-2xl border border-task-border bg-white p-1.5 shadow-xl transition-all duration-150 ease-out origin-top-left sm:origin-top-right"
 				>
 					<!-- All Option -->
 					<button
