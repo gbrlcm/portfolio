@@ -1,4 +1,4 @@
-import type { SupportedLanguage } from '../i18n/ui';
+import type { SupportedLanguage } from '../../i18n/ui';
 
 export interface ToolRouteDefinition {
 	slug: string;

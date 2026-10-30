@@ -1,5 +1,5 @@
 import type { SignatureData } from './types';
-import type { SupportedLanguage } from '../i18n/ui';
+import type { SupportedLanguage } from '../../i18n/ui';
 import { EMAIL_SIGNATURE_I18N } from './i18n';
 import { renderClassicTemplate } from './templates/classic';
 import { renderMinimalTemplate } from './templates/minimal';

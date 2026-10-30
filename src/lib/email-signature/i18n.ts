@@ -1,5 +1,5 @@
 import type { SignatureData } from './types';
-import type { SupportedLanguage } from '../i18n/ui';
+import type { SupportedLanguage } from '../../i18n/ui';
 
 export interface SignatureTranslations {
 	meta: {
