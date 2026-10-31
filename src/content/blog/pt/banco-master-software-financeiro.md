@@ -159,8 +159,6 @@ Monitorar CPU e latência é necessário, mas não basta. Em sistemas financeiro
 
 Uma conclusão que me parece segura: o caso Master não foi, na sua essência, uma falha de tecnologia. Foi, segundo o que já foi apurado e o que ainda está sendo investigado, uma combinação de modelo de negócio, governança e supervisão. Mas a tecnologia é o lugar onde muitas dessas decisões ficam visíveis, ou ficam escondidas. Um sistema que concilia tudo, registra tudo e não aceita lançamento sem contrapartida não impede uma fraude decidida no topo, mas torna muito mais difícil sustentá-la por muito tempo.
 
-Para outro caso em que a integridade dos registros é a função principal do sistema, veja o artigo sobre [mandados falsos no BNMP](/blog/bnmp-mandados-falsos-sistemas-criticos).
-
 ## Referências
 
 Este artigo é um estudo baseado nas fontes abaixo. Trechos marcados como opinião refletem a minha leitura. Fatos atribuídos a investigadores são alegações em apuração, e as investigações seguiam em andamento quando o texto foi escrito (outubro de 2026).
