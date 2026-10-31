@@ -3,6 +3,8 @@ title: "MES, ERP, SCADA e historiadores: diferenças e integração"
 description: "Comparativo técnico entre MES, ERP, SCADA e historiadores: o que cada um recebe e produz, como se integram e o que quebra quando a integração é ruim."
 pubDate: 2026-10-31T11:00:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/mes-erp-scada-historian-diferencas-e-integracao.webp"
+coverAlt: "Ilustração com quatro caixas, ERP, MES, SCADA e Historian, ligadas por setas"
 category: "Automação Industrial"
 tags:
   - "MES"
@@ -104,20 +106,10 @@ Com dados sintéticos de 10 em 10 minutos entre 08h e 10h, e duas amostras marca
 
 Um desenho conceitual, **ilustrativo**, não uma arquitetura obrigatória:
 
-```text
-  ERP ◄──────── transações de negócio ────────► MES
- (nível 4)        (ordens, retorno de produção)  (nível 3)
-                                                 ▲   │
-                         eventos, contagens,     │   │ receita, parâmetros
-                         estados, qualidade      │   ▼
-                         ┌───────────────────────┴───────┐
-   Historiador ◄─ tags ──┤   Camada de integração        │
-   (séries temporais)    │   (OPC UA, gateway, fila)     │
-                         └───────┬───────────────┬───────┘
-                                 │               │
-                              SCADA/HMI        PLCs ──► sensores/atuadores
-                           (supervisão)       (controle)
-```
+<figure>
+  <img src="/images/blog/mes-erp-scada-historian-diferencas-e-integracao-diagrama.webp" alt="Diagrama com ERP no topo, MES abaixo, uma camada de integração (OPC UA, gateway, fila) e, na base, historiador, SCADA e PLCs ligados a essa camada." width="1600" height="900" loading="lazy" decoding="async" />
+  <figcaption>Arquitetura integrada ilustrativa de ERP, MES, SCADA e historiador. Diagrama do autor.</figcaption>
+</figure>
 
 Fluxo de ponta a ponta: o ERP libera a ordem; o MES a programa e envia parâmetros; o PLC executa e expõe variáveis; o SCADA supervisiona e o historiador registra as séries; a camada de integração entrega ao MES contagens, estados e eventos; o MES consolida e devolve ao ERP quantidades, consumos e status.
 

@@ -3,6 +3,8 @@ title: "O que é MES e como ele conecta planejamento e produção"
 description: "O que é um MES, por que surgiu, como difere de ERP e SCADA, o que faz (ordens, rastreabilidade, OEE) e um fluxo completo do pedido ao retorno ao ERP."
 pubDate: 2026-10-31T10:00:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/o-que-e-mes-manufacturing-execution-system.webp"
+coverAlt: "Ilustração com ERP, MES e PLC empilhados, setas de ordens descendo e do realizado subindo, com o MES destacado"
 category: "Automação Industrial"
 tags:
   - "MES"
@@ -85,6 +87,11 @@ O exemplo a seguir é **hipotético e simplificado**: uma fábrica de produtos e
 9. MES → ERP: quantidade produzida/refugada, consumo real, status da ordem
 10. ERP: atualiza estoque de produto acabado e custo real
 ```
+
+<figure>
+  <img src="/images/blog/o-que-e-mes-manufacturing-execution-system-diagrama.webp" alt="Diagrama de sequência com quatro participantes, ERP, MES, SCADA e gateway, e PLC. O ERP libera a ordem ao MES, que envia receita e parâmetros ao SCADA e comandos ao PLC; contagens e estados voltam ao MES, que devolve quantidade, refugo e status ao ERP." width="1600" height="900" loading="lazy" decoding="async" />
+  <figcaption>Fluxo resumido do pedido ao retorno ao ERP (exemplo hipotético). Diagrama do autor.</figcaption>
+</figure>
 
 Alguns pontos de projeto escondidos nesse fluxo:
 

@@ -3,6 +3,8 @@ title: "IIoT e Indústria 4.0: arquiteturas com borda e nuvem"
 description: "O que diferencia IIoT de IoT, como projetar coleta, borda e nuvem, o papel de MQTT e OPC UA, digital twins e manutenção preditiva, com limites e custos."
 pubDate: 2026-10-31T13:00:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/iiot-industria-4-0-arquiteturas-edge-nuvem.webp"
+coverAlt: "Ilustração de uma planta com PLC e uma borda destacada, ligada por seta a uma nuvem"
 category: "Automação Industrial"
 tags:
   - "IIoT"
@@ -86,21 +88,10 @@ Um roteiro de decisões, na ordem em que costumam aparecer:
 
 ### Arquitetura realista (ilustrativa)
 
-```text
- Planta                                               Plataforma central
-┌─────────────────────────────────────────┐          ┌─────────────────────────────────┐
-│ PLCs / máquinas ──OPC UA / Modbus──►    │          │ Ingestão (broker/fila)          │
-│                                         │  MQTT    │   │                             │
-│ Gateway de borda                        │  (TLS)   │   ▼                             │
-│  ├─ normalização + timestamp na origem  ├─────────►│ Armazenamento de séries         │
-│  ├─ regras locais (alarmes, banda morta)│  saída   │ + banco transacional (negócio)  │
-│  ├─ buffer local (store-and-forward)    │  apenas  │   │                             │
-│  └─ agregação por janela                │          │   ▼                             │
-│                                         │          │ Painéis, relatórios, modelos    │
-│ MES local ◄─── eventos de produção      │          │ Integração com ERP/BI           │
-└─────────────────────────────────────────┘          └─────────────────────────────────┘
-   A linha continua operando se o link cair.
-```
+<figure>
+  <img src="/images/blog/iiot-industria-4-0-arquiteturas-edge-nuvem-diagrama.webp" alt="Diagrama com a planta (PLCs, MES local e gateway de borda) ligada por MQTT sobre TLS, com conexão apenas de saída, a uma plataforma central com ingestão, armazenamento, painéis e integração." width="1600" height="900" loading="lazy" decoding="async" />
+  <figcaption>Arquitetura IIoT ilustrativa com borda e plataforma central. Diagrama do autor.</figcaption>
+</figure>
 
 Três escolhas deste desenho merecem destaque:
 

@@ -3,6 +3,8 @@ title: "ERP na indústria: como organiza uma operação de manufatura"
 description: "Como um ERP planeja a manufatura: MRP, BOM, roteiros, ordens, estoque, compras e custos, a diferença para o MES e o efeito de uma mudança de demanda."
 pubDate: 2026-10-31T10:30:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/erp-na-industria-planejamento-e-execucao.webp"
+coverAlt: "Ilustração de uma lista de materiais em árvore: o produto A usa 2 de B e 1 de C, e B usa 3 de D"
 category: "Automação Industrial"
 tags:
   - "ERP"

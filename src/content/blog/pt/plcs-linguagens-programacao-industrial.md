@@ -3,6 +3,8 @@ title: "PLCs e IEC 61131-3: como o software controla máquinas"
 description: "Como um PLC funciona: ciclo de varredura, I/O, Ladder, ST, FBD, SFC e IL da IEC 61131-3, com exemplos linha por linha e diferenças para software comum."
 pubDate: 2026-10-31T09:30:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/plcs-linguagens-programacao-industrial.webp"
+coverAlt: "Ilustração do ciclo de varredura de um PLC: ler entradas, executar o programa e escrever saídas, em laço, com um degrau Ladder abaixo"
 category: "Automação Industrial"
 tags:
   - "PLC"

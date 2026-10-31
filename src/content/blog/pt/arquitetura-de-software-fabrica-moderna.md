@@ -3,6 +3,8 @@ title: "Arquitetura de software de uma fábrica: do sensor ao ERP"
 description: "Como se organizam sensores, PLCs, SCADA, MES, historiadores e ERP, o modelo ISA-95 e o caminho de um dado do chão de fábrica ao sistema corporativo."
 pubDate: 2026-10-31T09:00:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/arquitetura-de-software-fabrica-moderna.webp"
+coverAlt: "Ilustração com cinco camadas empilhadas de L4 a L0: ERP, MES, PLC e SCADA, sensores e processo, com o MES destacado"
 category: "Automação Industrial"
 tags:
   - "Automação Industrial"
@@ -86,19 +88,10 @@ Entre as redes de OT (tecnologia operacional) e de IT costuma haver segmentaçã
 
 O exemplo a seguir é **hipotético e simplificado**, criado para ilustrar o raciocínio. Não descreve uma fábrica real. Imagine uma linha de envase que produz um lote de um produto, com uma ordem de produção emitida pelo ERP.
 
-```text
- Nível 4  ERP ── ordem de produção ──┐             ▲ consumo real, quantidade
-                                      ▼             │ produzida, custos
- Nível 3  MES ── dispara e acompanha a ordem ───────┤
-            ▲  ▼ receita/parâmetros    eventos, contagens, paradas
-          Historiador / SCADA ◄── tags (valores de processo)
-                    ▲
- Nível 2  PLC ──────┘  lógica cíclica: lê entradas, executa, escreve saídas
-             ▲  ▼
- Nível 1  sensores / atuadores
-             ▲  ▼
- Nível 0  processo físico (enchimento, esteira, rotulagem)
-```
+<figure>
+  <img src="/images/blog/arquitetura-de-software-fabrica-moderna-diagrama.webp" alt="Diagrama com cinco níveis de L4 a L0 (ERP, MES e historiador, PLC e SCADA, sensores e atuadores, processo físico). Setas sobem com contagens e eventos e descem com ordens e receitas. À direita, cinco passos numerados do sensor ao ERP." width="1600" height="900" loading="lazy" decoding="async" />
+  <figcaption>Os níveis do ISA-95 e o caminho de uma contagem, do sensor ao ERP (exemplo hipotético). Diagrama do autor.</figcaption>
+</figure>
 
 O fluxo, de baixo para cima:
 

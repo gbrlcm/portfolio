@@ -3,6 +3,8 @@ title: "Engenharia de software para manufatura: guia de arquitetura"
 description: "Por que software industrial não é app web: determinismo, disponibilidade, eventos, store-and-forward, observabilidade, testes com simuladores e CI/CD."
 pubDate: 2026-10-31T12:00:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/engenharia-de-software-para-manufatura.webp"
+coverAlt: "Ilustração de um monólito modular com seis módulos sobre uma base PostgreSQL com buffer na borda"
 category: "Automação Industrial"
 tags:
   - "Engenharia de Software"
@@ -173,24 +175,10 @@ Equipamentos e sistemas legados são a regra. Estratégias de convivência:
 
 O desenho abaixo é **ilustrativo e é uma opção, não um padrão**. Ele reflete as ideias acima para uma aplicação industrial de porte médio:
 
-```text
- Chão de fábrica                 Borda (por planta/linha)             Núcleo (servidor on-premises ou nuvem)
-┌──────────────┐          ┌────────────────────────────┐          ┌──────────────────────────────────┐
-│ PLCs, CNCs,  │ Modbus   │ Adaptadores de equipamento │  eventos │ Monólito modular                 │
-│ sensores,    ├─────────►│ (por protocolo)            ├─────────►│  ├─ Ordens e programação         │
-│ balanças     │ OPC UA   │ Normalização + timestamp   │ MQTT /   │  ├─ Apontamento e rastreabilidade│
-└──────────────┘          │ Buffer local (outbox)      │ HTTP     │  ├─ Qualidade                    │
-                          └────────────────────────────┘          │  ├─ Equipamentos / paradas / OEE │
-                                                                  │  └─ Integração (ERP, outros)     │
-                                                                  ├──────────────────────────────────┤
- Interfaces                                                       │ PostgreSQL (transacional)        │
- ┌────────────────────┐   API REST                                │ Série temporal / historiador     │
- │ Telas de operador, │◄──────────────────────────────────────────┤ Fila de mensagens (entrada/saída)│
- │ painéis, relatórios│                                           └──────────────┬───────────────────┘
- └────────────────────┘                                                          │ transações (API/mensagens)
-                                                                                 ▼
-                                                                            ERP / outros
-```
+<figure>
+  <img src="/images/blog/engenharia-de-software-para-manufatura-diagrama.webp" alt="Diagrama com três blocos: chão de fábrica, borda (adaptadores, normalização, buffer local) e núcleo (monólito modular com PostgreSQL, série temporal e fila), mais ERP e interfaces de operador." width="1600" height="900" loading="lazy" decoding="async" />
+  <figcaption>Arquitetura de referência ilustrativa para software industrial. Diagrama do autor.</figcaption>
+</figure>
 
 Pontos de atenção do desenho: o buffer na borda isola a linha de quedas do núcleo; os módulos do monólito compartilham o banco transacional, mas só expõem interfaces entre si; a série temporal fica separada do transacional; e o ERP é tratado como sistema externo com contrato versionado e idempotente.
 

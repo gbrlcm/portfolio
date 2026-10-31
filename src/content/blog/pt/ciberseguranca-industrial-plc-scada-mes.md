@@ -3,6 +3,8 @@ title: "Cibersegurança industrial: proteger PLC, SCADA e MES"
 description: "Segurança em OT: diferenças para TI, zonas e conduítes, ISA/IEC 62443, segmentação, acesso remoto, legados, patches, backup e resposta a incidentes."
 pubDate: 2026-10-31T13:30:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/ciberseguranca-industrial-plc-scada-mes.webp"
+coverAlt: "Ilustração de zonas aninhadas, Corporativa, DMZ, Operações e Controle, separadas por firewalls"
 category: "Segurança"
 tags:
   - "Cibersegurança Industrial"
@@ -97,30 +99,10 @@ Na execução, os dois primeiros fluxos passam e os dois últimos, um acesso RDP
 
 Defesa em profundidade significa não depender de uma única barreira. Um desenho conceitual, **ilustrativo**:
 
-```text
- Internet / TI corporativa
-        │   (MFA, acesso mínimo, sem conexão direta ao controle)
- ┌──────▼───────────────────────────────┐
- │ Firewall corporativo ↔ OT             │  ← fronteira
- └──────┬───────────────────────────────┘
- ┌──────▼───────┐   DMZ industrial: servidor de saltos para acesso remoto,
- │     DMZ      │   réplica de historiador, broker, atualizações
- └──────┬───────┘
- ┌──────▼───────────────────────────────┐
- │ Zona de OPERAÇÕES (MES, historiador)  │  conduítes com regras explícitas
- └──────┬───────────────────────────────┘
- ┌──────▼───────────────────────────────┐
- │ Zona de SUPERVISÃO (SCADA, HMI)       │
- └──────┬───────────────────────────────┘
- ┌──────▼───────────────────────────────┐
- │ Zona de CONTROLE (PLCs, drives)       │  proteção local: modo de operação
- │                                       │  do CLP, controle físico de acesso
- └──────┬───────────────────────────────┘
- ┌──────▼───────────────────────────────┐
- │ Sistemas de segurança (SIS), proteções│  independentes da rede de controle
- │ mecânicas e elétricas                 │
- └───────────────────────────────────────┘
-```
+<figure>
+  <img src="/images/blog/ciberseguranca-industrial-plc-scada-mes-diagrama.webp" alt="Diagrama com cinco zonas empilhadas, Corporativa, DMZ industrial, Operações, Supervisão e Controle, separadas por firewalls, e ao lado os sistemas de segurança independentes e quatro cuidados para não parar a planta." width="1600" height="900" loading="lazy" decoding="async" />
+  <figcaption>Defesa em profundidade com zonas e conduítes. Desenho conceitual do autor.</figcaption>
+</figure>
 
 Camadas e cuidados, com ênfase em **não comprometer disponibilidade e segurança física**:
 

@@ -3,6 +3,8 @@ title: "Bancos de dados industriais: eventos de produção em escala"
 description: "Modelagem de fábrica em PostgreSQL, particionamento, BRIN, retenção, séries temporais e historiadores, com SQL para paradas, produtividade e OEE."
 pubDate: 2026-10-31T12:30:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/bancos-de-dados-industriais-eventos-de-producao.webp"
+coverAlt: "Ilustração de três partições mensais de uma tabela de eventos e de uma linha de série temporal abaixo"
 category: "Banco de Dados"
 tags:
   - "PostgreSQL"

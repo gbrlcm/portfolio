@@ -3,6 +3,8 @@ title: "OPC UA, Modbus, MQTT e protocolos industriais, comparados"
 description: "Modbus, OPC UA, MQTT, PROFINET, EtherNet/IP, EtherCAT e CANopen têm propósitos diferentes. Com mensagens reais e um exemplo PLC, gateway e backend."
 pubDate: 2026-10-31T11:30:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/protocolos-industriais-opc-ua-modbus-mqtt.webp"
+coverAlt: "Ilustração de um PLC ligado por Modbus a um gateway, que se liga por MQTT a um backend, com um quadro Modbus TCP em hexadecimal"
 category: "Automação Industrial"
 tags:
   - "OPC UA"
