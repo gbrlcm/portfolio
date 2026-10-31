@@ -18,7 +18,7 @@ lang: "en"
 translationKey: "plc-industrial-programming-languages"
 ---
 
-In the [previous article](/pt/blog/arquitetura-de-software-fabrica-moderna), the programmable logic controller (PLC) appeared at the core of the machine control layer: reading physical sensors, evaluating logical conditions, and driving field actuators. Here, we open that black box. How does an industrial controller actually execute code? Why does plant automation rely on specialized programming languages? And how does software engineering change when your program drives a 500-ton hydraulic press instead of returning a JSON response?
+In the [previous article](/en/blog/software-architecture-modern-factory), the programmable logic controller (PLC) appeared at the core of the machine control layer: reading physical sensors, evaluating logical conditions, and driving field actuators. Here, we open that black box. How does an industrial controller actually execute code? Why does plant automation rely on specialized programming languages? And how does software engineering change when your program drives a 500-ton hydraulic press instead of returning a JSON response?
 
 ## What is a PLC
 
@@ -197,7 +197,7 @@ A PLC does not replace upper-level enterprise software, nor can enterprise softw
 
 PLC programming represents software engineering executed under distinct physical constraints: cyclic execution, strict determinism, long asset lifecycles, and direct physical consequence. IEC 61131-3 provides a unified language framework, yet daily development remains deeply tied to vendor toolchains. Software engineers crossing into automation must replace the mental model of asynchronous request-response handlers with an endless deterministic scan cycle, remembering that the only correct control software is the code that behaves safely when the physical world fails.
 
-The next article moves up one layer in the architecture: the [MES](/pt/blog/o-que-e-mes-manufacturing-execution-system), which links real-time machine execution with enterprise business planning.
+The next article moves up one layer in the architecture: the [MES](/en/blog/what-is-mes-manufacturing-execution-system), which links real-time machine execution with enterprise business planning.
 
 ## References
 

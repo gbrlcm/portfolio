@@ -143,7 +143,7 @@ Para los ingenieros que desarrollan software industrial, la seguridad constituye
 
 La ciberseguridad industrial constituye, ante todo, una disciplina de **diseño arquitectónico y rigor operativo**: mantener un inventario exhaustivo de activos, compartimentar redes en zonas aisladas, gobernar los conductos, catalogar el acceso remoto como vector crítico, blindar con controles compensatorios los sistemas que no admiten actualización y ensayar con regularidad la recuperación de copias y el control manual en planta. Introducir medidas de seguridad ofimáticas sin comprender el proceso físico puede detener la producción; descuidar la seguridad abre la puerta a que un incidente administrativo culmine en un paro de fábrica. La solvencia técnica se alcanza cooperando estrechamente con la ingeniería de control, nunca imponiendo criterios desconectados de la realidad de la planta.
 
-Con este artículo concluye la serie dedicada a la automatización industrial. La [visión general de arquitectura](/pt/blog/arquitetura-de-software-fabrica-moderna) sirve como punto de partida para consultar el recorrido completo.
+Con este artículo concluye la serie dedicada a la automatización industrial. La [visión general de arquitectura](/es/blog/arquitectura-de-software-fabrica-moderna) sirve como punto de partida para consultar el recorrido completo.
 
 ## Referencias
 

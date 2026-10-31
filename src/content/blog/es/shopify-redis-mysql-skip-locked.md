@@ -194,7 +194,7 @@ La idea es la misma, con dos diferencias prácticas: MySQL 8 no tiene `RETURNING
 
 **Funciona bien cuando:**
 
-- el trabajo debe ser atómico con datos de negocio que ya están en la base de datos (el caso de Shopify, y el motivo del patrón [transactional outbox](/blog/saga-pattern));
+- el trabajo debe ser atómico con datos de negocio que ya están en la base de datos (el caso de Shopify, y el motivo del patrón [transactional outbox](/es/blog/patron-saga));
 - el volumen cabe con holgura en la base de datos que ya operas;
 - quieres menos piezas móviles: sin clúster extra, sin consistencia entre dos sistemas.
 
@@ -220,7 +220,7 @@ Algunas preguntas que ayudan en la decisión:
 3. **¿Necesitas algo que la base de datos no ofrece?** Fan-out a varios consumidores, retención y reprocesamiento de eventos, latencia de microsegundos en caché: ahí la herramienta especializada se justifica.
 4. **¿Quién va a operar la pieza extra?** Cada tecnología nueva tiene un costo de operación y de conocimiento. Dan McKinley, en *Choose Boring Technology* (2015), lo describe como el equipaje de "operaciones" y "sobrecarga cognitiva" que toda elección nueva conlleva.
 
-Y una última, que el propio post de Shopify deja como conclusión: **revisita decisiones antiguas**. La premisa de que "una base de datos relacional no aguanta esto" pudo ser verdadera hace cinco años y ya no serlo. Lo contrario también vale: lo que funciona con el volumen de hoy puede no funcionar con el de mañana. Las decisiones de arquitectura tienen fecha de caducidad, y conviene registrarlas con el contexto en que se tomaron, como comento en la [hoja de ruta de system design](/blog/system-design-roteiro-pratico).
+Y una última, que el propio post de Shopify deja como conclusión: **revisita decisiones antiguas**. La premisa de que "una base de datos relacional no aguanta esto" pudo ser verdadera hace cinco años y ya no serlo. Lo contrario también vale: lo que funciona con el volumen de hoy puede no funcionar con el de mañana. Las decisiones de arquitectura tienen fecha de caducidad, y conviene registrarlas con el contexto en que se tomaron, como comento en la [hoja de ruta de system design](/es/blog/system-design-hoja-de-ruta-practica).
 
 ## Referencias
 

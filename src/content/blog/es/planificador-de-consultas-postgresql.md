@@ -125,14 +125,14 @@ Bitmap Heap Scan on pedido  (cost=404.80..8185.66 rows=28524 ...) (actual rows=2
 
 ### Index Only Scan y el visibility map
 
-Un `Index Only Scan` responde solo con el índice, sin ir al heap, **si** la página del heap está marcada como *all-visible* en el *visibility map*. De lo contrario, necesita visitar el heap para comprobar la visibilidad MVCC (el índice no guarda `xmin`/`xmax`, como vimos en el [artículo de MVCC](/pt/blog/mvcc-postgresql)). Experimento (tabla de 200.000 filas, con `autovacuum` desactivado, consulta `SELECT k FROM ios WHERE k < 50`):
+Un `Index Only Scan` responde solo con el índice, sin ir al heap, **si** la página del heap está marcada como *all-visible* en el *visibility map*. De lo contrario, necesita visitar el heap para comprobar la visibilidad MVCC (el índice no guarda `xmin`/`xmax`, como vimos en el [artículo de MVCC](/es/blog/postgresql-mvcc)). Experimento (tabla de 200.000 filas, con `autovacuum` desactivado, consulta `SELECT k FROM ios WHERE k < 50`):
 
 | Estado | Plan elegido |
 |---|---|
 | tras la carga + `ANALYZE` (sin `VACUUM`) | `Bitmap Heap Scan` (`Heap Blocks: exact=327`) |
 | tras `VACUUM ios` | `Index Only Scan` (`Heap Fetches: 0`, `Buffers: shared hit=11`) |
 
-Fíjate en que no solo cambió `Heap Fetches`: cambió el propio **plan**. El planner usa el visibility map para estimar cuántos *heap fetches* tendría; sin `VACUUM`, el `Index Only Scan` no compensaba. Es un puente directo con el [artículo sobre VACUUM](/pt/blog/vacuum-autovacuum-wraparound-postgresql) y se retomará en el [artículo sobre índices](/pt/blog/indices-postgresql-custos-ocultos).
+Fíjate en que no solo cambió `Heap Fetches`: cambió el propio **plan**. El planner usa el visibility map para estimar cuántos *heap fetches* tendría; sin `VACUUM`, el `Index Only Scan` no compensaba. Es un puente directo con el [artículo sobre VACUUM](/es/blog/postgresql-vacuum-autovacuum-wraparound) y se retomará en el [artículo sobre índices](/es/blog/indices-postgresql-costos-ocultos).
 
 ## Los algoritmos de join
 
@@ -194,7 +194,7 @@ Después de cargas masivas, `reltuples` y los histogramas pueden estar muy por d
 
 ### 3. Expresiones y funciones
 
-El planner solo tiene estadísticas de columnas (y de expresiones indexadas o de estadísticas extendidas por expresión). Para `WHERE lower(email) = 'x'` sin índice ni estadística sobre la expresión, la estimación de selectividad cae en un valor genérico. Un índice por expresión trae estadísticas de la expresión; eso es tema del [artículo de índices](/pt/blog/indices-postgresql-custos-ocultos).
+El planner solo tiene estadísticas de columnas (y de expresiones indexadas o de estadísticas extendidas por expresión). Para `WHERE lower(email) = 'x'` sin índice ni estadística sobre la expresión, la estimación de selectividad cae en un valor genérico. Un índice por expresión trae estadísticas de la expresión; eso es tema del [artículo de índices](/es/blog/indices-postgresql-costos-ocultos).
 
 ### 4. Joins que multiplican errores
 
@@ -244,7 +244,7 @@ El core de PostgreSQL no tiene *hints* de optimizador. Existe la extensión `pg_
 
 ## Conclusión
 
-El planner de PostgreSQL es un optimizador basado en costos: tan bueno como las estadísticas que lo alimentan y el modelo de costos que lo guía. Cuando el plan es malo, la pregunta más útil casi nunca es "¿qué índice crear?", sino "¿en qué punto el número estimado dejó de ser el número real?". Ese punto de divergencia apunta a estadísticas desactualizadas, correlación ignorada o un predicado que el planner no logra estimar. El [próximo artículo](/pt/blog/indices-postgresql-custos-ocultos) trata los índices como estructuras físicas, con sus tipos y sus costos de escritura.
+El planner de PostgreSQL es un optimizador basado en costos: tan bueno como las estadísticas que lo alimentan y el modelo de costos que lo guía. Cuando el plan es malo, la pregunta más útil casi nunca es "¿qué índice crear?", sino "¿en qué punto el número estimado dejó de ser el número real?". Ese punto de divergencia apunta a estadísticas desactualizadas, correlación ignorada o un predicado que el planner no logra estimar. El [próximo artículo](/es/blog/indices-postgresql-costos-ocultos) trata los índices como estructuras físicas, con sus tipos y sus costos de escritura.
 
 ## Referencias
 

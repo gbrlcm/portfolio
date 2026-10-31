@@ -20,7 +20,7 @@ translationKey: "industrial-protocols-opc-ua-modbus-mqtt"
 
 Cuando alguien plantea "vamos a integrar la máquina con el sistema informático", la primera pregunta de ingeniería debería ser: **¿integrar cómo y con qué garantías?** Los protocolos industriales no son variantes cosméticas de un mismo producto. Algunos están concebidos para sincronizar un servomotor cada fracción de milisegundo; otros leen un registro de 16 bits de un analizador de redes; otros transportan telemetría de miles de máquinas hacia la nube. Tratarlos como equivalentes es uno de los errores más comunes de quienes se aproximan a la automatización desde el desarrollo de software.
 
-Este es el sexto artículo de la serie. Se apoya en la [arquitectura de software en capas](/pt/blog/arquitetura-de-software-fabrica-moderna) y en la [comparativa entre MES, ERP, SCADA e historiadores](/pt/blog/mes-erp-scada-historian-diferencas-e-integracao).
+Este es el sexto artículo de la serie. Se apoya en la [arquitectura de software en capas](/es/blog/arquitectura-de-software-fabrica-moderna) y en la [comparativa entre MES, ERP, SCADA e historiadores](/es/blog/mes-erp-scada-historian-diferencias-e-integracion).
 
 ## Tres conceptos diferentes que suelen confundirse
 
@@ -168,7 +168,7 @@ Las decisiones técnicas más determinantes se sitúan fuera de estas líneas de
 
 - **Mapeo de registros y orden de bytes** rigurosamente documentados y versionados: la pasarela constituye el punto donde los datos carentes de contexto adquieren significado semántico.
 - **Sellado de tiempo en el origen** (o lo más próximo posible a la máquina), para evitar que las latencias de red alteren series temporales y métricas de OEE.
-- **Idempotencia y deduplicación** en los consumidores del backend: la entrega con QoS 1 puede generar mensajes duplicados; el backend debe absorberlos sin duplicar producción mediante claves compuestas (máquina e instante temporal), como se vio en el [artículo 03](/pt/blog/o-que-e-mes-manufacturing-execution-system).
+- **Idempotencia y deduplicación** en los consumidores del backend: la entrega con QoS 1 puede generar mensajes duplicados; el backend debe absorberlos sin duplicar producción mediante claves compuestas (máquina e instante temporal), como se vio en el [artículo 03](/es/blog/que-es-mes-manufacturing-execution-system).
 - **Almacenamiento intermedio local en la pasarela** (*store-and-forward*) para tolerar interrupciones de red industrial sin pérdida de registros.
 - **Atributos explícitos de calidad**: la propiedad `quality` existe porque una lectura fallida en el bus de campo y un valor numérico cero representan realidades físicas completamente distintas.
 - **Cálculo de producción por incrementos**: el desbordamiento de contadores y las pérdidas de conexión exigen que el backend calcule piezas por diferencias relativas entre lecturas válidas, evitando presunciones de continuidad monótona.
@@ -179,7 +179,7 @@ De forma resumida, sin entrar en la arquitectura de ciberseguridad OT (que abord
 
 ## Relación con la ingeniería de software
 
-Desde mi punto de vista, el principio rector reside en aislar el **modelo de dominio** del **protocolo de comunicación**. El código que gestiona órdenes de fabricación, lotes y calidad no debe contener acoplamiento alguno con direcciones de memoria Modbus o identificadores de nodo OPC UA; una capa adaptadora perimetral debe asumir la traducción. Esto facilita sustituir protocolos, simular maquinaria en tests unitarios y homogeneizar el control de errores. Asimismo, conviene tratar los datos de planta como fuentes no confiables: cualquier lectura física puede fallar, llegar demorada, duplicarse o salirse de rango. El [artículo 07](/pt/blog/engenharia-de-software-para-manufatura) profundiza en el diseño de estos adaptadores.
+Desde mi punto de vista, el principio rector reside en aislar el **modelo de dominio** del **protocolo de comunicación**. El código que gestiona órdenes de fabricación, lotes y calidad no debe contener acoplamiento alguno con direcciones de memoria Modbus o identificadores de nodo OPC UA; una capa adaptadora perimetral debe asumir la traducción. Esto facilita sustituir protocolos, simular maquinaria en tests unitarios y homogeneizar el control de errores. Asimismo, conviene tratar los datos de planta como fuentes no confiables: cualquier lectura física puede fallar, llegar demorada, duplicarse o salirse de rango. El [artículo 07](/es/blog/ingenieria-de-software-para-manufactura) profundiza en el diseño de estos adaptadores.
 
 ## Conclusión
 

@@ -129,7 +129,7 @@ INSERT INTO pedido_archivo SELECT * FROM movidas;
 | **Tabla temporal** | resultado intermedio grande reutilizado en varios comandos | tiene estadísticas propias (tras `ANALYZE`) y puede tener índices; la CTE materializada no tiene ninguna de las dos cosas |
 | **Vista** | reutilización entre consultas | expandida como subquery |
 
-Un punto sutil: una CTE materializada **no tiene estadísticas** propias recolectadas por `ANALYZE`; el planner estima la cardinalidad a partir de la subconsulta, lo que puede producir los errores de estimación discutidos en el [artículo sobre el planner](/pt/blog/query-planner-postgresql). Si el resultado intermedio será grande y reutilizado, una tabla temporal con `ANALYZE` puede darle al planner mejor información, a costa de más código y de escritura en disco (la materialización de la CTE también escribe en disco cuando excede `work_mem`, como mostró `temp written=4902`).
+Un punto sutil: una CTE materializada **no tiene estadísticas** propias recolectadas por `ANALYZE`; el planner estima la cardinalidad a partir de la subconsulta, lo que puede producir los errores de estimación discutidos en el [artículo sobre el planner](/es/blog/planificador-de-consultas-postgresql). Si el resultado intermedio será grande y reutilizado, una tabla temporal con `ANALYZE` puede darle al planner mejor información, a costa de más código y de escritura en disco (la materialización de la CTE también escribe en disco cuando excede `work_mem`, como mostró `temp written=4902`).
 
 > **Opinión:** como regla de revisión de código, prefiero tratar `MATERIALIZED` y `NOT MATERIALIZED` como **comentarios de intención que el planner obedece**, y añadirlos solo con un `EXPLAIN` que los justifique. Dejar el valor por defecto resuelve la mayoría de los casos desde la versión 12.
 
@@ -280,7 +280,7 @@ Sí, con `RETURNING`; se ejecutan exactamente una vez y hasta el final.
 
 ## Conclusión
 
-La CTE es una construcción que, a partir de PostgreSQL 12, dejó de ser una barrera de optimización por defecto y pasó a ser una elección consciente: incorporada cuando el planner puede, materializada cuando lo pides o cuando el resultado se reutiliza. Dominar esa diferencia, reconocer `CTE Scan` y `Recursive Union` en el plan, y proteger las recursiones con índice y detección de ciclos basta para usar `WITH` con confianza. El último artículo de la serie baja a lo que sostiene todo esto: [el WAL, los checkpoints y los replication slots](/pt/blog/wal-checkpoints-replication-slots-postgresql).
+La CTE es una construcción que, a partir de PostgreSQL 12, dejó de ser una barrera de optimización por defecto y pasó a ser una elección consciente: incorporada cuando el planner puede, materializada cuando lo pides o cuando el resultado se reutiliza. Dominar esa diferencia, reconocer `CTE Scan` y `Recursive Union` en el plan, y proteger las recursiones con índice y detección de ciclos basta para usar `WITH` con confianza. El último artículo de la serie baja a lo que sostiene todo esto: [el WAL, los checkpoints y los replication slots](/es/blog/wal-checkpoints-replication-slots-postgresql).
 
 ## Referencias
 

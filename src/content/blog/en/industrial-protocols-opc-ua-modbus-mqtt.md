@@ -20,7 +20,7 @@ translationKey: "industrial-protocols-opc-ua-modbus-mqtt"
 
 When someone announces "we are going to integrate the machine with the software platform," the first engineering question must be: **integrate how, and with what guarantees?** Industrial protocols are not minor variations of a single concept. Some exist to synchronize a servo motor every fraction of a millisecond; others read a 16-bit register from a power meter; others stream telemetry from thousands of assets into cloud infrastructure. Treating them as interchangeable is one of the most common pitfalls for software engineers entering industrial automation.
 
-This is the sixth article in the series. It builds directly upon the [layered software architecture](/pt/blog/arquitetura-de-software-fabrica-moderna) and the [comparison between MES, ERP, SCADA, and historians](/pt/blog/mes-erp-scada-historian-diferencas-e-integracao).
+This is the sixth article in the series. It builds directly upon the [layered software architecture](/en/blog/software-architecture-modern-factory) and the [comparison between MES, ERP, SCADA, and historians](/en/blog/mes-erp-scada-historian-differences-and-integration).
 
 ## Three distinct concepts often conflated
 
@@ -168,7 +168,7 @@ Crucial software engineering decisions lie beyond this snippet:
 
 - **Register mapping schemas and word endianness** must be documented and version-controlled: the edge gateway is precisely where raw unformatted bytes gain domain semantics.
 - **Timestamping at the physical origin** (or as close to the edge as possible), ensuring network buffering does not skew downstream time series or OEE calculations.
-- **Idempotency and deduplication** in backend consumers: MQTT QoS 1 guarantees at-least-once delivery, meaning duplicate frames are expected; consumers must handle duplicates using composite keys (such as machine ID plus source timestamp), as demonstrated in [article 03](/pt/blog/o-que-e-mes-manufacturing-execution-system).
+- **Idempotency and deduplication** in backend consumers: MQTT QoS 1 guarantees at-least-once delivery, meaning duplicate frames are expected; consumers must handle duplicates using composite keys (such as machine ID plus source timestamp), as demonstrated in [article 03](/en/blog/what-is-mes-manufacturing-execution-system).
 - **Edge store-and-forward buffers** to survive plant network outages without dropping telemetry frames.
 - **Explicit data quality flags**: the `quality` attribute exists because a failed fieldbus read and a literal numeric reading of zero represent completely different physical realities.
 - **Delta-based counting logic**: cumulative counter rollovers and connection drops require backends to calculate production via differential delta logic rather than assuming an unbroken monotonic sequence.
@@ -179,7 +179,7 @@ In summary, without exploring deep OT cybersecurity architecture (covered in art
 
 ## Relationship with software engineering
 
-In my view, the cardinal rule is to isolate the **core business domain** from the **underlying communication protocol**. Software that models work orders, production lots, and quality inspections must never contain references to Modbus register addresses or OPC UA node IDs; edge adaptors must translate between the two worlds. This decoupling allows changing protocols without touching business logic, enables automated integration testing via mock controllers, and standardizes error recovery. Furthermore, engineers must treat the physical edge as intrinsically untrusted: hardware readings can fail, arrive out of order, duplicate, or produce corrupt out-of-range values. [Article 07](/pt/blog/engenharia-de-software-para-manufatura) dives into the architecture of these edge adapters.
+In my view, the cardinal rule is to isolate the **core business domain** from the **underlying communication protocol**. Software that models work orders, production lots, and quality inspections must never contain references to Modbus register addresses or OPC UA node IDs; edge adaptors must translate between the two worlds. This decoupling allows changing protocols without touching business logic, enables automated integration testing via mock controllers, and standardizes error recovery. Furthermore, engineers must treat the physical edge as intrinsically untrusted: hardware readings can fail, arrive out of order, duplicate, or produce corrupt out-of-range values. [Article 07](/en/blog/software-engineering-for-manufacturing) dives into the architecture of these edge adapters.
 
 ## Conclusion
 

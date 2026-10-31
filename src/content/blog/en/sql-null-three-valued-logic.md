@@ -270,7 +270,7 @@ In my test with a regular B-tree index, no: it became a `Seq Scan`. Measure in y
 
 ## Conclusion
 
-`NULL` is the point where the programmer's intent and SQL's semantics diverge the most. It is not a PostgreSQL flaw: it is the three-valued logic of the SQL standard, with some implementation choices (ordering, empty strings, uniqueness) that vary between databases. Mastering `UNKNOWN`, `IS DISTINCT FROM`, `NOT EXISTS` and the rule "`WHERE` only lets `TRUE` through" eliminates most silent bugs. The next article covers another tool where the planner silently decides for you: [CTEs, materialization and recursive queries](/pt/blog/cte-recursive-queries-postgresql).
+`NULL` is the point where the programmer's intent and SQL's semantics diverge the most. It is not a PostgreSQL flaw: it is the three-valued logic of the SQL standard, with some implementation choices (ordering, empty strings, uniqueness) that vary between databases. Mastering `UNKNOWN`, `IS DISTINCT FROM`, `NOT EXISTS` and the rule "`WHERE` only lets `TRUE` through" eliminates most silent bugs. The next article covers another tool where the planner silently decides for you: [CTEs, materialization and recursive queries](/en/blog/postgresql-recursive-cte-queries).
 
 ## References
 

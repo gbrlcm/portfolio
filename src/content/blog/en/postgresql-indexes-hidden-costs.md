@@ -125,11 +125,11 @@ ANALYZE ev;
 -- After: Bitmap Index Scan on ev_email_lower (actual rows=20), 8,584 kB
 ```
 
-The `ANALYZE` after `CREATE INDEX` matters: PostgreSQL collects statistics on the indexed **expression**, which also improves cardinality estimates (a topic for the [article on the planner](/pt/blog/query-planner-postgresql)). The function must be `IMMUTABLE`.
+The `ANALYZE` after `CREATE INDEX` matters: PostgreSQL collects statistics on the indexed **expression**, which also improves cardinality estimates (a topic for the [article on the planner](/en/blog/postgresql-query-planner)). The function must be `IMMUTABLE`.
 
 ## Covering indexes, INCLUDE and index-only scans
 
-An *index-only scan* answers the query without visiting the heap, but only when two conditions from the documentation are met: the index type supports it, and the query references only columns stored in the index. Since index entries don't store MVCC visibility information, the executor consults the **visibility map**: if the heap page is marked *all-visible*, the data comes from the index; otherwise it has to visit the heap. The map is "four orders of magnitude smaller than the heap" and so tends to stay cached; the gain shows up when "a significant fraction of the heap pages have their all-visible bits set", which depends on `VACUUM` (see the [article on VACUUM](/pt/blog/vacuum-autovacuum-wraparound-postgresql)).
+An *index-only scan* answers the query without visiting the heap, but only when two conditions from the documentation are met: the index type supports it, and the query references only columns stored in the index. Since index entries don't store MVCC visibility information, the executor consults the **visibility map**: if the heap page is marked *all-visible*, the data comes from the index; otherwise it has to visit the heap. The map is "four orders of magnitude smaller than the heap" and so tends to stay cached; the gain shows up when "a significant fraction of the heap pages have their all-visible bits set", which depends on `VACUUM` (see the [article on VACUUM](/en/blog/postgresql-vacuum-autovacuum-wraparound)).
 
 The `INCLUDE` clause adds columns to the index **without making them part of the search key**:
 
@@ -170,7 +170,7 @@ On table `ev`, the heap was **111 MB**, the PK **21 MB** and a composite index *
 
 ### HOT: the hidden cost
 
-As seen in the [MVCC article](/pt/blog/mvcc-postgresql), an `UPDATE` can only be HOT if it changes **no indexed column**. Indexing `status` or `updated_at` on a table with many updates to those columns turns off HOT for those updates and multiplies the index entries. In that article's experiment, with `fillfactor` 70, 448 of 1,000 updates on a non-indexed column were HOT; when updating the indexed column `w`, the HOT counters did not increase.
+As seen in the [MVCC article](/en/blog/postgresql-mvcc), an `UPDATE` can only be HOT if it changes **no indexed column**. Indexing `status` or `updated_at` on a table with many updates to those columns turns off HOT for those updates and multiplies the index entries. In that article's experiment, with `fillfactor` 70, 448 of 1,000 updates on a non-indexed column were HOT; when updating the indexed column `w`, the HOT counters did not increase.
 
 ### Indexes nobody uses
 
@@ -233,7 +233,7 @@ Yes, with `CREATE INDEX CONCURRENTLY`, at the cost of more time and a possible i
 
 ## Conclusion
 
-An index is a cost-benefit decision, not a free optimization. The lab numbers sum it up: the partial index fit in 240 kB where the full one took 21 MB; BRIN took 32 kB where the B-tree took 21 MB; and five extra indexes made the write load almost three times slower. The benefits are real, but only for the queries the planner actually uses them for. The next article shifts the focus to the other face of concurrency: [isolation, locks and deadlocks](/pt/blog/isolamento-locks-deadlocks-postgresql).
+An index is a cost-benefit decision, not a free optimization. The lab numbers sum it up: the partial index fit in 240 kB where the full one took 21 MB; BRIN took 32 kB where the B-tree took 21 MB; and five extra indexes made the write load almost three times slower. The benefits are real, but only for the queries the planner actually uses them for. The next article shifts the focus to the other face of concurrency: [isolation, locks and deadlocks](/en/blog/postgresql-isolation-locks-deadlocks).
 
 ## References
 

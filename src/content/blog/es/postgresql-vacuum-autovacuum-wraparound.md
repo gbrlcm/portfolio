@@ -18,7 +18,7 @@ translationKey: "postgres-vacuum"
 
 En febrero de 2019, Mandrill, el servicio de correo transaccional de Mailchimp, estuvo fuera de línea durante unas 40 horas. El post-mortem público de la empresa señala la causa: uno de los shards de PostgreSQL alcanzó el límite de *transaction ID* (XID), entró en modo de protección y dejó de aceptar escrituras. El mismo post-mortem cuenta que, en noviembre de 2018, los ingenieros ya habían notado que los XID estaban en cerca de la mitad del límite en el pico de carga, concluyeron que no era una amenaza inmediata y abrieron un ítem de backlog para monitorear.
 
-Nada en este tipo de incidente exige un bug de PostgreSQL. Solo exige que una rutina de mantenimiento silenciosa, el `VACUUM`, deje de acompañar la tasa de escritura. Este es el segundo artículo de la serie *PostgreSQL por Dentro*; asume lo que explicó el [artículo anterior sobre MVCC](/pt/blog/mvcc-postgresql): `UPDATE` y `DELETE` dejan versiones antiguas de las filas en el heap, y alguien tiene que limpiarlas.
+Nada en este tipo de incidente exige un bug de PostgreSQL. Solo exige que una rutina de mantenimiento silenciosa, el `VACUUM`, deje de acompañar la tasa de escritura. Este es el segundo artículo de la serie *PostgreSQL por Dentro*; asume lo que explicó el [artículo anterior sobre MVCC](/es/blog/postgresql-mvcc): `UPDATE` y `DELETE` dejan versiones antiguas de las filas en el heap, y alguien tiene que limpiarlas.
 
 > Este artículo es un estudio basado en la documentación oficial, en el post-mortem público citado y en experimentos que ejecuté en PostgreSQL 17.10 y 18.6 locales y descartables. Los pasajes marcados como opinión reflejan mi lectura. Las referencias están al final.
 
@@ -251,7 +251,7 @@ El servidor fue diseñado para rechazar nuevas transacciones antes de que eso oc
 
 ## Conclusión
 
-El `VACUUM` conecta tres cosas que suelen tratarse por separado: el rendimiento (bloat y estadísticas), el ahorro de I/O (visibility map) y la seguridad de los datos (freeze). El autovacuum por defecto es un buen punto de partida para bases de datos pequeñas y una configuración peligrosa para tablas grandes y de mucha escritura. En mi lectura de las fuentes, lo que más separa los incidentes evitables de los inevitables es tener métricas de edad de XID y de horizonte de limpieza *antes* del problema. El próximo artículo sube una capa: [cómo el planner elige un plan de ejecución](/pt/blog/query-planner-postgresql), que depende de las estadísticas que mantiene `ANALYZE`.
+El `VACUUM` conecta tres cosas que suelen tratarse por separado: el rendimiento (bloat y estadísticas), el ahorro de I/O (visibility map) y la seguridad de los datos (freeze). El autovacuum por defecto es un buen punto de partida para bases de datos pequeñas y una configuración peligrosa para tablas grandes y de mucha escritura. En mi lectura de las fuentes, lo que más separa los incidentes evitables de los inevitables es tener métricas de edad de XID y de horizonte de limpieza *antes* del problema. El próximo artículo sube una capa: [cómo el planner elige un plan de ejecución](/es/blog/planificador-de-consultas-postgresql), que depende de las estadísticas que mantiene `ANALYZE`.
 
 ## Referencias
 

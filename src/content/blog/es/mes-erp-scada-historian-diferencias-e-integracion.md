@@ -133,7 +133,7 @@ Flujo de extremo a extremo: el ERP libera la orden de fabricación; el MES la pl
 
 ## Relación con la ingeniería de software
 
-Desde mi punto de vista, la recomendación práctica reside en concebir las integraciones con **contratos explícitos**: modelos de datos canónicos, definiciones inequívocas de marcas de tiempo y calidad, consumo de eventos idempotente, reintentos seguros y observabilidad continua. La taxonomía de ISA-95 proporciona un lenguaje ubicuo indispensable, mientras que los estándares abiertos (como las especificaciones de información de OPC UA) mitigan los mapeos manuales improvisados. Asimismo, cada estrato tecnológico debe contar con una **política de degradación elegante**: qué decisiones operativas puede tomar la línea de producción cuando los servicios superiores quedan inaccesibles. El [artículo 07](/pt/blog/engenharia-de-software-para-manufatura) profundiza en esta perspectiva arquitectónica.
+Desde mi punto de vista, la recomendación práctica reside en concebir las integraciones con **contratos explícitos**: modelos de datos canónicos, definiciones inequívocas de marcas de tiempo y calidad, consumo de eventos idempotente, reintentos seguros y observabilidad continua. La taxonomía de ISA-95 proporciona un lenguaje ubicuo indispensable, mientras que los estándares abiertos (como las especificaciones de información de OPC UA) mitigan los mapeos manuales improvisados. Asimismo, cada estrato tecnológico debe contar con una **política de degradación elegante**: qué decisiones operativas puede tomar la línea de producción cuando los servicios superiores quedan inaccesibles. El [artículo 07](/es/blog/ingenieria-de-software-para-manufactura) profundiza en esta perspectiva arquitectónica.
 
 ## Conclusión
 

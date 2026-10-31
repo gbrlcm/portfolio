@@ -194,7 +194,7 @@ The idea is the same, with two practical differences: MySQL 8 has no `RETURNING`
 
 **It works well when:**
 
-- the work must be atomic with business data that is already in the database (Shopify's case, and the reason behind the [transactional outbox](/blog/saga-pattern) pattern);
+- the work must be atomic with business data that is already in the database (Shopify's case, and the reason behind the [transactional outbox](/en/blog/saga-pattern) pattern);
 - the volume fits comfortably in the database you already operate;
 - you want fewer moving parts: no extra cluster, no consistency between two systems.
 
@@ -220,7 +220,7 @@ Some questions that help with the decision:
 3. **Do you need something the database doesn't offer?** Fan-out to several consumers, event retention and reprocessing, microsecond cache latency: that is where the specialized tool is justified.
 4. **Who will operate the extra piece?** Each new technology has an operational and knowledge cost. Dan McKinley, in *Choose Boring Technology* (2015), describes this as the baggage of "operations" and "cognitive overhead" that every new choice carries.
 
-And one last one, which Shopify's own post leaves as its conclusion: **revisit old decisions**. The premise that "a relational database can't handle this" may have been true five years ago and no longer be. The opposite also holds: what works at today's volume may not work at tomorrow's. Architecture decisions have an expiry date, and it's worth recording them with the context in which they were made, as I discuss in the [system design roadmap](/blog/system-design-roteiro-pratico).
+And one last one, which Shopify's own post leaves as its conclusion: **revisit old decisions**. The premise that "a relational database can't handle this" may have been true five years ago and no longer be. The opposite also holds: what works at today's volume may not work at tomorrow's. Architecture decisions have an expiry date, and it's worth recording them with the context in which they were made, as I discuss in the [system design roadmap](/en/blog/system-design-practical-roadmap).
 
 ## References
 

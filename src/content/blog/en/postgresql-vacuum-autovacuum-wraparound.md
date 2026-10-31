@@ -18,7 +18,7 @@ translationKey: "postgres-vacuum"
 
 In February 2019, Mandrill, Mailchimp's transactional email service, was down for about 40 hours. The company's public post-mortem points to the cause: one of the PostgreSQL shards reached the *transaction ID* (XID) limit, entered protection mode and stopped accepting writes. The same post-mortem says that in November 2018 the engineers had already noticed the XIDs were at about half the limit at peak load, concluded it was not an immediate threat and opened a backlog item to monitor it.
 
-Nothing in this kind of incident requires a PostgreSQL bug. It only requires a silent maintenance routine, `VACUUM`, to stop keeping up with the write rate. This is the second article in the *PostgreSQL Internals* series; it assumes what the [previous article on MVCC](/pt/blog/mvcc-postgresql) explained: `UPDATE` and `DELETE` leave old row versions in the heap, and someone has to clean them up.
+Nothing in this kind of incident requires a PostgreSQL bug. It only requires a silent maintenance routine, `VACUUM`, to stop keeping up with the write rate. This is the second article in the *PostgreSQL Internals* series; it assumes what the [previous article on MVCC](/en/blog/postgresql-mvcc) explained: `UPDATE` and `DELETE` leave old row versions in the heap, and someone has to clean them up.
 
 > This article is a study based on the official documentation, on the public post-mortem cited, and on experiments I ran on disposable local PostgreSQL 17.10 and 18.6 instances. Passages marked as opinion reflect my own reading. References are at the end.
 
@@ -251,7 +251,7 @@ The server was designed to refuse new transactions before that happens, precisel
 
 ## Conclusion
 
-`VACUUM` connects three things that are usually treated separately: performance (bloat and statistics), I/O economy (visibility map) and data safety (freeze). The default autovacuum is a good starting point for small databases and a dangerous configuration for large, write-heavy tables. In my reading of the sources, what most separates avoidable incidents from unavoidable ones is having XID age and cleanup horizon metrics *before* the problem. The next article goes one layer up: [how the planner chooses an execution plan](/pt/blog/query-planner-postgresql), which depends on the statistics that `ANALYZE` maintains.
+`VACUUM` connects three things that are usually treated separately: performance (bloat and statistics), I/O economy (visibility map) and data safety (freeze). The default autovacuum is a good starting point for small databases and a dangerous configuration for large, write-heavy tables. In my reading of the sources, what most separates avoidable incidents from unavoidable ones is having XID age and cleanup horizon metrics *before* the problem. The next article goes one layer up: [how the planner chooses an execution plan](/en/blog/postgresql-query-planner), which depends on the statistics that `ANALYZE` maintains.
 
 ## References
 

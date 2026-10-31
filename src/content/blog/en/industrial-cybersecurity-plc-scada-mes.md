@@ -143,7 +143,7 @@ For developers building industrial software, security is an architectural requir
 
 Industrial cybersecurity is fundamentally a discipline of **sound architectural design and disciplined operational practice**: maintaining complete asset visibility, segmenting networks into discrete zones, policing conduits, managing remote vendor access as a high-risk vector, deploying compensating controls around unpatchable legacy systems, and rigorously rehearsing disaster recovery and manual plant operations. Applying security measures without understanding the underlying physical process risks tripping the plant; neglecting security invites enterprise IT incidents to spill into operational shutdowns. Resilient security is achieved by collaborating directly with automation engineers, rather than imposing IT policies from above.
 
-This article concludes the industrial automation series. The [software architecture overview](/pt/blog/arquitetura-de-software-fabrica-moderna) serves as the logical starting point for readers wishing to review the full series in sequence.
+This article concludes the industrial automation series. The [software architecture overview](/en/blog/software-architecture-modern-factory) serves as the logical starting point for readers wishing to review the full series in sequence.
 
 ## References
 

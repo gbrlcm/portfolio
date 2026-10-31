@@ -125,14 +125,14 @@ Bitmap Heap Scan on orders  (cost=404.80..8185.66 rows=28524 ...) (actual rows=2
 
 ### Index Only Scan and the visibility map
 
-An `Index Only Scan` answers from the index alone, without going to the heap, **if** the heap page is marked *all-visible* in the *visibility map*. Otherwise, it has to visit the heap to check MVCC visibility (the index doesn't store `xmin`/`xmax`, as we saw in the [MVCC article](/pt/blog/mvcc-postgresql)). Experiment (200,000-row table, with `autovacuum` off, query `SELECT k FROM ios WHERE k < 50`):
+An `Index Only Scan` answers from the index alone, without going to the heap, **if** the heap page is marked *all-visible* in the *visibility map*. Otherwise, it has to visit the heap to check MVCC visibility (the index doesn't store `xmin`/`xmax`, as we saw in the [MVCC article](/en/blog/postgresql-mvcc)). Experiment (200,000-row table, with `autovacuum` off, query `SELECT k FROM ios WHERE k < 50`):
 
 | State | Plan chosen |
 |---|---|
 | after load + `ANALYZE` (no `VACUUM`) | `Bitmap Heap Scan` (`Heap Blocks: exact=327`) |
 | after `VACUUM ios` | `Index Only Scan` (`Heap Fetches: 0`, `Buffers: shared hit=11`) |
 
-Note that it wasn't just `Heap Fetches` that changed: the **plan** itself changed. The planner uses the visibility map to estimate how many *heap fetches* it would have; without `VACUUM`, the `Index Only Scan` wasn't worth it. It's a direct bridge to the [article on VACUUM](/pt/blog/vacuum-autovacuum-wraparound-postgresql) and will be picked up again in the [article on indexes](/pt/blog/indices-postgresql-custos-ocultos).
+Note that it wasn't just `Heap Fetches` that changed: the **plan** itself changed. The planner uses the visibility map to estimate how many *heap fetches* it would have; without `VACUUM`, the `Index Only Scan` wasn't worth it. It's a direct bridge to the [article on VACUUM](/en/blog/postgresql-vacuum-autovacuum-wraparound) and will be picked up again in the [article on indexes](/en/blog/postgresql-indexes-hidden-costs).
 
 ## Join algorithms
 
@@ -194,7 +194,7 @@ After bulk loads, `reltuples` and the histograms can be well behind reality. Aut
 
 ### 3. Expressions and functions
 
-The planner only has statistics for columns (and for indexed expressions or expression-based extended statistics). For `WHERE lower(email) = 'x'` without an index or statistics on the expression, the selectivity estimate falls back to a generic value. An expression index brings statistics for the expression; that is a topic for the [indexes article](/pt/blog/indices-postgresql-custos-ocultos).
+The planner only has statistics for columns (and for indexed expressions or expression-based extended statistics). For `WHERE lower(email) = 'x'` without an index or statistics on the expression, the selectivity estimate falls back to a generic value. An expression index brings statistics for the expression; that is a topic for the [indexes article](/en/blog/postgresql-indexes-hidden-costs).
 
 ### 4. Joins that multiply errors
 
@@ -244,7 +244,7 @@ PostgreSQL core has no optimizer *hints*. There is the `pg_hint_plan` extension,
 
 ## Conclusion
 
-PostgreSQL's planner is a cost-based optimizer: only as good as the statistics that feed it and the cost model that guides it. When a plan is bad, the most useful question is almost never "which index should I create?", but rather "where did the estimated number stop being the real number?". That point of divergence points to stale statistics, ignored correlation or a predicate the planner can't estimate. The [next article](/pt/blog/indices-postgresql-custos-ocultos) covers indexes as physical structures, with their types and their write costs.
+PostgreSQL's planner is a cost-based optimizer: only as good as the statistics that feed it and the cost model that guides it. When a plan is bad, the most useful question is almost never "which index should I create?", but rather "where did the estimated number stop being the real number?". That point of divergence points to stale statistics, ignored correlation or a predicate the planner can't estimate. The [next article](/en/blog/postgresql-indexes-hidden-costs) covers indexes as physical structures, with their types and their write costs.
 
 ## References
 

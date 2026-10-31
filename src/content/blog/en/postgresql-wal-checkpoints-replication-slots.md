@@ -21,7 +21,7 @@ translationKey: "postgres-wal-replication"
 
 A replication slot sat idle, with no consumer connected. On a lab server configured with `max_wal_size = 256MB`, the `pg_wal` directory reached **640 MB**, with **628 MB** retained for a standby that was no longer there. None of this raised an error: it was exactly what the slot was designed to do. On a production server with no disk alert, the end of this story is usually a full volume and the database stopping.
 
-WAL is the piece that simultaneously underpins the durability of `COMMIT`, crash recovery, continuous backup and replicas. This is the tenth and last article in the *PostgreSQL Internals* series, and the one that connects almost all the previous ones: [MVCC](/pt/blog/mvcc-postgresql) explains that old versions remain in the heap; [VACUUM](/pt/blog/vacuum-autovacuum-wraparound-postgresql) removes them; WAL records all of it and lets another server repeat the same work.
+WAL is the piece that simultaneously underpins the durability of `COMMIT`, crash recovery, continuous backup and replicas. This is the tenth and last article in the *PostgreSQL Internals* series, and the one that connects almost all the previous ones: [MVCC](/en/blog/postgresql-mvcc) explains that old versions remain in the heap; [VACUUM](/en/blog/postgresql-vacuum-autovacuum-wraparound) removes them; WAL records all of it and lets another server repeat the same work.
 
 > This article is a study based on the official documentation and on experiments on a local PostgreSQL 17.10, with disposable instances (a primary, a standby via `pg_basebackup`, and a failure-test cluster). Passages marked as opinion reflect my own reading. References are at the end. The numbers illustrate the mechanism and are not a benchmark.
 
@@ -159,7 +159,7 @@ walreceiver      |         25394288 | 00:00:00.032 | 00:00:00.032 | 00:00:00.144
 
 One second later the lag in bytes was already zero. Interpretation: lag in bytes is "how much is left to apply right now", lag in time is "how long a change took from commit until it was confirmed at that stage". Useful alerts combine both.
 
-Beyond lag, the documentation warns about a side effect: **`hot_standby_feedback`** (default `off`) makes the standby report the `xmin` of its queries to the primary, which avoids query cancellations due to conflicts, but "can cause *bloat* on the primary in some workloads": it is the same logic as the cleanup horizon in the [VACUUM article](/pt/blog/vacuum-autovacuum-wraparound-postgresql).
+Beyond lag, the documentation warns about a side effect: **`hot_standby_feedback`** (default `off`) makes the standby report the `xmin` of its queries to the primary, which avoids query cancellations due to conflicts, but "can cause *bloat* on the primary in some workloads": it is the same logic as the cleanup horizon in the [VACUUM article](/en/blog/postgresql-vacuum-autovacuum-wraparound).
 
 ## Logical replication
 

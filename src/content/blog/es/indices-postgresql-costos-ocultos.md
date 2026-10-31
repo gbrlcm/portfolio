@@ -125,11 +125,11 @@ ANALYZE ev;
 -- Después: Bitmap Index Scan on ev_email_lower (actual rows=20), 8.584 kB
 ```
 
-El `ANALYZE` después del `CREATE INDEX` importa: PostgreSQL recolecta estadísticas de la **expresión** indexada, lo que también mejora las estimaciones de cardinalidad (tema del [artículo sobre el planner](/pt/blog/query-planner-postgresql)). La función debe ser `IMMUTABLE`.
+El `ANALYZE` después del `CREATE INDEX` importa: PostgreSQL recolecta estadísticas de la **expresión** indexada, lo que también mejora las estimaciones de cardinalidad (tema del [artículo sobre el planner](/es/blog/planificador-de-consultas-postgresql)). La función debe ser `IMMUTABLE`.
 
 ## Covering indexes, INCLUDE e index-only scans
 
-Un *index-only scan* responde la consulta sin visitar el heap, pero solo cuando se cumplen dos condiciones de la documentación: el tipo de índice lo soporta, y la consulta referencia solo columnas almacenadas en el índice. Como las entradas del índice no guardan información de visibilidad MVCC, el executor consulta el **visibility map**: si la página del heap está marcada como *all-visible*, el dato viene del índice; si no, hay que visitar el heap. El mapa es "cuatro órdenes de magnitud menor que el heap" y por eso suele quedar en caché; la ganancia aparece cuando "una fracción significativa de las páginas del heap tiene marcados los bits all-visible", lo que depende del `VACUUM` (véase el [artículo sobre VACUUM](/pt/blog/vacuum-autovacuum-wraparound-postgresql)).
+Un *index-only scan* responde la consulta sin visitar el heap, pero solo cuando se cumplen dos condiciones de la documentación: el tipo de índice lo soporta, y la consulta referencia solo columnas almacenadas en el índice. Como las entradas del índice no guardan información de visibilidad MVCC, el executor consulta el **visibility map**: si la página del heap está marcada como *all-visible*, el dato viene del índice; si no, hay que visitar el heap. El mapa es "cuatro órdenes de magnitud menor que el heap" y por eso suele quedar en caché; la ganancia aparece cuando "una fracción significativa de las páginas del heap tiene marcados los bits all-visible", lo que depende del `VACUUM` (véase el [artículo sobre VACUUM](/es/blog/postgresql-vacuum-autovacuum-wraparound)).
 
 La cláusula `INCLUDE` añade columnas al índice **sin hacerlas parte de la clave de búsqueda**:
 
@@ -170,7 +170,7 @@ En la tabla `ev`, el heap tenía **111 MB**, la PK **21 MB** y un índice compue
 
 ### HOT: el costo escondido
 
-Como se vio en el [artículo de MVCC](/pt/blog/mvcc-postgresql), un `UPDATE` solo puede ser HOT si no altera **ninguna columna indexada**. Indexar `status` o `updated_at` en una tabla con muchas actualizaciones de esas columnas desactiva HOT para esos updates y multiplica las entradas de índice. En el experimento de ese artículo, con `fillfactor` 70, 448 de 1.000 updates sobre una columna no indexada fueron HOT; al actualizar la columna indexada `w`, los contadores de HOT no aumentaron.
+Como se vio en el [artículo de MVCC](/es/blog/postgresql-mvcc), un `UPDATE` solo puede ser HOT si no altera **ninguna columna indexada**. Indexar `status` o `updated_at` en una tabla con muchas actualizaciones de esas columnas desactiva HOT para esos updates y multiplica las entradas de índice. En el experimento de ese artículo, con `fillfactor` 70, 448 de 1.000 updates sobre una columna no indexada fueron HOT; al actualizar la columna indexada `w`, los contadores de HOT no aumentaron.
 
 ### Índices que nadie usa
 
@@ -233,7 +233,7 @@ Sí, con `CREATE INDEX CONCURRENTLY`, a costa de más tiempo y de un posible ín
 
 ## Conclusión
 
-Un índice es una decisión de costo-beneficio, no una optimización gratuita. Los números del laboratorio lo resumen: el índice parcial cupo en 240 kB donde el completo ocupaba 21 MB; BRIN ocupó 32 kB donde el B-tree ocupaba 21 MB; y cinco índices más hicieron que la carga de escritura fuera casi tres veces más lenta. Los beneficios son reales, pero solo para las consultas que el planner realmente usa. El próximo artículo desplaza el foco hacia la otra cara de la concurrencia: [aislamiento, locks y deadlocks](/pt/blog/isolamento-locks-deadlocks-postgresql).
+Un índice es una decisión de costo-beneficio, no una optimización gratuita. Los números del laboratorio lo resumen: el índice parcial cupo en 240 kB donde el completo ocupaba 21 MB; BRIN ocupó 32 kB donde el B-tree ocupaba 21 MB; y cinco índices más hicieron que la carga de escritura fuera casi tres veces más lenta. Los beneficios son reales, pero solo para las consultas que el planner realmente usa. El próximo artículo desplaza el foco hacia la otra cara de la concurrencia: [aislamiento, locks y deadlocks](/es/blog/aislamiento-locks-deadlocks-postgresql).
 
 ## Referencias
 

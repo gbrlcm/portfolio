@@ -20,7 +20,7 @@ translationKey: "what-is-mes-manufacturing-execution-system"
 
 The ERP knows there is an order for 1,000 units. The PLC knows a sensor just counted one more. Between the two lies a question neither can answer alone: **which order, batch, and shift do these units belong to, and is production running at the planned pace?** That is the gap the MES fills.
 
-This is the third article in the series. Following the [architecture overview](/pt/blog/arquitetura-de-software-fabrica-moderna) and [PLCs](/pt/blog/plcs-linguagens-programacao-industrial), we move up to the manufacturing execution level.
+This is the third article in the series. Following the [architecture overview](/en/blog/software-architecture-modern-factory) and [PLCs](/en/blog/plc-industrial-programming-languages), we move up to the manufacturing execution level.
 
 ## What is an MES and why did it emerge
 
@@ -39,7 +39,7 @@ In the ISA-95 model, this layer corresponds to **Level 3**, *Manufacturing Opera
 | SCADA | What is happening across the process? | seconds | states, alarms, variable trends |
 | PLC/DCS (Level 2) | What should each machine do right now? | milliseconds | I/O, machine states |
 
-The most common confusion is between MES and ERP. A practical summary (expanded in [article 04](/pt/blog/erp-na-industria-planejamento-e-execucao)): **the ERP plans and accounts; the MES executes and tracks what actually happened**. The ERP determines that 1,000 units must be produced by Friday; the MES coordinates how that happens on the line, in what sequence, with which materials, and reports back the actual results.
+The most common confusion is between MES and ERP. A practical summary (expanded in [article 04](/en/blog/erp-in-industry-planning-and-execution)): **the ERP plans and accounts; the MES executes and tracks what actually happened**. The ERP determines that 1,000 units must be produced by Friday; the MES coordinates how that happens on the line, in what sequence, with which materials, and reports back the actual results.
 
 The difference with SCADA, on the other hand, comes down to scope and semantics. SCADA supervises process variables and commands equipment; by design, it has no native concept of a work order or a production batch. In many plants both integrate, with the SCADA or historian feeding the MES with events and counts. Article 05 compares all four in detail.
 
@@ -159,7 +159,7 @@ A production model includes far more: BOMs and routings, lot genealogy, machine 
 
 ## Relationship with software engineering
 
-In my view, an MES is a compelling case for applying domain-driven design and event-driven architecture with rigor: the domain is rich (orders, lots, resources, production events), integration is asynchronous by nature, and consistency and traceability matter far more than rapid feature delivery. At the same time, it cannot be approached like a simple web CRUD application: temporal dimensions, partial failures, idempotency, and auditable history must be foundational from day one. [Article 07](/pt/blog/engenharia-de-software-para-manufatura) explores these choices.
+In my view, an MES is a compelling case for applying domain-driven design and event-driven architecture with rigor: the domain is rich (orders, lots, resources, production events), integration is asynchronous by nature, and consistency and traceability matter far more than rapid feature delivery. At the same time, it cannot be approached like a simple web CRUD application: temporal dimensions, partial failures, idempotency, and auditable history must be foundational from day one. [Article 07](/en/blog/software-engineering-for-manufacturing) explores these choices.
 
 ## Conclusion
 

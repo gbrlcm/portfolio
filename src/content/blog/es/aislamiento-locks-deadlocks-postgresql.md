@@ -27,7 +27,7 @@ La concurrencia es la parte de la base de datos en la que el "en mi máquina fun
 
 ## Aislamiento: el contrato, y lo que implementa PostgreSQL
 
-El estándar SQL define cuatro niveles de aislamiento por las anomalías que cada uno *puede* permitir. PostgreSQL implementa tres niveles distintos, mediante MVCC (véase el [artículo sobre MVCC](/pt/blog/mvcc-postgresql)):
+El estándar SQL define cuatro niveles de aislamiento por las anomalías que cada uno *puede* permitir. PostgreSQL implementa tres niveles distintos, mediante MVCC (véase el [artículo sobre MVCC](/es/blog/postgresql-mvcc)):
 
 | Nivel | Cuándo se toma el snapshot | Fenómenos posibles en PostgreSQL |
 |---|---|---|
@@ -152,7 +152,7 @@ SELECT id FROM cola ORDER BY id FOR UPDATE SKIP LOCKED LIMIT 2;
 -- con id=1 bloqueado por otra sesión: devolvió 2 y 3
 ```
 
-`SKIP LOCKED` salta las filas ya bloqueadas y es la base de los patrones de cola en tablas SQL, con varios *workers* retirando trabajo sin bloquearse. La documentación lo describe como adecuado para ese caso, pero observa que da una visión intencionalmente inconsistente de los datos. El [estudio del caso Shopify](/pt/blog/shopify-redis-mysql-skip-locked) tratado en este blog usa exactamente ese mecanismo (en MySQL).
+`SKIP LOCKED` salta las filas ya bloqueadas y es la base de los patrones de cola en tablas SQL, con varios *workers* retirando trabajo sin bloquearse. La documentación lo describe como adecuado para ese caso, pero observa que da una visión intencionalmente inconsistente de los datos. El [estudio del caso Shopify](/es/blog/shopify-redis-mysql-skip-locked) tratado en este blog usa exactamente ese mecanismo (en MySQL).
 
 ### 3. Locks de tabla
 
@@ -238,7 +238,7 @@ Para investigar, `log_lock_waits = on` registra las esperas que superan `deadloc
 - **Creer que `SERIALIZABLE` es solo "más lento".** Exige rediseñar para el retry y puede aumentar la tasa de abortos bajo alta contención.
 - **Advisory locks de sesión a través de un pooler.**
 - **Confundir lock de fila con lock de tabla.** `SELECT ... FOR UPDATE` toma `ROW SHARE` en la tabla; un DDL pesado (`ACCESS EXCLUSIVE`) entra en conflicto con él.
-- **Transacción abierta esperando HTTP.** Retiene locks y el horizonte del vacuum (véase el [artículo sobre VACUUM](/pt/blog/vacuum-autovacuum-wraparound-postgresql)).
+- **Transacción abierta esperando HTTP.** Retiene locks y el horizonte del vacuum (véase el [artículo sobre VACUUM](/es/blog/postgresql-vacuum-autovacuum-wraparound)).
 
 ## Recomendaciones prácticas
 

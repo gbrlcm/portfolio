@@ -27,7 +27,7 @@ Concurrency is the part of the database where "it works on my machine" fails the
 
 ## Isolation: the contract, and what PostgreSQL implements
 
-The SQL standard defines four isolation levels by the anomalies each one *may* allow. PostgreSQL implements three distinct levels, via MVCC (see the [article on MVCC](/pt/blog/mvcc-postgresql)):
+The SQL standard defines four isolation levels by the anomalies each one *may* allow. PostgreSQL implements three distinct levels, via MVCC (see the [article on MVCC](/en/blog/postgresql-mvcc)):
 
 | Level | When the snapshot is taken | Possible phenomena in PostgreSQL |
 |---|---|---|
@@ -152,7 +152,7 @@ SELECT id FROM queue ORDER BY id FOR UPDATE SKIP LOCKED LIMIT 2;
 -- with id=1 locked by another session: returned 2 and 3
 ```
 
-`SKIP LOCKED` skips rows that are already locked and is the basis of queue patterns on SQL tables, with several *workers* pulling work without blocking each other. The documentation describes it as suitable for this case, but notes that it gives an intentionally inconsistent view of the data. The [Shopify case study](/pt/blog/shopify-redis-mysql-skip-locked) covered on this blog uses exactly this mechanism (in MySQL).
+`SKIP LOCKED` skips rows that are already locked and is the basis of queue patterns on SQL tables, with several *workers* pulling work without blocking each other. The documentation describes it as suitable for this case, but notes that it gives an intentionally inconsistent view of the data. The [Shopify case study](/en/blog/shopify-redis-mysql-skip-locked) covered on this blog uses exactly this mechanism (in MySQL).
 
 ### 3. Table locks
 
@@ -238,7 +238,7 @@ For investigation, `log_lock_waits = on` logs waits that exceed `deadlock_timeou
 - **Thinking `SERIALIZABLE` is just "slower".** It requires redesigning for retry and can raise the abort rate under high contention.
 - **Session-level advisory locks through a pooler.**
 - **Confusing a row lock with a table lock.** `SELECT ... FOR UPDATE` takes `ROW SHARE` on the table; heavy DDL (`ACCESS EXCLUSIVE`) conflicts with it.
-- **An open transaction waiting on HTTP.** It holds locks and the vacuum horizon (see the [article on VACUUM](/pt/blog/vacuum-autovacuum-wraparound-postgresql)).
+- **An open transaction waiting on HTTP.** It holds locks and the vacuum horizon (see the [article on VACUUM](/en/blog/postgresql-vacuum-autovacuum-wraparound)).
 
 ## Practical recommendations
 

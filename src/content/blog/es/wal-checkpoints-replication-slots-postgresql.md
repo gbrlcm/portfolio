@@ -21,7 +21,7 @@ translationKey: "postgres-wal-replication"
 
 Un replication slot quedó parado, sin ningún consumidor conectado. En un servidor de laboratorio configurado con `max_wal_size = 256MB`, el directorio `pg_wal` llegó a **640 MB**, con **628 MB** retenidos para un standby que ya no estaba allí. Nada de esto generó un error: era exactamente lo que el slot fue diseñado para hacer. En un servidor de producción sin alerta de disco, el final de esta historia suele ser el volumen lleno y la base de datos detenida.
 
-El WAL es la pieza que sostiene, al mismo tiempo, la durabilidad del `COMMIT`, la recuperación tras fallos, el backup continuo y las réplicas. Este es el décimo y último artículo de la serie *PostgreSQL por Dentro*, y el que conecta casi todos los anteriores: el [MVCC](/pt/blog/mvcc-postgresql) explica que las versiones antiguas permanecen en el heap; el [VACUUM](/pt/blog/vacuum-autovacuum-wraparound-postgresql) las elimina; el WAL registra todo eso y permite que otro servidor repita el mismo trabajo.
+El WAL es la pieza que sostiene, al mismo tiempo, la durabilidad del `COMMIT`, la recuperación tras fallos, el backup continuo y las réplicas. Este es el décimo y último artículo de la serie *PostgreSQL por Dentro*, y el que conecta casi todos los anteriores: el [MVCC](/es/blog/postgresql-mvcc) explica que las versiones antiguas permanecen en el heap; el [VACUUM](/es/blog/postgresql-vacuum-autovacuum-wraparound) las elimina; el WAL registra todo eso y permite que otro servidor repita el mismo trabajo.
 
 > Este artículo es un estudio basado en la documentación oficial y en experimentos en un PostgreSQL 17.10 local, con instancias descartables (un primario, un standby vía `pg_basebackup` y un clúster de prueba de fallos). Los pasajes marcados como opinión reflejan mi lectura. Las referencias están al final. Los números ilustran el mecanismo y no son un benchmark.
 
@@ -159,7 +159,7 @@ walreceiver      |         25394288 | 00:00:00.032 | 00:00:00.032 | 00:00:00.144
 
 Un segundo después el lag en bytes ya era cero. Interpretación: el lag en bytes es "cuánto falta aplicar ahora", el lag en tiempo es "cuánto tardó un cambio desde el commit hasta confirmarse en esa etapa". Las alertas útiles combinan ambos.
 
-Además del lag, la documentación advierte de un efecto secundario: **`hot_standby_feedback`** (por defecto `off`) hace que el standby informe al primario el `xmin` de sus consultas, lo que evita cancelaciones de consultas por conflicto, pero "puede causar *bloat* en el primario en algunas cargas": es la misma lógica del horizonte de limpieza del [artículo de VACUUM](/pt/blog/vacuum-autovacuum-wraparound-postgresql).
+Además del lag, la documentación advierte de un efecto secundario: **`hot_standby_feedback`** (por defecto `off`) hace que el standby informe al primario el `xmin` de sus consultas, lo que evita cancelaciones de consultas por conflicto, pero "puede causar *bloat* en el primario en algunas cargas": es la misma lógica del horizonte de limpieza del [artículo de VACUUM](/es/blog/postgresql-vacuum-autovacuum-wraparound).
 
 ## Replicación lógica
 

@@ -84,7 +84,7 @@ Hoja de ruta secuencial para desplegar proyectos de telemetría industrial:
 3. **El contexto debe anteceder al volumen.** Mediciones sin vincular a un identificador de máquina, orden de fabricación y lote carecen de valor analítico. Es imprescindible correlacionar los eventos de máquina con el MES (artículos 03 y 05).
 4. **¿Qué procesos residen en la pasarela edge?** Normalización semántica, sellado de tiempo en origen, almacenamiento en cola local, filtrado de alarmas y agregación.
 5. **¿Qué información se transmite y bajo qué protocolo?** Mensajería estructurada con confirmación de entrega, idempotencia en el destino y contratos de datos versionados.
-6. **¿Dónde residen los indicadores?** En una plataforma centralizada (nube o centro de datos corporativo) dotada de motores de series temporales y modelos relacionales, según lo desarrollado en el [artículo 08](/pt/blog/bancos-de-dados-industriais-eventos-de-producao).
+6. **¿Dónde residen los indicadores?** En una plataforma centralizada (nube o centro de datos corporativo) dotada de motores de series temporales y modelos relacionales, según lo desarrollado en el [artículo 08](/es/blog/bases-de-datos-industriales-eventos-de-produccion).
 7. **¿Quién consume las métricas?** Los operarios en planta precisan paneles en tiempo real; los directores de producción requieren resúmenes por turno; los ingenieros de fiabilidad demandan series temporales detalladas.
 
 ### Arquitectura realista (ilustrativa)
@@ -140,7 +140,7 @@ Desde mi punto de vista, los proyectos de IIoT rara vez fallan por limitaciones 
 
 IIoT e Industria 4.0 definen la integración técnica estructurada entre la maquinaria de planta, las aplicaciones de gestión y la computación en la nube. Una arquitectura prudente conserva el control determinista en los autómatas, procesa en el edge lo que requiere rapidez e independencia, traslada a la nube lo que se beneficia de la escala analítica y concibe la ciberseguridad como un requisito fundacional. El retorno efectivo depende en menor medida de las etiquetas tecnológicas que de la formulación de objetivos operativos claros y de la calidad semántica de los datos capturados.
 
-El último artículo de la serie aborda el factor que asegura la viabilidad de todo este ecosistema: la [ciberseguridad industrial](/pt/blog/ciberseguranca-industrial-plc-scada-mes).
+El último artículo de la serie aborda el factor que asegura la viabilidad de todo este ecosistema: la [ciberseguridad industrial](/es/blog/ciberseguridad-industrial-plc-scada-mes).
 
 ## Referencias
 

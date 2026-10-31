@@ -129,7 +129,7 @@ INSERT INTO archived_orders SELECT * FROM moved;
 | **Temporary table** | a large intermediate result reused across several commands | has its own statistics (after `ANALYZE`) and can have indexes; the materialized CTE has neither |
 | **View** | reuse across queries | expanded as a subquery |
 
-A subtle point: a materialized CTE has **no statistics** of its own collected by `ANALYZE`; the planner estimates the cardinality from the subquery, which can produce the estimation errors discussed in the [article on the planner](/pt/blog/query-planner-postgresql). If the intermediate result will be large and reused, a temporary table with `ANALYZE` can give the planner better information, at the cost of more code and disk writes (CTE materialization also writes to disk when it exceeds `work_mem`, as `temp written=4902` showed).
+A subtle point: a materialized CTE has **no statistics** of its own collected by `ANALYZE`; the planner estimates the cardinality from the subquery, which can produce the estimation errors discussed in the [article on the planner](/en/blog/postgresql-query-planner). If the intermediate result will be large and reused, a temporary table with `ANALYZE` can give the planner better information, at the cost of more code and disk writes (CTE materialization also writes to disk when it exceeds `work_mem`, as `temp written=4902` showed).
 
 > **Opinion:** as a code-review rule, I prefer to treat `MATERIALIZED` and `NOT MATERIALIZED` as **intent comments that the planner obeys**, and to add them only with an `EXPLAIN` to justify them. Leaving the default resolves most cases since version 12.
 
@@ -280,7 +280,7 @@ Yes, with `RETURNING`; they execute exactly once and to completion.
 
 ## Conclusion
 
-The CTE is a construct that, from PostgreSQL 12 on, stopped being an optimization fence by default and became a conscious choice: inlined when the planner can, materialized when you ask or when the result is reused. Mastering that difference, recognizing `CTE Scan` and `Recursive Union` in the plan, and protecting recursions with an index and cycle detection is enough to use `WITH` with confidence. The last article in the series goes down to what underpins all of this: [WAL, checkpoints and replication slots](/pt/blog/wal-checkpoints-replication-slots-postgresql).
+The CTE is a construct that, from PostgreSQL 12 on, stopped being an optimization fence by default and became a conscious choice: inlined when the planner can, materialized when you ask or when the result is reused. Mastering that difference, recognizing `CTE Scan` and `Recursive Union` in the plan, and protecting recursions with an index and cycle detection is enough to use `WITH` with confidence. The last article in the series goes down to what underpins all of this: [WAL, checkpoints and replication slots](/en/blog/postgresql-wal-checkpoints-replication-slots).
 
 ## References
 

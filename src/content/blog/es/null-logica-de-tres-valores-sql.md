@@ -270,7 +270,7 @@ En mi prueba con un índice B-tree común, no: se convirtió en un `Seq Scan`. M
 
 ## Conclusión
 
-`NULL` es el punto en que más divergen la intención del programador y la semántica de SQL. No es un defecto de PostgreSQL: es la lógica de tres valores del estándar SQL, con algunas elecciones de implementación (ordenamiento, cadenas vacías, unicidad) que varían entre bases de datos. Dominar `UNKNOWN`, `IS DISTINCT FROM`, `NOT EXISTS` y la regla "el `WHERE` solo deja pasar `TRUE`" elimina la mayor parte de los bugs silenciosos. El próximo artículo trata otra herramienta en la que el planner decide silenciosamente por ti: [las CTE, la materialización y las consultas recursivas](/pt/blog/cte-recursive-queries-postgresql).
+`NULL` es el punto en que más divergen la intención del programador y la semántica de SQL. No es un defecto de PostgreSQL: es la lógica de tres valores del estándar SQL, con algunas elecciones de implementación (ordenamiento, cadenas vacías, unicidad) que varían entre bases de datos. Dominar `UNKNOWN`, `IS DISTINCT FROM`, `NOT EXISTS` y la regla "el `WHERE` solo deja pasar `TRUE`" elimina la mayor parte de los bugs silenciosos. El próximo artículo trata otra herramienta en la que el planner decide silenciosamente por ti: [las CTE, la materialización y las consultas recursivas](/es/blog/cte-recursivas-postgresql).
 
 ## Referencias
 

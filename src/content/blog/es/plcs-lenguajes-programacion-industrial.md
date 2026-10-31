@@ -18,7 +18,7 @@ lang: "es"
 translationKey: "plc-industrial-programming-languages"
 ---
 
-En el [artículo anterior](/pt/blog/arquitetura-de-software-fabrica-moderna), el autómata programable (PLC) figuró como el componente central del nivel de control: el encargado de leer sensores, ejecutar algoritmos lógicos y gobernar actuadores mecánicos. Aquí abrimos esa caja negra. ¿Cómo procesa código un controlador industrial? ¿Por qué la automatización de planta exige lenguajes propios? ¿Y qué cambia en términos de ingeniería de software cuando el programa acciona una prensa de estampado en lugar de devolver un JSON?
+En el [artículo anterior](/es/blog/arquitectura-de-software-fabrica-moderna), el autómata programable (PLC) figuró como el componente central del nivel de control: el encargado de leer sensores, ejecutar algoritmos lógicos y gobernar actuadores mecánicos. Aquí abrimos esa caja negra. ¿Cómo procesa código un controlador industrial? ¿Por qué la automatización de planta exige lenguajes propios? ¿Y qué cambia en términos de ingeniería de software cuando el programa acciona una prensa de estampado en lugar de devolver un JSON?
 
 ## Qué es un PLC
 
@@ -197,7 +197,7 @@ El autómata industrial no sustituye a los sistemas informáticos superiores, ni
 
 Programar un autómata programable constituye una disciplina de desarrollo de software gobernada por restricciones físicas deterministas: tiempo de barrido garantizado, consecuencias mecánicas reales y prolongados ciclos de explotación. La norma IEC 61131-3 aporta una taxonomía de lenguajes compartida, si bien el desarrollo cotidiano está ligado a los entornos de cada fabricante. Quien proceda del sector del software convencional debe cambiar el paradigma de petición-respuesta por el de un bucle de ejecución continuo, asumiendo que el único código válido es aquel capaz de responder de forma segura ante las contingencias del mundo físico.
 
-El paso siguiente en la serie consiste en ascender de nivel: el [MES](/pt/blog/o-que-e-mes-manufacturing-execution-system), encargado de tender el puente entre la ejecución en el autómata y la planificación del negocio.
+El paso siguiente en la serie consiste en ascender de nivel: el [MES](/es/blog/que-es-mes-manufacturing-execution-system), encargado de tender el puente entre la ejecución en el autómata y la planificación del negocio.
 
 ## Referencias
 

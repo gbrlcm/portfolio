@@ -18,7 +18,7 @@ translationKey: "postgres-mvcc"
 
 On a 10,000-row table (45 pages of 8 kB in my test), a single `UPDATE t1 SET v = v + 1` with no `WHERE` left the file with 89 pages. Nobody inserted new rows, `count(*)` is still 10,000, and yet the file nearly doubled. Whoever runs into this for the first time usually suspects a bug or a misconfiguration. It is neither: it is **MVCC** working exactly as designed.
 
-This is the first article in the *PostgreSQL Internals* series. The idea here is to open the table and look at the bytes: what physically exists after an `INSERT`, an `UPDATE` and a `ROLLBACK`, how the database decides who sees what, and why that decision creates the cleanup work that the next article ([VACUUM, autovacuum and wraparound](/pt/blog/vacuum-autovacuum-wraparound-postgresql)) covers in detail.
+This is the first article in the *PostgreSQL Internals* series. The idea here is to open the table and look at the bytes: what physically exists after an `INSERT`, an `UPDATE` and a `ROLLBACK`, how the database decides who sees what, and why that decision creates the cleanup work that the next article ([VACUUM, autovacuum and wraparound](/en/blog/postgresql-vacuum-autovacuum-wraparound)) covers in detail.
 
 > This article is a study based on the official documentation and on experiments I ran on a disposable local PostgreSQL 17.10. Passages marked as opinion reflect my own reading. References are at the end.
 
@@ -141,7 +141,7 @@ Two details that tend to surprise people, both documented:
 - `READ UNCOMMITTED` **doesn't actually exist**: "PostgreSQL's Read Uncommitted mode behaves like Read Committed". This is allowed by the SQL standard, which only defines what *may* occur at each level.
 - PostgreSQL's `REPEATABLE READ` **doesn't allow phantom reads**, which goes beyond the minimum the SQL standard requires. But it still allows serialization anomalies, and that is why `SERIALIZABLE` exists.
 
-The SQL standard defines isolation levels by the phenomena each one tolerates. MVCC with snapshots, on the other hand, is an implementation strategy of PostgreSQL. The two meet in the documentation tables, but they are different concepts. The [article on isolation, locks and deadlocks](/pt/blog/isolamento-locks-deadlocks-postgresql) goes deeper into the practical consequences.
+The SQL standard defines isolation levels by the phenomena each one tolerates. MVCC with snapshots, on the other hand, is an implementation strategy of PostgreSQL. The two meet in the documentation tables, but they are different concepts. The [article on isolation, locks and deadlocks](/en/blog/postgresql-isolation-locks-deadlocks) goes deeper into the practical consequences.
 
 ## The cost: versions nobody sees anymore, but that are still there
 
@@ -209,7 +209,7 @@ With `fillfactor = 100`, the pages were born full and **no** update could be HOT
 
 The counters come from `pg_stat_user_tables` (`n_tup_upd`, `n_tup_hot_upd`); in test sessions, `pg_stat_force_next_flush()` avoids waiting for the statistics flush. This is a small experiment, on one machine, on purpose: it demonstrates the mechanism, it doesn't predict production numbers.
 
-> **My opinion:** on tables with a lot of `UPDATE` on non-indexed columns (counters, status, last-access timestamps), it's worth monitoring the HOT/total ratio before thinking about other optimizations. It is one of the cheapest levers against bloat. At the same time, creating an index on a column "just in case" can turn off HOT for every update of that column. The [article on indexes](/pt/blog/indices-postgresql-custos-ocultos) covers that cost.
+> **My opinion:** on tables with a lot of `UPDATE` on non-indexed columns (counters, status, last-access timestamps), it's worth monitoring the HOT/total ratio before thinking about other optimizations. It is one of the cheapest levers against bloat. At the same time, creating an index on a column "just in case" can turn off HOT for every update of that column. The [article on indexes](/en/blog/postgresql-indexes-hidden-costs) covers that cost.
 
 ## Row locks also use xmax
 
@@ -256,7 +256,7 @@ Until (1) no active snapshot can see it and (2) a `VACUUM` or page pruning remov
 
 ## Conclusion
 
-MVCC is neither magic nor an optional feature: it is the reason PostgreSQL can read without blocking writers and roll back in constant time. The price is physical and visible: every `UPDATE` creates a new tuple, every `DELETE` leaves a dead tuple, and the definition of "dead" depends on the oldest snapshot still in use. Most of the bloat problems I see described in production reports are not caused by a lack of `VACUUM`, but by something preventing `VACUUM` from advancing. The next article, [VACUUM, autovacuum and wraparound](/pt/blog/vacuum-autovacuum-wraparound-postgresql), follows exactly that trail.
+MVCC is neither magic nor an optional feature: it is the reason PostgreSQL can read without blocking writers and roll back in constant time. The price is physical and visible: every `UPDATE` creates a new tuple, every `DELETE` leaves a dead tuple, and the definition of "dead" depends on the oldest snapshot still in use. Most of the bloat problems I see described in production reports are not caused by a lack of `VACUUM`, but by something preventing `VACUUM` from advancing. The next article, [VACUUM, autovacuum and wraparound](/en/blog/postgresql-vacuum-autovacuum-wraparound), follows exactly that trail.
 
 ## References
 

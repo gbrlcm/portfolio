@@ -84,7 +84,7 @@ A sequential decision roadmap for industrial IoT deployments:
 3. **Context must precede volume.** Telemetry lacking machine IDs, work order bindings, and lot numbers is near worthless for business analytics. Correlate machine events with the MES (articles 03 and 05).
 4. **What runs on the edge?** Data normalization, source timestamping, local store-and-forward caching, threshold alerting, and downsampling.
 5. **What travels over the WAN and how?** Structured messaging with delivery acknowledgments, consumer idempotency, and versioned schemas.
-6. **Where do analytical metrics reside?** A central data lake or corporate warehouse with optimized time-series and relational storage, as detailed in [article 08](/pt/blog/bancos-de-dados-industriais-eventos-de-producao).
+6. **Where do analytical metrics reside?** A central data lake or corporate warehouse with optimized time-series and relational storage, as detailed in [article 08](/en/blog/industrial-databases-production-events).
 7. **Who consumes the output?** Line operators require sub-second local HMIs; plant managers need shift-level summaries; reliability engineers demand full raw history.
 
 ### Realistic architecture (illustrative)
@@ -140,7 +140,7 @@ In my view, industrial IoT initiatives stumble less from raw technical limitatio
 
 At its core, IIoT and Industry 4.0 represent the disciplined, structured integration of shop floor machine data with enterprise software and cloud analytics. A dependable architecture keeps machine control on deterministic hardware, processes high-frequency signals on local edge gateways, streams contextualized aggregates to the cloud, and treats industrial cybersecurity as a core constraint from day one. Successful outcomes depend far less on marketing buzzwords than on well-defined business goals and properly contextualized machine telemetry.
 
-The final article in this series explores the discipline that underpins this entire ecosystem: [industrial cybersecurity](/pt/blog/ciberseguranca-industrial-plc-scada-mes).
+The final article in this series explores the discipline that underpins this entire ecosystem: [industrial cybersecurity](/en/blog/industrial-cybersecurity-plc-scada-mes).
 
 ## References
 

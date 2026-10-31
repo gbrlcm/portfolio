@@ -133,7 +133,7 @@ End-to-end operational flow: the ERP releases the work order; the MES schedules 
 
 ## Relationship with software engineering
 
-In my view, the practical lesson is to architect industrial integrations around **explicit contracts**: canonical domain identifiers, well-defined time and quality semantics, idempotent event ingestion, reliable reprocessing, and telemetry monitoring. ISA-95 vocabulary provides the ubiquitous domain language, and standardized information models (such as OPC UA companion specs) minimize fragile ad-hoc translations. Furthermore, each architectural layer requires a clear **graceful degradation strategy**: defining exactly how local automation operates when upper-level systems become unreachable. [Article 07](/pt/blog/engenharia-de-software-para-manufatura) revisits these architectural patterns.
+In my view, the practical lesson is to architect industrial integrations around **explicit contracts**: canonical domain identifiers, well-defined time and quality semantics, idempotent event ingestion, reliable reprocessing, and telemetry monitoring. ISA-95 vocabulary provides the ubiquitous domain language, and standardized information models (such as OPC UA companion specs) minimize fragile ad-hoc translations. Furthermore, each architectural layer requires a clear **graceful degradation strategy**: defining exactly how local automation operates when upper-level systems become unreachable. [Article 07](/en/blog/software-engineering-for-manufacturing) revisits these architectural patterns.
 
 ## Conclusion
 

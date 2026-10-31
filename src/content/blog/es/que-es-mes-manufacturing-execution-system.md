@@ -20,7 +20,7 @@ translationKey: "what-is-mes-manufacturing-execution-system"
 
 El ERP sabe que existe un pedido de 1.000 unidades. El PLC sabe que un sensor acaba de contar una más. Entre ambos existe una pregunta que ninguno de los dos responde por sí solo: **¿a qué orden, a qué lote y a qué turno pertenecen estas unidades, y la producción avanza al ritmo planificado?** Ese es el espacio que ocupa el MES.
 
-Este es el tercer artículo de la serie. Tras la [visión general de arquitectura](/pt/blog/arquitetura-de-software-fabrica-moderna) y los [PLCs](/pt/blog/plcs-linguagens-programacao-industrial), subimos al nivel de ejecución de la manufactura.
+Este es el tercer artículo de la serie. Tras la [visión general de arquitectura](/es/blog/arquitectura-de-software-fabrica-moderna) y los [PLCs](/es/blog/plcs-lenguajes-programacion-industrial), subimos al nivel de ejecución de la manufactura.
 
 ## Qué es un MES y por qué surgió
 
@@ -39,7 +39,7 @@ En el modelo ISA-95, esta capa corresponde al **nivel 3**, la *gestión de opera
 | SCADA | ¿Qué está ocurriendo en el proceso? | segundos | estados, alarmas, tendencias de variables |
 | PLC/DCS (nivel 2) | ¿Qué debe hacer cada máquina en este instante? | milisegundos | entradas, salidas, estados de máquina |
 
-La confusión más común se da entre MES y ERP. Un resumen práctico (que el [artículo 04](/pt/blog/erp-na-industria-planejamento-e-execucao) profundiza): **el ERP planifica y contabiliza; el MES ejecuta y registra lo que realmente ocurrió**. El ERP decide que se fabricarán 1.000 unidades antes del viernes; el MES coordina cómo ocurre eso en la línea, en qué secuencia, con qué material, e informa el resultado real.
+La confusión más común se da entre MES y ERP. Un resumen práctico (que el [artículo 04](/es/blog/erp-en-la-industria-planificacion-y-ejecucion) profundiza): **el ERP planifica y contabiliza; el MES ejecuta y registra lo que realmente ocurrió**. El ERP decide que se fabricarán 1.000 unidades antes del viernes; el MES coordina cómo ocurre eso en la línea, en qué secuencia, con qué material, e informa el resultado real.
 
 La diferencia frente al SCADA reside en el alcance y en la semántica. El SCADA supervisa variables de proceso y comanda equipos; por naturaleza, no sabe qué es una orden de fabricación o un lote. En muchas plantas ambos se integran, con el SCADA o el historiador alimentando al MES con eventos y recuentos. El artículo 05 compara los cuatro en detalle.
 
@@ -159,7 +159,7 @@ El modelo real abarca mucho más: listas de materiales (BOM) y rutas, genealogí
 
 ## Relación con la ingeniería de software
 
-Desde mi punto de vista, un MES representa un escenario ideal para aplicar diseño guiado por el dominio (DDD) y arquitectura orientada a eventos con rigor: el dominio es rico (órdenes, lotes, recursos, eventos de producción), la integración es asíncrona por naturaleza, y la consistencia y la trazabilidad priman sobre la velocidad de entrega de funcionalidades. Al mismo tiempo, no es un sistema abordable como un simple CRUD web: la dimensión temporal, los fallos parciales, la idempotencia y la auditoría deben concebirse en el diseño inicial. El [artículo 07](/pt/blog/engenharia-de-software-para-manufatura) aborda estas decisiones.
+Desde mi punto de vista, un MES representa un escenario ideal para aplicar diseño guiado por el dominio (DDD) y arquitectura orientada a eventos con rigor: el dominio es rico (órdenes, lotes, recursos, eventos de producción), la integración es asíncrona por naturaleza, y la consistencia y la trazabilidad priman sobre la velocidad de entrega de funcionalidades. Al mismo tiempo, no es un sistema abordable como un simple CRUD web: la dimensión temporal, los fallos parciales, la idempotencia y la auditoría deben concebirse en el diseño inicial. El [artículo 07](/es/blog/ingenieria-de-software-para-manufactura) aborda estas decisiones.
 
 ## Conclusión
 
