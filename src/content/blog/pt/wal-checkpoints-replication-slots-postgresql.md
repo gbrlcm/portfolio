@@ -3,6 +3,8 @@ title: "WAL, checkpoints e replication slots: como o PostgreSQL protege os dados
 description: "Write-Ahead Logging, full-page writes, checkpoints, crash recovery, streaming e replicação lógica, lag e retenção de WAL: como cada peça funciona e como um replication slot abandonado vira um incidente. Com experimentos."
 pubDate: 2026-10-31T13:30:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/wal-checkpoints-replication-slots-postgresql.webp"
+coverAlt: "Segmentos de WAL com um checkpoint e uma barra de slot inativo retendo 628 MB, acima do max_wal_size de 256 MB"
 category: "Banco de Dados"
 tags:
   - "PostgreSQL"
@@ -84,6 +86,11 @@ Segundo a documentação, um checkpoint começa "a cada `checkpoint_timeout` seg
 - `min_wal_size` garante uma reserva mínima de segmentos reciclados mesmo com o sistema ocioso.
 
 Para observar, ligue `log_checkpoints` (cada checkpoint registra buffers escritos, tempos de escrita e *sync*, e distância em WAL) e consulte a view `pg_stat_checkpointer`, que a partir do PostgreSQL 17 reúne `num_timed`, `num_requested`, `write_time`, `sync_time` e `buffers_written`. Um `num_requested` alto em relação a `num_timed` indica checkpoints disparados por volume de WAL e não pelo relógio.
+
+<figure>
+  <img src="/images/blog/wal-checkpoints-replication-slots-postgresql-diagrama.webp" alt="Diagrama com a sequência do teste de recuperação (checkpoint, commit, kill -9, REDO), o volume de WAL de 18 MB no primeiro UPDATE após o checkpoint contra 3,2 MB no segundo, e os estados de wal_status de um slot: reserved, extended, unreserved e lost." width="1600" height="900" loading="lazy" decoding="async" />
+  <figcaption>Crash recovery, full-page writes e retenção de WAL por um slot sem consumidor, medidos no PostgreSQL 17.10. Diagrama do autor.</figcaption>
+</figure>
 
 ## Crash recovery, de ponta a ponta
 

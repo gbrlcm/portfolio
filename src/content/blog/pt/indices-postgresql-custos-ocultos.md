@@ -3,6 +3,8 @@ title: "Índices no PostgreSQL: tipos, ordem das colunas e os custos que ningué
 description: "B-tree, Hash, GiST, SP-GiST, GIN e BRIN; índices compostos, parciais, de expressão e com INCLUDE; index-only scan e visibility map; e o custo real de escrita e manutenção, medido."
 pubDate: 2026-10-31T10:30:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/indices-postgresql-custos-ocultos.webp"
+coverAlt: "Gráfico de barras do tempo de INSERT crescendo de 433 ms com só a chave primária até 1.215 ms com cinco índices extras"
 category: "Banco de Dados"
 tags:
   - "PostgreSQL"
@@ -144,6 +146,11 @@ WHERE tenant = 42 AND criado >= '2025-03-01' AND criado < '2025-04-01';
 Custo: `ev_cov` ocupa **39 MB** contra **30 MB** do índice sem `INCLUDE` (o `smallint tipo` adicionou ~30%). A documentação recomenda ser conservador: colunas de payload "duplicam dados da tabela e incham o índice", e incluí-las só faz sentido "se a tabela mudar devagar o suficiente para que o index-only scan não precise acessar o heap". Para índices `UNIQUE`, a unicidade vale só para as colunas da chave.
 
 No meu experimento anterior sobre planos (artigo do planner), uma tabela sem `VACUUM` recente teve o plano trocado de `Index Only Scan` para `Bitmap Heap Scan`; após o `VACUUM`, voltou. Ou seja: **o covering index só cumpre a promessa se o visibility map estiver em dia**.
+
+<figure>
+  <img src="/images/blog/indices-postgresql-custos-ocultos-diagrama.webp" alt="Gráfico de barras com o tempo de inserir 300 mil linhas: 433, 512, 802, 874, 977 e 1.215 ms conforme se somam índices. À direita, índice parcial de 240 kB contra B-tree de 21 MB, e BRIN de 32 kB contra B-tree de 21 MB." width="1600" height="900" loading="lazy" decoding="async" />
+  <figcaption>Custo de escrita e de espaço medidos num único computador, com tabela UNLOGGED e dados sintéticos: mostram a tendência, não valores de produção. Diagrama do autor.</figcaption>
+</figure>
 
 ## O custo oculto: escrita, espaço e HOT
 

@@ -3,6 +3,8 @@ title: "NULL em SQL: a lógica de três valores por trás dos erros silenciosos"
 description: "TRUE, FALSE e UNKNOWN na prática: por que NOT IN retorna vazio, como NULL se comporta em comparações, JOINs, agregados, UNIQUE e CHECK, e quando usar COALESCE, NULLIF e IS DISTINCT FROM. Com testes no PostgreSQL."
 pubDate: 2026-10-31T12:30:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/null-logica-tres-valores-sql.webp"
+coverAlt: "Tabela-verdade de três valores com NULL e o resultado de 2 NOT IN (1, NULL) sendo NULL"
 category: "Banco de Dados"
 tags:
   - "SQL"
@@ -59,6 +61,11 @@ FROM (VALUES (true,NULL::bool),(false,NULL),(NULL,NULL)) t(a,b);
 - `NOT UNKNOWN` = `UNKNOWN`.
 
 A segunda parte da regra é a que explica os erros: **`WHERE` só mantém linhas cujo predicado é `TRUE`**. Linhas `FALSE` e `UNKNOWN` são descartadas igualmente. Para a lógica clássica, "não verdadeiro" e "falso" eram a mesma coisa; em SQL, não.
+
+<figure>
+  <img src="/images/blog/null-logica-tres-valores-sql-diagrama.webp" alt="À esquerda, tabelas-verdade de AND, OR e NOT com NULL. À direita, a cadeia que faz NOT IN retornar zero linhas quando a lista tem NULL, comparada ao NOT EXISTS, que retorna as linhas 2 e 3." width="1600" height="900" loading="lazy" decoding="async" />
+  <figcaption>A lógica de três valores e a cadeia de avaliação do NOT IN, a partir dos testes em PostgreSQL 17.10. Diagrama do autor.</figcaption>
+</figure>
 
 ## Comparações com NULL
 

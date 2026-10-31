@@ -3,6 +3,8 @@ title: "Isolamento, locks e deadlocks no PostgreSQL: o que acontece quando trans
 description: "READ COMMITTED, REPEATABLE READ e SERIALIZABLE na prática: lost update, write skew, locks de linha e de tabela, a fila de locks do ALTER TABLE, SKIP LOCKED, advisory locks e deadlocks, com experimentos reproduzíveis."
 pubDate: 2026-10-31T11:00:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/isolamento-locks-deadlocks-postgresql.webp"
+coverAlt: "Duas sessões leem saldo 100 e ambas gravam 90 em READ COMMITTED, quando o esperado era 80"
 category: "Banco de Dados"
 tags:
   - "PostgreSQL"
@@ -106,6 +108,11 @@ Consequências práticas:
 - A documentação alerta que, mesmo checando antes se uma chave existe, "é possível ver violações de unicidade causadas por conflitos entre transações Serializable sobrepostas".
 
 > **Opinião:** em sistemas com regras de negócio que cruzam várias linhas (limites, cotas, "pelo menos um", "no máximo N"), prefiro tratar `SERIALIZABLE` com retry como o primeiro candidato, e travas explícitas como alternativa quando o custo de retry é alto. A decisão é de domínio: não existe nível "seguro por padrão" sem o custo correspondente.
+
+<figure>
+  <img src="/images/blog/isolamento-locks-deadlocks-postgresql-diagrama.webp" alt="Tabela com os níveis READ COMMITTED, REPEATABLE READ e SERIALIZABLE contra três cenários: leitura-cálculo-escrita (perde uma atualização em READ COMMITTED), UPDATE concorrente (erro de serialização em REPEATABLE READ) e write skew do plantão médico (violação em REPEATABLE READ, erro e sobra 1 em SERIALIZABLE)." width="1600" height="900" loading="lazy" decoding="async" />
+  <figcaption>O mesmo cenário em cada nível de isolamento, como observado no PostgreSQL 17.10. Diagrama do autor.</figcaption>
+</figure>
 
 ## Locks: o que realmente é travado
 

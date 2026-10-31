@@ -3,6 +3,8 @@ title: "MVCC no PostgreSQL: por que um UPDATE nunca sobrescreve a linha"
 description: "Como o PostgreSQL implementa MVCC: versões de tupla, xmin/xmax, snapshots, hint bits, HOT e a relação com VACUUM. Com experimentos reproduzíveis usando pageinspect."
 pubDate: 2026-10-31T09:00:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/mvcc-postgresql.webp"
+coverAlt: "Duas versões da mesma linha numa página do PostgreSQL: a antiga com xmax 743 e a nova com xmin 743, ligadas por t_ctid"
 category: "Banco de Dados"
 tags:
   - "PostgreSQL"
@@ -108,6 +110,11 @@ SELECT id FROM conta;  -- retorna só id = 1
 ```
 
 O rollback foi instantâneo (custo independente da quantidade de dados), mas deixou lixo físico que alguém precisará recolher.
+
+<figure>
+  <img src="/images/blog/mvcc-postgresql-diagrama.webp" alt="Diagrama com a página do heap depois de um UPDATE: a tupla lp 1 (xmin 741, xmax 743, saldo 500) aponta por t_ctid para a lp 2 (xmin 743, saldo 400). À direita, um snapshot anterior a 743 enxerga a lp 1 e um posterior enxerga a lp 2." width="1600" height="900" loading="lazy" decoding="async" />
+  <figcaption>Duas versões físicas da mesma linha e quem enxerga cada uma. Valores reais de um experimento em PostgreSQL 17; os XIDs mudam a cada execução. Diagrama do autor.</figcaption>
+</figure>
 
 ## Quem decide o que uma transação enxerga: snapshots
 

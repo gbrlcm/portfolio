@@ -3,6 +3,8 @@ title: "PostgreSQL 18.1, 18.6 e as versões minor: por que atualizações pequen
 description: "O que é uma versão minor do PostgreSQL, o que as releases 18.1 a 18.6 corrigiram, por que a 18.5 nunca saiu, por que minor não exige dump/restore e como planejar e acompanhar atualizações em produção."
 pubDate: 2026-10-31T12:00:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/postgresql-versoes-minor-atualizacoes.webp"
+coverAlt: "Linha do tempo das versões 18.1 a 18.6 do PostgreSQL com a 18.5 riscada como nunca publicada"
 category: "Banco de Dados"
 tags:
   - "PostgreSQL"
@@ -45,6 +47,11 @@ Na prática, isso significa que **18.1 não é "um lançamento menor com novidad
 ### O calendário
 
 O projeto publica minors em datas pré-definidas: por padrão, a **segunda quinta-feira de fevereiro, maio, agosto e novembro**. Rodadas fora do calendário acontecem "se a equipe determinar que uma correção crítica de bug ou de segurança é importante demais para esperar".
+
+<figure>
+  <img src="/images/blog/postgresql-versoes-minor-atualizacoes-diagrama.webp" alt="Linha do tempo com as versões 18.0 (25/09/2025), 18.1 (13/11/2025), 18.2 (12/02/2026), 18.3 (26/02/2026), 18.4 (14/05/2026), 18.5 (não publicada) e 18.6 (13/08/2026), com o destaque de cada uma." width="1600" height="900" loading="lazy" decoding="async" />
+  <figcaption>A série 18 até a 18.6. Fonte: notas de versão e política de versionamento em postgresql.org, consultadas em 31/10/2026. Diagrama do autor.</figcaption>
+</figure>
 
 ## O histórico da série 18, versão a versão
 

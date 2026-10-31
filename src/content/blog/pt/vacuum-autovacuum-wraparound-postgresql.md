@@ -3,6 +3,8 @@ title: "VACUUM, autovacuum e wraparound de XID: o que derruba um PostgreSQL sem 
 description: "Por que o PostgreSQL precisa de VACUUM, como o autovacuum decide agir, o que é freeze e wraparound de transaction ID, e como diagnosticar bloat e vacuum travado em produção."
 pubDate: 2026-10-31T09:30:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/vacuum-autovacuum-wraparound-postgresql.webp"
+coverAlt: "Páginas com tuplas vivas e mortas e um medidor da idade de relfrozenxid até o limite de dois bilhões"
 category: "Banco de Dados"
 tags:
   - "PostgreSQL"
@@ -152,6 +154,11 @@ Segundo a documentação, nesse estado ainda é possível rodar o próprio `VACU
 ### Eager freezing no PostgreSQL 18
 
 O vacuum "não agressivo" só varre páginas que não estão *all-visible*, e por isso pode adiar o congelamento até virar uma varredura agressiva cara. As notas de versão do PostgreSQL 18 dizem que o `VACUUM` normal agora pode congelar algumas páginas *all-visible* de forma antecipada, controlado por `vacuum_max_eager_freeze_failure_rate` (padrão `0.03`, e `0` desativa). Na documentação, o parâmetro limita a fração de páginas que podem ser varridas sem conseguir ficar *all-frozen* antes de a varredura antecipada ser desligada. O objetivo é distribuir o trabalho de congelamento ao longo de vários vacuums, em vez de concentrá-lo num vacuum agressivo. Comento a mudança no [artigo sobre o PostgreSQL 18](/pt/blog/postgresql-18-mudancas-que-importam).
+
+<figure>
+  <img src="/images/blog/vacuum-autovacuum-wraparound-postgresql-diagrama.webp" alt="Diagrama em dois painéis. À esquerda, uma sessão REPEATABLE READ com backend_xmin 744 impede o VACUUM de remover duas tuplas mortas (removable cutoff 744). À direita, a escada de defesa contra o wraparound: 50 milhões, 150 milhões, 200 milhões, 1,6 bilhão e cerca de 2 bilhões." width="1600" height="900" loading="lazy" decoding="async" />
+  <figcaption>O horizonte de limpeza e a escada de parâmetros de freeze (valores padrão conferidos com SHOW no PostgreSQL 17.10). Diagrama do autor.</figcaption>
+</figure>
 
 ## O que segura a limpeza
 

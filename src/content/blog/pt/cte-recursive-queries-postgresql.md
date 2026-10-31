@@ -3,6 +3,8 @@ title: "CTEs, materialização e consultas recursivas no PostgreSQL: o que o pla
 description: "Como o PostgreSQL trata CTEs desde a versão 12: inlining, MATERIALIZED e NOT MATERIALIZED, efeitos colaterais, WITH RECURSIVE, SEARCH e CYCLE, ciclos em grafos e o impacto no plano de execução."
 pubDate: 2026-10-31T13:00:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/cte-recursive-queries-postgresql.webp"
+coverAlt: "Comparação entre CTE incorporada com Index Scan e CTE MATERIALIZED com Seq Scan, e uma consulta WITH RECURSIVE"
 category: "Banco de Dados"
 tags:
   - "SQL"
@@ -112,6 +114,11 @@ WITH movidas AS (
 )
 INSERT INTO pedido_arquivo SELECT * FROM movidas;
 ```
+
+<figure>
+  <img src="/images/blog/cte-recursive-queries-postgresql-diagrama.webp" alt="Fluxograma de quando uma CTE é incorporada (referenciada uma vez) ou materializada (duas ou mais vezes), os resultados medidos de 4 contra 7.352 buffers, e o efeito de um índice na coluna pai numa consulta recursiva: cerca de 208 ms contra 57 ms." width="1600" height="900" loading="lazy" decoding="async" />
+  <figcaption>Inlining, MATERIALIZED e recursão, medidos no PostgreSQL 17.10 (um experimento numa máquina; ilustra o plano, não é benchmark). Diagrama do autor.</figcaption>
+</figure>
 
 ## CTE versus subquery versus tabela temporária
 

@@ -3,6 +3,8 @@ title: "PostgreSQL 18: as mudanças que importam para quem escreve SQL e opera b
 description: "I/O assíncrono, skip scan, eager freezing, colunas geradas virtuais, uuidv7, RETURNING OLD/NEW, restrições temporais e as incompatibilidades do upgrade: como cada recurso funciona e quando faz diferença."
 pubDate: 2026-10-31T11:30:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/postgresql-18-mudancas-que-importam.webp"
+coverAlt: "Painel com recursos do PostgreSQL 18: I/O assíncrono, skip scan, eager freezing, uuidv7, RETURNING old e new e restrições temporais"
 category: "Banco de Dados"
 tags:
   - "PostgreSQL"
@@ -37,6 +39,11 @@ Datas e versões, conforme as páginas oficiais de [versionamento](https://www.p
 | 18.6 | 13/08/2026 | versão corrente da série 18 |
 
 O suporte da série 18 vai até 14/11/2030. A próxima rodada de *minor releases* está agendada para 12/11/2026 (alvo, não garantia). A importância dessas versões é o assunto do [próximo artigo](/pt/blog/postgresql-versoes-minor-atualizacoes).
+
+<figure>
+  <img src="/images/blog/postgresql-18-mudancas-que-importam-diagrama.webp" alt="Diagrama com três colunas de recursos do PostgreSQL 18 (leitura e planejamento, vacuum, SQL) e, abaixo, quatro itens para checar antes de atualizar: checksums, estatísticas, partições filhas e senhas MD5." width="1600" height="900" loading="lazy" decoding="async" />
+  <figcaption>Recursos testados no PostgreSQL 18.6 e os itens de atenção do upgrade. Diagrama do autor.</figcaption>
+</figure>
 
 ## 1. I/O assíncrono (AIO)
 

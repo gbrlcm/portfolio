@@ -3,6 +3,8 @@ title: "Query planner do PostgreSQL: como o banco escolhe um plano de execução
 description: "Como o planner do PostgreSQL estima custos, escolhe entre Seq Scan, Index Scan e Bitmap Scan, decide Nested Loop, Hash ou Merge Join e por que estimativas de cardinalidade erradas geram planos caros."
 pubDate: 2026-10-31T10:00:00-03:00
 author: "Gabriel Campos"
+cover: "/images/blog/query-planner-postgresql.webp"
+coverAlt: "Plano com Hash Join sobre dois Seq Scan e o erro de estimativa de 187 contra 2.000 linhas"
 category: "Banco de Dados"
 tags:
   - "PostgreSQL"
@@ -91,6 +93,11 @@ FROM pg_stats WHERE tablename = 'pedido' AND attname = 'status';
 ```
 
 Com isso o planner já sabe que `status = 'entregue'` casa com ~98% das linhas e `'pendente'` com ~2%: estimou **20.233** linhas para o segundo (real: 20.000) e **979.767** para o primeiro (real: 980.000).
+
+<figure>
+  <img src="/images/blog/query-planner-postgresql-diagrama.webp" alt="Diagrama com quatro etapas do planner (estatísticas, seletividade, caminhos, custo) e duas linhas comparando a estimativa de 187 linhas sem estatística estendida com 2.033 depois de CREATE STATISTICS, para 2.000 linhas reais." width="1600" height="900" loading="lazy" decoding="async" />
+  <figcaption>Do ANALYZE ao plano, e o efeito de uma estatística estendida em colunas correlacionadas (tabela de 200 mil linhas, PostgreSQL 17.10). Diagrama do autor.</figcaption>
+</figure>
 
 ## Os métodos de acesso a uma tabela
 
