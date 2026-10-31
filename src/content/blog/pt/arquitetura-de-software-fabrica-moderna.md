@@ -15,6 +15,7 @@ tags:
   - "Série Automação Industrial"
 draft: false
 lang: "pt-BR"
+translationKey: "software-architecture-modern-factory"
 ---
 
 Para quem vem de desenvolvimento web ou de sistemas corporativos, uma fábrica costuma parecer uma caixa-preta: máquinas de um lado, um ERP do outro, e "alguma integração" no meio. Na prática existe um conjunto bem definido de camadas, cada uma com responsabilidades, escalas de tempo e requisitos diferentes. Entender esse mapa é o pré-requisito para qualquer trabalho de software em manufatura.

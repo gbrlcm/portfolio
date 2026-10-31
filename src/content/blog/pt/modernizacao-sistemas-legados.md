@@ -13,6 +13,7 @@ tags:
   - "Refatoração"
 draft: false
 lang: "pt-BR"
+translationKey: "legacy-system-modernization"
 ---
 
 Todo sistema que dá certo vira legado. Ele continua gerando receita, atendendo clientes e sustentando a operação, mas cada mudança custa mais do que deveria, poucas pessoas entendem como ele funciona e ninguém tem coragem de mexer em certas partes.

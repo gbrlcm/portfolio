@@ -13,6 +13,7 @@ tags:
   - "Backend"
 draft: false
 lang: "pt-BR"
+translationKey: "system-design-practical-roadmap"
 ---
 
 System design ficou conhecido como etapa de entrevista em empresas grandes, mas a utilidade real dele está no dia a dia: é o momento em que você decide, antes de escrever código, como um sistema vai atender requisitos de volume, latência, disponibilidade e custo. Decisões tomadas sem esse exercício costumam aparecer depois como incidente.

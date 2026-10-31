@@ -13,6 +13,7 @@ tags:
   - "Arquitetura"
 draft: false
 lang: "pt-BR"
+translationKey: "saga-pattern"
 ---
 
 Dentro de um único banco de dados, garantir que um pedido só seja confirmado se o pagamento passar é trivial: uma transação resolve. Quando pedidos, pagamentos e estoque vivem em serviços diferentes, cada um com o próprio banco, essa garantia deixa de existir. O padrão Saga é a resposta mais usada para esse problema.

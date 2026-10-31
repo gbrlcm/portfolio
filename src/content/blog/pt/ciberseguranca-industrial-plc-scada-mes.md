@@ -15,6 +15,7 @@ tags:
   - "Série Automação Industrial"
 draft: false
 lang: "pt-BR"
+translationKey: "industrial-cybersecurity-plc-scada-mes"
 ---
 
 Os artigos anteriores descreveram uma fábrica cada vez mais conectada: controladores que expõem dados por OPC UA, gateways que publicam em brokers, plataformas na nuvem que recebem telemetria. Cada conexão nova resolve um problema de visibilidade e cria uma superfície de ataque. Este último artigo da série trata de como lidar com isso sem comprometer o que importa mais: a continuidade e a segurança física do processo.

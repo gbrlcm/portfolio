@@ -13,6 +13,7 @@ tags:
   - "Carreira"
 draft: false
 lang: "pt-BR"
+translationKey: "how-to-learn-machine-learning"
 ---
 
 Quem decide aprender machine learning hoje enfrenta o problema oposto ao de dez anos atrás: não falta material, sobra. São milhares de cursos, vídeos e "roteiros definitivos", muitos superficiais ou desatualizados. O resultado mais comum é passar meses consumindo tutoriais sem conseguir resolver um problema real.

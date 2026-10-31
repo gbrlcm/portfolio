@@ -15,6 +15,7 @@ tags:
   - "Série Automação Industrial"
 draft: false
 lang: "pt-BR"
+translationKey: "erp-in-industry-planning-and-execution"
 ---
 
 Quando se fala em software de manufatura, o ERP costuma ser o sistema mais conhecido e o menos compreendido pelos desenvolvedores que precisam integrá-lo a outros. Ele não controla máquinas e não acompanha a linha em tempo real. O que ele faz é **planejar, comprometer recursos e contabilizar**: decide o que precisa ser produzido e comprado, reserva materiais, calcula custos e fecha as contas.

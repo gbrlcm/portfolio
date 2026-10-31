@@ -13,6 +13,7 @@ tags:
   - "APIs"
 draft: false
 lang: "pt-BR"
+translationKey: "go-for-backend"
 ---
 
 Go é a linguagem de boa parte da infraestrutura que sustenta a web moderna: Docker, Kubernetes, Prometheus e Terraform são escritos nela. Também é uma escolha frequente para APIs, serviços de rede e ferramentas de linha de comando.

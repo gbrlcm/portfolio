@@ -16,6 +16,7 @@ tags:
   - "Série Automação Industrial"
 draft: false
 lang: "pt-BR"
+translationKey: "industrial-databases-production-events"
 ---
 
 Uma única máquina que reporta o estado a cada segundo gera 86.400 registros por dia. Dez máquinas, cada uma com vinte variáveis de processo amostradas a cada segundo, geram mais de 17 milhões de pontos por dia. Esses números são aritmética simples, não benchmark, e mostram por que dados industriais exigem decisões de engenharia de dados que um CRUD não exige.

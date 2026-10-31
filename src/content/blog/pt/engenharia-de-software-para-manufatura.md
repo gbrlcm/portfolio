@@ -15,6 +15,7 @@ tags:
   - "Série Automação Industrial"
 draft: false
 lang: "pt-BR"
+translationKey: "software-engineering-for-manufacturing"
 ---
 
 Quem desenvolve sistemas web aprende a tratar falha como exceção: se algo quebra, o usuário recarrega a página. Em manufatura, a falha tem outra natureza. Uma queda do MES no meio de um turno não é um incômodo; é uma linha produzindo sem registro, lotes sem rastreabilidade e operadores anotando em papel. E um comando errado enviado a uma máquina tem consequência física.

@@ -13,6 +13,7 @@ tags:
   - "Ferramentas"
 draft: false
 lang: "pt-BR"
+translationKey: "how-to-use-ai-productively"
 ---
 
 Ferramentas de IA para programação viraram parte do dia a dia de quase todo desenvolvedor. A discussão sobre elas, porém, costuma oscilar entre dois extremos: "a IA multiplica a produtividade por dez" e "a IA só gera código ruim". Os dados disponíveis contam uma história mais interessante, e mais útil, do que qualquer um dos dois.

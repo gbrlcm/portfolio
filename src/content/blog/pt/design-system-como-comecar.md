@@ -13,6 +13,7 @@ tags:
   - "Acessibilidade"
 draft: false
 lang: "pt-BR"
+translationKey: "design-system-where-to-start"
 ---
 
 "Design system" virou um termo tão amplo que pode significar desde um arquivo no Figma com as cores da marca até uma equipe dedicada mantendo componentes para dezenas de produtos. Essa ambiguidade faz muita empresa começar pelo lugar errado: investir meses em uma biblioteca completa antes de saber quais problemas ela precisa resolver.

@@ -15,6 +15,7 @@ tags:
   - "Série Automação Industrial"
 draft: false
 lang: "pt-BR"
+translationKey: "iiot-industry-4-0-edge-cloud-architectures"
 ---
 
 "Indústria 4.0" é um termo que carrega mais marketing do que precisão. Por trás dele há, porém, uma mudança técnica concreta: máquinas e sistemas de chão de fábrica que antes ficavam isolados passam a expor dados de forma padronizada, e esses dados são processados na borda e na nuvem. O trabalho de engenharia está em fazer isso sem comprometer a operação.

@@ -15,6 +15,7 @@ tags:
   - "Série Automação Industrial"
 draft: false
 lang: "pt-BR"
+translationKey: "what-is-mes-manufacturing-execution-system"
 ---
 
 O ERP sabe que existe um pedido de 1.000 unidades. O PLC sabe que um sensor acabou de contar mais uma. Entre os dois há uma pergunta que nenhum dos dois responde sozinho: **essas unidades pertencem a qual ordem, qual lote, qual turno, e a produção está no ritmo planejado?** É esse espaço que o MES ocupa.

@@ -13,6 +13,7 @@ tags:
   - "Conteúdo"
 draft: false
 lang: "pt-BR"
+translationKey: "seo-what-google-recommends"
 ---
 
 SEO é provavelmente o assunto técnico com mais folclore na internet. Para cada recomendação útil circulam várias regras inventadas: densidade ideal de palavra-chave, número mínimo de palavras, ordem obrigatória de headings. Boa parte disso é desmentida, por escrito, pela própria documentação do Google.

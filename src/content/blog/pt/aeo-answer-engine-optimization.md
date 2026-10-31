@@ -13,6 +13,7 @@ tags:
   - "Conteúdo"
 draft: false
 lang: "pt-BR"
+translationKey: "aeo-answer-engine-optimization"
 ---
 
 **Resposta curta:** AEO (Answer Engine Optimization) é a prática de organizar uma página para que sistemas que respondem perguntas consigam extrair dela uma resposta correta e completa. Isso inclui os featured snippets do Google, os resumos gerados por IA nas buscas e assistentes como ChatGPT, Copilot e Perplexity. Na prática, AEO não substitui SEO: é SEO bem feito, com conteúdo escrito em formato de pergunta e resposta.

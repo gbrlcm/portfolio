@@ -13,6 +13,7 @@ tags:
   - "Backend"
 draft: false
 lang: "pt-BR"
+translationKey: "system-scalability"
 ---
 
 Escalabilidade é a capacidade de um sistema atender mais carga quando recebe mais recursos, sem precisar ser reescrito. É diferente de performance: um sistema pode ser rápido para um usuário e desabar com mil simultâneos.

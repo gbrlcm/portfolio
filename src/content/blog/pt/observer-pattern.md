@@ -13,6 +13,7 @@ tags:
   - "Engenharia de Software"
 draft: false
 lang: "pt-BR"
+translationKey: "observer-pattern"
 ---
 
 O Observer é um dos padrões de projeto mais usados no dia a dia, muitas vezes sem que ninguém perceba. Todo `addEventListener` no navegador, todo `EventEmitter` no Node.js e boa parte das bibliotecas reativas se apoiam na mesma ideia: um objeto avisa outros quando algo acontece, sem precisar saber quem são.

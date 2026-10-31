@@ -14,6 +14,7 @@ tags:
   - "Arquitetura"
 draft: false
 lang: "pt-BR"
+translationKey: "shopify-redis-mysql-skip-locked"
 ---
 
 Em maio de 2026, um título do blog de engenharia da Shopify circulou bastante entre desenvolvedores: *We replaced Redis with MySQL for inventory reservations—and it scaled*. Nas redes, ele virou rapidamente "a Shopify trocou o Redis pelo MySQL". A frase curta é chamativa, mas está errada no ponto que mais importa.

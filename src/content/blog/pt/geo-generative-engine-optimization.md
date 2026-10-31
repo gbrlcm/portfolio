@@ -13,6 +13,7 @@ tags:
   - "llms.txt"
 draft: false
 lang: "pt-BR"
+translationKey: "geo-generative-engine-optimization"
 ---
 
 Sempre que surge uma sigla nova em marketing digital, aparecem também os vendedores de fórmula. Com GEO (Generative Engine Optimization) não foi diferente. A diferença é que, neste caso, existe um artigo científico na origem do termo, e lê-lo é a melhor vacina contra promessas exageradas.

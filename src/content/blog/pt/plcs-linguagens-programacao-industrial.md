@@ -15,6 +15,7 @@ tags:
   - "Série Automação Industrial"
 draft: false
 lang: "pt-BR"
+translationKey: "plc-industrial-programming-languages"
 ---
 
 No [artigo anterior](/pt/blog/arquitetura-de-software-fabrica-moderna) o PLC apareceu como o elemento do nível de controle: o que lê sensores, executa lógica e comanda atuadores. Aqui abro essa caixa. Como um controlador programável executa código? Por que a programação industrial tem linguagens próprias? E o que muda, em termos de engenharia de software, quando o programa move uma prensa em vez de devolver um JSON?

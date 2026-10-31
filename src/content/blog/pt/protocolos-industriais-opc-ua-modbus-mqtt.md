@@ -15,6 +15,7 @@ tags:
   - "Série Automação Industrial"
 draft: false
 lang: "pt-BR"
+translationKey: "industrial-protocols-opc-ua-modbus-mqtt"
 ---
 
 Quando alguém diz "vamos integrar a máquina ao sistema", a primeira pergunta de engenharia deveria ser: **integrar como, e com que garantias?** Os protocolos industriais não são variações do mesmo produto. Alguns existem para sincronizar um servo-motor a cada fração de milissegundo; outros, para ler um registrador de um medidor; outros, para entregar dados de milhares de máquinas a uma aplicação na nuvem. Tratá-los como equivalentes é um dos erros mais comuns de quem chega ao tema vindo do desenvolvimento de software.

@@ -15,6 +15,7 @@ tags:
   - "Série Automação Industrial"
 draft: false
 lang: "pt-BR"
+translationKey: "mes-erp-scada-historian-differences-and-integration"
 ---
 
 Nos três primeiros artigos da série, cada sistema apareceu isoladamente. Na prática, os problemas de projeto surgem nas fronteiras: quem é dono da ordem de produção? Quem guarda a temperatura do forno de ontem? Quem decide que um lote está bloqueado? Este artigo compara **MES, ERP, SCADA e historiadores** lado a lado, mostra como se integram e o que costuma dar errado.

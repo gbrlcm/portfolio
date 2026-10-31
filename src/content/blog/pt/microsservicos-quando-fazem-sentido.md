@@ -13,6 +13,7 @@ tags:
   - "Sistemas Distribuídos"
 draft: false
 lang: "pt-BR"
+translationKey: "microservices-when-they-make-sense"
 ---
 
 Poucas decisões de arquitetura são tomadas com tanta convicção e tão pouca evidência quanto "vamos fazer em microsserviços". A arquitetura resolve problemas reais, mas cobra um preço alto, e esse preço costuma ser pago por times que ainda não têm os problemas que ela resolve.
